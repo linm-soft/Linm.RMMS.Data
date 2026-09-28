@@ -6,68 +6,69 @@ packKind: list
 role: design
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T09:40:00.000Z
-taskId: task_d6793a26
-contentHash: sha256:7ea5a5b9a00060f5de09af3b8e3688b39fd566383859a8e73748b9d3885ea034
+workflowVersion: 2026.09.19.02
+rulesVersion: 2026.09.25.2
+writtenAt: 2026-09-27T08:50:00.000Z
+taskId: task_bf0f4ace
+contentHash: sha256:5f81d29ed889b244e81f537e7e3f8e8d4033a5f3a2e8b37e000d83ad97784488
 design_confirm: approve
 autoApprove: ON
 real_view_parity: v1
 shared_grid_example: N/A
+nextRole: sa
 
 ## Decisions
-- changeScope: edit_page
-- formPattern: Full (TD-06 · TK-03 assign · TK-05 feedback · TK-06 list+form) · phone 430 · LeaveConfirmModal · N/A ERP Modal/Slideout
-- Grid AC Kind B / DES-GRID / LinErpListFilterBar: N/A phone
-- Report AC: N/A
-- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/web-rmms-mobile-d
-- be: D:/AI-QLBD/Linm.RMMS.WebService · Patrol+Maintenance WO · cấm ERP.*
+- changeScope: edit_page · keep baseline Design · overlay SUBMIT-VALIDATE only
+- formPattern: Mobile full 430 · Pattern B always-on Lưu · N/A ERP Modal/Slideout
+- Grid AC / DES-GRID / LinErpListFilterBar / Report: N/A phone · cấm Excel
+- receiverName: SearchInput users · Mobile.Bff integration/users · map username|code + fullName · miss `--` · cấm free-text · cấm ERP UserSearchInput
+- route (TK-06): SearchInput road-routes · no ROAD_ROUTE_SEED · miss `--`
+- Pattern B: TD-06 + TK-06 · validationAttempted · banner string[] + inline · GPS deny after click
+- mfeStdUrl: http://localhost:9301/kien-nghi/moi · route /kien-nghi/moi
+- be: D:/AI-QLBD/Linm.RMMS.WebService · Patrol+Maintenance+Integration · cấm ERP.* · cấm new WS API
 - demo: N/A · hash skip · cấm rescan (GAP-DES-DEMO-RESCAN-01)
-- wave D: TD-06 ket-ca/ban-giao/tam-dung · TK-03 assignWo · TK-05 feedback · TK-06 petitions ≠ inbox
-- Live: PUT sessions Status · POST maintenance/work-orders
-- HARD: Schema-before-form handover/pause · petition · feedback · workOrderId
-- labels: useFormOptions() · GPS TK-06 deny+no-face OK · TD-06 no GPS · cấm fake
-- out of D: TK-07 (E)
-- open questions: UNCLEAR-HANDOVER-COL · UNCLEAR-PAUSE-STATUS · UNCLEAR-PETITION-SCHEMA · UNCLEAR-FEEDBACK-DTO · UNCLEAR-WO-LINK · UNCLEAR-RECEIVER-API · UNCLEAR-DOMAIN-SLUG → SA
+- align: /align-mobile-to-mfe · no new tab/route/icon · no android/ios prototype
+- UNCLEAR-USER-SEARCH-CTRL: Design chốt Mobile SearchInput = road-routes pattern
 - next: /agent-sa · roleOnly stop (GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| actionKind | việc TD-06 | Radio | ket-ca/ban-giao/tam-dung |
-| handoverNote | bàn giao | TextArea | required if ban-giao |
-| pauseReason | tạm dừng | Dropdown | 5 keys required |
-| saveSession | Lưu | Button | PUT sessions Live Status |
-| assignWo | giao BDTX | Button | POST WO Live · workOrderId · da-giao |
-| feedback.* | phản hồi | form block | POST …/feedback → cho-kiem-tra |
-| petitionList | sổ KN | List cards | GET petitions Mới |
-| sender/route/km/content/kind | tạo KN | form | POST petitions |
-| lat/lng · noFace | GPS TK-06 | GPS+Flag | no-face OK · cấm fake |
+| receiverName | người nhận | SearchInput users | replace free · miss `--` |
+| handoverNote | bàn giao | TextArea | required on-submit if ban-giao |
+| pauseReason | tạm dừng | Dropdown | required on-submit if tam-dung |
+| saveSession | Lưu | Button | Pattern B · PUT sessions |
+| route | tuyến | SearchInput road-routes | no seed · miss `--` |
+| sender/km/content/kind | tạo KN | Text/TextArea/Dropdown | required on-submit |
+| lat/lng · noFace | GPS TK-06 | GPS+Flag | deny after click · cấm fake |
+| savePetition | Lưu | Button | Pattern B · POST petitions |
 
 ## Screens / zones (ids only)
-- TD-06 · TK-03 (assign) · TK-05 (feedback) · TK-06 · DES-LEAVE
-- Leave: dirty TD-06 / TK-06 create · Back→hub A · Save TD-06 PUT · assign→WO · feedback→cho-kiem-tra
+- TD-06 CloseSession · receiver SearchInput + Pattern B (delta)
+- TK-06 PetitionForm · route SearchInput + Pattern B · zone TK-06v validate
+- TK-03 / TK-05 keep baseline · no submit-validate delta
+- DES-LEAVE keep
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-d/ui/prototype/index.html
-- peerStdUrl= http://localhost:9301/web-rmms-mobile-d
+- peerStdUrl= http://localhost:9301/kien-nghi/moi
 - real_view_parity= v1
 - DES-GRID / LinErpListFilterBar: N/A
 
 ## API / tasks (ids only)
-- FormMode↔API: PUT sessions · POST work-orders · POST findings/{id}/feedback · GET|POST petitions
-- real-data §A+§B: PASS · T-*: (team_lead) · devSlash=/agent-dev
+- FormMode↔API: GET users · GET road-routes/search · PUT sessions · GET|POST petitions
+- BFF: forward users · mobileApiBase only · cấm web-bff
+- real-data §A+§B: PASS · controlHint delta cite DA
+- T-*: TL mint edit delta (Pattern B · SearchInput · BFF · no-seed)
 
 ## UNCLEAR
-- UNCLEAR-HANDOVER-COL: Note tạm 1 format → SA
-- UNCLEAR-PAUSE-STATUS: flag trên Đang tuần → SA
-- UNCLEAR-PETITION-SCHEMA: Schema_PatrolPetition trước form → SA
-- UNCLEAR-FEEDBACK-DTO: body §B → SA
-- UNCLEAR-WO-LINK: finding+journal → SA
-- UNCLEAR-RECEIVER-API: Text tay + GAP → SA
-- UNCLEAR-DOMAIN-SLUG: DOMAIN-MAP row D → SA
+- UNCLEAR-USER-SEARCH-CTRL → Design chốt Mobile SearchInput pattern → SA confirm DTO
+- UNCLEAR-RECEIVER-MISS → `--` CLOSED (PO)
+- GAP-DA-MOB-D-USERS-01 → SA/Dev BFF forward
+- GAP-DA-MOB-D-SEED-01 → Dev remove ROAD_ROUTE_SEED
 
 ## Full paths (Read only if needed)
 - design: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-d/ui/design.md
 - prototype: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-d/ui/prototype/index.html
 - control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-mobile-d-control-hint.md
 - real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-mobile-d-real-data.md
-- po: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-d/po/requirement.md
+- po-compact: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-d/handoff/po-compact.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-d/STATUS.md

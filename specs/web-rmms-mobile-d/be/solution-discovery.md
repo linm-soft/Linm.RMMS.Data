@@ -5,161 +5,136 @@
 | feature | `web-rmms-mobile-d` |
 | this role | `sa` · `/agent-sa` |
 | status | `confirmed` (autoApprove=ON · agent self-confirm) |
-| changeScope | `edit_page` |
+| changeScope | `edit_page` · **delta** SUBMIT-VALIDATE overlay · keep baseline SA |
 | packKind | `list` (phone Field list/form ≠ desktop Kind B grid) |
-| domain | **Patrol** (+ **Maintenance** WO · Auth · Files · peer A–C) · DOMAIN-MAP slug `web-rmms-mobile-d` → Patrol (+ Maintenance cite) |
+| domain | **Patrol** (+ **Maintenance** WO · Auth · Files · **Integration** users/routes · peer A–C) · DOMAIN-MAP slug `web-rmms-mobile-d` |
 | BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
 | be_repo_confirm | `approve` |
-| MFE | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` · `mfeStdRoute=/web-rmms-mobile-d` · `mfeStdUrl=http://localhost:9301/web-rmms-mobile-d` |
+| MFE | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` · `mfeStdRoute=/kien-nghi/moi` · `mfeStdUrl=http://localhost:9301/kien-nghi/moi` |
 | ui_repo_confirm | `approve` |
-| solution_confirm | `approve` (autoApprove=ON · `task_5b248a11`) |
+| solution_confirm | `approve` (autoApprove=ON · `task_04d764a4`) |
 | prior · design | `confirmed` · compact + `ui/design.md` · reviewUrl prototype |
 | prior · po | `confirmed` · compact + `po/requirement.md` |
-| prior · data_analy | `confirmed` · hash `sha256:7ea5a5b9a00060f5de09af3b8e3688b39fd566383859a8e73748b9d3885ea034` |
-| contentHash | `sha256:7ea5a5b9a00060f5de09af3b8e3688b39fd566383859a8e73748b9d3885ea034` |
+| prior · data_analy | `confirmed` · hash `sha256:5f81d29ed889b244e81f537e7e3f8e8d4033a5f3a2e8b37e000d83ad97784488` |
+| contentHash | `sha256:5f81d29ed889b244e81f537e7e3f8e8d4033a5f3a2e8b37e000d83ad97784488` |
 | skillVersion | `2026.09.05.03` |
 | schemaVersion | `1` |
-| updatedAt | `2026-09-25T09:45:00.000Z` |
+| workflowVersion | `2026.09.19.02` |
+| rulesVersion | `2026.09.25.2` |
+| updatedAt | `2026-09-27T08:55:00.000Z` |
 | demo | **N/A** · **cấm** rescan / demo-json / fake GPS SSOT |
-| wave | **D** · TD-06 ket-ca/ban-giao/tam-dung · TK-03 assign WO · TK-05 feedback · TK-06 petitions · out: TK-07 (E) |
+| wave | **D** · delta TD-06 + TK-06 submit-validate · keep TK-03 / TK-05 baseline · out: TK-07 (E) |
+| citeDelta | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` |
 
-> SA **chốt** FormMode↔API · entity+Schema pair · Note tạm 1 format · BFF vs API · gates.  
-> **Cấm** invent API · **cấm** ERP.* · **cấm** fake GPS · **cấm** mock petitions · **cấm** inbox=sổ KN · **cấm** HOW (TL) · **cấm** Write MFE ở role này · **cấm** Step 4b / migration ở role này.
+> SA **chốt** FormMode↔API · entity+Schema pair · BFF vs API · delta DTO.  
+> **Cấm** invent API · **cấm** ERP.* · **cấm** new WS endpoint · **cấm** fake GPS · **cấm** ROAD_ROUTE_SEED · **cấm** HOW (TL) · **cấm** Write MFE · **cấm** Step 4b / migration ở role này.
+
+## § Delta overlay (HARD)
+
+| Area | Prior SA (baseline) | New (this pass) |
+|------|---------------------|-----------------|
+| `receiverName` | Text tay + profile prefill · GAP-RECEIVER | **SearchInput users** · BFF forward Live `integration/users` · miss `--` · **cấm** free-text |
+| `route` (TK-06) | free / seed allowed gap | **SearchInput** `integration/road-routes/search` · **no** `ROAD_ROUTE_SEED` · miss `--` |
+| Submit UX | canSave / disabled gates | **Pattern B** always-on Lưu · validate-on-click · banner+inline · API 4xx toast only |
+| BFF users | missing | **forward-only** `GET mobile-bff/…/integration/users` · **cấm** new WS API |
+| mfeStd | `/web-rmms-mobile-d` | **`/kien-nghi/moi`** |
+| Entity / petition / WO / feedback | keep | **no change** this delta |
 
 ## Architecture (repo SSOT)
 
 | Layer | Choice |
 |-------|--------|
 | BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| Domain | Patrol / `patrol` · cite Maintenance / `maintenance` (WO Live) · Auth · Files · peer A sessions · B journal · C findings |
-| API host | `api/src/RMMS.Service.Api/Domains/Patrol/` · Models `api/domains/patrol/…/DTOs/` · Maint WO `Domains/Maintenance/` |
-| Entity / table **Mới** | `PatrolPetitionEntity` → `rmms_patrol_petitions` · pair `Schema_PatrolPetition` **trước** form TK-06 |
-| Entity extend (migration D) | `PatrolSessionEntity` handover/pause cols · `PatrolFindingEntity` feedback + `WorkOrderId` · `PatrolJournalLineEntity` `WorkOrderId` (TD-05 peer) |
-| Entity Live cite | `PatrolSession` · `PatrolFinding` · Maintenance WO |
-| BFF web (cite peer) | `web-bff/api/v1/patrol/**` · `web-bff/api/v1/maintenance/**` |
-| BFF mobile (UI bind) | `mobile-bff/api/v1/patrol/**` · `mobile-bff/api/v1/maintenance/**` · cùng `{resource}` |
-| MFE | `Linm.Web.RMMS.Mobile` · phone max-width 430 |
+| Domain | Patrol / `patrol` · Maintenance / `maintenance` · **Integration** / `integration` (users · road-routes) · Auth · Files |
+| API host | Live Patrol / Maintenance / Integration — **no new WS controllers** this delta |
+| Entity / Schema | keep baseline: `PatrolPetitionEntity` + `Schema_PatrolPetition` · session handover/pause cols · finding feedback/WO · journal WO |
+| BFF mobile (UI bind) | `mobile-bff/api/v1/patrol/**` · `maintenance/**` · **`integration/users`** · `integration/road-routes/**` · cùng `{resource}` |
+| BFF web | cite peer only · **cấm** MFE dùng web-bff |
+| MFE | `Linm.Web.RMMS.Mobile` · phone max-width 430 · route `/kien-nghi/moi` |
 | Response | Linm.Platform.CommonLib `ApiResponse` / paged |
-| Auth perm | Linm.Platform.Authentication · peer Patrol + new petition/feedback/session-close codes |
-| Persist | scalar columns · `MediaIds` CSV guid · **cấm** parent `*Json` blob · **cấm** full URL |
-| Out of D | TK-07 (E) · native · desktop Asset |
+| Persist | scalar · MediaIds CSV · **cấm** parent `*Json` · **cấm** full URL |
+| Out of D | TK-07 (E) · native · desktop Asset · Excel · `new_page` |
 
 ## SSOT / anti-duplicate
 
 | Concern | Package / rule | Note |
 |---------|----------------|------|
-| UI | `@linm-soft-org/linm-web-common-components` + mobile kit | no local Lin* clones · labels `useFormOptions()` |
-| HTTP | apiClient SSOT | re-export only · prefix mobile-bff |
-| BE | Linm.Platform.CommonLib | ApiResponse |
-| Auth | Linm.Platform.Authentication + RequirePermission | peer Patrol · new D perms |
-| Files | FileService BFF `files/*` | guid only · **cấm** full URL persist |
-| Catalog | LOOKUP_STATIC FE keys | actionKind · pauseReason · petitionKind · feedbackQuality · status — **không** invent `patrol/init-data` |
-| Persist | no-parent-json-field | MediaIds CSV · scalar handover/pause/feedback/WO |
-| WO | Maintenance Live only | **cấm** invent WO trong Patrol |
-| Petition ≠ inbox | separate entity/API | **cấm** `ops` / notification inbox làm sổ KN |
+| UI SearchInput | Mobile kit pattern (= road-routes SearchInput) | **cấm** ERP `UserSearchInput` nguyên bản |
+| HTTP | `mobileApiBase()` only | **cấm** web-bff · **cấm** direct WS host from MFE |
+| Catalog users | Live Integration AppUsers via BFF | empty list OK · **cấm** mock |
+| Catalog routes | `ROAD_ROUTE_LOOKUP_CONFIG` · no seed | remove `ROAD_ROUTE_SEED` / QL.22 filter |
+| WO / petition | keep baseline | **cấm** invent WO in Patrol · petition ≠ inbox |
 
 ## FormType pack (list · phone)
 
 | Item | Value |
 |------|-------|
 | packKind | `list` |
-| formPattern | Full (TD-06 · TK-03 assign · TK-05 feedback · TK-06 list+form) · LeaveConfirmModal · N/A ERP Modal/Slideout |
-| Grid AC Kind B / DES-GRID / `LinErpListFilterBar` | **N/A** — phone cards |
-| Report AC | **N/A** |
-| List query keys (TK-06) | `status?` · `route?` · `page?` · `pageSize?` |
-| filterItems | **cấm** DES-GRID |
-| Leave | dirty TD-06 / TK-06 create → LeaveConfirmModal (DES-LEAVE) |
-| Tabs | `none` |
-| Map | none wave D · GPS TK-06 optional (no-face OK) · TD-06 none |
+| formPattern | Full phone 430 · Pattern B submit · LeaveConfirmModal · N/A ERP Modal/Slideout |
+| Grid AC / DES-GRID / `LinErpListFilterBar` | **N/A** |
+| Report AC / Excel | **N/A** |
+| Leave | dirty TD-06 / TK-06 → LeaveConfirmModal |
+| Map | none · GPS TK-06 optional (deny after click · no-face OK) · TD-06 none |
 
-## § UNCLEAR CLOSED (SA chốt)
+## § UNCLEAR CLOSED (SA chốt — delta + keep)
 
-### UNCLEAR-HANDOVER-COL → CLOSED
+### UNCLEAR-USER-SEARCH-CTRL → CLOSED
 
 | | |
 |--|--|
-| Decision | **Target:** migration D add scalar cols trên `PatrolSession` · pair Schema_Session extend **trước** form TD-06 |
-| Columns | `HandoverNote` (max 2000) · `HandoverOpenLineIds` (CSV guid, max 2000) · `ReceiverName` (max 200) · `PauseReason` (max 64) · `IsPaused` (bool) |
-| Interim Note tạm (1 format — FE/BE cùng parse đến khi cols Live) | Prefix `D1\|` · fields `|`-separated · **không** JSON blob |
-| Format ban-giao | `D1\|handover\|{receiverName}\|{openIdsCsv}\|{note}` |
-| Format tam-dung | `D1\|pause\|{pauseReason}\|{note?}` |
-| Format ket-ca | **không** ghi Note tạm — chỉ `Status=Hoàn thành` · clear `IsPaused` / pause fields |
-| Rationale | PO stance «Note tạm 1 format» · GAP-DA-MOB-D-NOTE-01 · scalar ưu tiên khi migration D xong |
+| Decision | Mobile **SearchInput** = same UX pattern as road-routes SearchInput (Design chốt) |
+| Transport | `GET mobile-bff/api/v1/integration/users?search=&page=&pageSize=` → Live WebService `integration/users` |
+| DTO map (real-data §B) | `username` \| `code` → mã hiển thị · `fullName` → tên · select → write `receiverName` string (code or display) |
+| Miss / empty | display `--` · **cấm** free-text fallback · **cấm** invent roster API in Patrol |
+| BFF | **forward-only** · no business logic · closes `GAP-DA-MOB-D-USERS-01` for SA scope |
 
-### UNCLEAR-PAUSE-STATUS → CLOSED
+### UNCLEAR-RECEIVER-MISS → CLOSED (PO)
 
 | | |
 |--|--|
-| Decision | **Flag trên Đang tuần** — `Status` giữ `Đang tuần` khi tam-dung · set `IsPaused=true` + `PauseReason` required |
-| ket-ca | `Status=Hoàn thành` · `IsPaused=false` · clear pause/handover |
-| ban-giao | `Status=Đang tuần` · write handover cols/Note · `IsPaused=false` |
-| **Cấm** | invent Status value `Tạm dừng` riêng trên Live enum hiện tại |
+| Decision | no match → `--` · **cấm** free-text |
 
-### UNCLEAR-PETITION-SCHEMA → CLOSED (gate)
+### UNCLEAR-RECEIVER-API (baseline) → SUPERSEDED
 
 | | |
 |--|--|
-| Decision | Pair **entity + `Schema_PatrolPetition` + table `rmms_patrol_petitions` trước** wire form TK-06 |
-| Entity | `PatrolPetitionEntity` |
-| Soft-delete | KEEP peer Patrol (`IsActive`) |
-| Code | Server-generated `KN-{yyyyMMdd}-{seq:D3}` · **cấm** client gửi code |
-| Dev | migration + controller **Mới** (TL T-* / Step 4b) — **không** mock list khi 404 · empty + gap OK |
-| **Cấm** | reuse notification / inbox DTO |
+| Prior | Text tay + profile prefill · GAP-RECEIVER |
+| New | SearchInput users via Integration Live + BFF forward · GAP-RECEIVER retired for this delta |
+| **Cấm** | invent new WS user-picker · ERP UserSearchInput copy |
 
-### UNCLEAR-FEEDBACK-DTO → CLOSED
+### UNCLEAR-ROUTE-SEED → CLOSED
 
 | | |
 |--|--|
-| Decision | Body chốt theo real-data §B |
-| Endpoint | `POST …/patrol/findings/{id}/feedback` **Mới** |
-| Body | `{ qtyDone: string, quality: "dat"\|"chua-dat", at: datetime, mediaIds?: guid[], note?: string }` |
-| Side-effect | finding.status → `cho-kiem-tra` |
-| Persist | scalar feedback cols trên finding (migration D) · MediaIds CSV · **cấm** parent Json |
+| Decision | `GET …/integration/road-routes/search` via lookups · **remove** `ROAD_ROUTE_SEED` · miss `--` · closes `GAP-DA-MOB-D-SEED-01` SA scope |
 
-### UNCLEAR-WO-LINK → CLOSED
+### Keep CLOSED (baseline — no re-open)
 
-| | |
-|--|--|
-| Decision | `WorkOrderId` (Guid?) trên **cả** finding **và** journal-line |
-| TK-03 assign | `POST maintenance/work-orders` Live → set `finding.WorkOrderId` · status `da-giao` |
-| TD-05 peer B | scope `bdtx` → set `journalLine.WorkOrderId` (cùng CreateWorkOrderRequest) |
-| CreateWorkOrderRequest (Live) | `RouteName` · `WorkType` · `Status=new` · `DueAt` · `SlaHours?` · `AssigneeName?` · `TeamName?` · `IncidentId=` (trống) · `Title`=mã tồn tại · `Description?` |
-| **Cấm** | invent WO entity trong Patrol |
-
-### UNCLEAR-RECEIVER-API → CLOSED (GAP keep)
-
-| | |
-|--|--|
-| Decision | `receiverName` = **Text tay** · prefill optional từ `GET auth/profile` display name |
-| **Cấm** | invent user-picker / same-unit roster API trong Patrol |
-| GAP | `GAP-DA-MOB-D-RECEIVER-01` giữ — TL/Dev không block TD-06 |
-
-### UNCLEAR-DOMAIN-SLUG → CLOSED
-
-| | |
-|--|--|
-| Decision | DOMAIN-MAP row `web-rmms-mobile-d` → **Patrol** · `patrol` · cite Maintenance WO · MFE `Linm.Web.RMMS.Mobile` `/web-rmms-mobile-d` |
-| Cite | peer rows `web-rmms-mobile-a` / `b` / `c` |
-| Action | row added in this SA pass |
+| id | Decision (keep) |
+|----|-----------------|
+| UNCLEAR-HANDOVER-COL | scalar session cols · Note tạm `D1\|` until migrate |
+| UNCLEAR-PAUSE-STATUS | `IsPaused` flag · Status stays `Đang tuần` |
+| UNCLEAR-PETITION-SCHEMA | `Schema_PatrolPetition` pair trước form |
+| UNCLEAR-FEEDBACK-DTO | POST findings/{id}/feedback body §B |
+| UNCLEAR-WO-LINK | WorkOrderId + Live maintenance WO |
+| UNCLEAR-DOMAIN-SLUG | DOMAIN-MAP → Patrol (+ Maintenance · Integration cite) |
 
 ## FormMode ↔ API
 
 | FormMode / zone | Method | Path (API · BFF same resource) | Live / Mới | Notes |
 |-----------------|--------|--------------------------------|------------|-------|
-| TD-06 load ca | GET | `…/patrol/sessions/{id}` | Live | no active → chặn (peer A) |
-| TD-06 save ket-ca | PUT | `…/patrol/sessions/{id}` | Live Status | body `{ Status: "Hoàn thành" }` · clear pause |
-| TD-06 save ban-giao | PUT | `…/patrol/sessions/{id}` | Live + Schema D cols | Status `Đang tuần` · handover fields / Note tạm `D1\|handover\|…` |
-| TD-06 save tam-dung | PUT | `…/patrol/sessions/{id}` | Live + Schema D | Status `Đang tuần` · `IsPaused` + `PauseReason` / Note `D1\|pause\|…` |
-| TK-03 assignWo | POST | `…/maintenance/work-orders` | Live | then PATCH/PUT finding `workOrderId` + status `da-giao` |
-| finding after WO | PUT/PATCH | `…/patrol/findings/{id}` | Schema D | `workOrderId` · status |
-| TK-05 feedback | POST | `…/patrol/findings/{id}/feedback` | Mới | body §B · → `cho-kiem-tra` |
-| TK-06 list | GET | `…/patrol/petitions` | Mới | empty OK · **cấm** mock |
-| TK-06 create | POST | `…/patrol/petitions` | Mới | body §B · status `moi` · GPS optional if noFace |
-| open lines (TD-06) | GET | peer B `…/journal-lines?sessionId&open` | Live peer | handoverOpenIds |
-| files | POST/PUT | `files/init` · `object` · `commit` | Live | mediaIds only |
-| profile | GET | `auth/profile` | Live | senderUnit / receiver prefill |
+| TD-06 load ca | GET | `…/patrol/sessions/{id}` | Live | keep |
+| TD-06 receiver search | GET | `…/integration/users?search=&page=&pageSize=` | Live + **BFF forward** | SearchInput · map §B · miss `--` |
+| TD-06 save ket-ca / ban-giao / tam-dung | PUT | `…/patrol/sessions/{id}` | Live + Schema D | Pattern B · `receiverName` from Search select |
+| TK-06 route search | GET | `…/integration/road-routes/search` | Live | no seed · miss `--` |
+| TK-06 list | GET | `…/patrol/petitions` | Live/Mới baseline | empty OK · **cấm** mock |
+| TK-06 create | POST | `…/patrol/petitions` | Live/Mới baseline | Pattern B · `route` from Search · GPS deny after click |
+| TK-03 assignWo | POST | `…/maintenance/work-orders` | Live | **keep** baseline |
+| TK-05 feedback | POST | `…/patrol/findings/{id}/feedback` | Live/Mới baseline | **keep** |
+| profile | GET | `auth/profile` | Live | senderUnit · **not** free receiver |
+| files | POST/PUT | `files/*` | Live | mediaIds only |
 
-### PUT session body (chốt)
+### PUT session body (chốt — keep + receiver from Search)
 
 ```json
 {
@@ -173,15 +148,19 @@
 }
 ```
 
-`noteTmp` chỉ khi cols chưa migrate — cùng format `D1|` ở trên. Sau migration D: **cấm** ghi Note tạm; dùng scalar cols.
+`receiverName` = selected user `code`/`username` (or display per FE bind) · **not** free typed string. `noteTmp` chỉ khi cols chưa migrate.
 
-### Feedback body (chốt)
+### Users SearchInput DTO (chốt)
 
-```json
-{ "qtyDone": "string", "quality": "dat|chua-dat", "at": "ISO-8601", "mediaIds": ["guid?"], "note": "string?" }
-```
+| Response field | UI |
+|----------------|-----|
+| `username` \| `code` | mã |
+| `fullName` | tên |
+| (no row / 404 empty) | `--` |
 
-### Petition body (chốt)
+Paged: `page` · `pageSize` · `search` query. **Cấm** invent fields.
+
+### Petition body (chốt — keep · route from Search)
 
 ```json
 {
@@ -199,63 +178,76 @@
 }
 ```
 
-## Entity / Schema pair (HARD trước form)
+`route` = selected road-route code · miss UI `--` · **cấm** seed invent.
+
+### Feedback / WO bodies
+
+Keep baseline SA (unchanged this delta).
+
+## Entity / Schema pair (HARD — keep · no new entity this delta)
 
 | Entity | Table | Schema | Wave |
 |--------|-------|--------|------|
-| `PatrolPetitionEntity` | `rmms_patrol_petitions` | `Schema_PatrolPetition` | D **Mới** |
-| `PatrolSessionEntity` + cols | `rmms_patrol_sessions` | Schema session extend | D migration |
-| `PatrolFindingEntity` + feedback/WO | `rmms_patrol_findings` | Schema finding extend | D migration |
-| `PatrolJournalLineEntity` + `WorkOrderId` | `rmms_patrol_journal_lines` | Schema_B extend | D migration (TD-05) |
+| `PatrolPetitionEntity` | `rmms_patrol_petitions` | `Schema_PatrolPetition` | D keep |
+| `PatrolSessionEntity` + handover/pause | `rmms_patrol_sessions` | Schema session extend | D keep |
+| `PatrolFindingEntity` + feedback/WO | `rmms_patrol_findings` | Schema finding extend | D keep |
+| Integration users / road-routes | Live AppUsers / routes | — | **no** new entity · BFF forward only |
 
 ## BFF vs API
 
 | Concern | Owner |
 |---------|-------|
-| Business + persist | API Patrol / Maintenance |
-| MFE bind | `mobile-bff` proxy only · **không** business logic mới trên BFF |
-| Web peer cite | `web-bff` cùng resource |
+| Business + persist sessions/petitions/WO | API Patrol / Maintenance |
+| Users / road-routes catalog | API Integration Live |
+| MFE bind | `mobile-bff` **proxy/forward only** · add users forward if missing |
+| Web peer | `web-bff` cite only · **cấm** MFE bind |
 
-## LOOKUP_STATIC keys (labels via useFormOptions)
+## Pattern B (submit HARD)
 
-| Field | Keys |
-|-------|------|
-| actionKind | `ket-ca` · `ban-giao` · `tam-dung` |
-| pauseReason | 5 keys (PO/CTX — FE catalog; **cấm** hardcode VN) |
-| feedbackQuality | `dat` · `chua-dat` |
-| petitionKind | PO/CTX catalog keys |
-| petition.status | `moi` (+ peer close later) |
-| finding.status deltas | `da-giao` · `cho-kiem-tra` |
+| Zone | Rule |
+|------|------|
+| TD-06 · TK-06 Lưu | always enabled except `saving` |
+| Validate | first click → `validationAttempted` · banner `string[]` + inline |
+| API errors | toast only · **cấm** invent field map from 4xx |
+| GPS TK-06 | deny banner **after** submit click · no-face OK · **cấm** fake |
 
 ## GPS HARD
 
 | Zone | Rule |
 |------|------|
 | TD-06 | **none** |
-| TK-03 assign | no new GPS |
-| TK-05 feedback | no HARD GPS |
-| TK-06 | deny → block nút cần tọa độ · **no-face** → save w/o coords · **cấm** fake lat/lng |
+| TK-06 | deny after click · no-face → save w/o coords · **cấm** fake |
+| TK-03 / TK-05 | keep baseline (no new GPS) |
+
+## Gaps closed this SA (scope)
+
+| id | SA decision |
+|----|-------------|
+| GAP-DA-MOB-D-USERS-01 | BFF forward `integration/users` · Dev implements · **cấm** new WS |
+| GAP-DA-MOB-D-SEED-01 | remove `ROAD_ROUTE_SEED` · Dev lookups |
+| GAP-DA-MOB-D-PATTERN-B | Pattern B FormMode · Dev CloseSession + PetitionForm |
+| UNCLEAR-USER-SEARCH-CTRL | DTO map CLOSED above |
 
 ## Gates / DoR SA
 
 | Gate | Result |
 |------|--------|
 | Design confirmed + compact | PASS |
-| real-data §A+§B | PASS · FormMode↔API mapped |
-| UNCLEAR all CLOSED | PASS |
-| Schema-before-form | PASS (pair listed · TL owns migration) |
+| real-data §A+§B | PASS · FormMode↔API + users/routes DTO |
+| UNCLEAR all CLOSED | PASS (delta + baseline keep) |
+| Schema-before-form | PASS (keep · no new entity) |
 | be/ui repo confirm | PASS |
 | solution_confirm | **approve** (autoApprove) |
-| ERP.* | none |
-| Write MFE / Step 4b | **skipped** (roleOnly=sa) |
+| ERP.* / new WS API | none |
+| Write MFE / Step 4b / e2e | **skipped** (roleOnly=sa) |
 
 ## Handoff next
 
 | Role | Packet |
 |------|--------|
-| team-lead | T-* tasks · migration D order · Step 4b BE · HOW |
-| dev | MFE bind mobile-bff · **không** desktop Asset |
-| qa | empty petition · GPS deny-vs-no-face · assign WO · pause required · Note `D1|` parity |
+| team-lead | T-* edit delta: Pattern B · SearchInput users/routes · BFF users forward · no-seed · mfeStd `/kien-nghi/moi` |
+| dev | CloseSession + PetitionForm + lookups + Mobile.Bff users · `mobileApiBase()` |
+| qa | Pattern B · users 200 · route `--` · GPS deny after click · e2eQa queued |
 
 ## Full paths
 

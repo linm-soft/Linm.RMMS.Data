@@ -2,7 +2,7 @@ import { chromium } from "playwright";
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const cfg = {"url":"http://localhost:9301/web-rmms-cam-patrol","outDir":"D:\\AI-QLBD\\Linm.RMMS.Data\\specs\\web-rmms-cam-patrol\\qa\\screens","loginPage":"http://localhost:9100/login","company":"RMMS","headless":false,"pagesWait":null,"testid":"","steps":[{"id":"S0","action":"goto"},{"id":"S1","action":"goto"},{"id":"QA-20","action":"goto"}]};
+const cfg = {"url":"http://localhost:9301/camera-tuan","outDir":"D:\\AI-QLBD\\Linm.RMMS.Data\\specs\\web-rmms-cam-patrol\\qa\\screens","loginPage":"http://localhost:9301/dang-nhap","company":"RMMS","headless":false,"pagesWait":null,"testid":"","steps":[{"id":"S0","action":"goto"},{"id":"S1","action":"goto"},{"id":"QA-20","action":"goto"}]};
 const results = [];
 
 function shotName(id) {
@@ -13,16 +13,29 @@ const user = process.env.QLBD_USER || process.env.E2E_USER || process.env.QLBD_D
 const password = process.env.QLBD_PASSWORD || process.env.E2E_PASSWORD || process.env.QLBD_DEMO_PASS || "";
 if (!user || !password) throw new Error("GAP-QA-E2E-03 missing QLBD_USER/PASSWORD");
 
+function pathOf(page) {
+  try { return new URL(page.url()).pathname; } catch { return ""; }
+}
+async function onLoginGate(page) {
+  if (/\/dang-nhap|\/login/i.test(pathOf(page))) return true;
+  const pass = page.locator('#f-pass, input[name="password"], input[type="password"]').first();
+  if (!(await pass.count())) return false;
+  return pass.isVisible().catch(() => false);
+}
 async function fillLogin(page) {
   const userSel = [
-    'input[name="username"]', 'input[name="userName"]', 'input[autocomplete="username"]',
+    '#f-user', 'input[name="username"]', 'input[name="userName"]', 'input[autocomplete="username"]',
     'input[placeholder*="tài khoản" i]', 'input[placeholder*="đăng nhập" i]',
     'input[type="text"]', 'input[type="email"]',
   ];
-  const passSel = ['input[name="password"]', 'input[type="password"]'];
-  const submitSel = ['button[type="submit"]', 'button:has-text("Đăng nhập")', 'button:has-text("Login")'];
-  await page.goto(cfg.loginPage, { waitUntil: "domcontentloaded", timeout: 60000 }).catch(() => {});
-  try { await page.waitForSelector('input[type="password"]', { timeout: 12000 }); } catch { return; }
+  const passSel = ['#f-pass', 'input[name="password"]', 'input[type="password"]'];
+  const submitSel = ['#btn-login', 'button[type="submit"]', 'button:has-text("Đăng nhập")', 'button:has-text("Login")'];
+  if (!(await onLoginGate(page))) {
+    await page.goto(cfg.loginPage, { waitUntil: "domcontentloaded", timeout: 60000 }).catch(() => {});
+  }
+  try {
+    await page.waitForSelector('#f-pass, input[name="password"], input[type="password"]', { timeout: 12000 });
+  } catch { return; }
   for (const s of userSel) {
     const el = page.locator(s).first();
     if (await el.count()) { await el.fill(user); break; }
@@ -39,11 +52,25 @@ async function fillLogin(page) {
     const el = page.locator(s).first();
     if (await el.count()) {
       await Promise.all([page.waitForLoadState("networkidle").catch(() => {}), el.click()]);
+      await page.waitForFunction(
+        () => !/\/dang-nhap|\/login/i.test(location.pathname),
+        { timeout: 20000 },
+      ).catch(() => {});
       return;
     }
   }
   await page.keyboard.press("Enter");
   await page.waitForLoadState("networkidle").catch(() => {});
+}
+async function resumeAfterLogin(page, href) {
+  if (!(await onLoginGate(page))) return;
+  await fillLogin(page);
+  if (href && (await onLoginGate(page))) return;
+  const now = page.url().split("?")[0];
+  const want = String(href || "").split("?")[0];
+  if (want && now !== want) {
+    await page.goto(href, { waitUntil: "domcontentloaded", timeout: 60000 });
+  }
 }
 
 const browser = await chromium.launch({ headless: cfg.headless !== false });
@@ -113,6 +140,7 @@ try {
         const href = stepHref(step.id);
         const res = await page.goto(href, { waitUntil: "domcontentloaded", timeout: 60000 });
         if (!res || !res.ok()) throw new Error("HTTP " + (res ? res.status() : "no-response"));
+        await resumeAfterLogin(page, href);
         if (step.selector) {
           await page.waitForSelector(step.selector, { timeout: 20000 });
         }

@@ -33,7 +33,14 @@
 | mfeStdRoute | `/web-rmms-work` |
 | mfeStdUrl | `http://localhost:9301/web-rmms-work` |
 | productRoute | `/work` (WORK-L only on std) · nest peers `/work/progress|log|chat?id=` · `/work/estimate/:id` |
-| note | STD-NEST Design-closed · **cấm** invent WorkListController / web-bff path · autoApprove=ON |
+| note | STD-NEST Design-closed · **cấm** invent WorkListController / web-bff path · autoApprove=ON · `?incidentId=` lọc list + hub new nhận parent (AC-L-13) |
+
+## align-mobile-to-mfe (2026-09-27)
+
+- `demo_ref`: **no_demo** (AskQuestion — không mở prototype HTML)
+- `{SourceScreen}`: `Linm.RMMS.Mobile.Android/.../mntlist/MntListScreen.kt` (WorkStack)
+- Filter trên top bar = toast `mnt.list.toast.filter` · không chip status/workType
+- Icon: glyph có sẵn `DemoIcon` (`list` · `plus` · `chat` · `sync` · `chevron-right`)
 
 ## Decisions (rolled from prior)
 

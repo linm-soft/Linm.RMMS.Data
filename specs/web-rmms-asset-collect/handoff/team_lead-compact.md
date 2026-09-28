@@ -6,58 +6,61 @@ packKind: list
 role: team_lead
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T14:55:00.000Z
-taskId: task_5451211a
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
-route_confirm: approve
+writtenAt: 2026-09-27T16:25:00.000Z
+contentHash: sha256:bf61e3677d8c0ff81bfccd4e08df8f452a069408ae43f3d025dde73959990a79
+taskId: task_190676f8
+changeScope: edit_page
+route_confirm: keep
 autoApprove: ON
 
 ## Decisions
-- changeScope: new_page
-- formPattern: Mobile full form ≤430 · Create only · N/A ERP Modal/Slideout · Android 1-1 · useFormOptions / assetCollect.*
-- domain: Asset (asset) · cite Integration + Patrol · DOMAIN-MAP row applied
-- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdRoute=/web-rmms-asset-collect · mfeStdUrl http://localhost:9301/web-rmms-asset-collect
-- nativeRouteCite: SCREENS /asset/collect · alias nếu shell
-- be: D:/AI-QLBD/Linm.RMMS.WebService · Mobile.Bff :5202 mobile-bff/api/v1 · cấm ERP.*
-- FormMode: Create · reuse POST road-assets Source=manual · no CollectController · no entity/migration · Step 4b skip
-- DoD: Name* Type* Route* KmFrom* Status* GPS* · KmTo opt · photos local GAP · toast Code · back Hub
-- GPS: navigator.geolocation · deny blocks submit · cấm fake/type-in
-- DES-LEAVE: in-app discard · cấm native confirm
-- photos: GAP-MOB-ASSET-COLLECT-MEDIA-01 · local only · no invent
-- route_confirm: approve · STATUS URL canonical
-- T-01…T-05 /agent-dev · T-06 /agent-qa · T-07 /agent-review
+- changeScope: edit_page · replan T-* · baseline new_page T-01…T-07 superseded · cấm new_page typed CRUD
+- formPattern: Mobile ≤430 · Pattern B · N/A Modal/Slideout · Create only · Android 1-1
+- domain: Asset · cite Integration/Patrol · cấm ERP.* · cấm web-bff
+- BFF: Mobile.Bff :5202 · mobileApiBase() · prefix mobile-bff/api/v1
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/tai-san/thu-thap · route /tai-san/thu-thap
+- codeCurrent: src/pages/WebRmmsAssetCollect/AssetCollectPage.tsx
+- be: D:/AI-QLBD/Linm.RMMS.WebService · Asset (+Integration/Patrol) · no Step 4b / migration / entity
+- Delta: remove disabled={!canSave} · banner name/type/route/km/GPS/photos · GPS deny on submit · SearchInput+ROAD_ROUTE_LOOKUP_CONFIG no seed · missing→-- · keep capture
+- route_confirm: keep existing /tai-san/thu-thap · no new URL/tab/icon
+- REMOVED: me* / feedback / cam-view · AI/adjust/list · Excel
+- open: UNCLEAR-MEDIA-01 (GAP accepted · no invent)
 - next: /agent-dev · roleOnly stop (GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| navBack | back | Button/Nav | → Hub · DES-LEAVE |
-| name/type/route/km/status | fields | Text/Select | CreateRoadAsset required |
-| gpsPin | Lat/Lng RO | Text RO | geolocation gate |
-| photos | local | PhotoRow | media GAP |
-| submit/cancel | CTA | Button | POST · back Hub |
+| navBack | back | Button/Nav | → Hub /asset |
+| name/type/km/status | fields | Text/Select | required · Pattern B |
+| route | tuyến | SearchInput | no seed · -- if missing |
+| gpsPin | Lat/Lng RO | Text RO | validate on submit |
+| photos | local | PhotoRow | capture · media GAP |
+| submit | CTA | Button | disabled={saving} only |
+| errBanner | errors | Banner | string[] after attempt |
 
 ## Screens / zones (ids only)
-- AC-00 · AC-01 · AC-02 · AC-03 · AC-04 · AC-05 · AC-06 · AC-07 · AC-08 · AC-09 · AC-10
+- AC-00 · AC-01 · AC-02 · AC-03 · AC-04 · AC-05 · AC-06 · AC-07 · AC-08 · AC-09 · AC-10 · errBanner
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-collect/ui/prototype/index.html
-- peerStdUrl= http://localhost:9301/web-rmms-asset-collect
+- peerStdUrl= http://localhost:9301/tai-san/thu-thap
 - DES-GRID / LinErpListFilterBar: N/A phone form
 
 ## API / tasks (ids only)
-- FormMode↔API: GET init-data · asset-types · road-routes/search · sessions · POST road-assets
-- API mới: none · migration: none · entity: none
-- T-01 route/shell · T-02 fields/lookups · T-03 GPS · T-04 photos+DES-LEAVE · T-05 POST submit · T-06 QA · T-07 review
-- devSlash=/agent-dev · implement=specs/web-rmms-asset-collect/implement/web-rmms-asset-collect.md
+- FormMode↔API: GET init-data · asset-types · road-routes/search · sessions prefill · POST road-assets
+- BFF: mobileApiBase only
+- API mới / migration / entity: none
+- T-01 Pattern B + errBanner + remove canSave
+- T-02 SearchInput route no seed
+- T-03 GPS-on-submit
+- T-04 photos keep + DES-LEAVE
+- T-05 POST keep + quality
+- T-06 QA · T-07 Review
+- devSlash=/agent-dev
 
 ## UNCLEAR
-- UNCLEAR-DOMAIN-MAP-ACOLLECT: resolved — DOMAIN-MAP Asset
-- UNCLEAR-STD-ROUTE: resolved — /web-rmms-asset-collect
-- UNCLEAR-STATUS-ANDROID: resolved — init-data Select
-- UNCLEAR-MEDIA-01: open GAP — local only · no invent
+- UNCLEAR-MEDIA-01: GAP-MOB-ASSET-COLLECT-MEDIA-01 · no invent media path
 
 ## Full paths (Read only if needed)
 - task: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-collect/task/web-rmms-asset-collect.md
-- sa compact: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-collect/handoff/sa-compact.md
-- design compact: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-collect/handoff/design-compact.md
-- real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-asset-collect-real-data.md
+- sa-compact: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-collect/handoff/sa-compact.md
+- design-compact: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-collect/handoff/design-compact.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-collect/STATUS.md

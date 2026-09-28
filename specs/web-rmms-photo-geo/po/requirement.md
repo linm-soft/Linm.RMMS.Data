@@ -5,7 +5,7 @@
 | feature | `web-rmms-photo-geo` |
 | title | Overlay chụp ảnh có tọa độ |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | lane | `web` |
 | status | `confirmed` |
 | skillId | `agent-po` |
@@ -14,80 +14,105 @@
 | workflowVersion | `2026.09.19.02` |
 | rulesVersion | `2026.09.25.2` |
 | versionGate | `ok` |
-| contentHash | `sha256:2282c3b64ab8701681f5edbc548b5cf1a2221159d9ffb779dfe03d186010f7a4` |
-| writtenAt | `2026-09-26T00:00:30.000Z` |
+| contentHash | `sha256:525b8f61bbe397050bb1049e38683d6c333c7283165859967e927c1dc285b9ba` |
+| writtenAt | `2026-09-27T13:00:00.000Z` |
 | autoApprove | `ON` |
 | demo | **N/A** |
 | formPattern | Mobile sheet overlay · phone `max-width: 430px` · Android 1-1 `#sheet-pgc` · **không** ERP Modal/Slideout Kind B |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdRoute | `/web-rmms-photo-geo` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-photo-geo` |
+| mfeStdRoute | `/anh-vi-tri` |
+| mfeStdUrl | `http://localhost:9301/anh-vi-tri` |
 | productRoute | overlay · consumers `/incident/*` · `/field/*` · `/capture` · `openCapture('photo-geo')` |
 | be | `D:/AI-QLBD/Linm.RMMS.WebService` · File + AiVision · Incident/Patrol cite · **cấm ERP.*** |
-| bff | `Linm.RMMS.Mobile.Bff` · `VITE_MOBILE_API_URL=http://localhost:5202/mobile-bff/api/v1` · **cấm** web-bff client · **cấm** Route `mobile-bff` trên web-bff |
+| bff | `Linm.RMMS.Mobile.Bff` · `VITE_MOBILE_API_URL=http://localhost:5202/mobile-bff/api/v1` · **cấm** web-bff client |
 | priorAnaly | `_data-analy/features/web-rmms-photo-geo-control-hint.md` · `web-rmms-photo-geo-real-data.md` · hash skip |
-| taskId | `task_d8b79507` |
+| editCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · Pattern B · slug `web-rmms-photo-geo` |
+| codeCurrent | `src/pages/WebRmmsPhotoGeo/PhotoGeoPage.tsx` |
+| taskId | `task_fdef0b97` |
+| priorTask | `task_d8b79507` · keep PGC AC · new_page done |
 | citeTask | `T-W7-01` · `PhotoGeoCapture` |
 | peerNative | `photo-geo-capture` · Android `#sheet-pgc` · `DES-MOB-PGC` |
+| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-photo-geo/ui/prototype/index.html` |
 
 > Nhãn UI: `useFormOptions()` / copy key — **cấm** hardcode tiếng Việt trên form.  
-> **Cấm** re-scan demo (GAP-PO-DEMO-RESCAN-01) · invent `api/v1/photo-geo*` · client `objectKey` / resign URL · fake GPS · EXIF photographer = object lat · Me* / B–E · native iOS/Android edit · e2e / start:std ở role PO.
+> **Keep** prior requirement/AC · Design reviewUrl · SA DEC-PGC-BE-01.  
+> **Cấm** re-scan demo (GAP-PO-DEMO-RESCAN-01) · invent `api/v1/photo-geo*` · fake GPS · Excel/toolbar export · typed CRUD `new_page` · e2e / start:std ở role PO.
+
+## § Delta Current vs New (HARD — edit_page)
+
+Cite: SUBMIT-VALIDATE Pattern B · analy hash `525b8f61…` · file `PhotoGeoPage.tsx`.
+
+| Area | Current (shipped) | New (this task) |
+|------|-------------------|-----------------|
+| changeScope | `new_page` (prior pipeline done) | `edit_page` · **cấm** typed CRUD new_page |
+| Route / std | Artifact cũ `/web-rmms-photo-geo` | SSOT `/anh-vi-tri` · `http://localhost:9301/anh-vi-tri` |
+| `#btn-shutter` | `disabled={!canShutter}` (GPS/cam gate) | **Bỏ** disable vì thiếu GPS/cam · chỉ khóa nếu request đang chạy · bấm → `validationAttempted` + banner/modal |
+| `#btn-detect` | `disabled={!canDetect}` | Chỉ `disabled` khi `detecting` · fail → banner client / toast API |
+| `#btn-use` | `disabled={!canUse}` | Chỉ khóa lúc `uploading`/`pending` · bấm mới báo thiếu data |
+| `#btn-confirm-map` | `disabled={uploading \|\| !objectGeo}` | Giữ khóa lúc uploading · **bỏ** khóa vì thiếu objectGeo — bấm → banner |
+| GPS deny | Pre-disable shutter/use | Pattern B: **cấm** khóa nút trước · bấm mới `#modal-gps` `DES-MOB-GPS-DENY` / banner |
+| Validation UX | Early disable gates | Banner `string[]` + inline sau `validationAttempted` · **cấm** một `alert.warning` thay banner · API lỗi = toast |
+| Camera | Live shutter OK | **Giữ** · **cấm** gallery primary · file input (nếu có) thêm `capture="environment"` |
+| Toolbar / export | N/A | **Cấm** Excel / toolbar export |
+| Align cuối | — | `/align-mobile-to-mfe` · SSOT = page MFE 430px · **cấm** tab/route/icon mới · **cấm** mở android/ios proto |
+| BFF | Mobile.Bff files/detect | `mobileApiBase()` only · users thiếu → forward `GET integration/users` (consumer; PGC không picker) · road-routes/search đã có |
+
+**Keep:** zones `#sheet-pgc` · File flow · HITL · useFormOptions · DEC-PGC-BE-01 sidecar · Design reviewUrl · AC-PGC-01…14 (cập nhật enable theo Pattern B).
 
 ## 1. Goal / persona / DoD
 
 | | |
 |--|--|
-| Goal | Web Mobile overlay **Chụp ảnh kèm tọa độ**: still → gim 1 điểm → GPS người + on-device object lat/lng → HITL map → FileService key → trả host `attachmentId` + sidecar object coords. |
+| Goal | **Edit** PGC overlay: Pattern B CTA always-on · still → gim 1 → GPS người + object on-device → HITL → FileService key → return `attachmentId` + sidecar. |
 | Persona | Tuần đường / tuần kiểm hiện trường (Field BDTX · Khu/VP). |
-| Entry | Host PhotoRow `openCapture('photo-geo')` từ `incident-create` · `vis-capture` · `field-reflect` · std `/web-rmms-photo-geo` — **không** hub Field row riêng. |
-| DoD P1 | Android 1-1 `#sheet-pgc` · live camera primary · GPS deny block · gim 1 pin · HITL map · files init/PUT/commit · useFormOptions · return attachmentId · **cấm** fake lat/lng · **cấm** persist resign URL. |
-| Out P1 | Me*/feedback/cam-view · journal/kết ca/tồn tại/tần suất (B–E) · invent PhotoGeo*Controller · web-bff · native edit · multi-pin · desktop Kind B grid. |
+| Entry | Host `openCapture('photo-geo')` từ INC/VIS/FR · std `/anh-vi-tri` — **không** hub Field row · **không** route mới. |
+| DoD P1 | Pattern B (no pre-disable) · Android 1-1 `#sheet-pgc` · live camera · deny-on-click GPS · gim 1 · HITL · files init/PUT/commit · return attachmentId · align-mobile-to-mfe · **cấm** fake GPS · **cấm** Excel. |
+| Out P1 | Me*/B–E · invent PhotoGeo*Controller · web-bff · native edit · multi-pin · Kind B grid · new_page CRUD · Excel. |
 
 ## 2. Screens / zones
 
 | id | productRoute / surface | std | Zones |
 |----|------------------------|-----|-------|
-| PGC | overlay `#sheet-pgc` · `DES-MOB-PGC` | `/web-rmms-photo-geo` | sheetTitle · btnClose · `#capture-preview` · `#btn-shutter` · `#gim-pin` · `#meta-card` · `#row-key` · `#row-photog` · `#row-distance` · `#row-object` · `#map-confirm` · `#map-pin` · `#btn-confirm-map` · `#btn-use` · `#btn-cancel` · banners · `#modal-gps` · toast.* · optional `#sheet-pgc-review` · `#pgc-fullscreen` |
+| PGC | overlay `#sheet-pgc` · `DES-MOB-PGC` | `/anh-vi-tri` | sheetTitle · btnClose · `#capture-preview` · `#btn-shutter` · `#gim-pin` · `#meta-card` · `#row-key` · `#row-photog` · `#row-distance` · `#row-object` · `#map-confirm` · `#map-pin` · `#btn-confirm-map` · `#btn-detect` · `#btn-use` · `#btn-cancel` · `#validation-banner` · banners · `#modal-gps` · toast.* · optional `#sheet-pgc-review` · `#pgc-fullscreen` |
 | CAP* | `/capture` peer | — | host slot `openCapture('photo-geo')` |
 | INC* · VIS* · FR* | consumers | peers | nhận `attachmentId` + object coords sidecar · MediaIds · HasGps |
 
-\* Peer deep-link / callback OK · **không** invent CRUD controller slug này.
-
-**reviewUrl** = Design chốt prototype (Android 1-1 `#sheet-pgc`).  
-**peerStdUrl** = `http://localhost:9301/web-rmms-photo-geo`.  
-**DES-GRID / LinErpListFilterBar** = **N/A** — phone sheet overlay (không Kind B desktop primary).  
-**Prototype zone** = `#sheet-pgc` · `DES-MOB-PGC` · `#capture-preview` · `#gim-pin` · `#map-confirm` · `#btn-shutter` · `#btn-use` (Design only · **không** demo SSOT ship).
+**reviewUrl** = `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-photo-geo/ui/prototype/index.html` (**keep**).  
+**peerStdUrl** = `http://localhost:9301/anh-vi-tri`.  
+**DES-GRID / LinErpListFilterBar / Excel** = **N/A · cấm**.
 
 ## 3. Grid AC (packKind=list)
 
-> packKind=`list` giữ queue STATUS · surface = **sheet overlay** (UNCLEAR-PACK-01 **PO chốt**). Grid AC map flow PGC — **không** CardList desktop.
+> packKind=`list` · surface = sheet overlay (UNCLEAR-PACK-01 **PO chốt**). **Không** CardList desktop.
 
 | AC id | Rule | Pass |
 |-------|------|------|
-| AC-GRID-01 | PGC phone `max-width: 430` · zones control-hint · **không** LinErpListFilterBar / DES-GRID-* Kind B | N/A desktop HARD |
-| AC-GRID-02 | Meta rows RO sau capture: rowKey · rowPhotog · rowDistance · rowObject (sau HITL) · empty trước shutter | ListRow RO |
-| AC-GRID-03 | Empty/error: toast.fail / modal GPS deny · **cấm** `window.alert` · **cấm** demo-json / itemsOrDemo | empty/error |
-| AC-GRID-04 | CTA `#btn-use` enable sau map confirm · `#btn-cancel` dismiss · **không** fake attachmentId khi upload fail | CTA gate |
-| AC-GRID-05 | Host return: attachmentId + sidecar · MediaIds / HasGps trên consumer · std route overlay OK | host bind |
+| AC-GRID-01 | PGC phone `max-width: 430` · zones control-hint · **không** LinErpListFilterBar / DES-GRID-* | N/A desktop HARD |
+| AC-GRID-02 | Meta rows RO: rowKey · rowPhotog · rowDistance · rowObject (sau HITL) · empty trước shutter | ListRow RO |
+| AC-GRID-03 | Empty/error: banner `string[]` / toast.fail / modal GPS deny · **cấm** `window.alert` · **cấm** demo-json | empty/error |
+| AC-GRID-04 | `#btn-use` **không** pre-disable vì thiếu map/GPS · chỉ khóa `uploading`/`pending` · bấm thiếu data → banner · **không** fake attachmentId | Pattern B CTA |
+| AC-GRID-05 | Host return: attachmentId + sidecar · MediaIds / HasGps · std `/anh-vi-tri` | host bind |
 
 ## 4. Capture / GPS / HITL / Files AC (PGC)
 
 | AC id | Rule | Pass |
 |-------|------|------|
-| AC-PGC-01 | sheetTitle copy key **«Chụp ảnh kèm tọa độ»** · nhãn row/banner `useFormOptions()` · **cấm** tên thuật toán trên chrome | copy key |
-| AC-PGC-02 | `#capture-preview` live in-app primary (getUserMedia / kit) · fullscreen `#pgc-fullscreen` optional · **ẩn** tab footer khi sheet full · **cấm** `<input type=file>` / dialog máy ảnh hệ thống làm UX chính (UNCLEAR-WEB-CAM → Design/Dev) | CameraStill |
-| AC-PGC-03 | `#btn-shutter` freeze still · GPS deny → disabled + `#modal-gps` `DES-MOB-GPS-DENY` · block openCapture geo / use / detect | GPS HARD |
+| AC-PGC-01 | sheetTitle copy key **«Chụp ảnh kèm tọa độ»** · nhãn `useFormOptions()` · **cấm** tên thuật toán trên chrome | copy key |
+| AC-PGC-02 | `#capture-preview` live primary · fullscreen `#pgc-fullscreen` optional · **cấm** gallery/file dialog primary · file input (nếu có) `capture="environment"` | CameraStill |
+| AC-PGC-03 | `#btn-shutter` **không** disable vì GPS/cam thiếu · bấm khi deny → `#modal-gps` / banner · freeze still khi cam+GPS ok | Pattern B GPS |
 | AC-PGC-04 | `#gim-pin` đúng **1** điểm · kéo lại · **cấm** multi-pin P1 | MapPinTap |
-| AC-PGC-05 | photographer GPS (rowPhotog) ≠ object lat · EXIF + sidecar accuracyM · **cấm** fake · **cấm** gửi photographer GPS vào detect | GPS split |
-| AC-PGC-06 | distanceM / lensRangeM on-device · sai số > 30 m → bannerConf · vẫn lưu ảnh+key · **không** auto object GPS / detect | threshold |
-| AC-PGC-07 | `#map-confirm` MAP-HITL · reuse `web-rmms-gis` clip · `#map-pin` kéo · `#btn-confirm-map` chốt · **cấm** invent map API (UNCLEAR-MAP-HOST) | MapHitl |
-| AC-PGC-08 | Files: `POST files/init` (`purpose=photo-geo-capture`) → `PUT …/object` → `POST files/commit` → `attachmentId` · GET object JWT preview · **cấm** client objectKey · **cấm** resign URL persist | Live files* |
-| AC-PGC-09 | `#btn-use` trả host attachmentId + object coords sidecar · enable sau confirm · toast.ok · cancel không fake id | return |
-| AC-PGC-10 | Optional `POST ai-vision/detect`: Lat/Lng = **object HITL** · AccuracyM ≤ 30 · **cấm** photographer GPS | Live detect |
-| AC-PGC-11 | Optional `GET patrol/sessions` Route/Km toast only · empty → GPS-only · **cấm** fake session | Live optional |
-| AC-PGC-12 | Consumers: MediaIds + HasGps=true · object lat P1 sidecar (GAP-PGC-BE-01 → SA) · bannerCompass GAP-PGC-COMPASS | host |
-| AC-PGC-13 | Optional `#sheet-pgc-review` xem lại · **không** re-upload | review |
-| AC-PGC-14 | Dual parity Android 1-1 `#sheet-pgc` · Design reviewUrl | Design |
+| AC-PGC-05 | photographer GPS ≠ object lat · EXIF + sidecar · **cấm** fake · **cấm** photographer GPS vào detect | GPS split |
+| AC-PGC-06 | distanceM / lensRangeM · sai số > 30 m → bannerConf · lưu ảnh+key · **không** auto object GPS / detect | threshold |
+| AC-PGC-07 | `#map-confirm` MAP-HITL · reuse `web-rmms-gis` · `#btn-confirm-map` chỉ disable khi uploading · thiếu objectGeo → banner | MapHitl |
+| AC-PGC-08 | Files: init (`purpose=photo-geo-capture`) → PUT → commit → `attachmentId` · GET JWT · **cấm** client objectKey · **cấm** resign URL persist | Live files* |
+| AC-PGC-09 | `#btn-use` trả host attachmentId + sidecar · chỉ disable uploading/pending · toast.ok · cancel không fake id | Pattern B return |
+| AC-PGC-10 | Optional detect: Lat/Lng = **object HITL** · ≤30 m · chỉ disable khi `detecting` | Live detect |
+| AC-PGC-11 | Optional `GET patrol/sessions` toast only · **cấm** fake/seed | Live optional |
+| AC-PGC-12 | Consumers: MediaIds + HasGps · object lat P1 sidecar (DEC-PGC-BE-01) · bannerCompass | host |
+| AC-PGC-13 | Optional `#sheet-pgc-review` · **không** re-upload | review |
+| AC-PGC-14 | Dual parity Android 1-1 · **keep** Design reviewUrl · align-mobile-to-mfe cuối | Design/Dev |
+| AC-PGC-15 | Validation: `validationAttempted` + banner `string[]` + inline · API 4xx/5xx = toast · **cấm** pre-disable vì thiếu data | Pattern B |
+| AC-PGC-16 | **Cấm** Excel / toolbar export · **cấm** SearchInput user/route trên PGC · **cấm** web-bff | SUBMIT-VALIDATE |
 
 ## 5. Leave / Out of scope
 
@@ -96,35 +121,38 @@
 | Me* · feedback · cam-view · cam-patrol finder | Out P1 |
 | journal / kết ca / tồn tại / tần suất (B–E) | Out pack |
 | invent `api/v1/photo-geo*` / PhotoGeo*Controller | SA cite Live files + ai-vision |
-| ERP.* / web-bff client / mobile-bff Route trên web-bff | HARD cấm |
-| iOS/Android native edit | Web Mobile MFE only · peer native done |
-| fake GPS / demo-json / itemsOrDemo / re-scan demo | HARD cấm |
-| Desktop Kind B grid primary · LinErpListFilterBar | N/A phone overlay |
-| Persist object lat cột Incident | GAP-PGC-BE-01 → SA · P1 sidecar |
-| Multi-pin / draw CRUD map | Out |
+| ERP.* / web-bff client | HARD cấm |
+| iOS/Android native edit · open android/ios proto | Web Mobile MFE only |
+| fake GPS / demo-json / re-scan demo | HARD cấm |
+| Desktop Kind B · LinErpListFilterBar · Excel export | N/A · cấm |
+| Persist object lat cột Incident | DEC-PGC-BE-01 sidecar P1 |
+| Multi-pin / draw CRUD map · new tab/route/icon | Out |
+| typed CRUD `new_page` | changeScope=edit_page |
 
 ## 6. FormMode ↔ API
 
 | Mode / step | API | Note |
 |-------------|-----|------|
 | capture still | device + kit | getUserMedia primary |
-| photographer GPS | `navigator.geolocation` | deny → block |
-| upload | `POST files/init` → `PUT files/{id}/object` → `POST files/commit` | purpose=`photo-geo-capture` |
+| photographer GPS | `navigator.geolocation` | deny → on-click modal (Pattern B) |
+| upload | `POST files/init` → `PUT …/object` → `POST files/commit` | purpose=`photo-geo-capture` |
 | preview | `GET files/{id}/object` | JWT · cấm resign persist |
 | object HITL | on-device + map pin | sidecar |
 | detect (optional) | `POST ai-vision/detect` | object Lat/Lng · ≤30 m |
 | session (optional) | `GET patrol/sessions` | toast only |
-| host attach | consumer MediaIds · HasGps | GAP-PGC-BE-01 |
+| host attach | consumer MediaIds · HasGps | DEC-PGC-BE-01 |
+| BFF | `mobileApiBase()` only | users forward nếu thiếu · road-routes/search ok |
 
 ## 7. UNCLEAR / PO decisions
 
 | id | PO decision | Next |
 |----|-------------|------|
-| UNCLEAR-PACK-01 | **Chốt** packKind=`list` · surface = sheet overlay phone | Design giữ sheet |
-| UNCLEAR-WEB-CAM | **Chốt** live getUserMedia / kit primary · file input **không** primary UX | Design/Dev |
-| UNCLEAR-MAP-HOST | **Chốt** reuse peer `web-rmms-gis` clip · **cấm** invent map API | Design/SA/Dev |
-| UNCLEAR-DOMAIN-MAP-PGC | Forward | SA add DOMAIN-MAP row File+AiVision cite Incident |
-| UNCLEAR-PGC-BE-01 | P1 sidecar + MediaIds + HasGps · **không** block DoD overlay | SA Schema_* nếu cần |
+| UNCLEAR-PACK-01 | **Chốt** packKind=`list` · sheet overlay | Design keep |
+| UNCLEAR-WEB-CAM | **Chốt** live getUserMedia primary · file không primary | Design/Dev |
+| UNCLEAR-MAP-HOST | **Chốt** reuse `web-rmms-gis` · **cấm** invent map API | Design/SA/Dev |
+| UNCLEAR-PGC-BE-01 | **Keep** DEC-PGC-BE-01 sidecar + MediaIds + HasGps | SA |
+| RESOLVED-ROUTE | std = `/anh-vi-tri` · **không** `/web-rmms-photo-geo` | Dev/QA |
+| RESOLVED-PATTERN-B | Pattern B CTA · SUBMIT-VALIDATE edit_page | Design/Dev/QA |
 | GAP-PGC-COMPASS-01 | Banner + HITL bắt buộc | Design |
 | GAP-PGC-PLANE-01 | User kéo pin | Design/Dev |
 
@@ -132,21 +160,21 @@
 
 | Need | |
 |------|--|
-| Prototype | Android 1-1 `#sheet-pgc` · zones §2 · reviewUrl |
-| Control-map | Chốt CameraStill / MapPinTap / MapHitl / GPS deny modal |
-| Phone | `max-width: 430` · ẩn tab footer khi capture full |
-| Copy | useFormOptions keys · không thuật toán trên chrome |
-| Out | Me* · B–E · Kind B desktop · demo SSOT |
+| Keep | design.md + prototype + reviewUrl (Android 1-1 `#sheet-pgc`) |
+| Delta | CTA always-on · deny-on-click GPS modal · validation banner `string[]` · route label `/anh-vi-tri` nếu hiện trên proto |
+| Out | Excel · new route/tab/icon · Kind B · demo SSOT · re-open android/ios proto |
+| Next | autoApprove ON → Design delta then SA keep |
 
 ## 9. DoR PO
 
 | Check | |
 |-------|--|
-| changeScope=`new_page` | **PASS** |
+| changeScope=`edit_page` | **PASS** |
+| § Delta Pattern B + route `/anh-vi-tri` | **PASS** |
 | packKind=`list` confirmed (sheet overlay) | **PASS** |
-| Screens / zones | **PASS** |
-| Grid AC + PGC AC | **PASS** |
-| Leave | **PASS** |
+| Screens / zones · keep reviewUrl | **PASS** |
+| Grid AC + PGC AC (Pattern B) | **PASS** |
+| Leave · no Excel · no new_page CRUD | **PASS** |
 | analy reuse hash · no demo rescan | **PASS** |
 | compact handoff | **PASS** → `handoff/po-compact.md` |
 | autoApprove | **ON** → Design next |

@@ -5,43 +5,47 @@
 | feature | `web-rmms-cam-patrol` |
 | title | Camera tuần |
 | this role | `po` · `/agent-po` |
-| changeScope | **`new_page`** |
-| packKind | **`list`** (PO confirm · data-analy đề xuất · **≠** Kind B desktop catalog) |
+| changeScope | **`edit_page`** |
+| packKind | **`list`** (PO confirm · phone Field · **≠** Kind B desktop) |
 | lane | `web` |
 | stack | `web_mfe_phone` · `Linm.Web.RMMS.Mobile` · phone `max-width: 430px` |
 | status | `confirmed` (autoApprove=ON) |
-| requestSource | run packet `task_d475fea0` · `/agent-qldb-workflow` · roleOnly=`po` · `/agent-po` · source `qldb_implement` |
+| requestSource | run packet `task_20b3107a` · `/agent-qldb-workflow` · roleOnly=`po` · `/agent-po` · source `qldb_implement` |
 | autoApprove | **ON** — Design/SA tự confirm **khi tới lượt** · turn này **không** chain role khác (**GAP-PKT-ROLE-01**) |
 | e2eQa | ON — queued `/agent-qa*` · **cấm** e2e / `yarn start:std` ở role PO |
-| prior | data-analy **confirmed** · compact `handoff/data_analy-compact.md` · `specs/_data-analy/features/web-rmms-cam-patrol-{control-hint,real-data}.md` · contentHash `sha256:cd46c9486c0a3fe71165c27906508a1608ba46cca1351fe9df832ab7b2efa68c` · skillVersion `2026.09.05.03` · rulesVersion `2026.09.25.2` · **hash skip** · demo **N/A** · **cấm** re-scan (**GAP-PO-DEMO-RESCAN-01**) |
+| prior | data-analy **confirmed** · compact `handoff/data_analy-compact.md` · `specs/_data-analy/features/web-rmms-cam-patrol-{control-hint,real-data}.md` · contentHash `sha256:c46ae5660ccba1b8e64ce8e5294acef77ceb4e0a75474372f2a3d3901efb5796` · skillVersion `2026.09.05.03` · rulesVersion `2026.09.27.1` · **hash skip** · demo **N/A** · **cấm** re-scan (**GAP-PO-DEMO-RESCAN-01**) |
+| deltaCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · Pattern B · row `web-rmms-cam-patrol` |
+| keepPrior | DEC-FRAME · DEC-SCORE · DEC-ENTRY · DEC-DETECT-DTO · Design zones/prototype · SA Live cite |
 | `devSlash` | `/agent-dev` |
 | demo | **N/A** |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdRoute | `/web-rmms-cam-patrol` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-cam-patrol` |
+| mfeStdRoute | `/camera-tuan` |
+| mfeStdUrl | `http://localhost:9301/camera-tuan` |
 | productRoute | `/field/cam` |
 | beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Patrol** + **AiVision** + **Incident** · **cấm ERP.*** |
 | bff | `Linm.RMMS.Mobile.Bff` · `VITE_MOBILE_API_URL=http://localhost:5202/mobile-bff/api/v1` · **cấm** web-bff client |
+| codeSSOT | `src/pages/WebRmmsCamPatrol/CamPatrolPage.tsx` |
 | context | `docs/context/features/web-rmms-cam-patrol.md` |
 | controlHint | `specs/_data-analy/features/web-rmms-cam-patrol-control-hint.md` |
 | realData | `specs/_data-analy/features/web-rmms-cam-patrol-real-data.md` |
 | screensPlan | `docs/plan/web-rmms-mobile/SCREENS.md` · `/field/cam` |
 | peerCtx | `docs/context/features/cam-patrol.md` |
-| updatedAt | `2026-09-25T18:20:00.000Z` |
-| taskId | `task_d475fea0` |
+| reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-cam-patrol/ui/prototype/index.html` (keep) |
+| updatedAt | `2026-09-27T10:40:00.000Z` |
+| taskId | `task_20b3107a` |
 | skillId | `agent-po` |
 | skillVersion | `2026.09.05.03` |
 | schemaVersion | `1` |
 | workflowVersion | `2026.09.19.02` |
-| rulesVersion | `2026.09.25.2` |
+| rulesVersion | `2026.09.27.1` |
 | versionGate | `ok` |
-| contentHash | `sha256:cd46c9486c0a3fe71165c27906508a1608ba46cca1351fe9df832ab7b2efa68c` |
+| contentHash | `sha256:c46ae5660ccba1b8e64ce8e5294acef77ceb4e0a75474372f2a3d3901efb5796` |
 
-**Cấm:** implement ở role PO · ERP.* · nhét màn vào MFE desktop Asset · iOS/Android native · invent `cam-patrol/*` path · fake GPS / class · hardcode label VN trên form · hiện % score ship · Me tab / cam-view / journal waves B–E · `window.alert` · re-scan demo · clone LinErpListFilterBar · `yarn start:std` / e2e ở PO.
+**Cấm:** implement ở role PO · ERP.* · typed CRUD `new_page` · nhét màn desktop Asset · iOS/Android · invent `cam-patrol/*` · fake GPS / class · hardcode label VN · hiện % score · Me / cam-view / waves B–E · `window.alert` · re-scan demo · clone LinErpListFilterBar · Excel toolbar · SearchInput user/route trên CP-01 · `yarn start:std` / e2e / build ở PO · mfeStdUrl `/web-rmms-cam-patrol`.
 
 ## 1. Goal
 
-Trong ca Field `Đang tuần`: **finder camera + GPS chốt** → `POST ai-vision/detect` (ImageBase64 + Lat/Lng/AccuracyM · Engine=P1) → card phát hiện → **Xác nhận** tạo sự cố (`POST incident/incidents` · DetectionId · HasGps) hoặc **Bỏ qua**. Entry từ hub Field (Tuần đường / Tuần kiểm) — **1 route** CP-01 · stamp `PatrolType` từ ca. Persona: nhân viên Field. **Cấm** gộp Me / feedback / journal / kết ca / tần suất (B–E).
+Trong ca Field `Đang tuần`: finder + GPS → `POST ai-vision/detect` → card → **Xác nhận** / **Bỏ qua**. **Edit này:** áp Pattern B (SUBMIT-VALIDATE) — CTA detect/confirm **không** `disabled` vì thiếu GPS/frame/session/online; chỉ khóa lúc request chạy; thiếu điều kiện → banner `string[]` khi bấm. Keep prior DEC + Design/SA. Align end: `/align-mobile-to-mfe` · SSOT `CamPatrolPage.tsx` · 430px · no tab/route/icon mới.
 
 ## 2. packKind confirm
 
@@ -49,136 +53,151 @@ Trong ca Field `Đang tuần`: **finder camera + GPS chốt** → `POST ai-visio
 |--|--|
 | packKind | **`list`** (PO confirm) |
 | Kind UI | **Phone Field camera full** — **≠** Kind B desktop catalog |
-| Grid AC Kind B | **N/A** — `LinErpListFilterBar` / `DES-GRID-*` **cấm** clone |
+| Grid AC Kind B | **N/A** — `LinErpListFilterBar` / `DES-GRID-*` **cấm** |
 | Report AC | **N/A** |
-| formPattern | Mobile **Full page** CP-01 · copy 1-1 Android · **không** ERP Modal/Slideout |
-| typography | label **13** · field ≥**16** · labels qua `useFormOptions()` / copy key |
+| formPattern | Mobile **Full page** CP-01 · Android 1-1 · **không** ERP Modal/Slideout |
+| typography | label **13** · field ≥**16** · labels `useFormOptions()` / copy key |
 
-## 3. changeScope `new_page`
+## 3. changeScope `edit_page` — Current vs New
 
-MFE Mobile **chưa** ship `/field/cam` / std `/web-rmms-cam-patrol` — **không** bảng Current vs New. SSOT = CTX + SCREENS + data-analy (hash skip). Demo HTML = **N/A** (prototype cite Design only · **cấm** ship demo SSOT). Design gen prototype phone 430 · zones CP-01 · reviewUrl.
+| Area | Current (`CamPatrolPage.tsx`) | New (PO chốt) |
+|------|------------------------------|---------------|
+| Scope | CP-01 shipped · `/camera-tuan` | **edit only** · **cấm** new_page CRUD |
+| `#btnDetect` | `disabled={!canDetect}` | chỉ `disabled={detecting}` · thiếu session/GPS/frame/online → banner on click |
+| `#btnConfirm` | `disabled={confirming \|\| gpsBlocked \|\| !online}` | chỉ `disabled={confirming}` · fail → banner on click |
+| `#btnSkip` | `disabled={confirming}` | giữ |
+| capture | `capture="environment"` | giữ |
+| score % | ẩn | giữ (**DEC-SCORE**) |
+| route stamp | RO ca | giữ RO · mã lạ → `--` · **không** SearchInput |
+| APIs / DTO | sessions · detect · detections · incidents | **không đổi** paths (**DEC-DETECT-DTO**) |
+| Design / SA | approve prior | **keep** zones · reviewUrl · Live cite |
+| align | — | `/align-mobile-to-mfe` · 430 · Mobile.Bff only |
 
 ## 4. DoD (đo được)
 
-1. Route std `/web-rmms-cam-patrol` map product `/field/cam` · phone 430 · **cấm** desktop chrome.
-2. **CP-01** full: finder + stamp Route/Km/`PatrolType` từ `GET patrol/sessions` ca Đang tuần · GPS chip · Detect · result card · Confirm / Skip.
-3. **GPS HARD:** deny **hoặc** accuracy > 30 m → disable Detect + Confirm · toast · **cấm** fake lat/lng.
-4. **Frame HARD:** Detect bắt buộc `ImageBase64` thật · fail = toast · **cấm** null heuristic / class giả (GAP-MOB-CAM-FRAME-01/02).
-5. Detect: `POST ai-vision/detect` · `Engine=P1` · body ImageBase64 + Lat + Lng + AccuracyM (+ fields SA cite AiVisionOpsController).
-6. Result card: kind / surface / actionHint · **cấm** hiện % score ship (GAP-MOB-CAM-SCORE-01).
-7. Confirm: `POST incident/incidents` · `DetectionId` · `HasGps=true` · cần GPS OK · toast ok.
-8. Skip: dismiss card only · toast skip · **không** POST incident.
-9. Empty no session Đang tuần → EmptyState + chặn detect · **cấm** bịa ca.
-10. Offline → banner/queue peer `web-rmms-offline` · **cấm** fake success.
-11. Labels: `useFormOptions()` · **cấm** hardcode VN form.
-12. BE ONLY `Linm.RMMS.WebService` Patrol+AiVision+Incident · BFF ONLY Mobile `:5202` · **cấm ERP.*** · **cấm** invent `cam-patrol` controller · **cấm** web-bff client.
-13. Dev (sau): `yarn build` MFE Mobile PASS · **cấm** PO chạy build/e2e/start:std.
-14. QA (sau): e2e queued · no session · GPS deny · accuracy>30 · frame fail · no fake coords · no Me routes · live `mfeStdUrl`.
+1. Route std `/camera-tuan` · product `/field/cam` · phone 430 · **cấm** đổi path sang `/web-rmms-cam-patrol`.
+2. **CP-01** giữ: finder + stamp Route/Km/`PatrolType` · GPS · Detect · result · Confirm/Skip.
+3. **Pattern B HARD:** Detect luôn bật (UI ready) · chỉ `disabled={detecting}` · Confirm chỉ `disabled={confirming}` · **cấm** `canDetect` / `gpsBlocked` / `!online` khóa nút trước bấm.
+4. **Client validate on click:** thiếu session / GPS deny / Acc>30 / thiếu frame / offline → banner `string[]` + `validationAttempted` · lookupStatic keys có sẵn · **cấm** `alert.warning` thay banner · **cấm** hardcode VN mới nếu key có.
+5. **GPS:** Acc ≤ 30 m cho success path · deny/poor → báo khi bấm · **cấm** fake lat/lng.
+6. **Frame:** `ImageBase64` bắt buộc detect · fail toast · **cấm** null / class giả (**DEC-FRAME**).
+7. Detect: `POST ai-vision/detect` · Engine=P1 · ImageBase64 + Lat/Lng/AccuracyM (SA cite).
+8. Result: kind / surface / actionHint · **cấm** % score (**DEC-SCORE**).
+9. Confirm: `POST incident/incidents` · DetectionId · HasGps=true · API fail = toast (không banner API).
+10. Skip: dismiss · lock khi `confirming` · không POST.
+11. Empty no session / offline: banner on click · **cấm** bịa ca / fake success.
+12. Labels: `useFormOptions()` · **cấm** hardcode VN form.
+13. BE ONLY WebService Patrol+AiVision+Incident · BFF ONLY Mobile `:5202` · **cấm ERP.*** · **cấm** invent cam-patrol · **cấm** web-bff.
+14. Dev (sau): edit `CamPatrolPage` · yarn build PASS · Step 4b N/A · align 430.
+15. QA (sau): CTA enabled · missing GPS/frame → banner · detecting/confirming lock · e2e queued.
 
 ## 5. CTX / DEM / DI inventory
 
 | ID | Path | Loại |
 |----|------|------|
-| CTX-01 | `docs/context/features/web-rmms-cam-patrol.md` | feature P0 |
-| CTX-02 | `docs/plan/web-rmms-mobile/SCREENS.md` `/field/cam` | screens SSOT |
-| CTX-03 | `docs/context/features/cam-patrol.md` | peer DES · GAP FRAME/SCORE |
-| CTX-04 | `TASKS.md` T-W3-09 `CamPatrolView` | task cite |
-| DEM | — | **N/A** · hash skip · **cấm** crawl DemoRoot |
+| CTX-01 | `docs/context/features/web-rmms-cam-patrol.md` | feature · § Delta edit |
+| CTX-02 | `docs/plan/web-rmms-mobile/SCREENS.md` `/field/cam` | screens |
+| CTX-03 | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` | Pattern B SSOT |
+| CTX-04 | `docs/context/features/cam-patrol.md` | peer DES · GAP FRAME/SCORE |
+| DEM | — | **N/A** · hash skip · **cấm** crawl |
 | DI | — | **no Excel** |
-| DA-01 | `specs/_data-analy/features/web-rmms-cam-patrol-control-hint.md` | controlHint |
+| DA-01 | `specs/_data-analy/features/web-rmms-cam-patrol-control-hint.md` | controlHint · done |
 | DA-02 | `specs/_data-analy/features/web-rmms-cam-patrol-real-data.md` | §A+§B PASS |
+| CODE | `CamPatrolPage.tsx` | current SSOT edit |
 | MFE | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` | web phone |
-| BE | `D:/AI-QLBD/Linm.RMMS.WebService` | Patrol · AiVision · Incident · **cấm ERP.*** |
+| BE | `D:/AI-QLBD/Linm.RMMS.WebService` | **cấm ERP.*** |
 | BFF | `Linm.RMMS.Mobile.Bff` · `:5202` | mobile-bff only |
-| MAP | `docs/DOMAIN-MAP.md` | Patrol · AiVision · Incident |
+| UI keep | `specs/web-rmms-cam-patrol/ui/` | reviewUrl prior |
 
 ## 6. Screens (REQUIRED)
 
 | ID | Route | Pattern | FormMode | Actions | Notes |
 |----|-------|---------|----------|---------|-------|
-| CP-01 | `/field/cam` · std `/web-rmms-cam-patrol` | **Full page** | Create (detect/confirm) | back · getGps · detect · confirm · skip | Finder + stamp + GPS gate · Dirty detect card → Leave |
+| CP-01 | `/field/cam` · std `/camera-tuan` | **Full page** | Create (detect/confirm) | back · getGps · detect · confirm · skip | Pattern B banner · Dirty card → Leave |
 
-**Out:** `/me*` · feedback · `cam-view` · `field-reflect` · journal/kết ca/tần suất (B–E) · asset AI · web `camera-connect`.  
-**tabs:** none · **cấm** invent Me tab.  
-**`devSlash`:** `/agent-dev`.
+**Out:** `/me*` · feedback · `cam-view` · journal/kết ca/tần suất (B–E) · invent `cam-patrol` path · Excel.  
+**tabs:** none · **`devSlash`:** `/agent-dev`.
 
-## 7. controlHint (PO chốt — copy DA-01)
+## 7. controlHint (PO chốt — copy DA-01 + Pattern B)
 
 | uiField | screen | controlHint | Required | Notes |
 |---------|--------|-------------|----------|-------|
-| screenTitle | CP-01 | Text | * | copy key «Camera tuần» · useFormOptions |
-| back | CP-01 | Button/Nav | * | → Field hub (TD / TK entry) |
-| finder | CP-01 | CameraViewfinder | * | live stream · FOV DES-MOB-CAM-FINDER |
-| stamp.route | CP-01 | Text RO | * | GET sessions Đang tuần · Route |
-| stamp.km | CP-01 | Text RO | * | km / lý trình từ ca · **cấm** bịa |
-| stamp.patrolType | CP-01 | Text RO / Chip | * | từ ca · entry hub TD vs TK (**DEC-ENTRY**) |
-| stamp.gps | CP-01 | GPS | * | lat,lng · ±accuracyM · chip «đã chốt» |
-| getGps / lockGps | CP-01 | Button | * | geolocation · deny → block detect/confirm |
-| imageBase64 | CP-01 | CameraCapture | * | required detect · **cấm** null ship |
-| detect | CP-01 | Button primary | * | POST ai-vision/detect · Engine=P1 |
-| detection.kind | CP-01 | Text/Chip | — | class · **không** % score |
-| detection.surface | CP-01 | Text | — | loại mặt / hạng mục DTO |
-| detection.actionHint | CP-01 | Text | — | copy key sau xác nhận |
-| confirm | CP-01 | Button | * | POST incident · DetectionId · HasGps · GPS OK |
-| skip | CP-01 | Button secondary | — | dismiss · toast · no POST |
-| offlineBanner | CP-01 | Banner | — | peer offline · **cấm** fake ok |
-| emptyNoSession | CP-01 | EmptyState | — | no ca → chặn detect |
-| toast.* | CP-01 | Toast | — | ok / fail / gpsDeny / skip · **cấm** alert |
+| screenTitle | CP-01 | Text | * | copy key · useFormOptions |
+| back | CP-01 | Button/Nav | * | → Field hub |
+| finder | CP-01 | CameraViewfinder | * | DES-MOB-CAM-FINDER |
+| stamp.route | CP-01 | Text RO | * | GET sessions · không SearchInput |
+| stamp.km | CP-01 | Text RO | * | từ ca · **cấm** bịa |
+| stamp.patrolType | CP-01 | Text RO / Chip | * | **DEC-ENTRY** |
+| stamp.gps | CP-01 | GPS | * | lat,lng · ±accuracyM |
+| getGps / lockGps | CP-01 | Button | * | deny → banner **khi bấm** detect/confirm |
+| imageBase64 | CP-01 | CameraCapture | * | `capture="environment"` · required detect |
+| detect | CP-01 | Button primary | * | Pattern B · chỉ `disabled={detecting}` |
+| detection.kind | CP-01 | Text/Chip | — | **không** % score |
+| detection.surface | CP-01 | Text | — | DTO |
+| detection.actionHint | CP-01 | Text | — | copy key |
+| confirm | CP-01 | Button | * | chỉ `disabled={confirming}` |
+| skip | CP-01 | Button secondary | — | disabled khi confirming |
+| validationBanner | CP-01 | Banner `string[]` | — | Pattern B · **new edit** |
+| offlineBanner | CP-01 | Banner | — | **cấm** fake ok |
+| emptyNoSession | CP-01 | EmptyState / banner on click | — | **cấm** bịa ca |
+| toast.* | CP-01 | Toast | — | API 4xx/5xx · **cấm** banner API |
 
 ## 8. Grid AC / Report AC
 
 | AC | Status |
 |----|--------|
-| DES-GRID / LinErpListFilterBar | **N/A** — phone Field · **cấm** Kind B |
+| DES-GRID / LinErpListFilterBar | **N/A** — phone Field |
 | Report AC | **N/A** |
-| Mobile Field AC | **PASS criteria** §4 DoD · GPS≤30 · frame · no score % · BFF mobile |
+| Mobile Field AC | **PASS** §4 · Pattern B · GPS≤30 · frame · no score % · BFF mobile |
 
 ## 9. Leave / Dirty
 
 | Screen | Dirty when | Leave |
 |--------|------------|-------|
-| CP-01 | Result card mở (sau detect, chưa confirm/skip) · hoặc GPS lock in-progress | Confirm Leave → discard card · **không** POST incident · back hub |
+| CP-01 | Result card mở (chưa confirm/skip) · GPS in-progress | Confirm Leave → discard · **không** POST incident |
 
-## 10. API FormMode ↔ bind (cite Live · SA confirm DTO)
+## 10. API FormMode ↔ bind (giữ Live · không đổi path)
 
 | Action | Method | Path | Body / note |
 |--------|--------|------|-------------|
-| Load stamp | GET | `patrol/sessions` | filter Đang tuần · Route/Km/PatrolType |
+| Load stamp | GET | `patrol/sessions` | Đang tuần · Route/Km/PatrolType |
 | Detect | POST | `ai-vision/detect` | ImageBase64 · Lat · Lng · AccuracyM · Engine=P1 |
 | Detection detail | GET | `ai-vision/detections/{id}` | optional |
 | Confirm | POST | `incident/incidents` | DetectionId · HasGps=true |
-| Profile | GET | `auth/profile` | optional stamp |
 
-App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** invent `cam-patrol/*`. Field names exact → SA cite AiVisionOpsController (**DEC-DETECT-DTO**).
+App base: `{BffBase}/mobile-bff/api/v1`. **Cấm** invent `cam-patrol/*`. Field names → SA cite giữ (**DEC-DETECT-DTO**).
 
-## 11. PO decisions (UNCLEAR · autoApprove)
+## 11. PO decisions (keep + Pattern B)
 
 | id | Decision | Owner next |
 |----|----------|------------|
-| UNCLEAR-CAM-FRAME → **DEC-FRAME** | Ship DoD = frame thật (`ImageBase64` non-null) · fail toast · **cấm** fake class / null heuristic | Dev DoD · Design zone capture |
-| UNCLEAR-CAM-SCORE → **DEC-SCORE** | **Ẩn** % tin cậy trên ship UI (demo 91% = cite only) | Design control-map |
-| UNCLEAR-CAM-ENTRY → **DEC-ENTRY** | **1 route** CP-01 · entry hub TD hoặc TK · stamp `PatrolType` từ ca Đang tuần · **không** 2 màn cam | Design nav |
-| UNCLEAR-CAM-DETECT-DTO → **DEC-DETECT-DTO** | PO bắt buộc fields: ImageBase64 · Lat · Lng · AccuracyM · Engine=P1 · DetectionId confirm · HasGps · **không** invent tên field khác — SA cite Live controller | SA |
+| **DEC-FRAME** (keep) | Frame thật · fail toast · **cấm** fake class | Dev |
+| **DEC-SCORE** (keep) | Ẩn % tin cậy ship | Design keep |
+| **DEC-ENTRY** (keep) | 1 route CP-01 · stamp PatrolType từ ca | Design keep |
+| **DEC-DETECT-DTO** (keep) | ImageBase64+Lat/Lng/AccuracyM+Engine=P1 · DetectionId+HasGps · SA cite Live | SA keep |
+| **DEC-PATTERN-B** (new) | Detect/Confirm Pattern B · banner on click · keys lookupStatic có sẵn · **cấm** pre-disable GPS/frame | Design optional banner copy · Dev edit · QA |
 
 ## 12. Out of scope (HARD)
 
-- Me tab · me-profile · me-settings · feedback · `cam-view`
-- journal / kết ca / tồn tại / tần suất (waves B–E)
-- invent OfflineQueueController · invent cam-patrol path
-- ERP.* · web-bff client · desktop MFE · iOS/Android native
-- score % chrome · fake GPS · demo JSON SSOT ship
+- new_page CRUD · Excel toolbar/export
+- Me / cam-view / waves B–E
+- invent cam-patrol path · ERP.* · web-bff · desktop MFE · iOS/Android
+- score % · fake GPS · demo JSON ship
+- SearchInput user/route trên CP-01 (stamp RO only)
+- re-scan demo (**GAP-PO-DEMO-RESCAN-01**)
 
 ## 13. Handoff Design
 
 | Field | Value |
 |-------|-------|
 | next | `/agent-design` (khi tới lượt · autoApprove ON) |
-| write | `ui/design.md` + prototype phone 430 + reviewUrl |
-| zones | CP-01 · DES-MOB-CAM-FINDER · ẩn score |
-| peerStdUrl | `http://localhost:9301/web-rmms-cam-patrol` |
+| write | keep `ui/design.md` + prototype · optional banner copy keys |
+| zones | CP-01 keep · DES-MOB-CAM-FINDER · ẩn score · Pattern B banner zone |
+| peerStdUrl | `http://localhost:9301/camera-tuan` |
+| reviewUrl | keep prior |
 | compact | `handoff/po-compact.md` |
-| cấm | re-scan demo · implement · e2e |
+| cấm | re-scan demo · implement · e2e · new_page redesign |
 
 ## Version meta
 
-`skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:cd46c9486c0a3fe71165c27906508a1608ba46cca1351fe9df832ab7b2efa68c` · `rulesVersion=2026.09.25.2` · `updatedAt=2026-09-25T18:20:00.000Z` · `versionGate=ok`
+`skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:c46ae5660ccba1b8e64ce8e5294acef77ceb4e0a75474372f2a3d3901efb5796` · `rulesVersion=2026.09.27.1` · `updatedAt=2026-09-27T10:40:00.000Z` · `changeScope=edit_page` · `versionGate=ok`

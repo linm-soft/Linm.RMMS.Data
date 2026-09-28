@@ -137,5 +137,5 @@ Align UI **đã ship** trên MFE Mobile với golden prototype Android/iOS: Tab 
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `po` | `pending` | `2026-09-26T06:41:23.451Z` |
+| web | `done` | `done` | `2026-09-26T07:26:14.689Z` |
 | mobile | — | — | — |

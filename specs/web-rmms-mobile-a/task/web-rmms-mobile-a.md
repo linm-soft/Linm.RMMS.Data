@@ -3,240 +3,206 @@
 | Field | Value |
 |-------|-------|
 | feature | `web-rmms-mobile-a` |
-| title | Tuần đường / Tuần kiểm đợt A — hub · mở ca · check-in · lịch sử |
+| title | Edit delta A — Pattern B · no-seed · users Bff · mobileApiBase |
 | role | `team_lead` · `/agent-team-lead` |
 | status | `done` (autoApprove=ON · `route_confirm=approve` path `/web-rmms-mobile-a`) |
 | packKind | `list` (**phone Field hub** ≠ desktop Kind B grid) |
-| changeScope | `new_page` |
-| formPattern | Full (TD-00/01/02/07 · TK-00/01) · Sheet (TD-03) · phone max-width **430** · `LeaveConfirmModal` |
+| changeScope | `edit_page` · **editTask=1** |
+| formPattern | Full (TD-00/01/02/07 · TK-00/01) · Sheet (TD-03 Pattern B) · phone max-width **430** · `LeaveConfirmModal` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdRoute | `/web-rmms-mobile-a` (**route_confirm** autoApprove=ON · giữ path STATUS) |
-| mfeStdUrl | `http://localhost:9301/web-rmms-mobile-a` (Dev điền live) |
+| mfeStdRoute | `/web-rmms-mobile-a` (**route_confirm** autoApprove=ON · giữ path STATUS · **không** URL mới) |
+| mfeStdUrl | `http://localhost:9301/web-rmms-mobile-a` |
 | be | `D:/AI-QLBD/Linm.RMMS.WebService` · Patrol + Integration + Auth + Files · **cấm ERP.*** |
-| BFF bind | `mobile-bff/api/v1/patrol/**` · cite peer `web-bff` · **cấm** đổi Live path |
-| demo | **N/A** · wave **A Live-only** · out TD-04/05/06 · TK-02…07 · journal/findings |
-| contentHash | `sha256:c5b21efdd411635233b56b13ee0b1a318c182c0a488f10d8290481a3dbbd3c2e` |
+| BFF bind | `mobile-bff/api/v1/patrol/**` + `integration/users` forward · **cấm** web-bff client |
+| transport | `mobileApiBase()` / `VITE_MOBILE_API_URL` **only** |
+| demo | **N/A** |
+| deltaCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` |
+| contentHash | `sha256:110e845481b0f27091c0f5ca856fef74524bc1634ab8e3785a5d7755730eea45` |
 | skillVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.27.1` |
 | schemaVersion | `1` |
-| updatedAt | `2026-09-25T07:30:00.000Z` |
-| taskId | `task_0169a610` |
+| updatedAt | `2026-09-27T14:35:00.000Z` |
+| taskId | `task_90723ead` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-a/ui/prototype/index.html` |
-| prior | data_analy·po·design·sa = **confirmed** · compact exist |
+| prior | data_analy·po·design·sa = **confirmed** · compact exist · wave A T-* **done** |
 
-> TL **chia HOW + DoD + T-*** · **cấm** implement product code · **cấm** e2e / yarn build / start:std.  
-> Kind B grid / `LinErpListFilterBar` / ui-schema editor = **N/A** (PO·Design·SA chốt phone hub).
+> TL **chia HOW + DoD + T-*** edit delta · **cấm** implement product code · **cấm** e2e / yarn build / start:std.  
+> Kind B grid / `LinErpListFilterBar` / ui-schema editor = **WAIVE** (giữ prior).  
+> Wave A Live APIs **reuse** — migration **none**.
 
 ## route_confirm
 
 | Option | Path | Decision |
 |--------|------|----------|
-| A (default) | `/web-rmms-mobile-a` | **approve** (autoApprove=ON · khớp STATUS · peerStdUrl) |
+| A (default) | `/web-rmms-mobile-a` | **approve** (autoApprove=ON · khớp STATUS · peerStdUrl · **không** mint URL mới) |
 | B | `/td-tk-a` | rejected |
 | C custom | — | N/A |
 
 `source.routes` = `[/web-rmms-mobile-a]` · draft `mfeStdRoute` giữ nguyên.
 
-## FormType pack adapt (phone hub)
+## § Delta scope (editTask=1)
+
+| Gap | Decision (PO·Design·SA) | Edit T-* |
+|-----|-------------------------|----------|
+| Pattern B | TD-03 Lưu always-on trừ `saving` · GPS deny → banner **on-click** · **cấm** `disabled={!gps}` · **cấm** fake lat/lng | T-UI-PATTERN-B-01 |
+| no-seed | Xóa `ROAD_ROUTE_SEED` / `filterSeed` / QL.22 · SearchInput live · miss → `--` | T-UI-LKP-EDIT-01 |
+| users Bff | resolve-only A · `GET integration/users` · Mobile.Bff forward · miss → `--` · **cấm** picker A | T-UI-USER-01 |
+| mobileApiBase | mọi HTTP qua `mobileApiBase()` / `VITE_MOBILE_API_URL` · **cấm** web-bff · **cấm** ERP.* | T-UI-TRANSPORT-01 |
+| Note-encode | CLOSED SA: `chieu=` · `kmFrom/kmTo` · `mode=` · `reason=` · opt startLat/startLng · join `; ` | cite T-UI-FORM-01 prior · verify in T-QA-EDIT-01 |
+| plan-point | empty OK · no auto MatchOk | cite prior · no new T-* |
+
+## FormType pack adapt (phone hub) — keep prior WAIVE
 
 | Canonical (form-type-task-pack §2a) | Adapt | Reason |
 |-------------------------------------|-------|--------|
-| T-UI-LIST-01 Kind B `tl-grid-task-template` | → **T-UI-HUB-01** | DES-GRID N/A · card hub/history |
-| T-UI-FILTER-01 `LinErpListFilterBar` | **WAIVE** | phone hub · query `status`/`route`/`page` client · **cấm** desktop filter bar |
-| T-UI-CFG-01 `LinCatalogUiSchemaEditorModal` | **WAIVE** | no catalog Kind B |
-| T-BE-UISCHEMA-01 | **WAIVE** | no ui-schema wave A |
-| T-QA-FILTER-01 / T-QA-FILTER-02 | **WAIVE** | no filter-bar DTM |
-| T-UI-FORM-01 · LEAVE · ACT · LKP · FIELD · PROD · UX · RESP · HIST | **KEEP** (mobile surface) | list-form-quality-gates |
-| T-BE-CRUD-01 · T-BE-INIT-01 · T-PERM-01 | **KEEP** | Live Patrol · LOOKUP_STATIC |
-| T-QA-CRUD-01 · T-QA-FORM-01 | **KEEP** (phone flows) | queued `/agent-qa*` |
+| T-UI-LIST-01 Kind B | **WAIVE** | DES-GRID N/A phone hub |
+| T-UI-FILTER-01 | **WAIVE** | no LinErpListFilterBar |
+| T-UI-CFG-01 / T-BE-UISCHEMA-01 | **WAIVE** | no ui-schema |
+| T-QA-FILTER-01/02 | **WAIVE** | no filter-bar |
+| Wave A T-BE-* · T-UI-* · T-QA-* · T-REV-01 | **done** (prior) | reuse Live |
 
-**GAP-TL-FORMTYPE-01:** PASS — pack đủ theo surface phone hub + waive có cite.  
-**GAP-TL-FILTER-01:** N/A (waive). **GAP-TL-GRID-*-01:** N/A.
+**GAP-TL-FORMTYPE-01:** PASS — edit mint đủ delta · waive giữ cite.  
+**tl-retry-ssot-rereview:** N/A (không retry SSOT lệch skillVersion).
 
-## Screens → tasks
+## Screens → edit tasks
 
-| id | Surface | Pattern | FormMode | Actions | Task | devSlash |
-|----|---------|---------|----------|---------|------|----------|
-| TD-00 | Hub Tuần đường | Full 430 | — | open·active·history | T-UI-HUB-01 | `/agent-dev` |
-| TK-00 | Hub Tuần kiểm | Full 430 | — | open·active | T-UI-HUB-01 | `/agent-dev` |
-| TD-01 | Session detail | Full 430 | View | check-in·chips | T-UI-HUB-01 | `/agent-dev` |
-| TD-02 | Mở ca TD | Full | Create | save·cancel | T-UI-FORM-01 | `/agent-dev` |
-| TK-01 | Mở ca TK | Full | Create | save·cancel | T-UI-FORM-01 | `/agent-dev` |
-| TD-03 | Check-in | Sheet | Create | GPS·photo·save | T-UI-FORM-01 | `/agent-dev` |
-| TD-07 | Lịch sử | Full 430 | — | list·CI cards | T-UI-HUB-01 | `/agent-dev` |
-| DES-LEAVE | Dirty leave | Modal | — | stay·leave | T-UI-LEAVE-01 | `/agent-dev` |
+| id | Surface | Pattern | Edit focus | Task | devSlash |
+|----|---------|---------|------------|------|----------|
+| TD-03 | Check-in Sheet | Sheet Pattern B | Lưu / GPS banner | T-UI-PATTERN-B-01 | `/agent-dev` |
+| TD-02 · TK-01 | Mở ca | Full | route SearchInput no-seed · miss `--` | T-UI-LKP-EDIT-01 | `/agent-dev` |
+| TD-02 · TK-01 | userName | SearchInput | `GET patrol/actors` · quyền tuần · default caller | T-UI-USER-01 | `/edit-web-feature` |
+| * | HTTP client | — | mobileApiBase only | T-UI-TRANSPORT-01 | `/agent-dev` |
+| TD-* · TK-* | flows | — | QA delta | T-QA-EDIT-01 | `/agent-qa` |
 
 ## ssot.reuse
 
 | Concern | Reuse | Cấm |
 |---------|-------|-----|
-| UI | `@linm-soft-org/linm-web-common-components` + mobile kit · `useFormOptions()` | clone Lin* · hardcode VN labels |
-| HTTP | apiClient SSOT · prefix `mobile-bff` | invent axios · ERP.* |
-| BE | Patrol Live · CommonLib `ApiResponse` · Auth RequirePermission | parent `*Json` · fake GPS |
-| Files | `files/init`→`object`→`commit` · guid only | full URL persist |
-| Catalog | `integration/road-routes/search` SearchInput | free-text khi có hit |
-| Note | opaque `key=value` join `; ` (SA § Note-encode) | JSON object trong Note |
+| UI | common-components + mobile kit · `useFormOptions()` · LeaveConfirmModal | clone Lin* · hardcode VN |
+| HTTP | `mobileApiBase()` · prefix mobile-bff | web-bff · invent axios · ERP.* |
+| BE | Patrol Live · `GET patrol/actors` (scope) · Integration users (kết ca) · ApiResponse | parent `*Json` · fake GPS · ERP `UserSearchInput` |
+| Note | SA opaque `key=value` join `; ` | JSON object trong Note |
+| Route catalog | `integration/road-routes/search` | ROAD_ROUTE_SEED / filterSeed |
 
-## implement.wire
+## implement.wire (edit)
 
 | From | To | Note |
 |------|----|------|
-| UI forms | `POST/GET mobile-bff/api/v1/patrol/sessions*` | Live path · API owns |
-| Check-in | `POST …/sessions/{id}/check-ins` | GPS HARD deny→block |
-| Plan points | `GET …/sessions/{id}/plan-points` | empty OK · no auto MatchOk |
-| Route | `GET …/integration/road-routes/search` | SearchInput |
-| Profile | `GET …/auth/profile` | userName RO |
-| Media | files/* | MediaIds / PhotoLocalIds guid[] |
+| Check-in Lưu | `POST …/sessions/{id}/check-ins` | Pattern B · GPS on-click |
+| Route | `GET …/integration/road-routes/search` | no seed |
+| Users | `GET …/integration/users` via Mobile.Bff | resolve-only A |
+| All FE HTTP | `mobileApiBase()` | cấm web-bff |
 
-## implement.state
+## implement.state (edit)
 
-- Route shell phone **430** · react-router under `/web-rmms-mobile-a`
-- Session active: nếu đã `Đang tuần` cùng user+tuyến+loại → **navigate TD-01** · **cấm** POST thứ hai
-- Note encode TD-02 / TK-01 per SA · parse token trim
-- Dirty → `LeaveConfirmModal` / `useFormLeaveGuard` · **cấm** `window.confirm`/`alert`
-- Labels: `useFormOptions()` keys only
+- TD-03: `submitCheckIn` disabled **chỉ** khi `saving` · GPS deny không pre-disable · banner on Lưu click
+- Route miss / user miss → display `--`
+- Không còn import/const `ROAD_ROUTE_SEED` / `filterSeed` / QL.22 seed
+- Grep FE: không gọi web-bff host từ surface A
 
 ## implement.init_data
 
 | Field | Source | Cấm |
 |-------|--------|-----|
-| direction · inspectMode | LOOKUP_STATIC `useFormOptions()` | invent `patrol/init-data` wave A · KIND_LABEL FE |
-| route | road-routes/search | hardcode options |
+| direction · inspectMode | LOOKUP_STATIC `useFormOptions()` | invent init-data |
+| route | road-routes/search | seed arrays |
+| userName | integration/users resolve | fake name · picker A |
 
-## Field → control (T-UI-LKP / FIELD)
+## Field → control (delta-relevant)
 
-| uiField | controlHint | catalogKind / source | write |
-|---------|-------------|----------------------|-------|
-| route | SearchInput | road-route · search API | Route / RouteCode |
-| direction | Dropdown | useFormOptions `chieu-*` | Note `chieu=` |
-| userName | Text RO | auth/profile | UserName |
-| plannedDate | Date | — | PlannedDate |
-| kmFrom/kmTo | Number | — | Note kmFrom/kmTo |
-| inspectMode | Dropdown | useFormOptions dinh-ky/dot-xuat | Note `mode=` |
-| inspectReason | Text | if dot-xuat | Note `reason=` |
-| planPointLabel | Text | plan-points GET | PlanPointLabel (empty OK) |
-| lat/lng/accuracyM | GPS | geolocation | Lat/Lng/AccuracyM |
-| content | Text | — | Content |
-| photoLocalIds | FileMulti | files/* | guid[] |
-| historyCards | List cards | GET sessions | — |
+| uiField | controlHint | source | write / behavior |
+|---------|-------------|--------|------------------|
+| route | SearchInput | road-routes/search | no seed · miss `--` |
+| userName | Text RO+resolve | integration/users | miss `--` |
+| lat/lng/accuracyM | GPS | geolocation | Pattern B on-click banner |
+| submitCheckIn | Button | — | disable only saving |
+| direction · km* · mode · reason | Dropdown/Number/Text | Note encode SA | `chieu=`…`; ` |
 
 ---
 
-## Tasks
+## Tasks — prior wave A (reference · **done**)
 
-### T-BE-CRUD-01 — Patrol sessions + check-ins (Live)
-- **role:** Dev · **deps:** none · **status:** pending
-- **DoD:** Wire Live `GET/POST sessions` · `GET/{id}` · `POST/GET check-ins` · `GET plan-points` · **migration none** wave A · ApiResponse · **cấm ERP.*** · Note opaque encode · duplicate open → 409/navigate rule
-- **skills:** `/agent-dev` · SA solution · DOMAIN-MAP Patrol
+| id | status | notes |
+|----|--------|-------|
+| T-BE-CRUD-01 · T-BE-INIT-01 · T-PERM-01 | **done** | Live · LOOKUP_STATIC |
+| T-UI-HUB-01 · T-UI-FORM-01 · T-UI-ACT-01 · T-UI-LEAVE-01 | **done** | prior |
+| T-UI-LKP-01 · T-UI-FIELD-01 · T-UI-PROD-01 · T-UI-UX-01 · T-UI-RESP-01 · T-UI-HIST-01 | **done** | prior · LKP **edit** by T-UI-LKP-EDIT-01 |
+| T-QA-CRUD-01 · T-QA-FORM-01 · T-REV-01 | **done** | prior accept |
+| Kind B / FILTER / CFG / UISCHEMA / QA-FILTER | **WAIVE** | phone hub |
 
-### T-BE-INIT-01 — LOOKUP_STATIC options
-- **role:** Dev · **deps:** none · **status:** pending
-- **DoD:** direction + inspectMode từ `useFormOptions()` · **cấm** hardcode KIND_LABEL · **cấm** invent init-data endpoint wave A
-- **skills:** `tl-dropdown-from-backend` (LOOKUP_STATIC path)
+---
 
-### T-PERM-01 — Permission codes
-- **role:** Dev · **deps:** T-BE-CRUD-01 · **status:** pending
-- **DoD:** Keep peer Patrol session/check-in permission codes · RequirePermission trên API · UI hide/disable theo code
-- **skills:** `/agent-dev`
+## Tasks — edit delta (mint · **pending** Dev/QA)
 
-### T-UI-HUB-01 — Phone hubs + detail + history cards
-- **role:** Dev · **deps:** T-BE-CRUD-01 · **devSlash:** `/agent-dev`
+### T-UI-PATTERN-B-01 — CheckInSheet Pattern B (TD-03)
+- **role:** Dev · **deps:** T-UI-FORM-01 (done) · **devSlash:** `/agent-dev`
 - **status:** pending
-- **DoD:** TD-00 · TK-00 · TD-01 · TD-07 · phone 430 · list cards (not Kind B grid) · active filter `status=Đang tuần` · history page/route query · PatrolType client filter · empty/loading/error · UTF-8 VN · **cấm** DES-GRID / pager clone / LinErpListFilterBar
-- **skills:** `/agent-dev` · `/dev-web-responsive` · `dev-ui-ux-constitution` · prototype reviewUrl
-- **ssot.reuse:** common-components mobile kit
-- **implement.wire:** GET sessions · GET/{id} · GET check-ins
-- **implement.state:** route children under `/web-rmms-mobile-a`
+- **DoD:** TD-03 `submitCheckIn` **always enabled** trừ `saving` · GPS permission deny → **banner on Lưu click** (không pre-disable) · **cấm** `disabled={!gpsOk}` · **cấm** fake lat/lng khi deny · khớp prototype Pattern B · zones TD-03
+- **skills:** `/agent-dev` · design compact · SA Pattern B
+- **ssot.reuse:** LeaveConfirmModal giữ · common GPS helper nếu có
+- **implement.wire:** POST check-ins chỉ khi GPS ok sau click
+- **implement.state:** click Lưu + deny → banner · không POST
 
-### T-UI-FORM-01 — Open session + check-in sheet
-- **role:** Dev · **deps:** T-BE-CRUD-01 · T-BE-INIT-01 · **devSlash:** `/agent-dev`
+### T-UI-LKP-EDIT-01 — Route SearchInput no-seed
+- **role:** Dev · **deps:** T-UI-LKP-01 (done) · **devSlash:** `/agent-dev`
 - **status:** pending
-- **DoD:** TD-02 Create · TK-01 Create · TD-03 Sheet · field map 1:1 control-hint · Note-encode SA · GPS deny **blocks** TD-03 save · plan-points empty OK · photos guid · View RO chips trên TD-01 · **cấm** footer Lưu pattern desktop 5-col (phone Full stack per prototype) · `dev-form-review-checklist` adapted mobile
-- **skills:** `/agent-dev` · `/implement-show-leave-confirm` · form review checklist
-- **implement.wire:** POST sessions · POST check-ins · files/* · road-routes · profile
-- **implement.init_data:** useFormOptions LOOKUP_STATIC
-
-### T-UI-ACT-01 — Action inventory work
-- **role:** Dev · **deps:** T-UI-HUB-01 · T-UI-FORM-01 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** mọi nút hub/form (Mở ca · Check-in · Lịch sử · Lưu · Hủy · quay lại) → handler + FormMode/API · **cấm** dead button (**GAP-P2-ACT-***)
-- **skills:** `/agent-dev`
-
-### T-UI-LEAVE-01 — Dirty leave Modal
-- **role:** Dev · **deps:** T-UI-FORM-01 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** DES-LEAVE · `LeaveConfirmModal` · **cấm** `window.confirm`/`alert`/`prompt` · **/implement-show-leave-confirm**
-- **skills:** `/implement-show-leave-confirm`
-
-### T-UI-LKP-01 — Lookup SearchInput
-- **role:** Dev · **deps:** T-UI-FORM-01 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** route = SearchInput road-route · **cấm** native select / Text free khi có hit · (**GAP-LIST-LKP-01**)
+- **DoD:** xóa `ROAD_ROUTE_SEED` / `filterSeed` / QL.22 seed · SearchInput → `GET road-routes/search` · miss label `--` · (**GAP-LIST-LKP-01** edit)
 - **skills:** list-form-quality-gates §1
+- **implement.wire:** integration/road-routes/search via mobileApiBase
+- **implement.state:** không còn seed const trong MFE surface A
 
-### T-UI-FIELD-01 — Field type + DTO map
-- **role:** Dev · **deps:** T-UI-FORM-01 · **devSlash:** `/agent-dev`
+### T-UI-USER-01 — Users resolve-only (Bff forward)
+- **role:** Dev · **deps:** T-UI-FORM-01 (done) · **devSlash:** `/agent-dev`
 - **status:** pending
-- **DoD:** bảng field→control→DTO/API khớp SA · Date UTC · Number km · GPS · FileMulti guid · (**GAP-LIST-FIELD-01**)
-- **skills:** list-form-quality-gates §2
+- **DoD:** `userName` Text RO + resolve `GET integration/users` · Mobile.Bff **forward only** (không new API) · miss → `--` · **cấm** userSearch picker wave A · **cấm** invent display name
+- **skills:** `/agent-dev` · SA users
+- **implement.wire:** mobile-bff → integration/users
+- **implement.state:** id known → display · unknown → `--`
 
-### T-UI-PROD-01 — End-user chrome
-- **role:** Dev · **deps:** T-UI-HUB-01 · T-UI-FORM-01 · **devSlash:** `/agent-dev`
+### T-UI-TRANSPORT-01 — mobileApiBase hard
+- **role:** Dev · **deps:** none (parallel) · **devSlash:** `/agent-dev`
 - **status:** pending
-- **DoD:** **cấm** note Dev / GAP / SSOT / stub trên UI · title nghiệp vụ UTF-8 · (**GAP-DEV-DEMO-NOTE-01**)
-- **skills:** `demo-to-real-enduser`
+- **DoD:** mọi call surface A dùng `mobileApiBase()` / `VITE_MOBILE_API_URL` · **cấm** web-bff base · **cấm** ERP.* path · grep clean trên pages/services A
+- **skills:** `/agent-dev` · align-mobile-to-mfe
+- **implement.wire:** apiClient + mobileApiBase SSOT
+- **implement.state:** network host = mobile API URL only
 
-### T-UI-UX-01 — UI-Ux constitution (phone)
-- **role:** Dev · **deps:** T-UI-HUB-01 · T-UI-FORM-01 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** Principles 1–7 · spacing 4/8/12/16/24/32 · Lin* only · empty/loading/error · phone primary shell 430 · (**GAP-DEV-UX-01**)
-- **skills:** `dev-ui-ux-constitution`
-
-### T-UI-RESP-01 — Responsive web
-- **role:** Dev · **deps:** T-UI-UX-01 · **devSlash:** `/dev-web-responsive`
-- **status:** pending
-- **DoD:** verify **375** (primary) · 768 · 1280 · **không** shrink mù · `/dev-ui-review` · (**GAP-DEV-UX-RESP-***)
-- **skills:** `/dev-web-responsive` · `/dev-ui-review`
-
-### T-UI-HIST-01 — History + alert overlay
-- **role:** Dev · **deps:** T-UI-HUB-01 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** TD-07 history cards work · chặn/xóa/toast = Modal/`useAlert` · **cấm** native dialog · overlay stacked SSOT
-- **skills:** `dev-history-alert-overlay`
-
-### T-QA-CRUD-01 — Hub · open · check-in · history
-- **role:** QA · **deps:** all T-UI-* + T-BE-* · **status:** pending
-- **DoD:** scenarios TD-00→02→01→03→07 · TK-00→01 · duplicate open · GPS deny · plan-points empty · Leave Modal · **e2e chỉ** `/agent-qa*` (queued)
-- **skills:** `/agent-qa`
-
-### T-QA-FORM-01 — Form field ↔ body
-- **role:** QA · **deps:** T-QA-CRUD-01 · **status:** pending
-- **DoD:** từng field required · UI value = request body · Note tokens · MediaIds guid · (**GAP-QA-FORM-FIELD-01**)
+### T-QA-EDIT-01 — QA edit delta flows
+- **role:** QA · **deps:** T-UI-PATTERN-B-01 · T-UI-LKP-EDIT-01 · T-UI-USER-01 · T-UI-TRANSPORT-01 · **status:** pending
+- **DoD:** scenarios Pattern B GPS deny banner · no-seed route miss `--` · user miss `--` · transport mobile-only · Note tokens vẫn đúng · **e2e chỉ** `/agent-qa*` (queued) · **cấm** e2e ở Dev/TL
 - **skills:** `/agent-qa` · `form-field-e2e`
 
+### T-REV-EDIT-01 — Review edit delta
+- **role:** Review · **deps:** T-QA-EDIT-01 · **status:** pending
+- **DoD:** QUERY/SEC/UI/BE spot-check delta · Pattern B · no-seed · users · mobileApiBase · **cấm ERP.***
+- **skills:** `/agent-review`
+
 ---
 
-## Deps (order)
+## Deps (order) — edit
 
 ```
-T-BE-CRUD-01 ─┬─► T-PERM-01
-T-BE-INIT-01 ─┤
-              └─► T-UI-HUB-01 ─┬─► T-UI-ACT-01
-                  T-UI-FORM-01 ┘     T-UI-LEAVE-01
-                                     T-UI-LKP-01 · T-UI-FIELD-01
-                                     T-UI-PROD-01 · T-UI-UX-01 · T-UI-RESP-01
-                                     T-UI-HIST-01
-                              └─► T-QA-CRUD-01 · T-QA-FORM-01
+T-UI-TRANSPORT-01 ─┐
+T-UI-PATTERN-B-01 ─┼─► T-QA-EDIT-01 ─► T-REV-EDIT-01
+T-UI-LKP-EDIT-01  ─┤
+T-UI-USER-01      ─┘
 ```
 
-## WAIVE register (Kind B desktop)
+Parallel Dev OK trên 4 T-UI-* edit · QA sau khi 4 done.
+
+## WAIVE register (giữ)
 
 | id | status | cite |
 |----|--------|------|
-| T-UI-LIST-01 Kind B | WAIVE | SA FormType pack · DES-GRID N/A |
-| T-UI-FILTER-01 | WAIVE | PO/Design phone hub |
+| T-UI-LIST-01 Kind B | WAIVE | DES-GRID N/A |
+| T-UI-FILTER-01 | WAIVE | phone hub |
 | T-UI-CFG-01 | WAIVE | no catalog editor |
 | T-BE-UISCHEMA-01 | WAIVE | no ui-schema A |
 | T-QA-FILTER-01/02 | WAIVE | no filter-bar |
+
+## UI note — Chi tiết ca back
+
+`PatrolDetailPage` back đi đúng list đã mở ca (`/tuan-duong` hoặc `/tuan-duong/lich-su`), không `navigate(-1)`. Vùng bấm 56px, animation scale khi nhấn.
 
 ## Next
 

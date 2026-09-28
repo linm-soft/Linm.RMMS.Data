@@ -1,17 +1,18 @@
 # Review — Findings — web-rmms-asset-ai
 
-> Status: **done** · writtenAt `2026-09-25T16:25:00.000Z` · task `task_5065b058`  
+> Status: **done** · writtenAt `2026-09-27T17:30:00.000Z` · task `task_0a0af34d`  
 > skillVersion: `2026.09.05.03` · packKind: `list` · autoApprove: ON  
-> contentHash: `sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e` (unchanged · hash skip analy)  
-> review_confirm: **approve** · nextSlash: *(pipeline complete · e2e already QA)*
+> contentHash: `sha256:e223304b3658e8067766aed729e36988d54f1df8ad38ca953b2e176e63c9594c` (chain khớp · **hash skip** analy rescan)  
+> review_confirm: **approve** · nextSlash: *(pipeline complete · e2e QA already confirmed)*
 
 | | |
 |--|--|
 | Feature | `web-rmms-asset-ai` |
-| Title | Camera AI và HITL |
+| Title | Camera AI + HITL — Pattern B + SearchInput |
 | Role | `review` · `/agent-review` |
-| changeScope | `new_page` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-asset-ai` |
+| changeScope | `edit_page` |
+| mfeStdRoute | `/tai-san/ai` · HITL `/tai-san/ai/hitl/:id` · alias `/asset/ai` |
+| mfeStdUrl | `http://localhost:9301/m/tai-san/ai` |
 | Prior | data_analy→po→design→sa→team_lead→dev→qa **confirmed** |
 
 ## Verdict
@@ -22,30 +23,31 @@
 
 | Gate | Result | Evidence |
 |------|--------|----------|
-| **QUERY** | **PASS** | BFF paths Live only: `ai-vision/uploads|detect-assets|asset-candidates/**` · `integration/road-routes/search` · `patrol/sessions` · FormMode Detect→Draft→HITL Confirm\|Dismiss · **cấm** ERP.* / invent AssetAiController · DOMAIN-MAP row `web-rmms-asset-ai` → AiVision |
-| **SEC** | **PASS** | `hasAccessToken` gate Detect+HITL · GPS geolocation Acc≤30 · reject deny/poor · reject `mock://` imageUrl · **no** auto-confirm after detect · confirm/dismiss explicit HITL · pin local note-only (no silent GPS PUT) |
-| **UI-FN** | **PASS** | Route `/web-rmms-asset-ai` + HITL `/hitl/:id` · alias `/asset/ai` · zones AA-00…14 · `useFormOptions('web-rmms-asset-ai')` · DES-LEAVE `useFormLeaveGuard`+`LeaveConfirmModal` · score SHOW RO % · DES-GRID N/A phone · QA S0/S1/QA-20 Must 0 |
-| **BE-FN** | **PASS** (N/A new) | Step 4b skip · reuse Mobile.Bff AiVision Live · no migration / no new controller · T-BE N/A |
+| **QUERY** | **PASS** | Live BFF only: `ai-vision/uploads|detect-assets|asset-candidates/**` · `integration/road-routes/search` · `patrol/sessions` · FormMode Detect→Draft→HITL Confirm\|Dismiss · **cấm** ERP.* / invent AssetAiController · DOMAIN-MAP AiVision · Step 4b **N/A** |
+| **SEC** | **PASS** | `hasAccessToken` Detect+HITL · GPS Acc≤30 gate **on submit** (Pattern B) · reject deny/poor on submit · reject `mock://` imageUrl · **no** auto-confirm · confirm/dismiss explicit · pin local note-only |
+| **UI-FN** | **PASS** | Route `/tai-san/ai` · Pattern B `disabled={detecting}` only · `validationAttempted` banner photo+route+GPS · SearchInput `ROAD_ROUTE_LOOKUP_CONFIG` · no seed · miss=`--` · DES-LEAVE `LeaveConfirmModal` · score SHOW RO % · DES-GRID N/A phone · QA S0/S1/QA-20 Aligned · Must 0 |
+| **BE-FN** | **PASS** (N/A new) | Step 4b skip · reuse Mobile.Bff AiVision Live · no migration / no new controller · T-BE N/A · Dev verify build PASS |
 
 ## Findings detail
 
 ### QUERY
-- Endpoint SSOT khớp SA/dev/qa compact: init+PUT+complete · detect-assets · nearby · get/{id} · confirm · dismiss.
-- Detect nav HITL chỉ khi `created[0].id` Draft — không confirm ngầm.
-- Lookup soft-fail (empty routes/trips) không fake data.
+- Endpoint SSOT khớp SA/dev/qa compact: uploads init+PUT+complete · detect-assets · nearby · get/{id} · confirm · dismiss · road-routes/search · sessions.
+- Detect nav HITL chỉ khi Draft `created[0].id` — không confirm ngầm.
+- Lookup soft-fail (empty routes/trips) không fake seed.
 
 ### SEC
-- Không type-in GPS; Acc>30 → `poor` blocks `canDetect`.
-- Upload rejects invalid/mock URL trước detect.
-- Confirm requires `assetTypeCode` từ Draft; dismiss/confirm đi BFF có auth client.
+- Pattern B: GPS deny/poor **không** khóa CTA trước; Acc>30 / deny → banner+inline sau `validationAttempted`.
+- Upload rejects invalid/`mock://` trước detect.
+- Confirm/dismiss đi BFF có auth client · busy-only disable.
 
 ### UI-FN
-- Detect: photo* · RouteId* · trip opt · nearby warn · Cancel→Hub · Detect→HITL replace.
+- Detect: photo* · SearchInput route* · trip opt · nearby warn · Cancel→Hub · Detect always-on except detecting.
 - HITL: bind Draft · score % RO · pin drag local · confirm/dismiss → Hub.
 - Leave dirty: in-app modal (DES-LEAVE) — không `window.confirm`.
+- QA capture_aai S0/S1/QA-20 PASS · `searchInput=true` · Acc 12.
 
 ### BE-FN
-- Không diff API mới so với real-data §A+§B · DOMAIN-MAP cite OK.
+- Không diff API mới so với real-data §A+§B · DOMAIN-MAP cite OK · **cấm** ERP.*.
 
 ## Non-blocking debt (carry)
 
@@ -53,13 +55,14 @@
 |----|------|
 | DEBT-PIN | pin lat/lng local → note string only · no PUT candidate GPS (Dev/Design) |
 | DEBT-SCORE | score SHOW không gate CTA (Design SCORE-01) |
-| DEBT-QA-STOCK | stock yarn e2e-qa DUP soft · capture_aai PASS (QA) |
-| DEBT-LOOKUP | LOOKUP_HINT_KEYS / HITL smoke optional |
+| GAP-QA-E2E-STOCK-PORT | stock yarn e2e-qa expects `:5101` · Live `:5111` · capture_aai PASS |
+| GAP-HITL-SMOKE | HITL/confirm/dismiss WAIVE smoke (needs Draft id) |
 
 ## Hash / scope
 
 - `contentHash` khớp chain compact priors → **hash skip** re-scan control-hint/real-data.
-- changeScope=`new_page` · packKind=`list` · demo N/A.
+- Prior review (`task_5065b058` · `new_page` · hash `6f74282b…`) **superseded** by this `edit_page` delta review.
+- changeScope=`edit_page` · packKind=`list` · demo N/A.
 - **Cấm** e2e/build ở role này (VERIFY roleOnly=review).
 
 ## review_confirm

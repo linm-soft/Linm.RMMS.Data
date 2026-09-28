@@ -1,13 +1,14 @@
 # Feature context — web-rmms-nghiem-thu
 
 > **Slug:** `web-rmms-nghiem-thu` · **Wave:** W3 Field — Nghiệm thu (list / tạo / chi tiết)  
-> **Status:** draft → data_analy · **packKind:** `list` · **changeScope:** `new_page`  
+> **Status:** data_analy PASS · **packKind:** `list` · **changeScope:** `edit_page` (prior `new_page` shipped)  
+> **Delta:** cite `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` — Pattern B submit · SearchInput users/routes · capture · BFF users forward  
 > **Demo:** N/A (master · **cấm** demo HTML / mock SSOT · cite native `#sc-nghiem-thu*` only)  
 > **MFE:** `Linm.Web.RMMS.Mobile` · khung phone `max-width` 430px · **cấm** nhét vào MFE desktop Field  
 > **BE:** `Linm.RMMS.WebService` + Mobile.Bff `:5202` · DOMAIN-MAP **Patrol** · resource `nghiem-thu` · **cấm ERP.*** / Domains/Master  
-> **mfeStdRoute:** `/web-rmms-nghiem-thu` · **mfeStdUrl:** `http://localhost:9301/web-rmms-nghiem-thu`  
+> **mfeStdRoute:** `/nghiem-thu/moi` · **mfeStdUrl:** `http://localhost:9301/nghiem-thu/moi`  
 > **Native routes (SCREENS):** `/field/nghiem-thu` · `/field/nghiem-thu/new` · `/field/nghiem-thu/:id`  
-> **Queue:** `/agent-qldb-workflow` · alias `web-rmms-nghiem-thu` · **cấm** sửa iOS/Android · **≠** gộp tuần đường / tuần kiểm / maintenance
+> **Queue:** `/agent-qldb-workflow` · alias `web-rmms-nghiem-thu` · task `task_f5d994e7` · **cấm** sửa iOS/Android · **≠** gộp tuần đường / tuần kiểm / maintenance
 
 ## 1. Mục tiêu
 
@@ -78,16 +79,16 @@ Ba màn **Nghiệm thu** 1-1 Android `NghiemThuScreen` / `NghiemThuCreateScreen`
 | NT-01…10 staff | Cán bộ nghiệm thu sau login |
 | Guest | Redirect login (shell) |
 
-## 7. DoD (data_analy → PO)
+## 7. DoD (data_analy → PO) — edit_page
 
-- control-hint + real-data PASS · packKind=list · changeScope=new_page  
-- 3 màn NT + API reuse + MAU-10 + GPS deny rule documented  
-- DOMAIN-MAP gap `web-rmms-nghiem-thu` flagged for SA  
-- compact handoff ≤5KB
+- control-hint + real-data PASS · packKind=list · changeScope=edit_page  
+- § Delta Current vs New cite SUBMIT-VALIDATE · keep prior PO/Design artifacts  
+- Pattern B + SearchInput users/routes + capture + BFF users forward documented  
+- mfeStdUrl real `/nghiem-thu/moi` · compact handoff ≤5KB
 
 ## Implement tracking
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `done` | `done` | `2026-09-25T15:47:01.620Z` |
+| web | `done` | `done` | `2026-09-27T15:39:46.512Z` |
 | mobile | — | — | — |

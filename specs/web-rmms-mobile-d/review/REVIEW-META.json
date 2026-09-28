@@ -2,13 +2,17 @@
   "feature": "web-rmms-mobile-d",
   "status": "done",
   "role": "review",
-  "taskId": "task_5d79fa40",
+  "taskId": "task_5b73d1c3",
   "review_confirm": "done",
   "verdict": "PASS",
   "must": 0,
-  "contentHash": "sha256:7ea5a5b9a00060f5de09af3b8e3688b39fd566383859a8e73748b9d3885ea034",
+  "contentHash": "sha256:5f81d29ed889b244e81f537e7e3f8e8d4033a5f3a2e8b37e000d83ad97784488",
   "skillVersion": "2026.09.05.03",
+  "workflowVersion": "2026.09.19.02",
+  "rulesVersion": "2026.09.25.2",
   "schemaVersion": "1",
-  "writtenAt": "2026-09-25T10:20:00.000Z",
-  "autoApprove": true
+  "writtenAt": "2026-09-27T09:10:00.000Z",
+  "autoApprove": true,
+  "mfeStdRoute": "/kien-nghi/moi",
+  "mfeStdUrl": "http://localhost:9301/kien-nghi/moi"
 }

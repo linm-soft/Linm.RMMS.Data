@@ -6,50 +6,48 @@ packKind: list
 role: qa
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T00:16:05.005Z
-taskId: task_55b04a6b
-contentHash: sha256:2282c3b64ab8701681f5edbc548b5cf1a2221159d9ffb779dfe03d186010f7a4
+writtenAt: 2026-09-27T13:25:00.000Z
+taskId: task_5f941186
+contentHash: sha256:525b8f61bbe397050bb1049e38683d6c333c7283165859967e927c1dc285b9ba
+changeScope: edit_page
 autoApprove: ON
 e2eQa: ON · runtime PASS
-changeScope: new_page
+phase: review (cấm phase=done)
 
 ## Decisions
-- formPattern: Mobile sheet `#sheet-pgc` DES-MOB-PGC · phone 430 · N/A Modal · DES-GRID N/A
-- Grid/DES-GRID/LinErpListFilterBar: N/A · T-QA-FILTER WAIVE
-- mfe: Linm.Web.RMMS.Mobile · mfeStdRoute=/web-rmms-photo-geo · :9301 reuse
-- be: Mobile.Bff :5202 · API :5111 · cấm ERP.* · DEC-PGC-BE-01 sidecar · T-BE=N/A
-- e2e: S0 guest · S1 #sheet-pgc Live · QA-20 SH-02 · PNG screens/*.png
-- stock yarn e2e-qa: FAIL soft port 5101/5201 → `_capture_pgc.mjs`
-- Live S1: session QL.1-LANGSON · Acc±12 · TITLE · zones capture/shutter/meta/use
-- modes PASS: ?deny=1 · ?compass=1 · ?step=map · ?fail=1
-- next: /agent-review · roleOnly stop (GAP-PKT-ROLE-01)
-- **cấm** phase=done
+- changeScope: edit_page · Pattern B CTA verified · Keep File+HITL+DEC-PGC-BE-01
+- Route SSOT: `/anh-vi-tri` · runtime `/m/anh-vi-tri` · **cấm** `/web-rmms-photo-geo`
+- Pattern B: S1 shutter/use **enabled** · S1-PATTERN-B `#validation-banner` + DES-MOB-PGC-VALIDATION
+- Login SSOT: Home `/` → `/m/trang-chu` · LG-00 `#f-user`/`#f-pass`/`#btn-login` (cấm old SH-02 ids)
+- E2E: docker `:5111/:5201/:5202` · start:std `:9301` reuse · **cấm** kill worker
+- stock yarn e2e-qa soft-FAIL (no login) · authoritative `_capture_pgc.mjs` corePass=true
+- P0: none · next `/agent-review*` · roleOnly stop (GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
 | id | controlHint | notes |
 |----|-------------|-------|
-| guestGate | Static/Button | S0 PASS |
-| sheet-pgc | Sheet | S1 PASS · DES-MOB-PGC |
-| capturePreview/btnShutter | CameraStill/Button | S1 · shutterDisabled headless soft |
-| rowPhotog/Distance/Object | ListRow RO | Live Acc±12 |
-| mapConfirm | MapHitl | MODE-step-map PASS |
-| btnUse | Button | useDisabled until still |
-| gpsLock/modal-gps | GPS | MODE-deny PASS |
+| btnShutter | Button | Pattern B · shutterDisabled=false |
+| btnUse | Button | useDisabled=false · click→banner |
+| validationBanner | Banner[] | #validation-banner PASS |
+| gpsLock | GPS | deny on-click soft |
+| files* | File | keep |
 
-## Screens / zones (ids only)
-- PGC · #sheet-pgc · DES-MOB-PGC · DES-MOB-GPS-DENY · MAP-HITL · SH-02
-- mfeStdUrl= http://localhost:9301/web-rmms-photo-geo
-- screens= specs/web-rmms-photo-geo/qa/screens/{S0,S1,QA-20}.png
+## Screens / zones
+- mfeStdRoute=/anh-vi-tri · mfeStdUrl=http://localhost:9301/anh-vi-tri
+- PNG: S0/S1/QA-20/S1-PATTERN-B + MODE-*
+- zones: #sheet-pgc · #capture-preview · #gim-pin · #map-confirm · #btn-shutter · #btn-use · #validation-banner · LG-00
+- DES-GRID: N/A · WAIVE filter
 
-## API / tasks (ids only)
-- Live: GET patrol/sessions · guest no Live sheet
-- T-QA-CRUD-01 · T-QA-PGC-01/GPS/HITL/COMPASS = PASS · T-QA-FILTER = WAIVE
-- entity/migration: none · Step4b N/A
+## API / tasks
+- APIs: files/* · opt detect · opt patrol/sessions · Mobile.Bff only
+- T-QA-* PASS/WAIVE · T-BE=N/A
+- stock port soft · capture PASS
 
-## Debt
-- stock e2e port gate · WDS deep-link fulfill · playwright junction · cam headless shutter
-- UNCLEAR: none
+## UNCLEAR
+- none
 
 ## Full paths
 - scenarios: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-photo-geo/qa/scenarios.md
+- screens: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-photo-geo/qa/screens/
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-photo-geo/STATUS.md
+- next: review

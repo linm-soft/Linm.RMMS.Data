@@ -6,86 +6,85 @@
 | role | `dev` · `/agent-dev` |
 | status | `done` |
 | packKind | `list` (phone Field hub · Kind B **WAIVE**) |
-| changeScope | `new_page` |
+| changeScope | `edit_page` · **editTask=1** |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
 | mfeStdRoute | `/web-rmms-mobile-a` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-mobile-a` (STATUS) · standalone port **9305** (`yarn start:std`) |
-| be | `D:/AI-QLBD/Linm.RMMS.WebService` · Patrol · **cấm ERP.*** |
-| BFF | `mobile-bff/api/v1/patrol/**` (peer path · Live API owns) |
-| contentHash | `sha256:c5b21efdd411635233b56b13ee0b1a318c182c0a488f10d8290481a3dbbd3c2e` |
+| mfeStdUrl | `http://localhost:9301/web-rmms-mobile-a` |
+| be | `D:/AI-QLBD/Linm.RMMS.WebService` · Patrol+Integration+Auth+Files · **cấm ERP.*** |
+| BFF | Mobile.Bff `mobile-bff/api/v1/patrol/**` + `integration/road-routes` + `integration/users` (forward only) |
+| contentHash | `sha256:110e845481b0f27091c0f5ca856fef74524bc1634ab8e3785a5d7755730eea45` |
 | skillVersion | `2026.09.05.03` |
+| rulesVersion | `2026.09.27.1` |
 | schemaVersion | `1` |
-| updatedAt | `2026-09-25T07:20:00.000Z` |
-| taskId | `task_d94ac8ac` |
-| demo | **N/A** · wave A Live-only |
+| updatedAt | `2026-09-27T14:34:00.000Z` |
+| taskId | `task_668b6ad0` |
+| demo | **N/A** |
 | e2eQa | queued `/agent-qa*` — **cấm** e2e ở Dev |
+| deltaCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` |
 
 ## Build
 
 | Gate | Result |
 |------|--------|
-| MFE `yarn build` | **PASS** (0 module/TS warning · size-limit WARN only pre-exist common-components) |
-| MFE `yarn typecheck` | **PASS** |
-| BE `dotnet build` RMMS.Service.Api | **PASS** (0 error) |
-| migration | **none** wave A |
-| UTF-8 mojibake `src/` | **0** |
+| MFE `yarn build` | **PASS** (webpack size WARN only) |
+| BE `dotnet build` `Linm.RMMS.WebService.sln` Release | **PASS** (0 error) |
+| Mobile.Bff `dotnet build` Release | **PASS** (0 error) · users forward **already Live** |
+| migration | **none** |
+| ERP.* | **0** |
 
-## Screens wired
+## Edit delta — DoD
 
-| id | Route | Notes |
-|----|-------|-------|
-| TD-00 | `/web-rmms-mobile-a` | Field hub doors |
-| TD-01 | `/web-rmms-mobile-a/tuan-duong` · `…/:sessionId` | empty / active cards |
-| TD-02 | `…/tuan-duong/mo-ca` | Full Create · LeaveConfirm · Note `chieu=` |
-| TD-03 | `…/:sessionId/check-in` | Sheet · GPS HARD · FileMulti guid |
-| TD-07 | `…/tuan-duong/lich-su` | history cards + CI expand |
-| TK-00 | `…/tuan-kiem` | inspect hub |
-| TK-01 | `…/tuan-kiem/mo-dot` | Full Create · Note km/mode/reason |
-| DES-LEAVE | forms | `useFormLeaveGuard` / `useLeaveConfirm` · **0** `window.confirm` |
+| id | status | Evidence |
+|----|--------|----------|
+| T-UI-PATTERN-B-01 | **done** | `CheckInSheet.tsx` — `disabled={saving}` only · GPS deny → banner on Lưu click · no fake lat/lng · no `disabled={!gps}` |
+| T-UI-LKP-EDIT-01 | **done** | `lookups.ts` — live `road-routes/search` · miss `--` · **0** `ROAD_ROUTE_SEED` / `filterSeed` / QL.22 |
+| T-UI-USER-01 | **edit** | `GET patrol/actors` · OpenPatrol/OpenInspect SearchInput · scope `IPatrolDataScope` · default caller · `assigneeCode` = mã emp |
+| T-UI-TRANSPORT-01 | **done** | `bindMobileApiClient()` in `lookups.ts` + patrol endpoint · **0** web-bff client on surface A |
+| T-QA-EDIT-01 | pending | queued `/agent-qa*` |
+| T-REV-EDIT-01 | pending | after QA |
 
-## APIs
+## Screens / files touched
 
-| Method | Path | FE |
-|--------|------|----|
-| GET | `/patrol/sessions` | hub · history |
-| GET | `/patrol/sessions/{id}` | detail |
-| POST | `/patrol/sessions` | open · **409** duplicate |
-| GET | `/patrol/sessions/{id}/plan-points` | empty OK |
-| POST | `/patrol/sessions/{id}/check-ins` | GPS required · PlanPointLabel empty OK · MatchOk not forced |
-| GET | `/patrol/sessions/{id}/check-ins` | history expand |
-| GET | `/integration/road-routes/search` | SearchInput |
-| GET | `/auth/profile` | `authService.getCurrentUser` |
-| files/* | LinImageUpload default client | guid → PhotoLocalIds |
+| Zone | File | Change |
+|------|------|--------|
+| TD-03 | `WebRmmsMobileA/CheckInSheet.tsx` | Pattern B Lưu/GPS |
+| TD-02 | `WebRmmsMobileA/OpenPatrolPage.tsx` | SearchInput người · default caller · route miss `--` |
+| TK-01 | `WebRmmsMobileA/OpenInspectPage.tsx` | SearchInput người · default caller · route miss `--` |
+| shared | `services/patrol/lookups.ts` | `PATROL_ACTOR_LOOKUP_CONFIG` · `loadDefaultPatrolActor` |
+| BE | `PatrolActorsController` · `PatrolDataScope.ListAssignableAsync` | `GET api/v1/patrol/actors` · Mobile.Bff proxy sẵn |
+| hub (prior WIP) | `PatrolHubPage` / `sessionView` / `lookupStatic` | idle eyebrow · live-active status fix |
 
-## Tasks DoD
+## APIs (reuse Live)
 
-| id | status |
-|----|--------|
-| T-BE-CRUD-01 | **done** · Live + 409 + plan-point empty |
-| T-BE-INIT-01 | **done** · LOOKUP_STATIC module (+ useFormOptions mount) · **cấm** invent patrol/init-data |
-| T-PERM-01 | **done** · peer codes KEEP · RequirePermission TODO CommonLib (peer pattern) |
-| T-UI-HUB-01 | **done** |
-| T-UI-FORM-01 | **done** |
-| T-UI-ACT-01 | **done** |
-| T-UI-LEAVE-01 | **done** |
-| T-UI-LKP-01 | **done** |
-| T-UI-FIELD-01 | **done** |
-| T-UI-PROD-01 | **done** · end-user VN chrome |
-| T-UI-UX-01 | **done** · phone 430 · Lin* |
-| T-UI-RESP-01 | **done** · CSS D/T/M phone shell (e2e review queued QA) |
-| T-UI-HIST-01 | **done** · cards + useAlert · **0** native dialog |
-| T-UI-LIST/FILTER/CFG · T-BE-UISCHEMA | **WAIVE** |
+| Method | Path | Note |
+|--------|------|------|
+| POST | `/patrol/sessions/{id}/check-ins` | Pattern B · GPS after click |
+| GET | `/integration/road-routes/search` | no seed |
+| GET | `/patrol/actors` | user/emp theo quyền tuần · `isCaller` = default |
+| GET | `/integration/users` | Kết ca người nhận · không dùng cho mở ca |
+| GET/POST | `/patrol/sessions*` | wave A keep |
+
+## BE Step 4b
+
+- WebService: `GET api/v1/patrol/actors` — no entity / migration. Scope tái dùng `IPatrolDataScope`.
+- Mobile.Bff: catch-all proxy `patrol/**` — không controller mới.
+- DOMAIN-MAP: `web-rmms-mobile-a` → Patrol (cite Integration users via Mobile.Bff).
 
 ## Debt
 
-- RequirePermission attribute still TODO until CommonLib ≥1.4.0 (peer controllers same).
-- LOOKUP_STATIC direction/mode labels in FE module until shared form-options gains keys (wave A · no patrol/init-data).
-- Mobile BFF proxy assumed peer with web-bff; no BFF code change this run.
+- T-QA-EDIT-01 / T-REV-EDIT-01 queued — **cấm** e2e ở Dev.
+- Kind B / FILTER / CFG / UISCHEMA **WAIVE** giữ.
 
-## Notes
+## Notes — edit-web-feature người theo quyền
 
-- 2026-09-25: TD-03 sheet GPS dùng `gpsPinCopy` — «Ghim vị trí hiện tại» · OK `[lat, lng]`. **Cấm** «Thử lại GPS». Form full: header rồi Hủy/Lưu onTop.
+TD-02 và TK-01 đổi ô Người từ text readonly sang `SearchInput`. Nguồn `GET api/v1/patrol/actors` (Mobile.Bff proxy `patrol/**`). Danh sách = `IPatrolDataScope` (admin / trưởng VP / tổ trưởng trùng km / chính mình). Dòng `isCaller` được chọn sẵn. `userName` gửi username, `assigneeCode` gửi mã nhân viên. Không migration.
 
-## QA verdict
+Hub ca và chi tiết ca hiện **họ tên danh mục** từ chính response ca: `userDisplayName` trên `GET patrol/sessions` và `GET patrol/sessions/{id}`. BE đối chiếu đúng username của record, không tải cả danh mục và không gọi thêm theo card. Đang tải: skeleton. Không hiện «Mở ca» / «Chưa có ca» / «Đang tải…» trước khi danh sách về.
 
-- **PASS** · `task_3dc99433` · e2e S0/S1/QA-20 · PNG `qa/screens` · visual Aligned · port **9301** aligned · next `/agent-review*`
+## Notes — Chi tiết ca back
+
+`btn-pat-detail-back` không dùng `navigate(-1)`: shell MemoryRouter chỉ `replace`, nên back không đổi URL. Mở từ Hôm nay ghi `rmms.patrol.detailFrom=/tuan-duong`, từ Lịch sử ghi `/tuan-duong/lich-su`. Back gọi `navigate` đúng path đó (thiếu key → Lịch sử). Nút leading **56×56**, `:active` scale 0.86 + nền trắng mờ.
+
+## Next
+
+`/agent-qa*` · roleOnly stop (**GAP-PKT-ROLE-01**)

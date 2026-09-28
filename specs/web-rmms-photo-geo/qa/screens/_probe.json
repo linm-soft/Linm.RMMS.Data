@@ -1,0 +1,67 @@
+{
+  "/web-rmms-home": {
+    "href": "http://localhost:9301/m/web-rmms-home",
+    "text": "404 Trang không tìm thấy Trang /web-rmms-home không tồn tại hoặc đã bị di chuyển. Về trang chủ Quay lại",
+    "guestLogin": false,
+    "PGC": false,
+    "sheet": false,
+    "features": [],
+    "ids": [
+      "root"
+    ]
+  },
+  "/anh-vi-tri": {
+    "href": "http://localhost:9301/m/anh-vi-tri",
+    "text": "Đăng nhập để dùng chụp ảnh kèm tọa độ. Đăng nhập Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+    "guestLogin": false,
+    "PGC": true,
+    "sheet": false,
+    "features": [
+      "",
+      "web-rmms-photo-geo"
+    ],
+    "ids": [
+      "root",
+      "PGC",
+      "tabBar",
+      "tabHome",
+      "tabField",
+      "tabIncident",
+      "tabWork",
+      "tabMe"
+    ]
+  },
+  "/": {
+    "href": "http://localhost:9301/m/trang-chu",
+    "text": "— Tốt Khách Đăng nhập Dành cho cán bộ Điểm tuần Ghim định vị · lý trình Ghi sự cố Chọn tài sản · mẫu sự cố NGHIỆP VỤ THƯỜNG DÙNG Giám sát Tuần đường Công việc Vấn đề Tài sản Lưu trữ Công tác nghiệm thu HỒ SƠ TÀI SẢN — Xem và quản lý tài sản Phiên bản v1.0.0 · RMMS hiện trường Cục Đường bộ VN Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+    "guestLogin": true,
+    "PGC": false,
+    "sheet": false,
+    "features": [
+      "trang-chu",
+      "web-rmms-home"
+    ],
+    "ids": [
+      "root",
+      "notifyBadge",
+      "profileName",
+      "guestLogin",
+      "qaPatrolPoint",
+      "qaIncidentNew",
+      "gridSupervise",
+      "gridPatrolMap",
+      "gridWork",
+      "gridIncident",
+      "gridAsset",
+      "gridOffline",
+      "gridNghiemThu",
+      "walletAsset",
+      "tabBar",
+      "tabHome",
+      "tabField",
+      "tabIncident",
+      "tabWork",
+      "tabMe"
+    ]
+  }
+}

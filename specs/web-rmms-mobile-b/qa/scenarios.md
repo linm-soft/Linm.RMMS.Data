@@ -4,77 +4,83 @@
 |-------|-------|
 | feature | `web-rmms-mobile-b` |
 | this role | `qa` · `/agent-qa` |
-| status | `done` |
-| changeScope | `edit_page` |
+| status | **failed** |
+| changeScope | `edit_page` · editTask=1 · § Delta Pattern B / capture / BFF / align |
 | packKind | `list` (phone journal · Kind B **WAIVE**) |
-| mfeStdUrl | `http://localhost:9301/web-rmms-mobile-b` |
-| mfeStdRoute | `/web-rmms-mobile-b` |
-| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · Mobile.Bff `:5202` · API host `:5111` |
-| taskId | `task_14f1785a` |
-| prior Dev | implement **confirmed** · handoff `handoff/dev-compact.md` |
+| mfeStdUrl | `http://localhost:9301/web-rmms-mobile-b` → **404** |
+| liveUrl | `http://localhost:9301/nhat-ky` (code `paths.BASE`) |
+| mfeStdRoute STATUS | `/web-rmms-mobile-b` · code route `/nhat-ky` |
+| backend | `D:/AI-QLBD/Linm.RMMS.WebService` · API `:5111` · Mobile.Bff `:5202` |
+| taskId | `task_8be1a3ec` |
+| prior Dev | implement **confirmed** · `handoff/dev-compact.md` |
 | autoApprove | ON |
 | e2eQa | ON · runtime |
-| method | `e2e runtime · yarn start:std :9301 + docker + playwright` · cases `S0,S1,QA-20` · MFE `/login` JWT · viewport **430** · geolocation mock |
-| updatedAt | `2026-09-25T08:30:00.000Z` |
+| method | `e2e runtime · start:std :9301 + docker compose + yarn e2e-qa` · stock DUP S0=S1 → `_capture_b.mjs` (MFE `/login` · phone **430** · geo mock) |
+| updatedAt | `2026-09-27T07:50:00.000Z` |
 | skillVersion | `2026.09.05.03` |
-| contentHash | `sha256:58be487c963674c63e2436a6277905c70eb483f673a867c595bbd1babca3e773` |
+| contentHash | `sha256:fe3ccad04e66ee08b65a65aead0fbef9f46328e5c2a3b828b3bee12969bbf72e` |
+| verdict | **FAIL** · Must ≥1 · **cấm** completed · queue **failed** → `qa_fail_rollback` |
 
 ## Smoke — Final MFE (REQUIRED · e2e)
 
 | # | Step | Expect | Result | Evidence |
 |---|------|--------|--------|----------|
-| S0 | Cán bộ mở sổ nhật ký | TD-04 empty/list · «Sổ nhật ký» · Ca code · **0** crash/overlay · API journal-lines 200 | **PASS** | ![S0](screens/S0.png) |
-| S1 | Hub Tuần đường (peer A) | CTA **Ghi nhật ký** · **Sổ trong ca** (đợt B) · Kết ca grey đợt D | **PASS** | ![S1](screens/S1.png) |
-| QA-20 | Form ghi dòng | TD-05 · Giờ · người RO · `[lat, lng]` · Ghim vị trí hiện tại · lý trình · chiều/weather/kind · diễn biến · Huỷ/Lưu · **0** crash | **PASS** | ![QA-20](screens/QA-20.png) |
+| S0-std | STATUS `mfeStdUrl` | List TD-04, 0 crash | **FAIL** · 404 `/web-rmms-mobile-b` | ![S0-std-url](screens/S0-std-url.png) |
+| S0 | Live `/nhat-ky` sổ | TD-04 empty/list · «Sổ nhật ký» · Ca · 0 crash | **PASS** (live only) | ![S0](screens/S0.png) |
+| S1 | Hub Tuần đường peer A | CTA **Ghi nhật ký** · **Sổ trong ca** (đợt B) | **FAIL** · hub không CTA nhật ký (viewport + source) | ![S1](screens/S1.png) |
+| QA-20 | Form ghi dòng live | TD-05 · GPS · chiều/weather/kind · diễn biến · Huỷ/Lưu Pattern B | **PASS** (live `/nhat-ky/.../moi`) | ![QA-20](screens/QA-20.png) |
 
 ## Scenario / Expect / Actual (visual Read)
 
 | Case | Expect (design/PO) | Actual (PNG Read) | Verdict |
 |------|--------------------|-------------------|---------|
-| S0 | TD-04 sổ empty L-01 | «Sổ nhật ký» · Ca TD-20260925-001 · Chưa ghi việc · Thêm dòng | **Aligned** |
-| S1 | Hub doors wave B | Check-in + Ghi nhật ký TD-05 + Sổ trong ca TD-04 · Kết ca grey Đợt D | **Aligned** |
-| QA-20 | Full form dòng | «Ghi nhật ký» · `[lat, lng]` · «Ghim vị trí hiện tại» · Chiều đi · Nắng · KCHT · toolbar Huỷ/Lưu | **Aligned** |
+| S0-std | STATUS URL mở TD-04 | 404 «Trang `/web-rmms-mobile-b` không tồn tại» | **Mismatch** · **GAP-QA-STD-01** |
+| S0 | TD-04 sổ empty L-01 | «Sổ nhật ký» · Ca TD-20260927-001 · Chưa ghi việc · Thêm dòng | **Aligned** (live `/nhat-ky`) |
+| S1 | Hub doors wave B | Map/check-in only · **0** «Ghi nhật ký» / «Sổ trong ca» | **Mismatch** · **GAP-QA-FEAT-01** |
+| QA-20 | Full form · Pattern B Lưu | «Ghi nhật ký» · Huỷ/Lưu (Lưu enabled) · GPS mock · Chiều đi · Nắng · KCHT · Diễn biến * | **Aligned** (live) · soft: Người ghi `—` |
 
 ## T-QA-*
 
 | id | Scope | Result |
 |----|-------|--------|
-| T-QA-CRUD-01 | Hub → sổ → form create path · GET journal-lines | **PASS** (S0/S1/QA-20 live · API 200 empty) |
-| T-QA-FORM-01 | Field ↔ body (at · GPS · kmText · direction · weather · kind · narrative · media) | **PASS** (form UI + Dev contract) · live POST not forced this smoke |
+| T-QA-CRUD-01 | Hub → sổ → form · GET journal-lines | **FAIL** · hub CTA missing · STATUS URL 404 · live list/form OK |
+| T-QA-FORM-01 | Field ↔ body · Pattern B · capture | **PASS** (UI live TD-05 · Lưu not pre-disabled · GPS+narrative *) · POST not forced this smoke |
 | T-QA-FILTER-01/02 | LinErpListFilterBar | **WAIVE** (phone · Kind B) |
-| T-QA-VI-ENC-01 | Title/nav UTF-8 | **PASS** |
-| T-QA-HIST / Leave | LeaveConfirmModal · 0 native alert | **PASS** (code Dev) · leave not headed this run |
+| T-QA-VI-ENC-01 | Title/nav UTF-8 | **PASS** (live) |
+| T-QA-HIST / Leave | LeaveConfirmModal | not headed this run · Dev KEEP |
 
 ## E2E runtime gate
 
 | Check | Result |
 |-------|--------|
-| docker compose up -d | **PASS** · rebuilt `linm-rmms-api`+`linm-rmms-bff` (stale image thiếu journal-lines → 404) · api healthy `:5111` · mobile-bff `:5202` |
-| yarn start:std | **PASS** · `:9301` (--skip-start) |
-| yarn e2e-qa stock | stock `cases=S0,S1,QA-20` same URL → **DUP** · playwright resolve via junction · **worked around** `_capture_b.mjs` (MFE `/login` · distinct hrefs) |
-| PNG distinct | S0/S1/QA-20 **≠** hashes · **0** blank/crash/DUP |
-| visual Read | **Aligned** · Must **0** |
-| compile fix | JournalFormPage `LinImageUploadItem` status=`committed` · typecheck+build **PASS** |
-| **cấm** phase=done | yes · next Review |
+| docker compose up -d | **PASS** · postgres/api/bff healthy · `:5111` · `:5202` |
+| yarn start:std | **PASS** · `:9301` already listen (--skip-start) |
+| yarn e2e-qa stock | S0 PASS · S1 **DUP** · QA-20 PASS · exit 1 (**GAP-QA-E2E-DUP-01** stock) |
+| `_capture_b.mjs` | live S0/S1/QA-20 distinct hashes · STATUS URL FAIL 404 |
+| PNG distinct | S0/S1/QA-20 **≠** · 0 blank |
+| visual Read | S0/QA-20 Aligned live · S0-std + S1 **Must FAIL** |
+| **cấm** phase=done | yes |
+| **cấm** kill worker | yes · no taskkill |
 
-## Gaps / debt (không P0)
+## Gaps (Must → rollback)
 
 | ID | Severity | Note |
 |----|----------|------|
-| GAP-QA-E2E-STOCK-DUP | soft | stock CLI S0=S1 URL · QA-20 `/new` ≠ `/:sessionId/moi` — used `_capture_b.mjs` |
-| GAP-QA-E2E-PLAYWRIGHT-RESOLVE | soft | `npx -p playwright` from screens cwd — junction `node_modules/playwright` → AutoCode |
-| GAP-QA-DOCKER-STALE | closed | rebuilt API image · GET `…/journal-lines` **200** |
-| GAP-QA-PAGES-LOGIN | soft | Pages `:9100` unused · login via MFE `/login` → Mobile.Bff |
-| Date locale | soft | QA-20 datetime `09/25/2026` (en-US) — Should |
+| **GAP-QA-STD-01** | **Must** | STATUS/`route_confirm` `mfeStdUrl=/web-rmms-mobile-b` → **404** · code SSOT `paths.BASE=/nhat-ky` (ui-align rename) · thiếu alias Navigate |
+| **GAP-QA-FEAT-01** | **Must** | Peer hub `/tuan-duong/:sessionId` **0** CTA «Ghi nhật ký» / «Sổ trong ca» (grep MobileA empty) · enduser door đợt B |
+| GAP-QA-E2E-DUP-01 | soft | stock e2e-qa S0=S1 same URL bytes · worked around `_capture_b` |
+| Người ghi RO | soft | QA-20 value `—` (auth/profile) |
+| Date locale | soft | `09/27/2026` en-US |
 | PERM TODO | soft | RequirePermission deferred Dev |
 
-**P0:** none — handoff Review.
+**P0:** GAP-QA-STD-01 · GAP-QA-FEAT-01 — **không** handoff Review.
 
-## Handoff → Review
+## Handoff → qa_fail_rollback
 
-1. `review/findings.md` · roles sau = **pending**.
-2. `autoApprove=ON` → Review tự confirm khi tới lượt.
-3. STATUS `qa` = **done** · `phase=review` · **cấm** `phase=done`.
+1. STATUS `qa` = **failed** · `phase=qa` · `status=blocked` · **cấm** `phase=done` / `phase=review`.
+2. Queue `task_8be1a3ec` → **failed** · board **`qa_fail_rollback`**.
+3. Dev fix options (không tự sửa trong QA): alias `web-rmms-mobile-b`→`/nhat-ky` **hoặc** update STATUS/context `mfeStdRoute=/nhat-ky` + hub CTA doors.
+4. roles sau = **pending**.
 
 ## Version meta
 

@@ -40,7 +40,7 @@ Cùng `go()` trên 2 chỗ (quick + tile / tile + wallet) = **một** slug.
 |---------|--------|
 | Tab 5 · nút Trang Chủ | `shell-tabs` |
 | `.section-label` Nghiệp vụ thường dùng | `LinmSectionLabel` · không route |
-| `.home-foot` «Phiên bản Gói 1» | Watermark · **cấm** ship |
+| `.home-foot` «Phiên bản v1.0.0» | Watermark · **cấm** ship |
 | Tín hiệu / cột sóng | `shared_kit` |
 | Badge 0 | `LinmNotifyCountBadge` ẩn |
 | Back / Close | chrome |

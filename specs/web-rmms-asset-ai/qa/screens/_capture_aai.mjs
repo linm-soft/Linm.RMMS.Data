@@ -7,7 +7,10 @@ import { createRequire } from "node:module";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = __dirname;
 const base = "http://localhost:9301";
-const featureUrl = base + "/web-rmms-asset-ai";
+/** Standalone phone shell: address bar `/m/{path}` (MemoryRouterSync). */
+const featureUrl = base + "/m/tai-san/ai";
+const hubUrl = base + "/m/tai-san";
+const loginUrl = base + "/m/login";
 const require = createRequire(import.meta.url);
 
 let chromiumLauncher = chromium;
@@ -77,12 +80,16 @@ async function fatalUi(p) {
 }
 
 async function login() {
-  await page.goto(base + "/login", { waitUntil: "domcontentloaded", timeout: 60000 });
-  await page.waitForSelector('input[name="username"], input[type="password"]', {
-    timeout: 20000,
-  });
+  await page.goto(loginUrl, { waitUntil: "domcontentloaded", timeout: 60000 });
+  await page.waitForSelector(
+    'input[name="username"], input[name="userName"], input[type="text"], input[type="password"]',
+    { timeout: 20000 },
+  );
   await dismissOverlay();
-  await page.fill('input[name="username"]', user);
+  const userSel = await page
+    .locator('input[name="username"], input[name="userName"], input[type="text"], input[type="email"]')
+    .first();
+  await userSel.fill(user);
   await page.fill('input[type="password"]', password);
   await Promise.all([
     page
@@ -126,15 +133,20 @@ async function dumpZones() {
       "btnGps",
       "fldRoute",
       "fldTrip",
+      "aaValidateBanner",
       "aaGuestGate",
       "tileAi",
       "walletTitle",
     ].filter((id) => !!document.getElementById(id));
+    const searchInput = !!document.querySelector(
+      '[data-zone="AA-05"][data-control="SearchInput"], #AA-05 [data-control="SearchInput"], #AA-05 input',
+    );
     const text = (document.body?.innerText || "").slice(0, 900).replace(/\s+/g, " ");
     return {
       feature: root?.getAttribute("data-feature") || null,
       zones: [...new Set(zones)],
       ids,
+      searchInput,
       text,
       href: location.href,
     };
@@ -156,6 +168,9 @@ async function captureCurrent(id, waitSel) {
     if (id === "S0" || id === "QA-20") {
       if (!dump.ids?.includes("photoAdd") || !dump.zones?.includes("AA-03")) {
         throw new Error("GAP-QA-E2E-FORM-01 detect fields not loaded");
+      }
+      if (!dump.searchInput && !dump.zones?.includes("AA-05")) {
+        throw new Error("GAP-QA-E2E-ROUTE-01 SearchInput route missing");
       }
       if (dump.ids?.includes("aaGuestGate") && !dump.ids?.includes("photoAdd")) {
         throw new Error("GAP-QA-E2E-AUTH-01 still guest on detect");
@@ -206,7 +221,7 @@ try {
 
   // S1 — peer Hub entry (#tileAi)
   {
-    const res = await page.goto(base + "/web-rmms-asset-hub", {
+    const res = await page.goto(hubUrl, {
       waitUntil: "domcontentloaded",
       timeout: 60000,
     });
@@ -220,7 +235,7 @@ try {
 
   // QA-20 — Hub tileAi → Detect (JWT kept)
   {
-    const entry = page.locator('#tileAi, [data-route="/web-rmms-asset-ai"]').first();
+    const entry = page.locator('#tileAi, [data-route="/tai-san/ai"], a[href="/tai-san/ai"]').first();
     if (await entry.count()) {
       await entry.click();
       await dismissOverlay();

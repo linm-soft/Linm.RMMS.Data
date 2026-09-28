@@ -59,7 +59,7 @@ Màn `#sc-home` = hero + quick + grid + wallet (**không** form submit). Design 
 | tileAsset | Tài sản | HomeTile | * | `go('asset-hub')` | `#i-cube` · bg `#0C84C0` |
 | tileOffline | Lưu trữ | HomeTile | * | `go('patrol-offline')` | `#i-sync` · bg `#086A9A` · `reuse=patrol-offline` |
 | wallet | HỒ SƠ TÀI SẢN | WalletCard | * | `go('asset-hub')` | cùng slug tile Tài sản · copy demo |
-| foot | Phiên bản Gói 1… | — | | watermark | **cấm** implement |
+| foot | Phiên bản v1.0.0… | — | | watermark | **cấm** implement |
 | tabHome | Trang Chủ | Tab | * | `DES-MOB-TABBAR` | chrome shell |
 
 ## Không có trên slug `home` (cấm gộp)

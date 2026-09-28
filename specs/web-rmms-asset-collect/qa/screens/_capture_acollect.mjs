@@ -7,7 +7,9 @@ import { createRequire } from "node:module";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = __dirname;
 const base = "http://localhost:9301";
-const featureUrl = base + "/web-rmms-asset-collect";
+/** STATUS mfeStdRoute — edit_page SSOT */
+const featureUrl = base + "/tai-san/thu-thap";
+const hubUrl = base + "/tai-san";
 const require = createRequire(import.meta.url);
 
 let chromiumLauncher = chromium;
@@ -67,7 +69,6 @@ async function fatalUi(p) {
   ) {
     return "crash text: " + t.slice(0, 180).replace(/\s+/g, " ");
   }
-  // Ignore transient HMR/overlay removeChild noise; keep Module build / real crashes
   const real = pageErrors.filter(
     (e) =>
       /Module build failed|Failed to compile|ChunkLoadError|TypeError|ReferenceError/i.test(e) &&
@@ -124,15 +125,23 @@ async function dumpZones() {
       "btnPhotoAdd",
       "AC-09",
       "AC-10",
+      "errBanner",
       "acGuestGate",
       "tileCollect",
       "walletTitle",
     ].filter((id) => !!document.getElementById(id));
+    const searchInput = !!document.querySelector(
+      '[data-control="SearchInput"], #fldRoute [data-control="SearchInput"], #fldRoute input',
+    );
+    const submit = document.getElementById("AC-09");
+    const submitDisabled = submit ? !!submit.disabled : null;
     const text = (document.body?.innerText || "").slice(0, 900).replace(/\s+/g, " ");
     return {
       feature: root?.getAttribute("data-feature") || null,
       zones: [...new Set(zones)],
       ids,
+      searchInput,
+      submitDisabled,
       text,
       href: location.href,
     };
@@ -144,7 +153,7 @@ async function captureCurrent(id, waitSel) {
   const abs = join(outDir, file);
   try {
     await dismissOverlay();
-    if (waitSel) await page.waitForSelector(waitSel, { timeout: 30000 });
+    if (waitSel) await page.waitForSelector(waitSel, { timeout: 45000 });
     await page.waitForTimeout(1400);
     await dismissOverlay();
     const fatal = await fatalUi(page);
@@ -157,6 +166,15 @@ async function captureCurrent(id, waitSel) {
       }
       if (dump.ids?.includes("acGuestGate") && !dump.ids?.includes("fldName")) {
         throw new Error("GAP-QA-E2E-AUTH-01 still guest on collect");
+      }
+      if (!dump.searchInput) {
+        throw new Error("GAP-QA-E2E-ROUTE-01 SearchInput missing on route");
+      }
+      if (dump.submitDisabled === true) {
+        throw new Error("GAP-QA-E2E-PATTERN-B-01 submit disabled while not saving (canSave leak)");
+      }
+      if (!dump.ids?.includes("AC-09")) {
+        throw new Error("GAP-QA-E2E-CTA-01 AC-09 submit missing");
       }
     }
     results.push({ id, result: "PASS", screenshot: file, href: page.url(), dump });
@@ -186,7 +204,7 @@ async function captureCurrent(id, waitSel) {
 try {
   await login();
 
-  // S0 — Collect form AC-*
+  // S0 — Collect form AC-* · Pattern B
   {
     const res = await page.goto(featureUrl, { waitUntil: "domcontentloaded", timeout: 60000 });
     if (!res || !res.ok()) throw new Error("S0 HTTP " + (res ? res.status() : "none"));
@@ -199,7 +217,7 @@ try {
 
   // S1 — peer Hub entry (#tileCollect)
   {
-    const res = await page.goto(base + "/web-rmms-asset-hub", {
+    const res = await page.goto(hubUrl, {
       waitUntil: "domcontentloaded",
       timeout: 60000,
     });
@@ -213,7 +231,9 @@ try {
 
   // QA-20 — Hub tileCollect → collect form (JWT kept)
   {
-    const entry = page.locator('#tileCollect, [data-route="/web-rmms-asset-collect"]').first();
+    const entry = page
+      .locator('#tileCollect, [data-route="/tai-san/thu-thap"], a[href="/tai-san/thu-thap"]')
+      .first();
     if (await entry.count()) {
       await entry.click();
       await dismissOverlay();
@@ -258,7 +278,8 @@ writeFileSync(
       url: featureUrl,
       capturedAt: new Date().toISOString(),
       method:
-        "capture_acollect · MFE /login · phone 430 · S0 collect · S1 Hub #tileCollect · QA-20 click→collect · geo grant · dismiss overlay · no kill worker",
+        "capture_acollect · MFE /login · phone 430 · S0 /tai-san/thu-thap · S1 Hub /tai-san #tileCollect · QA-20 click→collect · Pattern B · geo grant · dismiss overlay · no kill worker",
+      changeScope: "edit_page",
       steps: results,
       ok,
     },

@@ -1,0 +1,192 @@
+[
+  {
+    "path": "/",
+    "ok": true,
+    "href": "http://localhost:9301/m/trang-chu",
+    "guest": true,
+    "cpLogin": false,
+    "loginUser": false,
+    "text": "— Tốt Khách Đăng nhập Dành cho cán bộ Điểm tuần Ghim định vị · lý trình Ghi sự cố Chọn tài sản · mẫu sự cố NGHIỆP VỤ THƯỜNG DÙNG Giám sát Tuần đường Công việc Vấn đề Tài sản Lưu trữ Công tác nghiệm thu HỒ SƠ TÀI SẢN — Xem và quản lý tài sản Phiên bản v1.0.0 · RMMS hiện trường Cụ",
+    "ids": [
+      "root",
+      "notifyBadge",
+      "profileName",
+      "guestLogin",
+      "qaPatrolPoint",
+      "qaIncidentNew",
+      "gridSupervise",
+      "gridPatrolMap",
+      "gridWork",
+      "gridIncident",
+      "gridAsset",
+      "gridOffline",
+      "gridNghiemThu",
+      "walletAsset",
+      "tabBar",
+      "tabHome",
+      "tabField",
+      "tabIncident",
+      "tabWork",
+      "tabMe"
+    ]
+  },
+  {
+    "path": "/m",
+    "ok": true,
+    "href": "http://localhost:9301/m/trang-chu",
+    "guest": true,
+    "cpLogin": false,
+    "loginUser": false,
+    "text": "— Tốt Khách Đăng nhập Dành cho cán bộ Điểm tuần Ghim định vị · lý trình Ghi sự cố Chọn tài sản · mẫu sự cố NGHIỆP VỤ THƯỜNG DÙNG Giám sát Tuần đường Công việc Vấn đề Tài sản Lưu trữ Công tác nghiệm thu HỒ SƠ TÀI SẢN — Xem và quản lý tài sản Phiên bản v1.0.0 · RMMS hiện trường Cụ",
+    "ids": [
+      "root",
+      "notifyBadge",
+      "profileName",
+      "guestLogin",
+      "qaPatrolPoint",
+      "qaIncidentNew",
+      "gridSupervise",
+      "gridPatrolMap",
+      "gridWork",
+      "gridIncident",
+      "gridAsset",
+      "gridOffline",
+      "gridNghiemThu",
+      "walletAsset",
+      "tabBar",
+      "tabHome",
+      "tabField",
+      "tabIncident",
+      "tabWork",
+      "tabMe"
+    ]
+  },
+  {
+    "path": "/m/",
+    "ok": true,
+    "href": "http://localhost:9301/m/trang-chu",
+    "guest": true,
+    "cpLogin": false,
+    "loginUser": false,
+    "text": "— Tốt Khách Đăng nhập Dành cho cán bộ Điểm tuần Ghim định vị · lý trình Ghi sự cố Chọn tài sản · mẫu sự cố NGHIỆP VỤ THƯỜNG DÙNG Giám sát Tuần đường Công việc Vấn đề Tài sản Lưu trữ Công tác nghiệm thu HỒ SƠ TÀI SẢN — Xem và quản lý tài sản Phiên bản v1.0.0 · RMMS hiện trường Cụ",
+    "ids": [
+      "root",
+      "notifyBadge",
+      "profileName",
+      "guestLogin",
+      "qaPatrolPoint",
+      "qaIncidentNew",
+      "gridSupervise",
+      "gridPatrolMap",
+      "gridWork",
+      "gridIncident",
+      "gridAsset",
+      "gridOffline",
+      "gridNghiemThu",
+      "walletAsset",
+      "tabBar",
+      "tabHome",
+      "tabField",
+      "tabIncident",
+      "tabWork",
+      "tabMe"
+    ]
+  },
+  {
+    "path": "/m/login",
+    "ok": true,
+    "href": "http://localhost:9301/m/dang-nhap",
+    "guest": false,
+    "cpLogin": false,
+    "loginUser": false,
+    "text": "AI-RMMS HỆ THỐNG BẢO TRÌ KẾT CẤU HẠ TẦNG ĐƯỜNG BỘ Đăng nhập Tín hiệu Tốt · đồng bộ hệ thống Quên mật khẩu?",
+    "ids": [
+      "root",
+      "btn-login-back",
+      "f-user",
+      "f-pass",
+      "btn-login",
+      "btn-forgot"
+    ]
+  },
+  {
+    "path": "/web-rmms-home",
+    "ok": true,
+    "href": "http://localhost:9301/m/web-rmms-home",
+    "guest": false,
+    "cpLogin": false,
+    "loginUser": false,
+    "text": "404 Trang không tìm thấy Trang /web-rmms-home không tồn tại hoặc đã bị di chuyển. Về trang chủ Quay lại",
+    "ids": [
+      "root"
+    ]
+  },
+  {
+    "path": "/m/home",
+    "ok": true,
+    "href": "http://localhost:9301/m/home",
+    "guest": false,
+    "cpLogin": false,
+    "loginUser": false,
+    "text": "404 Trang không tìm thấy Trang /home không tồn tại hoặc đã bị di chuyển. Về trang chủ Quay lại",
+    "ids": [
+      "root"
+    ]
+  },
+  {
+    "path": "/home",
+    "ok": true,
+    "href": "http://localhost:9301/m/home",
+    "guest": false,
+    "cpLogin": false,
+    "loginUser": false,
+    "text": "404 Trang không tìm thấy Trang /home không tồn tại hoặc đã bị di chuyển. Về trang chủ Quay lại",
+    "ids": [
+      "root"
+    ]
+  },
+  {
+    "path": "/camera-tuan",
+    "ok": true,
+    "href": "http://localhost:9301/m/camera-tuan",
+    "guest": false,
+    "cpLogin": true,
+    "loginUser": false,
+    "text": "Camera tuần Đăng nhập để dùng Camera tuần. Đăng nhập Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+    "ids": [
+      "root",
+      "CP-01",
+      "navBack",
+      "cpGuestGate",
+      "cpGuestLogin",
+      "tabBar",
+      "tabHome",
+      "tabField",
+      "tabIncident",
+      "tabWork",
+      "tabMe"
+    ]
+  },
+  {
+    "path": "/m/camera-tuan",
+    "ok": true,
+    "href": "http://localhost:9301/m/camera-tuan",
+    "guest": false,
+    "cpLogin": true,
+    "loginUser": false,
+    "text": "Camera tuần Đăng nhập để dùng Camera tuần. Đăng nhập Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+    "ids": [
+      "root",
+      "CP-01",
+      "navBack",
+      "cpGuestGate",
+      "cpGuestLogin",
+      "tabBar",
+      "tabHome",
+      "tabField",
+      "tabIncident",
+      "tabWork",
+      "tabMe"
+    ]
+  }
+]

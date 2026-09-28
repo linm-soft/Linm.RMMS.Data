@@ -1,74 +1,87 @@
 {
   "feature": "web-rmms-incident",
+  "changeScope": "edit_page",
   "cases": [
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "href": "http://localhost:9301/web-rmms-incident/new",
+      "href": "http://localhost:9301/m/dang-nhap",
       "dump": {
-        "feature": "web-rmms-incident",
+        "feature": "login",
         "zones": [
-          "INC-L"
+          "LG-00"
         ],
-        "des": [
-          "DES-MOB-INCIDENT"
-        ],
+        "des": [],
         "fields": [],
         "actions": [],
-        "ids": [],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident INC-L list INC-N create Alias /incident Alias /incident/new Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Ghi sự cố Đăng nhập để ghi sự cố. Đăng nhập",
-        "href": "http://localhost:9301/web-rmms-incident/new",
-        "guestGate": true
+        "ids": [
+          "f-user",
+          "f-pass",
+          "btn-login"
+        ],
+        "text": "AI-RMMS HỆ THỐNG BẢO TRÌ KẾT CẤU HẠ TẦNG ĐƯỜNG BỘ Đăng nhập Tín hiệu Tốt · đồng bộ hệ thống Quên mật khẩu?",
+        "href": "http://localhost:9301/m/dang-nhap",
+        "guestGate": true,
+        "createDisabled": null,
+        "bannerText": "",
+        "patternB": {
+          "createAlwaysOn": null,
+          "hasValidateBanner": false,
+          "hasGpsLock": false,
+          "hasGpsDenyModal": false
+        }
       }
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "href": "http://localhost:9301/web-rmms-home",
+      "href": "http://localhost:9301/m/dang-nhap",
       "dump": {
-        "feature": "web-rmms-home",
+        "feature": "login",
         "zones": [
-          "SH-00",
-          "HM-00",
-          "HM-01",
-          "HM-02",
-          "SH-01",
-          "SH-02"
+          "LG-00"
         ],
         "des": [],
-        "fields": [
-          "guestFaq",
-          "guestPrivacy",
-          "guestLoginCta"
-        ],
+        "fields": [],
         "actions": [],
         "ids": [
-          "loginUser",
-          "loginPass",
-          "loginSubmit",
-          "guestLogin"
+          "f-user",
+          "f-pass",
+          "btn-login"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
-        "href": "http://localhost:9301/web-rmms-home",
-        "guestGate": false
+        "text": "AI-RMMS HỆ THỐNG BẢO TRÌ KẾT CẤU HẠ TẦNG ĐƯỜNG BỘ Đăng nhập Tín hiệu Tốt · đồng bộ hệ thống Quên mật khẩu?",
+        "href": "http://localhost:9301/m/dang-nhap",
+        "guestGate": true,
+        "createDisabled": null,
+        "bannerText": "",
+        "patternB": {
+          "createAlwaysOn": null,
+          "hasValidateBanner": false,
+          "hasGpsLock": false,
+          "hasGpsDenyModal": false
+        }
       }
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "href": "http://localhost:9301/web-rmms-incident",
+      "href": "http://localhost:9301/m/van-de",
       "dump": {
         "feature": "web-rmms-incident",
         "zones": [
-          "INC-L"
+          "UA-00",
+          "INC-L",
+          "CH-04",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-INCIDENT"
         ],
         "fields": [
+          "segment",
           "search",
           "filters",
           "filter.status",
@@ -79,21 +92,128 @@
           "card.type",
           "card.code",
           "card.route",
-          "card.person",
           "card.requestedAt",
           "card.hasGps",
           "card.status",
-          "row.chat",
+          "entry.chatIcon",
+          "entry.assignIcon",
+          "entry.detailIcon",
+          "entry.mapIcon",
+          "card.person",
           "fab"
         ],
         "actions": [],
         "ids": [],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident INC-L list INC-N create Alias /incident Alias /incident/new Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Vấn đề Tất cả TT Mới Cao TB 📷 Nhận diện mặt đường Chụp + định vị → gắn sự cố (peer INC-V) Ngập úng QL.46 phía tây Vinh ngap-ung · INC-DEMO-202609-004 QL.46 · Km Km 4+000 · QL.46 Lê Minh Tuấn 09:15:00 22/9/2026 HasGps Trạng thái: closed Chat Chi tiết Map Hộ lan tuyến tránh QL.1 Hưng Nguyên khac · INC-DEMO-202609-002 QL.1 · Km Km 468+200 · tuyến tránh Hưng Nguyên Nguyễn Văn A 10:05:00 21/9/2026 HasGps Trạng thái: in_progress Chat Chi tiết Map Biển báo mờ · ghi nhận không GPS bien-bao · INC-DEMO-202609-005 QL.1 · Km Km 461+000 · Cầu Bến Thủy 2 Nguyễn Văn A 07:28:00 21/9/2026 No GPS Trạng thái: new Chat Chi tiết Map Ổ gà mặt cầu QL.1 · Cầu Bến Thủy 2 o-ga · INC-DEMO-202609-001 QL.1 · Km Km 461+000 · Cầu Bến Thủy 2 Nguyễn Văn A 07:28:00 21/9/2026 HasGps Trạng thái: new Chat Chi tiết Map Cầu Hàm Rồng — đột xuất ktra-cau · CAU-DEMO-202609-003 QL.217 · Km Km8+050 Nguyễn Văn A 15:00:00 20/9/2026 HasGps Trạng thái: closed Chat Chi tiết Map Sạt taluy QL.15 · Nhân Sơn sat-taluy · IN",
-        "href": "http://localhost:9301/web-rmms-incident",
-        "guestGate": false
+        "text": "Quản lý vấn đề Danh sách Bản đồ sự cố Tất cả TT Mới Cao TB Nhận diện sự cố Chụp ảnh và định vị để gắn sự cố Ổ gà o-ga · VD-20260927-0001 QL.7C 27/09/2026 08:42 Có định vị Trạng thái: closed Ổ gà khac · VD-20260926-0002 QL.7C 26/09/2026 17:38 Có định vị Trạng thái: closed Ổ gà khac · VD-20260926-0001 QL.7C 26/09/2026 17:19 Có định vị Trạng thái: new Ổ gà o-ga · VD-20260925-0005 QL.46 26/09/2026 06:38 Có định vị Trạng thái: new Ổ gà o-ga · VD-20260925-0004 QL.46 26/09/2026 06:38 Có định vị Trạng thái: new Ổ gà o-ga · VD-20260925-0003 QL.46 26/09/2026 06:37 Có định vị Trạng thái: new Ổ gà o-ga · VD-20260925-0002 QL.46 26/09/2026 06:34 Có định vị Trạng thái: new Ổ gà khac · VD-20260925-0001 QL.46 25/09/2026 23:27 Có định vị Trạng thái: new Ổ gà o-ga · VD-20260922-0003 QL.46 22/09/2026 12:52 Có định vị Trạng thái: in_progress Ổ gà o-ga · VD-20260922-0002 QL.46 22/09/2026 12:46 Có định vị Trạng thái: new Ngập úng QL.46 phía tây Vinh ngap-ung · INC-DEMO-202609-004 QL.46 · Km Km 4+000 · QL.46 Lê Minh Tuấn 22/09/2026 09:15 Có định vị Trạng thái: closed Hỏng · Biển báo khac · VD-20260922-0001 QL.46 22/09/2026 07:32 Có định vị Trạng thái: new Nghiêng / gãy cột khac · VD-20260921-0001 QL.46 21/09/2026 14:06 Có định vị Trạng thái: new Hộ lan tuyến tránh QL.1 Hưng Nguyên khac · INC-DEMO-202609-002 QL.1 · Km Km 468+200 · tuyến tránh Hưng Nguyên Nguyễn Văn A 21/09/2026 10:05 Có định vị Trạng t",
+        "href": "http://localhost:9301/m/van-de",
+        "guestGate": false,
+        "createDisabled": null,
+        "bannerText": "",
+        "patternB": {
+          "createAlwaysOn": null,
+          "hasValidateBanner": false,
+          "hasGpsLock": false,
+          "hasGpsDenyModal": false
+        }
+      }
+    },
+    {
+      "id": "PB-01",
+      "result": "PASS",
+      "screenshot": "PB-01.png",
+      "href": "http://localhost:9301/m/van-de/moi?miss=1",
+      "dump": {
+        "feature": "web-rmms-incident",
+        "zones": [
+          "UA-00",
+          "INC-L",
+          "INC-N"
+        ],
+        "des": [
+          "DES-MOB-INCIDENT",
+          "DES-MOB-INC-VALIDATION",
+          "DES-MOB-INC-KIND"
+        ],
+        "fields": [
+          "validate.banner",
+          "assetCard",
+          "assetPick",
+          "kind",
+          "checklist",
+          "photos",
+          "detect",
+          "sessionStamp",
+          "gpsLock",
+          "severity",
+          "description",
+          "create",
+          "draft"
+        ],
+        "actions": [],
+        "ids": [],
+        "text": "Ghi sự cố Không có ca đang tuần × TÀI SẢN ĐÃ CHỌN Mặt đường PAVEMENT Đổi Loại ghi nhận Hư Mất Hỏng Hạng mục kiểm tra theo loại tài sản hư Ổ gà hư Nứt dọc / ngang hỏng Bong tróc mặt hỏng Mờ vạch sơn Ảnh hiện trường + Nhận diện Ca / tuyến Ca / tuyến Không có ca đang tuần Không có ca đang tuần GPS: Đã chốt · 12 m Làm mới GPS Mức độ Cao Trung bình Thấp Mô tả Tạo vấn đề Lưu nháp mất sóng",
+        "href": "http://localhost:9301/m/van-de/moi?miss=1",
+        "guestGate": false,
+        "createDisabled": false,
+        "bannerText": "Không có ca đang tuần×",
+        "patternB": {
+          "createAlwaysOn": true,
+          "hasValidateBanner": true,
+          "hasGpsLock": true,
+          "hasGpsDenyModal": false
+        }
+      }
+    },
+    {
+      "id": "PB-GPS",
+      "result": "PASS",
+      "screenshot": "PB-GPS.png",
+      "href": "http://localhost:9301/m/van-de/moi?gps=deny",
+      "dump": {
+        "feature": "web-rmms-incident",
+        "zones": [
+          "UA-00",
+          "INC-L",
+          "INC-N"
+        ],
+        "des": [
+          "DES-MOB-INCIDENT",
+          "DES-MOB-INC-VALIDATION",
+          "DES-MOB-INC-KIND"
+        ],
+        "fields": [
+          "validate.banner",
+          "assetCard",
+          "assetPick",
+          "kind",
+          "checklist",
+          "photos",
+          "detect",
+          "sessionStamp",
+          "gpsLock",
+          "gpsError",
+          "severity",
+          "description",
+          "create",
+          "draft",
+          "gps.deny.modal"
+        ],
+        "actions": [],
+        "ids": [],
+        "text": "Ghi sự cố Không có ca đang tuần Chưa cấp quyền × TÀI SẢN ĐÃ CHỌN Mặt đường PAVEMENT Đổi Loại ghi nhận Hư Mất Hỏng Hạng mục kiểm tra theo loại tài sản hư Ổ gà hư Nứt dọc / ngang hỏng Bong tróc mặt hỏng Mờ vạch sơn Ảnh hiện trường + Nhận diện Ca / tuyến Ca / tuyến Không có ca đang tuần Không có ca đang tuần GPS: Trình duyệt chưa cho phép vị trí của trang này. Cho phép Vị trí, rồi bấm Làm mới GPS. Làm mới GPS Chưa cấp quyền Mức độ Cao Trung bình Thấp Mô tả Tạo vấn đề Lưu nháp mất sóng Chưa cấp quyền vị trí Trình duyệt chưa cho phép vị trí của trang này. Cho phép Vị trí, rồi bấm Làm mới GPS. Để sau Làm mới GPS",
+        "href": "http://localhost:9301/m/van-de/moi?gps=deny",
+        "guestGate": false,
+        "createDisabled": false,
+        "bannerText": "Không có ca đang tuầnChưa cấp quyền×",
+        "patternB": {
+          "createAlwaysOn": true,
+          "hasValidateBanner": true,
+          "hasGpsLock": true,
+          "hasGpsDenyModal": true
+        }
       }
     }
   ],
   "pass": true,
-  "at": "2026-09-25T21:20:04.211Z"
+  "at": "2026-09-27T12:48:31.287Z"
 }

@@ -5,64 +5,50 @@
 | feature | `web-rmms-attendance` |
 | role | `dev` · `/agent-dev` |
 | status | `done` |
-| taskId | `task_8abebdd3` |
+| taskId | `task_714f7885` |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdRoute | `/web-rmms-attendance` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-attendance` |
+| mfeStdRoute | `/cham-cong` |
+| mfeStdUrl | `http://localhost:9301/cham-cong` |
 | be | `D:/AI-QLBD/Linm.RMMS.WebService` · Patrol Live · **cấm ERP.*** |
-| bff | Mobile.Bff `:5202` catch-all · `mobile-bff/api/v1/patrol/attendance-logs` |
-| writtenAt | `2026-09-26T02:00:00.000Z` |
-| contentHash | `sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e` |
+| bff | Mobile.Bff `:5202` · `mobile-bff/api/v1/patrol/attendance-logs` |
+| writtenAt | `2026-09-27T16:50:00.000Z` |
+| contentHash | `sha256:0275fe24159e04a2d1a70682880e26b3456de61e7cf74b9c3d9ac707cae30d7a` |
 | skillVersion | `2026.09.05.03` |
+| deltaCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` |
 
 ## DoR
 
 | Gate | Result |
 |------|--------|
-| T-BE-CRUD-01 Live GET/POST/GET{id} | **PASS** · `services/attendance/endpoint.ts` |
-| T-BE-INIT-01 LOOKUP_STATIC | **PASS** · `lookupStatic.ts` + `useFormOptions('web-rmms-attendance')` |
-| T-PERM-01 guest→login | **PASS** · hub guest gate |
-| T-UI-ATT-01 hub ATT-00…05 empty | **PASS** · phone ≤430 · DES-MOB-ATT |
-| T-UI-ATT-02 GPS + Chấm vào | **PASS** · deny=no POST · cấm fake |
-| T-UI-ATT-03 report/day/log RO | **PASS** · client aggregate |
-| T-UI-ACT/FIELD/PROD/UX/RESP/HIST | **PASS** · toast overlay · no alert · labels keys |
+| T-DELTA-PB-01 Pattern B CTA | **PASS** · bỏ `disabled={!canCheckIn}` · `disabled={saving}` only |
+| Client validate on submit | **PASS** · banner `string[]` · GPS on-submit + modal |
+| API errors | **PASS** · toast only · cấm banner API |
+| UNCLEAR-BANNER-VS-TOAST | **CLOSED** · client banner · API toast · GPS modal OK |
+| Prior T-BE/UI/PERM | **keep** · Live reuse · Step 4b **N/A** |
 | Build MFE `yarn build` | **PASS** |
-| Build BE `dotnet build` Api | **PASS** |
-| Step 4b / API Mới | **N/A** · SA none · reuse Live · Mobile catch-all |
+| Build BE `dotnet build` Api | **PASS** · no BE delta |
 | E2E | **queued** `/agent-qa*` · **cấm** Dev e2e |
 
-## Surfaces
+## Delta files (MFE)
 
-| Route | Zones |
-|-------|-------|
-| `/web-rmms-attendance` | ATT-00…03 · ATT-07/08 |
-| `/web-rmms-attendance/report` | ATT-04 |
-| `/web-rmms-attendance/day/:key` | ATT-05 |
-| `/web-rmms-attendance/log/:id` | ATT-06 |
-| aliases `/field/attendance*` | ATT-09 entry |
+- `src/pages/WebRmmsAttendance/AttendanceHubPage.tsx` — Pattern B
+- `src/pages/WebRmmsAttendance/styles.module.css` — validation banner
+- `src/pages/WebRmmsAttendance/lookupStatic.ts` — `attendance.banner.dismiss`
 
-## APIs
+## APIs (unchanged)
 
 | Method | Path | Notes |
 |--------|------|-------|
-| GET | `patrol/attendance-logs` | list · pageSize 200 |
-| POST | `patrol/attendance-logs` | GPS required · status `Đúng tuyến` · inZone true |
+| GET | `patrol/attendance-logs` | list |
+| POST | `patrol/attendance-logs` | GPS+route on submit |
 | GET | `patrol/attendance-logs/{id}` | log RO |
-| GET | `auth/profile` | soft via `loadProfileLite` |
-| — | report/day | **client** `aggregateByDay` · **cấm** invent |
+| GET | `auth/profile` | soft |
+| — | report/day | client `aggregateByDay` |
 
-## Files (MFE)
+## Debt
 
-- `src/services/attendance/types.ts` · `endpoint.ts`
-- `src/pages/WebRmmsAttendance/*` (layout · hub · report · day · log · lookup · styles · aliases)
-- `src/index.tsx` · `src/dev/devRoutes.ts`
-- Entry: `FieldDoorsPage` · `FieldHubPage` · shell lookup
-
-## Debt / UNCLEAR
-
-- UNCLEAR-EMPTY-COPY → QA live `[]`
 - Face/NFC DEFER · report API invent DEFER
 - Route POST requires active session / prior log route
 

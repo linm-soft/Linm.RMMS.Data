@@ -6,60 +6,52 @@ packKind: list
 role: po
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T00:40:00.000Z
-contentHash: sha256:bc9070c4ab20da1960355a727eae18029943c2d95865aebd7d9bcb443ea60cd2
-taskId: task_e85d8f14
+writtenAt: 2026-09-27T15:50:00.000Z
+contentHash: sha256:3f196a65ee5bc6578aa8d96f9c08a6e0d0ca3fb263399e7a8d3fe3863da26b0e
+taskId: task_3dddf896
 
 ## Decisions
-- changeScope: new_page · packKind=list confirmed
-- formPattern: Mobile list + create TD/TK + detail · phone max-width 430 · N/A ERP Modal/Slideout · DES-GRID/LinErpListFilterBar N/A
-- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/web-rmms-bien-ban · route /web-rmms-bien-ban
-- be: D:/AI-QLBD/Linm.RMMS.WebService · Patrol · cấm ERP.* · cấm invent BienBan*
-- demo: N/A · hash skip analy · cấm re-scan
-- Hai lối: Tuần đường BB-02 ViolationFlag/de-nghi-bien-ban · Tuần kiểm BB-03 ViolationAction lap-bien-ban|de-nghi-vphc
-- LIST-SCOPE: P1 petitions-only kind=hanh-lang · secondary optional flagged peer chips → BB-02/03
-- STD-ROUTE: /web-rmms-bien-ban + deep BB-06 TD-05/TK-03
-- SO07: leadSo07 → csdl-bieu-07 nav only · cấm embed · disable+copy nếu Mobile không host
-- Live: GET|POST|GET{id} petitions · PUT journal-lines ViolationFlag · findings ViolationAction · sessions · auth · files/*
-- labels: useFormOptions() / bienBan.* · cấm hardcode VN
-- GPS: deny block trừ noFace · cấm fake · list/detail không GPS mới
-- Shell: bỏ me · me-profile · me-settings · feedback · cam-view · cấm native · cấm desktop
-- BFF: VITE_MOBILE_API_URL http://localhost:5202/mobile-bff/api/v1 · cấm web-bff client
-- peer lock B–E · cấm sổ 07 form · petition ≠ inbox
-- SA giữ: UNCLEAR-DOMAIN-MAP-BB · UNCLEAR-BFF-PROXY · UNCLEAR-JOURNAL-KIND-FIELD
+- changeScope: edit_page · keep Design/SA · cấm typed CRUD new_page
+- formPattern: Mobile list+create TD/TK+detail Full page · phone 430 · Pattern B · N/A ERP Modal
+- packKind: list confirmed · Grid DES-GRID / LinErpListFilterBar **N/A phone**
+- Leave: LeaveConfirmModal dirty · cấm native alert/confirm · Pattern B banner
+- mfe: `/bien-ban` · http://localhost:9301/bien-ban · be Patrol · cấm ERP.*
+- demo: N/A · hash skip · cấm re-scan (**GAP-PO-DEMO-RESCAN-01**)
+- Delta HARD: (1) bỏ disabled={!canSave} · banner+inline (2) GPS deny-on-submit (3) SearchInput road-routes · no SEED · miss=`--` (4) capture=environment (5) cấm Excel
+- UNCLEAR soft chốt: LIST-SCOPE=petitions-only · SO07=`csdl-bieu-07` nav · STD-ROUTE CLOSED `/bien-ban`
+- open questions: none hard · autoApprove ON → Design keep
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
 | list/search/empty | list | List/Search/Empty | GET petitions |
-| btnCreateTd/Tk | chrome | Button/Nav | BB-02 / BB-03 |
-| entryPath | form | Radio/RO | tuan-duong \| tuan-kiem |
-| tdFlag / tkAction | flag/action | Button/Radio | ViolationFlag / ViolationAction |
-| sender/route/km/content | form | Text* | POST required |
-| gps / noFace | GPS | Action/Checkbox | deny block |
-| save/cancel | CTA | Button | POST + parent |
-| leadSo07 | detail | Link | csdl-bieu-07 nav |
+| route | form | SearchInput | road-route · BFF · no seed |
+| sender/km/content | form | Text* | required · Pattern B |
+| tdFlag / tkAction | flag/action | Button/Radio | ViolationFlag / Action |
+| gps / noFace | GPS | Action/Checkbox | deny on submit |
+| save | CTA | Button | always on · saving only |
 
 ## Screens / zones (ids only)
-- BB-00 · BB-01 · BB-02 · BB-03 · BB-04 · BB-05 · BB-06 · BB-07
-- reviewUrl= (Design)
-- peerStdUrl= http://localhost:9301/web-rmms-bien-ban
-- DES-GRID / LinErpListFilterBar: N/A phone list
+- BB-00…BB-07 · Pattern=Full · routes `/bien-ban` · `/moi` · `/:id`
+- Grid AC: phone N/A · list AC L/F/G/X in requirement
+- Leave: LeaveConfirmModal · Pattern B
+- reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-bien-ban/ui/prototype/index.html (keep)
+- peerStdUrl= http://localhost:9301/bien-ban
+- controlHint cite: specs/_data-analy/features/web-rmms-bien-ban-control-hint.md
 
 ## API / tasks (ids only)
-- FormMode↔API: GET/POST/GET{id} petitions · PUT journal-lines · findings ViolationAction · sessions · auth · files/*
-- AC: L-01…07 · F-01…06 · G-01…03 · D-01…02 · X-01…04
-- T-*: (team_lead) · cite T38 / TD-05 §9 / TK-03
+- FormMode↔API: GET/POST/GET{id} petitions · PUT journal-lines · findings · road-routes/search · sessions · auth · files
+- real-data §A+§B PASS · § Delta edit_page PASS
+- T-*: enhance/fix_gaps (team_lead) · Pattern B + SearchInput · align-mobile-to-mfe
+- devSlash: `/agent-dev`
 
 ## UNCLEAR
-- UNCLEAR-DOMAIN-MAP-BB → SA DOMAIN-MAP row Patrol
-- UNCLEAR-BFF-PROXY → SA Mobile.Bff proxy patrol/* · cấm invent
-- UNCLEAR-JOURNAL-KIND-FIELD → SA bool Live + UI key useFormOptions
-- (resolved PO) LIST-SCOPE · STD-ROUTE · SO07 → see Decisions
+- none hard · soft LIST-SCOPE / SO07 stances in requirement §12
+- CLOSED: STD-ROUTE · DOMAIN-MAP · BFF-PROXY · JOURNAL-KIND-FIELD
 
 ## Full paths (Read only if needed)
 - requirement: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-bien-ban/po/requirement.md
 - control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-bien-ban-control-hint.md
 - real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-bien-ban-real-data.md
-- prior compact: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-bien-ban/handoff/data_analy-compact.md
+- design keep: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-bien-ban/ui/design.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-bien-ban/STATUS.md

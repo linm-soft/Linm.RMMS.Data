@@ -1,26 +1,38 @@
 {
   "url": "http://localhost:9301/web-rmms-mobile-b",
-  "capturedAt": "2026-09-25T08:29:39.909Z",
-  "method": "capture_b · MFE /login · phone 430 · geolocation mock",
+  "liveUrl": "http://localhost:9301/nhat-ky",
+  "capturedAt": "2026-09-27T07:45:58.587Z",
+  "method": "capture_b · MFE /login · phone 430 · geolocation mock · live /nhat-ky",
   "steps": [
+    {
+      "id": "S0-std-url",
+      "result": "FAIL",
+      "screenshot": "S0-std-url.png",
+      "error": "GAP-QA-E2E-CRASH-01 404 not found",
+      "href": "http://localhost:9301/m/web-rmms-mobile-b"
+    },
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "href": "http://localhost:9301/web-rmms-mobile-b/44fceb67-b83a-4fb5-b906-18d7e1009eb8"
+      "href": "http://localhost:9301/m/nhat-ky/8aac8961-dbd9-466e-b8a2-c5a0560c0e81",
+      "body": "Sổ nhật ký + Ca TD-20260927-001 Chưa ghi việc Thêm dòng nhật ký cho ca đang mở.Thêm dòng Trang Chủ Tuần đường Vấn đề Công việc Tôi"
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "href": "http://localhost:9301/web-rmms-mobile-a/tuan-duong/44fceb67-b83a-4fb5-b906-18d7e1009eb8"
+      "href": "http://localhost:9301/m/tuan-duong/8aac8961-dbd9-466e-b8a2-c5a0560c0e81",
+      "body": "Tuần đường Tuần đường Chấm công Ca đang chạy · Tốt QL.1 TD-20260927-001 · — Điểm tuần 1/3 · Độ phủ 0% Tiếp tục bản đồ Ghi điểm tuần Ghim vị trí hiện tại 1 Đã ghi điểm tuần 2 Còn lại 0% Độ phủ Hôm nay TD-20260927-001 Tuần đường · QL.1 · 05:1"
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "href": "http://localhost:9301/web-rmms-mobile-b/44fceb67-b83a-4fb5-b906-18d7e1009eb8/moi"
+      "href": "http://localhost:9301/m/nhat-ky/8aac8961-dbd9-466e-b8a2-c5a0560c0e81/moi",
+      "body": "Ghi nhật ký Huỷ Lưu Giờ Người ghi Định vị * [21.028500, 105.854200] Ghim vị trí hiện tại Lý trình Chiều Chiều đi Chiều về Hai chiều Thời tiết Nắng Mưa Mù Lũ Bão Khác Loại KCHT Hành lang TNGT Ùn tắc Xe hỏng Chướng ngại Cháy Thời tiết ATGT Di"
     }
   ],
-  "ok": true
+  "ok": true,
+  "note": "STATUS mfeStdUrl /web-rmms-mobile-b 404 · live /nhat-ky"
 }

@@ -1,0 +1,23 @@
+{
+  "url": "http://localhost:9301/phan-anh",
+  "capturedAt": "2026-09-27T12:07:15.980Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png"
+    },
+    {
+      "id": "QA-20",
+      "result": "FAIL",
+      "screenshot": "QA-20.png",
+      "error": "GAP-QA-E2E-BLANK-01"
+    }
+  ],
+  "ok": false
+}

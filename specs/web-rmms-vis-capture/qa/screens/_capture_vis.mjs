@@ -112,32 +112,35 @@ async function clearSession() {
 
 async function loginViaSheet() {
   await clearSession();
-  await page.goto(base + "/web-rmms-home", {
+  // Home SSOT: `/` → `/m/trang-chu` · guest CTA → `/m/dang-nhap` (LG-00 · #f-user/#f-pass)
+  await page.goto(base + "/", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
   await page.waitForSelector("#guestLogin", { timeout: 20000 });
   await page.locator("#guestLogin").click();
-  await page.waitForSelector("#loginUser, [data-zone='SH-02'] input", {
-    timeout: 15000,
-  });
-  const userSel = (await page.locator("#loginUser").count())
-    ? "#loginUser"
-    : '[data-zone="SH-02"] input[type="text"], [data-zone="SH-02"] input:not([type="password"])';
-  const passSel = (await page.locator("#loginPass").count())
-    ? "#loginPass"
-    : '[data-zone="SH-02"] input[type="password"]';
-  await page.fill(userSel, user);
-  await page.fill(passSel, password);
+  await page.waitForSelector("#f-user, #loginUser", { timeout: 20000 });
+  if (await page.locator("#f-user").count()) {
+    await page.fill("#f-user", user);
+    await page.fill("#f-pass", password);
+    await page.locator("#btn-login").click({ force: true });
+  } else {
+    await page.fill("#loginUser", user);
+    await page.fill("#loginPass", password);
+    await page.locator("#loginSubmit").click({ force: true });
+  }
+  await page.waitForTimeout(3000);
   await page
-    .locator("#loginSubmit, [data-zone='SH-02'] button[type='submit']")
-    .first()
-    .click({ force: true });
-  await page.waitForTimeout(2500);
-  await page
-    .waitForSelector(
-      '[data-feature="web-rmms-home"][data-mode="staff"] #gridSupervise, [data-mode="staff"] #walletAsset',
-      { timeout: 25000 },
+    .waitForFunction(
+      () => {
+        const href = location.href || "";
+        const t = document.body?.innerText || "";
+        return (
+          !/\/dang-nhap/i.test(href) &&
+          (/Đăng xuất|Cán bộ|Khách/i.test(t) || !!document.querySelector('[data-feature="web-rmms-home"], [data-feature="trang-chu"]'))
+        );
+      },
+      { timeout: 30000 },
     )
     .catch(() => {});
 }
@@ -171,9 +174,13 @@ async function dumpZones() {
       "btnSkip",
       "gpsBanner",
       "modalGps",
+      "validationBanner",
       "loginUser",
       "loginPass",
       "loginSubmit",
+      "f-user",
+      "f-pass",
+      "btn-login",
       "guestLogin",
     ].filter((id) => document.getElementById(id));
     const text = (document.body?.innerText || "").slice(0, 1400).replace(/\s+/g, " ");
@@ -183,6 +190,11 @@ async function dumpZones() {
       const el = document.getElementById("detect");
       return el ? el.disabled === true || el.hasAttribute("disabled") : null;
     })();
+    const attachDisabled = (() => {
+      const el = document.getElementById("btnAttach");
+      return el ? el.disabled === true || el.hasAttribute("disabled") : null;
+    })();
+    const hasValidationBanner = !!document.getElementById("validationBanner");
     return {
       feature: root?.getAttribute("data-feature") || null,
       zones: [...new Set(zones)],
@@ -193,6 +205,8 @@ async function dumpZones() {
       guestGate,
       titleOk,
       detectDisabled,
+      attachDisabled,
+      hasValidationBanner,
     };
   });
 }
@@ -231,11 +245,13 @@ async function captureCurrent(id, waitSel) {
   }
 }
 
+const VIS = "/chup-hien-truong";
+
 try {
-  // S0 — guest gate VIS
+  // S0 — guest gate VIS (ROUTE-01)
   pageErrors.length = 0;
   await clearSession();
-  await page.goto(base + "/web-rmms-vis-capture", {
+  await page.goto(base + VIS, {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
@@ -244,35 +260,57 @@ try {
     "[data-feature='web-rmms-vis-capture'] #visGuestGate, #visGuestGate",
   );
 
-  // QA-20 — LoginSheet SH-02
+  // QA-20 — Login page LG-00 (supersedes SH-02 sheet for guest CTA)
   pageErrors.length = 0;
-  await clearSession();
-  await page.goto(base + "/web-rmms-home", {
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
-  });
-  await page.waitForSelector("#guestLogin", { timeout: 20000 });
-  await page.locator("#guestLogin").click();
-  await captureCurrent("QA-20", "#loginUser, [data-zone='SH-02']");
+  try {
+    await clearSession();
+    await page.goto(base + "/", {
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
+    });
+    await page.waitForSelector("#guestLogin", { timeout: 25000 });
+    await page.locator("#guestLogin").click();
+    await captureCurrent(
+      "QA-20",
+      "#f-user, #loginUser, [data-zone='LG-00'], [data-zone='SH-02']",
+    );
+  } catch (err) {
+    results.push({
+      id: "QA-20",
+      result: "FAIL",
+      error: err instanceof Error ? err.message : String(err),
+      href: page.url(),
+    });
+  }
 
-  // S1 — staff VIS surface after LoginSheet
+  // S1 — staff VIS surface after LoginSheet · Pattern B idle-on
   pageErrors.length = 0;
-  await loginViaSheet();
-  await page.goto(base + "/web-rmms-vis-capture", {
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
-  });
-  await captureCurrent(
-    "S1",
-    "[data-feature='web-rmms-vis-capture'] #sc-vis-capture, #sc-vis-capture",
-  );
+  try {
+    await loginViaSheet();
+    await page.goto(base + VIS, {
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
+    });
+    await captureCurrent(
+      "S1",
+      "[data-feature='web-rmms-vis-capture'] #sc-vis-capture, #sc-vis-capture",
+    );
+  } catch (err) {
+    results.push({
+      id: "S1",
+      result: "FAIL",
+      error: err instanceof Error ? err.message : String(err),
+      href: page.url(),
+    });
+  }
 
-  // Mode dumps (not separate case ids in stock set — evidence for T-QA-VIS)
+  // Mode dumps — Pattern B + prior GPS/Acc/SESS
   const modeCases = [
-    { id: "MODE-gps-deny", path: "/web-rmms-vis-capture?gps=deny", wait: "#modalGps, #gpsBanner, #sc-vis-capture" },
-    { id: "MODE-acc-45", path: "/web-rmms-vis-capture?acc=45", wait: "#sc-vis-capture" },
-    { id: "MODE-nophoto", path: "/web-rmms-vis-capture?nophoto=1", wait: "#sc-vis-capture" },
-    { id: "MODE-nosession", path: "/web-rmms-vis-capture?nosession=1", wait: "#sc-vis-capture" },
+    { id: "MODE-banner", path: VIS + "?banner=1", wait: "#validationBanner, #sc-vis-capture" },
+    { id: "MODE-gps-deny", path: VIS + "?gps=deny", wait: "#modalGps, #gpsBanner, #sc-vis-capture" },
+    { id: "MODE-acc-45", path: VIS + "?acc=45", wait: "#sc-vis-capture" },
+    { id: "MODE-nophoto", path: VIS + "?nophoto=1", wait: "#sc-vis-capture" },
+    { id: "MODE-nosession", path: VIS + "?nosession=1", wait: "#sc-vis-capture" },
   ];
   for (const m of modeCases) {
     pageErrors.length = 0;

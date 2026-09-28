@@ -1,12 +1,13 @@
 # Feature context — web-rmms-bien-ban
 
 > **Slug:** `web-rmms-bien-ban` · **Title:** Đề nghị lập biên bản  
-> **Status:** draft → data_analy · **packKind:** `list` · **changeScope:** `new_page`  
+> **Status:** data_analy done → po · **packKind:** `list` · **changeScope:** `edit_page`  
 > **Demo:** N/A · master-adjacent · **cấm** demo HTML / tọa độ mẫu SSOT  
 > **MFE:** `Linm.Web.RMMS.Mobile` · phone `max-width` 430px · **cấm** nhét vào MFE desktop Asset/Field  
 > **BE:** `Linm.RMMS.WebService` · domain **Patrol** · **cấm ERP.*** / Domains/Master  
-> **mfeStdRoute:** `/web-rmms-bien-ban` · **mfeStdUrl:** `http://localhost:9301/web-rmms-bien-ban`  
-> **Queue:** `/agent-qldb-workflow` · alias `web-rmms-bien-ban` · **cấm** iOS/Android native  
+> **mfeStdRoute:** `/bien-ban` · **mfeStdUrl:** `http://localhost:9301/bien-ban`  
+> **Delta:** `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · Pattern B + SearchInput tuyến  
+> **Queue:** `/agent-qldb-workflow` · alias `web-rmms-bien-ban` · task `task_af34e11a` · **cấm** iOS/Android native  
 > **BFF:** `Linm.RMMS.Mobile.Bff` `:5202` · `mobile-bff/api/v1` · **cấm** gọi web-bff · **cấm** Route `mobile-bff` trên web-bff controller
 
 ## 1. Mục tiêu
@@ -20,10 +21,10 @@ Nhật ký · kết ca · tồn tại/phiếu · tần suất = peer `web-rmms-m
 | Id | Route / zone | Việc |
 |----|--------------|------|
 | BB-00 | phone frame | ≤430 · Android 1-1 icon/tab/layout · **không** tab Cá nhân |
-| BB-01 | `/web-rmms-bien-ban` | list đề nghị (petitions `kind=hanh-lang` + dòng/phiếu đã gắn cờ) |
-| BB-02 | `/web-rmms-bien-ban/moi?from=tuan-duong` | form tạo đề nghị từ journal `hanh-lang` · set `ViolationFlag` |
-| BB-03 | `/web-rmms-bien-ban/moi?from=tuan-kiem` | form từ finding `hanh-lang` · `ViolationAction` |
-| BB-04 | `/web-rmms-bien-ban/:id` | detail đề nghị / petition |
+| BB-01 | `/bien-ban` | list đề nghị (petitions `kind=hanh-lang` + dòng/phiếu đã gắn cờ) |
+| BB-02 | `/bien-ban/moi?from=tuan-duong` | form tạo đề nghị từ journal `hanh-lang` · set `ViolationFlag` |
+| BB-03 | `/bien-ban/moi?from=tuan-kiem` | form từ finding `hanh-lang` · `ViolationAction` |
+| BB-04 | `/bien-ban/:id` | detail đề nghị / petition |
 | BB-05 | GPS | `navigator.geolocation` · deny → chặn nút cần tọa độ · **cấm** fake |
 | BB-06 | Field entry | cửa Field → Tuần đường / Tuần kiểm · deep link peer TD-05 / TK-03 |
 | BB-07 | empty / search | empty copy key · filter status/route P1 optional |
@@ -93,13 +94,14 @@ Nhật ký · kết ca · tồn tại/phiếu · tần suất = peer `web-rmms-m
 | skillVersion | `2026.09.05.03` |
 | schemaVersion | `1` |
 | contentHashSource | IMPLEMENT-SCREENS.md TD-05/TK-03 + GAP §5 + this file |
-| contentHash | `sha256:bc9070c4ab20da1960355a727eae18029943c2d95865aebd7d9bcb443ea60cd2` |
-| writtenAt | `2026-09-26T00:25:00.000Z` |
-| taskId | `task_41debbaa` |
+| contentHash | `sha256:3f196a65ee5bc6578aa8d96f9c08a6e0d0ca3fb263399e7a8d3fe3863da26b0e` |
+| writtenAt | `2026-09-27T15:42:56.000Z` |
+| taskId | `task_af34e11a` |
+| changeScope | `edit_page` |
 
 ## Implement tracking
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `done` | `done` | `2026-09-26T01:04:01.086Z` |
+| web | `done` | `done` | `2026-09-27T16:28:32.355Z` |
 | mobile | — | — | — |

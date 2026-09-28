@@ -4,51 +4,52 @@ schemaVersion: 1
 feature: web-rmms-attendance
 packKind: list
 role: review
-status: confirmed
+status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T02:10:00.000Z
-taskId: task_12c30c40
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
-review_confirm: approve
+writtenAt: 2026-09-27T17:10:00.000Z
+taskId: task_5255729d
+contentHash: sha256:0275fe24159e04a2d1a70682880e26b3456de61e7cf74b9c3d9ac707cae30d7a
 autoApprove: ON
-changeScope: new_page
-verdict: PASS
-mfeStdUrl: http://localhost:9301/web-rmms-attendance
+changeScope: edit_page
+review_confirm: approve
 
 ## Decisions
-- formPattern: Mobile hub + RO report/day/log · phone 430 · DES-MOB-ATT · Kind B WAIVE
-- QUERY: GET/POST/GET{id} patrol/attendance-logs · client aggregate · cấm invent /attendance/* · cấm demoDays
-- SEC: guest gate · GPS deny=no POST · toast · cấm ERP.* · cấm alert
-- UI-FN: ATT-00…08 · report/day/log · aliases /field/attendance* · QA S0/S1/QA-20 Aligned
-- BE-FN: Patrol Live · Mobile.Bff catch-all · Step 4b N/A
-- Must P0: 0 · soft: stock playwright · WDS deep-link · Dev nav chrome
-- hash skip: yes · SSOT unchanged
-- next: terminal · roleOnly stop (GAP-PKT-ROLE-01) · phase=done
+- changeScope: edit_page · Pattern B delta review · keep prior Live CRUD
+- formPattern: Mobile hub Pattern B · phone 430 · N/A Modal/DES-GRID/Excel
+- mfe: Linm.Web.RMMS.Mobile · mfeStdRoute=/cham-cong · mfeStdUrl http://localhost:9301/cham-cong
+- be: Mobile.Bff :5202 · Patrol attendance-logs · cấm ERP.* · T-BE N/A · Step 4b skip
+- QUERY/SEC/UI-FN/BE-FN **PASS** · Must P0=0 · hash skip yes
+- Pattern B: disabled={saving} only · validationBanner on submit · GPS on-submit · QA S1 disabled=false
+- UNCLEAR CLOSED: GUEST-SURFACE · BANNER-VS-TOAST · STD-ROUTE · REPORT-API
+- review **cấm** yarn build/e2e/start:std · roleOnly stop (GAP-PKT-ROLE-01)
+- phase=done · chain complete
 
 ## Inventory (slim)
 | id | controlHint | notes |
 |----|-------------|-------|
-| guestGate | Empty/CTA | ATT-08 |
-| heroStatus/gpsMeta | Text RO | GPS gate |
-| btnCheckIn | Button | POST+GPS |
-| btnReport | Button/Nav | → report |
-| dayRows/empty | List/Empty | 7d agg |
-| report/day/log | List/Detail RO | client/GET{id} |
+| btnCheckIn * | Button Pattern B | disabled=saving only · PASS |
+| validationBanner * | Banner string[] | on submit · PASS |
+| gpsCapture * | GPS on submit | deny modal · cấm fake |
+| guestGate / CTA | Guest Pattern B | S0 PASS |
+| report/day/log | List/Detail RO | keep |
+| empty | Empty | keep |
 
 ## Screens / zones
-- ATT-00…ATT-08 · DES-MOB-ATT · DES-MOB-GPS-DENY
-- peerStdUrl= http://localhost:9301/web-rmms-attendance
-- DES-GRID / LinErpListFilterBar: N/A
+- ATT-00…ATT-09 · DES-MOB-ATT · LG-00
+- PNG: specs/web-rmms-attendance/qa/screens/{S0,S1,QA-20}.png
+- peerStdUrl= http://localhost:9301/cham-cong
+- DES-GRID / Excel: N/A · cấm
 
 ## API / tasks
-- FormMode↔API: GET/POST/GET{id} · client report/day
-- T-* Dev/QA: done · review PASS
-- soft debt: GAP-QA-E2E-STOCK-PLAYWRIGHT · WDS deep-link · Dev nav chrome
+- FormMode↔API: GET/POST patrol/attendance-logs · GET auth/profile · client report/day
+- T-REV-01 **done** · T-QA-* done · T-DELTA-PB-01 done
+- AC: AC-HUB-02 · 08 · 11 · 12 · 14 Pattern B PASS
 
 ## UNCLEAR
-- none P0
+- CLOSED: BANNER-VS-TOAST · GUEST-SURFACE · STD-ROUTE · REPORT-API
+- DEFER: Face/NFC · report API · soft stock e2e
 
 ## Full paths
 - findings: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-attendance/review/findings.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-attendance/STATUS.md
-- prior: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-attendance/handoff/qa-compact.md
+- next: phase=done · no next role

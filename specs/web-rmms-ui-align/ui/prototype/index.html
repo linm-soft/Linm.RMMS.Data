@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-ui-align — TabBar 5 · Home · Field · Me</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .back, .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; cursor: pointer; border-radius: 12px;
+      display: grid; place-items: center; padding: 0; position: relative;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 88px; }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 14px 16px; margin-bottom: 12px;
+    }
+    .door {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 18px 16px; margin-bottom: 12px; cursor: pointer;
+    }
+    .door h3 { margin: 0 0 4px; font-size: 17px; }
+    .door p { margin: 0; color: var(--muted); font-size: var(--label); }
+    .badge {
+      position: absolute; top: 6px; right: 4px;
+      min-width: 18px; height: 18px; padding: 0 5px;
+      background: var(--danger); color: #fff; font-size: 11px;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      border: 1.5px solid var(--on-primary);
+    }
+    .btn {
+      height: var(--control-h); border: 0; border-radius: var(--radius-control);
+      padding: 0 16px; font-size: var(--field); cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); width: 100%; }
+    .btn-ghost { background: transparent; color: var(--primary); border: 1px solid var(--primary); width: 100%; }
+    .btn-row { display: flex; gap: 8px; margin-top: 12px; }
+    .btn-row .btn { flex: 1; }
+    label { display: block; font-size: var(--label); color: var(--muted); margin: 10px 0 4px; }
+    input {
+      width: 100%; height: 52px; font-size: var(--field);
+      border: 1px solid var(--border); border-radius: var(--radius-control);
+      padding: 0 12px; background: #fff;
+    }
+    .grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px;
+    }
+    .tile {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 12px 8px; text-align: center;
+      font-size: 12px; cursor: pointer; min-height: 88px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    }
+    .tile .ico { color: var(--primary); display: grid; place-items: center; }
+    .quick { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+    .chip {
+      background: #E8F4FA; color: var(--primary); border: 0; border-radius: 999px;
+      padding: 8px 12px; font-size: var(--label); cursor: pointer;
+    }
+    .tabbar {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 64px; background: var(--card); border-top: 1px solid var(--border);
+      display: flex; align-items: stretch;
+    }
+    .tab {
+      flex: 1; border: 0; background: transparent; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 2px; color: var(--muted); font-size: 10px; padding: 4px 2px;
+    }
+    .tab .ico { display: grid; place-items: center; height: 24px; }
+    .tab.active { color: var(--primary); font-weight: 600; }
+    .tab.active svg { stroke: var(--primary); }
+    .sprites { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .ic { width: 22px; height: 22px; display: block; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .me-row {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 14px 16px; margin-bottom: 8px;
+      cursor: pointer; font-size: var(--field);
+    }
+    .me-row .meta-r { margin-left: auto; color: var(--muted); font-size: var(--label); }
+    .me-row.danger { color: var(--danger); }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 80px;
+      background: #1C1C1E; color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: var(--label); display: none; z-index: 30;
+      text-align: center;
+    }
+    .toast.open { display: block; }
+    .stub-list { color: var(--muted); font-size: var(--label); }
+    .stub-list ul { padding: 0; margin: 8px 0 0; }
+    .stub-list li {
+      margin: 8px 0; padding: 10px; background: var(--card); border-radius: 12px;
+      border: 1px solid var(--border); color: var(--on-surface); list-style: none;
+    }
+    .overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45);
+      display: none; align-items: flex-end; justify-content: center; z-index: 20;
+    }
+    .overlay.open { display: flex; }
+    .sheet {
+      width: 100%; background: var(--card); border-radius: 24px 24px 0 0;
+      padding: 16px 16px 24px; max-height: 90%;
+    }
+    .modal {
+      width: calc(100% - 32px); margin: auto; background: var(--card);
+      border-radius: 16px; padding: 18px; max-width: 360px;
+    }
+    .modal h3 { margin: 0 0 8px; }
+    .modal p { margin: 0 0 14px; color: var(--muted); font-size: var(--label); }
+    .faq { font-size: var(--label); color: var(--muted); line-height: 1.45; }
+    .profile { font-size: 15px; font-weight: 600; }
+    .hint { font-size: 11px; color: var(--muted); margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <svg class="sprites" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8.5z"/></symbol>
+    <symbol id="i-mappin" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 3.5 22 20H2L12 3.5z"/><path d="M12 10v5"/><path d="M12 17.5h.01"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5.6 5.6L3 18v3h3l5.9-5.9a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.5-2.5 2.5-2.5z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 19.5c1.8-3.2 4.2-4.5 7-4.5s5.2 1.3 7 4.5"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 7h12M8 12h12M8 17h12"/><path d="M4 7h.01M4 12h.01M4 17h.01"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3 21 8v8l-9 5-9-5V8l9-5z"/><path d="M12 13V22M12 13 3 8M12 13l9-5"/></symbol>
+    <symbol id="i-sync" viewBox="0 0 24 24"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15.5-6.4L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15.5 6.4L3 16"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.6 8.6A16 16 0 0 1 12 5c3.4 0 6.6 1 9.4 3.6"/><path d="M5.4 12.5A10.2 10.2 0 0 1 12 10c2.4 0 4.6.8 6.6 2.5"/><path d="M8.8 16.2A5 5 0 0 1 12 15c1.2 0 2.3.4 3.2 1.2"/><circle cx="12" cy="19.4" r="1.35" class="fill"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10v6"/><path d="M12 7.5h.01"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 10.5 21 7v10l-6-3.5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17h12l-1.2-1.2A6.5 6.5 0 0 1 15 11V9a3 3 0 1 0-6 0v2a6.5 6.5 0 0 1-1.8 4.8L6 17z"/><path d="M10 17a2 2 0 0 0 4 0"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M4.9 6.5l1.6 1.6M17.5 17.9l1.6 1.6M3 12h2.2M18.8 12H21M4.9 17.5l1.6-1.6M17.5 6.1l1.6-1.6"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  </svg>
+  <div class="meta">feature=web-rmms-ui-align · DES-MOB-TABBAR 5 · ME · reviewUrl prototype · cấm invent route</div>
+  <div class="board-nav" id="boardNav">
+    <button type="button" data-zone="HOME-g" class="active">HOME guest</button>
+    <button type="button" data-zone="HOME-s">HOME staff</button>
+    <button type="button" data-zone="LOGIN">LOGIN</button>
+    <button type="button" data-zone="PAT">Field doors</button>
+    <button type="button" data-zone="INC">Incident</button>
+    <button type="button" data-zone="MNT">Work</button>
+    <button type="button" data-zone="ME">Me</button>
+    <button type="button" data-zone="DES-LEAVE">Leave</button>
+  </div>
+
+  <div class="phone" id="phone" data-des-id="UA-00">
+    <div class="topbar" id="topbar">
+      <button type="button" class="back" id="stackBack" title="stackBack" aria-label="Back">
+        <svg class="ic" aria-hidden="true"><use href="#i-chevron-left"/></svg>
+      </button>
+      <div class="title" id="topTitle">Trang chủ</div>
+      <button type="button" class="icon-btn" id="opsBtn" title="me.notify" aria-label="Ops">
+        <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>
+        <span class="badge" id="notifyBadge">3</span>
+      </button>
+    </div>
+
+    <div class="content">
+      <section class="screen active" id="scr-HOME-g" data-des-id="DES-MOB-HOME">
+        <div class="card">
+          <div class="profile">Khách</div>
+          <p class="faq" id="guestFaq">Bạn đang xem chế độ khách. Đăng nhập để dùng tuần đường, vấn đề và công việc.</p>
+          <p class="faq" id="guestPrivacy" style="margin-top:8px"><a href="#" style="color:var(--primary)">Chính sách bảo mật</a> · <a href="#" style="color:var(--primary)">FAQ</a></p>
+          <button type="button" class="btn btn-primary" id="guestLoginCta" style="margin-top:12px">Đăng nhập</button>
+        </div>
+      </section>
+
+      <section class="screen" id="scr-HOME-s" data-des-id="DES-MOB-HOME">
+        <div class="card">
+          <div class="profile" id="profileName">Nguyễn Văn A</div>
+          <div class="hint">profileName RO · GET auth/profile</div>
+        </div>
+        <div class="quick">
+          <button type="button" class="chip" id="qaPatrolPoint">Điểm tuần</button>
+          <button type="button" class="chip" id="qaIncidentNew">Vấn đề mới</button>
+          <button type="button" class="chip" id="qaSupervise">Giám sát</button>
+          <button type="button" class="chip" id="qaPatrolMap">Bản đồ tuần</button>
+        </div>
+        <div class="grid">
+          <button type="button" class="tile" id="qaSupervise"><span class="ico" style="color:#FCB43C"><svg class="ic"><use href="#i-list"/></svg></span>Giám sát</button>
+          <button type="button" class="tile" id="qaPatrol"><span class="ico" style="color:#F03C30"><svg class="ic"><use href="#i-mappin"/></svg></span>Tuần đường</button>
+          <button type="button" class="tile" id="qaWork"><span class="ico" style="color:#3CB448"><svg class="ic"><use href="#i-wrench"/></svg></span>Công việc</button>
+          <button type="button" class="tile" id="qaIncident"><span class="ico" style="color:#FCB43C"><svg class="ic"><use href="#i-warning"/></svg></span>Vấn đề</button>
+          <button type="button" class="tile" id="qaAsset"><span class="ico" style="color:#0C84C0"><svg class="ic"><use href="#i-cube"/></svg></span>Tài sản</button>
+          <button type="button" class="tile" id="qaOffline"><span class="ico" style="color:#086A9A"><svg class="ic"><use href="#i-sync"/></svg></span>Lưu trữ</button>
+        </div>
+      </section>
+
+      <section class="screen" id="scr-PAT" data-des-id="DES-MOB-PAT-HOME">
+        <div class="door" id="doorPatrol">
+          <h3>Tuần đường (BDTX) <span style="font-size:11px;background:var(--danger);color:#fff;border-radius:10px;padding:2px 7px">1</span></h3>
+          <p>doorPatrol → /web-rmms-field · sessions badge opt</p>
+        </div>
+        <div class="door" id="doorInspect">
+          <h3>Tuần kiểm (Khu/VP)</h3>
+          <p>doorInspect → field inspect door</p>
+        </div>
+      </section>
+
+      <section class="screen" id="scr-INC" data-des-id="DES-MOB-INC-LIST">
+        <div class="card stub-list">
+          <strong>Vấn đề</strong>
+          <ul>
+            <li>SC-001 · Đang xử lý · peer mount</li>
+            <li>SC-002 · Mới · live BFF</li>
+          </ul>
+          <div class="hint">DES-MOB-INC-LIST · /web-rmms-incident · cấm invent CRUD</div>
+        </div>
+      </section>
+
+      <section class="screen" id="scr-MNT" data-des-id="DES-MOB-MNT-LIST">
+        <div class="card stub-list">
+          <strong>Công việc</strong>
+          <ul>
+            <li>WO-101 · Đang làm · peer mount</li>
+            <li>WO-102 · Chờ · live BFF</li>
+          </ul>
+          <div class="hint">DES-MOB-MNT-LIST · /web-rmms-work · cấm invent CRUD</div>
+        </div>
+      </section>
+
+      <section class="screen" id="scr-ME" data-des-id="DES-MOB-ME">
+        <div class="card">
+          <div class="profile" id="meProfile">Nguyễn Văn A</div>
+          <div class="hint">me.profile · GET auth/profile</div>
+        </div>
+        <div class="me-row" id="meOffline" data-des-id="DES-MOB-PAT-OFFLINE">
+          <svg class="ic" aria-hidden="true"><use href="#i-sync"/></svg>
+          Hàng đợi mất sóng <span class="meta-r" id="meOfflineCount">3</span>
+        </div>
+        <div class="me-row" id="meSignal">
+          <svg class="ic" aria-hidden="true"><use href="#i-wifi"/></svg>
+          Tín hiệu <span class="meta-r" id="meSignalVal">Online</span>
+        </div>
+        <div class="me-row" id="meFeedback" data-des-id="DES-MOB-FEEDBACK">
+          <svg class="ic" aria-hidden="true"><use href="#i-info"/></svg>
+          Góp ý
+        </div>
+        <div class="me-row" id="meCamView" data-des-id="DES-MOB-CAM-VIEW">
+          <svg class="ic" aria-hidden="true"><use href="#i-video"/></svg>
+          Camera xem
+        </div>
+        <div class="me-row" id="meNotify" data-des-id="DES-MOB-OPS">
+          <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>
+          Thông báo <span class="meta-r">3</span>
+        </div>
+        <div class="me-row" id="meSettings">
+          <svg class="ic" aria-hidden="true"><use href="#i-gear"/></svg>
+          Cài đặt
+        </div>
+        <div class="me-row danger" id="meLogout">Đăng xuất</div>
+      </section>
+    </div>
+
+    <nav class="tabbar" id="tabBar" data-des-id="DES-MOB-TABBAR" aria-label="TabBar">
+      <button type="button" class="tab active" data-tab="home" id="tabHome">
+        <span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></span>
+        Trang Chủ
+      </button>
+      <button type="button" class="tab" data-tab="field" id="tabField" title="tab.field · #i-mappin">
+        <span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-mappin"/></svg></span>
+        Tuần đường
+      </button>
+      <button type="button" class="tab" data-tab="incident" id="tabIncident">
+        <span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-warning"/></svg></span>
+        Vấn đề
+      </button>
+      <button type="button" class="tab" data-tab="work" id="tabWork">
+        <span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg></span>
+        Công việc
+      </button>
+      <button type="button" class="tab" data-tab="me" id="tabMe">
+        <span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-person"/></svg></span>
+        Tôi
+      </button>
+    </nav>
+
+    <div class="overlay" id="loginOverlay" data-des-id="DES-MOB-LOGIN">
+      <div class="sheet">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <strong style="font-size:var(--nav-title)">Đăng nhập</strong>
+          <button type="button" class="btn" id="loginCancel" style="width:auto;background:transparent;color:var(--primary)">Hủy</button>
+        </div>
+        <label for="loginUser">Tài khoản</label>
+        <input id="loginUser" type="text" autocomplete="username" />
+        <label for="loginPass">Mật khẩu</label>
+        <input id="loginPass" type="password" autocomplete="current-password" />
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" id="loginSubmit">Đăng nhập</button>
+        </div>
+        <div class="hint">DES-MOB-LOGIN · POST auth/login · dirty → LeaveConfirmModal</div>
+      </div>
+    </div>
+
+    <div class="overlay" id="leaveOverlay" data-des-id="DES-LEAVE" style="align-items:center">
+      <div class="modal">
+        <h3>Rời form?</h3>
+        <p>Thông tin đăng nhập chưa gửi. Ở lại hoặc rời?</p>
+        <div class="btn-row">
+          <button type="button" class="btn btn-ghost" id="leaveStay">Ở lại</button>
+          <button type="button" class="btn btn-primary" id="leaveGo">Rời</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="logoutOverlay" data-des-id="DES-LOGOUT" style="align-items:center">
+      <div class="modal">
+        <h3>Đăng xuất?</h3>
+        <p>Xóa phiên JWT trên thiết bị này.</p>
+        <div class="btn-row">
+          <button type="button" class="btn btn-ghost" id="logoutCancel">Hủy</button>
+          <button type="button" class="btn btn-primary" id="logoutOk">Đăng xuất</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <script>
+    (function () {
+      var titles = {
+        "HOME-g": "Trang chủ",
+        "HOME-s": "Trang chủ",
+        "PAT": "Tuần đường",
+        "INC": "Vấn đề",
+        "MNT": "Công việc",
+        "ME": "Tôi"
+      };
+      var tabMap = { home: "HOME-s", field: "PAT", incident: "INC", work: "MNT", me: "ME" };
+      var dirtyLogin = false;
+      var staffMode = false;
+      var peerFeedbackMounted = false;
+      var peerCamMounted = false;
+
+      function toast(msg) {
+        var el = document.getElementById("toast");
+        el.textContent = msg;
+        el.classList.add("open");
+        clearTimeout(toast._t);
+        toast._t = setTimeout(function () { el.classList.remove("open"); }, 2200);
+      }
+
+      function hideScreens() {
+        document.querySelectorAll(".screen").forEach(function (el) { el.classList.remove("active"); });
+      }
+
+      function setTab(tab) {
+        document.querySelectorAll(".tab").forEach(function (t) {
+          t.classList.toggle("active", t.getAttribute("data-tab") === tab);
+        });
+      }
+
+      function showZone(zone) {
+        document.querySelectorAll("#boardNav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-zone") === zone);
+        });
+        document.getElementById("loginOverlay").classList.remove("open");
+        document.getElementById("leaveOverlay").classList.remove("open");
+        document.getElementById("logoutOverlay").classList.remove("open");
+
+        if (zone === "LOGIN") {
+          document.getElementById("loginOverlay").classList.add("open");
+          return;
+        }
+        if (zone === "DES-LEAVE") {
+          document.getElementById("leaveOverlay").classList.add("open");
+          return;
+        }
+
+        hideScreens();
+        var scr = document.getElementById("scr-" + zone);
+        if (scr) scr.classList.add("active");
+        document.getElementById("topTitle").textContent = titles[zone] || "Shell";
+
+        if (zone === "HOME-g" || zone === "HOME-s") setTab("home");
+        if (zone === "PAT") setTab("field");
+        if (zone === "INC") setTab("incident");
+        if (zone === "MNT") setTab("work");
+        if (zone === "ME") setTab("me");
+      }
+
+      document.getElementById("boardNav").addEventListener("click", function (e) {
+        var btn = e.target.closest("button[data-zone]");
+        if (!btn) return;
+        var z = btn.getAttribute("data-zone");
+        if (z === "HOME-s") staffMode = true;
+        if (z === "HOME-g") staffMode = false;
+        showZone(z);
+      });
+
+      document.getElementById("tabBar").addEventListener("click", function (e) {
+        var tab = e.target.closest(".tab");
+        if (!tab) return;
+        var key = tab.getAttribute("data-tab");
+        var zone = tabMap[key];
+        if (key === "home") zone = staffMode ? "HOME-s" : "HOME-g";
+        showZone(zone);
+      });
+
+      document.getElementById("guestLoginCta").addEventListener("click", function () {
+        showZone("LOGIN");
+      });
+
+      ["loginUser", "loginPass"].forEach(function (id) {
+        document.getElementById(id).addEventListener("input", function () {
+          dirtyLogin = !!(document.getElementById("loginUser").value || document.getElementById("loginPass").value);
+        });
+      });
+
+      function closeLogin(force) {
+        if (dirtyLogin && !force) {
+          document.getElementById("leaveOverlay").classList.add("open");
+          return;
+        }
+        dirtyLogin = false;
+        document.getElementById("loginUser").value = "";
+        document.getElementById("loginPass").value = "";
+        document.getElementById("loginOverlay").classList.remove("open");
+        document.getElementById("leaveOverlay").classList.remove("open");
+      }
+
+      document.getElementById("loginCancel").addEventListener("click", function () { closeLogin(false); });
+      document.getElementById("loginSubmit").addEventListener("click", function () {
+        dirtyLogin = false;
+        staffMode = true;
+        document.getElementById("loginOverlay").classList.remove("open");
+        showZone("HOME-s");
+      });
+      document.getElementById("leaveStay").addEventListener("click", function () {
+        document.getElementById("leaveOverlay").classList.remove("open");
+      });
+      document.getElementById("leaveGo").addEventListener("click", function () {
+        closeLogin(true);
+        showZone(staffMode ? "HOME-s" : "HOME-g");
+      });
+
+      document.getElementById("qaPatrolPoint").addEventListener("click", function () { showZone("PAT"); });
+      document.getElementById("qaWork").addEventListener("click", function () { showZone("MNT"); });
+      document.getElementById("qaIncident").addEventListener("click", function () { showZone("INC"); });
+      document.getElementById("qaOffline").addEventListener("click", function () { toast("→ /web-rmms-offline"); });
+      document.getElementById("qaOps").addEventListener("click", function () { toast("→ /web-rmms-ops"); });
+      document.getElementById("opsBtn").addEventListener("click", function () { toast("→ /web-rmms-ops"); });
+
+      document.getElementById("meOffline").addEventListener("click", function () { toast("→ /web-rmms-offline"); });
+      document.getElementById("meNotify").addEventListener("click", function () { toast("→ /web-rmms-ops"); });
+      document.getElementById("meFeedback").addEventListener("click", function () {
+        toast(peerFeedbackMounted ? "→ /web-rmms-feedback" : "me.peerPending · feedback chưa mount");
+      });
+      document.getElementById("meCamView").addEventListener("click", function () {
+        toast(peerCamMounted ? "→ /web-rmms-cam-view" : "me.peerPending · cam-view chưa mount");
+      });
+      document.getElementById("meSettings").addEventListener("click", function () {
+        toast("Cài đặt — sắp có (toast only · cấm màn)");
+      });
+      document.getElementById("meLogout").addEventListener("click", function () {
+        document.getElementById("logoutOverlay").classList.add("open");
+      });
+      document.getElementById("logoutCancel").addEventListener("click", function () {
+        document.getElementById("logoutOverlay").classList.remove("open");
+      });
+      document.getElementById("logoutOk").addEventListener("click", function () {
+        document.getElementById("logoutOverlay").classList.remove("open");
+        staffMode = false;
+        toast("Đã đăng xuất · clear JWT");
+        showZone("HOME-g");
+      });
+
+      showZone("HOME-g");
+    })();
+  </script>
+</body>
+</html>

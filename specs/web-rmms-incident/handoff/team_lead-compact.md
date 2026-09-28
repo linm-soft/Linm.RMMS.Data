@@ -6,51 +6,50 @@ packKind: list
 role: team_lead
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T04:25:00.000Z
-taskId: task_7553d7f3
-contentHash: sha256:665f3697a399a948edb0ab14da5fc13716b477aa84b0b8e43f6ca33eb7216d2d
+writtenAt: 2026-09-27T12:35:00.000Z
+taskId: task_c4b41ce0
+contentHash: sha256:d753df685c7334cda81339c1c6daccaa3463c4e8c6350eaff5562a6e41584015
 team_lead_confirm: approve
 autoApprove: ON
-changeScope: new_page
-route_confirm: confirm
+changeScope: edit_page
+route_confirm: keep
 e2eQa: ON (queued /agent-qa*)
 
 ## Decisions
-- formPattern: Mobile full INC-L/N/D · phone ≤430 · Android 1-1 · N/A ERP Modal · useFormOptions
-- mfe: Linm.Web.RMMS.Mobile · mfeStdRoute=/web-rmms-incident · mfeStdUrl http://localhost:9301/web-rmms-incident · product /incident|/new|/:id nested
-- be: Mobile.Bff :5202 mobile-bff/api/v1 · Incident+Patrol+Integration+AiVision(+files) · cấm ERP.* · cấm invent hub · Step 4b skip
-- T-01 route+nested · T-02 INC-L grid · T-03 INC-N form · T-04 detect+POST HasGps · T-05 INC-D close · T-06 BFF+SESS toast · T-BE N/A · T-QA queued
-- HARD: GPS deny block · Acc≤30 detect · HasGps only no Lat · MediaIds≤10 · checklist→Description · sessions live · cấm fake coords/itemsOrDemo
-- DES-GRID: N/A phone · demo N/A · cite T-W4-01/02/03 · AC-GRID/CREATE/DETAIL
-- next: /agent-dev · roleOnly stop (GAP-PKT-ROLE-01) · e2eQa queued QA
+- changeScope: edit_page · Pattern B SUBMIT-VALIDATE INC-N · giữ prior T-01…T-06 PASS · cấm typed new_page
+- formPattern: Mobile full 430 · Pattern B · N/A Modal/DES-GRID/FilterBar
+- mfeStdRoute: /van-de|/van-de/moi|/van-de/:id · mfeStdUrl http://localhost:9301/van-de/moi · product /incident|/new|/:id · route_confirm keep
+- be: Incident+Patrol+Integration+AiVision(+files) · Mobile.Bff :5202 · cấm ERP.* · cấm invent hub · Step4b skip · T-BE N/A
+- DEC-PB-01: create disabled chỉ creating · banner string[] · GPS deny on-submit · photos capture giữ
+- Banner keys: asset→incident.pick.title · session→incident.session.empty · GPS→incident.gps.deny · offline→incident.offline
+- NEW T-*: T-UI-VAL-B-01 · T-UI-ACC-01 · T-UI-GPS-B-01 · T-UI-ALIGN-01 · T-QA-VAL-B-01
+- Align cuối: /align-mobile-to-mfe · SSOT IncidentCreatePage · cấm tab/route/icon mới · cấm native · no_demo
+- next: /agent-dev · roleOnly stop (GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
 | id | controlHint | T-* |
 |----|-------------|-----|
-| search/filters | Search+Chip | T-02 |
-| list.card | CardList | T-02 |
-| fab | FAB | T-02 |
-| assetPick | LookupGrid | T-03 |
-| kind | Segment | T-03 |
-| checklist | CheckboxGroup | T-03 |
-| photos/detect | PhotoRow/Button | T-03·T-04 |
-| sessionStamp | Text RO | T-03·T-06 |
-| gpsLock | GPS | T-03·T-04 |
-| severity/create/draft | Select/Button | T-03·T-04 |
-| detail.close | Button | T-05 |
+| create | Button Pattern B | T-UI-VAL-B-01 |
+| validate.banner | Banner string[] | T-UI-VAL-B-01 · T-UI-ACC-01 |
+| gpsLock | GPS deny on-submit | T-UI-GPS-B-01 |
+| photos | PhotoRow capture giữ | T-UI-VAL-B-01 · T-UI-ALIGN-01 |
+| asset/session | miss→banner | T-UI-VAL-B-01 |
+| list/detail prior | keep PASS | T-01…T-06 |
 
 ## Screens / zones
-- INC-L · INC-N · INC-D · (peer INC-V · INC-C · INC-E)
+- INC-L · INC-N (Delta Pattern B) · INC-D · peer INC-V/C/E
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-incident/ui/prototype/index.html
-- peerStdUrl= http://localhost:9301/web-rmms-incident
+- modes=?gps=deny · ?nosession=1 · ?empty=1 · ?error=1
+- peerStdUrl= http://localhost:9301/van-de/moi
 - DES-GRID / LinErpListFilterBar: N/A
 
 ## API / tasks
-- FormMode↔API: GET/POST incidents · GET{id} · POST close · sessions · asset-types · uploads/files · detect
-- T-01…T-06 pending · T-BE N/A · T-QA queued · devSlash=/agent-dev
+- FormMode↔API: GET/POST incidents · GET{id} · POST close · sessions · asset-types · uploads/files · detect — Live keep · no DTO
+- entity/migration: none · T-BE N/A
+- T-UI-* pending · T-01…T-06 PASS · devSlash=/agent-dev · qaSlash=/agent-qa*
 
 ## UNCLEAR
-- (none blocking) · UNCLEAR-SESS→Dev/QA empty toast · cấm itemsOrDemo
+- (none blocking) · UNCLEAR-PB-BANNER-01 resolved · UNCLEAR-SESS→Dev/QA · GAP-PGC-BE-01 deferred
 
 ## Full paths
 - task: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-incident/task/web-rmms-incident.md

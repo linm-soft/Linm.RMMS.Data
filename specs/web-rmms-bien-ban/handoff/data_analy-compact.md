@@ -6,59 +6,51 @@ packKind: list
 role: data_analy
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T00:25:00.000Z
-contentHash: sha256:bc9070c4ab20da1960355a727eae18029943c2d95865aebd7d9bcb443ea60cd2
+writtenAt: 2026-09-27T15:42:56.000Z
+contentHash: sha256:3f196a65ee5bc6578aa8d96f9c08a6e0d0ca3fb263399e7a8d3fe3863da26b0e
+taskId: task_af34e11a
 
 ## Decisions
-- changeScope: new_page
-- formPattern: Mobile list + create TD/TK + detail (phone max-width 430) · N/A ERP Modal/Slideout · master no demo · /erp-form-context labels
-- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/web-rmms-bien-ban
-- be: D:/AI-QLBD/Linm.RMMS.WebService · Mobile.Bff :5202 mobile-bff/api/v1 · Patrol · cấm ERP.* · cấm invent BienBan*
-- demo: N/A
-- Hai lối Field: Tuần đường (BDTX)=BB-02 ViolationFlag/de-nghi-bien-ban · Tuần kiểm (Khu/VP)=BB-03 ViolationAction lap-bien-ban|de-nghi-vphc
-- Peer lock: journal/ket-ca/finding/frequency = web-rmms-mobile-b…e
-- API Live: GET|POST|GET{id} patrol/petitions · PUT journal-lines ViolationFlag · findings ViolationAction · sessions · auth/profile · files/*
-- cấm mở/clone form sổ 07 · chỉ đề nghị + link dẫn
-- labels: useFormOptions() · cấm hardcode VN form
-- GPS: navigator.geolocation · deny = block nút cần tọa độ · noFace exception · cấm fake
-- Shell: bỏ me · me-profile · me-settings · feedback · cam-view · cấm sửa iOS/Android · cấm MFE desktop
-- BFF HARD: VITE_MOBILE_API_URL http://localhost:5202/mobile-bff/api/v1 · cấm web-bff client · cấm Route mobile-bff trên web-bff
-- open questions: UNCLEAR-DOMAIN-MAP-BB · UNCLEAR-BFF-PROXY · UNCLEAR-LIST-SCOPE · UNCLEAR-STD-ROUTE · UNCLEAR-SO07-LINK · UNCLEAR-JOURNAL-KIND-FIELD
+- changeScope: edit_page · NEW task · keep PO/Design/SA artifacts · cấm typed CRUD new_page
+- formPattern: Mobile list+create TD/TK+detail · phone 430 · Pattern B validate · N/A ERP Modal · no demo
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/bien-ban · route `/bien-ban`
+- be: D:/AI-QLBD/Linm.RMMS.WebService · Mobile.Bff :5202 · Patrol · cấm ERP.* · cấm invent BienBan*
+- demo: N/A · align-mobile-to-mfe · no android/ios prototype · no new tab/route/icon
+- Delta HARD cite SUBMIT-VALIDATE: (1) bỏ disabled={!canSave} · banner+inline (2) GPS deny on submit (3) route=SearchInput road-routes · no SEED · miss=`--` (4) capture=environment nếu có ảnh (5) cấm Excel export
+- Hai lối giữ: BB-02 ViolationFlag · BB-03 ViolationAction
+- API Live giữ: petitions · journal-lines · findings · sessions · auth · files · road-routes/search
+- BFF: mobileApiBase only · users forward nếu thiếu (peer)
+- open questions: UNCLEAR-LIST-SCOPE (soft) · UNCLEAR-SO07-LINK (soft) · prior DOMAIN/BFF/STD-ROUTE CLOSED
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
 | list/search/empty | list | List/Search/Empty | GET petitions |
-| btnCreateTd/Tk | chrome | Button/Nav | BB-02 / BB-03 |
-| entryPath | form | Radio/RO | tuan-duong \| tuan-kiem |
+| route | form | SearchInput | road-route · BFF search · no seed |
+| sender/km/content | form | Text* | required · banner Pattern B |
 | tdFlag / tkAction | flag/action | Button/Radio | ViolationFlag / ViolationAction |
-| sender/route/km/content | form | Text* | POST petitions required |
-| gps / noFace | GPS | Action/Checkbox | deny block |
-| save/cancel | CTA | Button | POST + parent write |
+| gps / noFace | GPS | Action/Checkbox | deny on submit |
+| save | CTA | Button | always on · only saving disables |
 
 ## Screens / zones (ids only)
-- BB-00 · BB-01 · BB-02 · BB-03 · BB-04 · BB-05 · BB-06 · BB-07
-- reviewUrl= (Design)
-- peerStdUrl= http://localhost:9301/web-rmms-bien-ban
-- DES-GRID / LinErpListFilterBar: N/A phone list
+- BB-00…BB-07 · routes under `/bien-ban`
+- reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-bien-ban/ui/prototype/index.html (keep)
+- peerStdUrl= http://localhost:9301/bien-ban
+- DES-GRID / filter-bar / Excel: N/A phone
 
 ## API / tasks (ids only)
-- FormMode↔API: GET/POST/GET{id} petitions · PUT journal-lines · findings ViolationAction · sessions · auth · files/*
-- real-data §A+§B: PASS
-- T-*: (team_lead) · cite T38 / TD-05 §9 / TK-03
+- FormMode↔API: GET/POST/GET{id} petitions · PUT journal-lines · findings · road-routes/search · sessions · auth · files
+- real-data §A+§B: PASS · § Delta edit_page PASS
+- T-*: enhance/fix_gaps (team_lead) · Pattern B + SearchInput
 
 ## UNCLEAR
-- UNCLEAR-DOMAIN-MAP-BB: SA add DOMAIN-MAP row web-rmms-bien-ban · Patrol
-- UNCLEAR-BFF-PROXY: Mobile.Bff proxy patrol/* — SA confirm · cấm invent
-- UNCLEAR-LIST-SCOPE: petitions-only vs union flagged journal/finding — PO/Design
-- UNCLEAR-STD-ROUTE: /web-rmms-bien-ban vs Field deep TD-05/TK-03 — follow STATUS
-- UNCLEAR-SO07-LINK: deep link sổ 07 slug — PO · cấm embed form
-- UNCLEAR-JOURNAL-KIND-FIELD: bool ViolationFlag vs UI key de-nghi-bien-ban — SA
+- UNCLEAR-LIST-SCOPE: soft · petitions-only vs union flagged — PO prior
+- UNCLEAR-SO07-LINK: soft · deep link slug — cấm embed
+- CLOSED: DOMAIN-MAP · BFF-PROXY · STD-ROUTE · JOURNAL-KIND-FIELD
 
 ## Full paths (Read only if needed)
 - control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-bien-ban-control-hint.md
 - real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-bien-ban-real-data.md
+- delta cite: D:/AI-QLBD/Linm.RMMS.Data/docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md
 - context: D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/web-rmms-bien-ban.md
-- implement: D:/AI-QLBD/Linm.RMMS.Data/docs/plan/web-rmms-mobile/IMPLEMENT-SCREENS.md
-- gap: D:/AI-QLBD/Linm.RMMS.Data/docs/plan/web-rmms-mobile/GAP-TUAN-DUONG-TUAN-KIEM.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-bien-ban/STATUS.md

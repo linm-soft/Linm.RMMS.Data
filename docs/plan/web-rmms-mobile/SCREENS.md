@@ -412,6 +412,8 @@ Hiện `Code` · `Severity` · `Status` · `Title` · `RouteName` · `KmStart` �
 
 ### `/incident/vis` Nhận diện
 
+SSOT MFE: `VisCapturePage` · std `/chup-hien-truong` · Pattern B idle-on Detect/Attach · Acc>30 chặn POST trong handler · `#validationBanner` · **cấm** invent tab/route/icon native.
+
 | Input | Rule |
 |-------|------|
 | Ảnh | `POST ai-vision/uploads/init` · PUT object · complete |

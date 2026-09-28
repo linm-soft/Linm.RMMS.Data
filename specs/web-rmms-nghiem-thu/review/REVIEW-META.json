@@ -1,9 +1,15 @@
 {
+  "schemaVersion": "1",
   "feature": "web-rmms-nghiem-thu",
-  "status": "confirmed",
+  "status": "done",
   "review_confirm": "approve",
-  "taskId": "task_20bb5d15",
-  "contentHash": "sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e",
-  "updatedAt": "2026-09-25T16:50:00.000Z",
-  "autoApprove": true
+  "taskId": "task_fadfb843",
+  "changeScope": "edit_page",
+  "contentHash": "sha256:b8f3ce70ff3e80073c39d2dac6a01d2fed2e98232877ef6979881eef8e37acb4",
+  "skillVersion": "2026.09.05.03",
+  "reviewHash": "sha256:b8f3ce70ff3e80073c39d2dac6a01d2fed2e98232877ef6979881eef8e37acb4",
+  "updatedAt": "2026-09-27T15:45:00.000Z",
+  "autoApprove": true,
+  "p0Count": 0,
+  "findingsCount": 0
 }

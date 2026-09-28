@@ -1,5 +1,12 @@
 {
   "feature": "web-rmms-mobile-c",
-  "status": "draft",
-  "autoCreated": true
+  "status": "confirmed",
+  "review_confirm": "done",
+  "skillVersion": "2026.09.05.03",
+  "schemaVersion": "1",
+  "contentHash": "sha256:4a38b53861c732cbbde7208c21d766f1b8b2c8decc007d2dc24ea34a4793339c",
+  "taskId": "task_11518e01",
+  "writtenAt": "2026-09-27T08:35:00.000Z",
+  "verdict": "PASS",
+  "mustCount": 0
 }

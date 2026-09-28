@@ -3,9 +3,9 @@
 | Field | Value |
 |-------|-------|
 | feature | `web-rmms-mnt-progress` |
-| title | Tiến độ công việc — cập nhật % / Note / hoàn thành |
+| title | Tiến độ công việc — edit Pattern B (submit luôn bật + capture) |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | mode | `feature_context` |
 | status | `done` |
 | skillId | `agent-data-analy` |
@@ -14,43 +14,47 @@
 | workflowVersion | `2026.09.19.02` |
 | rulesVersion | `2026.09.25.2` |
 | versionGate | `ok` |
-| contentHash | `sha256:a7e3c91b4d2f6801e5a9b0c3d8f1472e6b5a0d9c4e1f2837a6b5c4d3e2f1098a` |
-| analyzedAt | `2026-09-25T22:23:32.489Z` |
+| contentHash | `sha256:544d007b5b40b3f3b71bb94aa78e804b2342af0c6eb7ec1edcea4b76b1b28080` |
+| analyzedAt | `2026-09-27T13:30:10.000Z` |
 | demo | **N/A** |
 | realData | `specs/_data-analy/features/web-rmms-mnt-progress-real-data.md` |
 | beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Maintenance** · **cấm ERP.*** |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-mnt-progress` |
-| mfeStdRoute | `/web-rmms-mnt-progress` |
+| mfeStdUrl | `http://localhost:9301/cong-viec/tien-do` |
+| mfeStdRoute | `/cong-viec/tien-do` |
 | productRoute | `/work/progress` |
-| taskId | `task_d447ee27` |
+| taskId | `task_f99adc72` |
 | phoneFrame | `max-width: 430px` |
 | formPattern | Mobile full / sheet · **không** ERP Modal/Slideout Kind B desktop |
+| deltaCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` |
 
 > Data-analy **đề xuất** controlHint. Design **chốt** control-map. SA **chốt** schema.  
 > Nhãn UI: `useFormOptions()` / copy key — **cấm** hardcode tiếng Việt trên form.  
-> **Cấm** nhét màn vào MFE desktop · **cấm** iOS/Android native.
+> **Cấm** nhét màn vào MFE desktop · **cấm** iOS/Android native · **cấm** `new_page` typed CRUD.  
+> Keep existing PO/Design artifacts · analy chỉ § Delta.
 
 ## Sources
 
 | Source | Path | note |
 |--------|------|------|
-| CTX | `docs/context/features/web-rmms-mnt-progress.md` | greenfield · this run |
-| Peer CTX | `docs/context/features/mnt-progress.md` · `web-rmms-work.md` | native toast · Work list peer |
+| CTX | `docs/context/features/web-rmms-mnt-progress.md` | edit_page · § Delta |
+| Delta HARD | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` | Pattern B · row `MntProgressPage.tsx` |
+| Code SSOT | `src/pages/WebRmmsMntProgress/MntProgressPage.tsx` | Current: `ctasDisabled` + no `capture` |
+| Peer CTX | `docs/context/features/mnt-progress.md` · `web-rmms-work.md` | Work list peer |
 | Screens | `docs/plan/web-rmms-mobile/SCREENS.md` · `/work/progress` | SSOT |
-| Plan / Tasks | `PLAN.md` · `TASKS.md` T-W5-02 | `MntProgressView` |
-| BE | `WorkOrdersController` · `WorkOrdersBffController` | Live progress/complete |
+| BE | `WorkOrdersController` · progress/complete | Live · **không** invent |
 | DTO | `ProgressWorkOrderRequest` · `CompleteWorkOrderRequest` · `WorkOrderDto` | Live |
 | DOMAIN-MAP | Maintenance · `api/v1/maintenance` | cite · **cấm ERP.*** |
+| Prior PO/Design | `specs/web-rmms-mnt-progress/po/` · `ui/` | **keep** |
 
 ## Screens (ids)
 
 | id | route | surface |
 |----|-------|---------|
-| WORK-P | `/work/progress` · std `/web-rmms-mnt-progress` | form/sheet tiến độ |
+| WORK-P | `/work/progress` · std `/cong-viec/tien-do` | form/sheet tiến độ |
 | WORK-L | `/work` · peer `web-rmms-work` | entry card — **không** implement trong slug này |
 
-**Out:** WORK-G log · WORK-C chat · Me* · feedback · cam-view · journal/kết ca (`web-rmms-mobile-b…e`).
+**Out:** WORK-G log · WORK-C chat · Me* · feedback · cam-view · journal/kết ca · Excel/toolbar export.
 
 ## ControlHint inventory
 
@@ -60,50 +64,61 @@
 | backNav | WORK-P | Button/Nav | → `web-rmms-work` list |
 | woCode | WORK-P | Text readonly | từ GET `{id}` · `Code` |
 | woTitle | WORK-P | Text readonly | `Title` |
-| woStatus | WORK-P | Text/Badge RO | `Status` · map init-data / list chrome (GAP-LABEL) |
+| woStatus | WORK-P | Text/Badge RO | `Status` · list chrome (PO CLOSED) |
 | woRouteName | WORK-P | Text readonly | `RouteName` |
 | woWorkType | WORK-P | Text readonly | `WorkType` · init-data |
-| progressPercent | WORK-P | **Number**/Slider | 0–100 · bind `ProgressPercent` · required |
-| note | WORK-P | **Text** | optional · có thể nhúng GPS summary |
-| lat / lng / accuracyM | WORK-P | GPS read | `navigator.geolocation` · **không** field API · embed `Note` |
-| photoLocalIds | WORK-P | FileMulti optional | camera UX · GAP-MEDIA · **cấm** invent MediaUrl trên Progress body |
-| submitProgress | WORK-P | Button primary | POST `…/progress` · deny GPS → disable nếu Design bắt tọa độ |
-| submitComplete | WORK-P | Button | POST `…/complete` khi %≥100 hoặc chọn hoàn thành |
+| progressPercent | WORK-P | **Number**/Slider | 0–100 · bind `ProgressPercent` · required mark |
+| note | WORK-P | **Text** | optional · nhúng GPS summary lúc submit |
+| lat / lng / accuracyM | WORK-P | GPS read | device · **không** field API · embed `Note` |
+| validationBanner | WORK-P | Banner `string[]` | Pattern B · hiện sau `validationAttempted` |
+| photoLocalIds | WORK-P | FileMulti optional | `accept=image/*` + **`capture="environment"`** · GAP-MEDIA · **cấm** MediaUrl body |
+| submitProgress | WORK-P | Button primary | POST `…/progress` · **luôn bật** khi form sẵn · chỉ `disabled` khi `saving` |
+| submitComplete | WORK-P | Button | POST `…/complete` · cùng rule Pattern B |
+
+## § Delta control (Current → New)
+
+| Control | Current | New |
+|---------|---------|-----|
+| CTA disable | `!gpsReady \|\| saving \|\| !wo` | `saving` (hoặc chưa có `wo`) only |
+| GPS deny UX | pre-disable + silent `return` | click → banner GPS · **cấm** fake |
+| file input | no `capture` | `capture="environment"` |
+| client errors | toast / silent | banner `string[]` + inline · API = toast |
 
 ## Filter / grid (desktop HARD)
 
 | | |
 |--|--|
 | LinErpListFilterBar / DES-GRID-* | **N/A** — phone Work peer form · **không** Kind B desktop grid |
+| Toolbar / Excel export | **N/A** — SUBMIT-VALIDATE override |
 
 ## GPS
 
 | Màn | Rule |
 |-----|------|
-| WORK-P | Geolocation để ghi tóm tắt vào `Note` (GAP-MOB-MNT-PROG-GPS-01) · deny → **chặn** nút cần tọa độ · **cấm** fake coords |
+| WORK-P | Geolocation → `Note` (GAP-GPS-01) · deny → **báo lúc bấm** (Pattern B) · **cấm** pre-disable CTA · **cấm** fake |
 | WORK-L peer | không bắt GPS trên list |
 
 ## UNCLEAR
 
 | id | Issue | Action |
 |----|-------|--------|
-| UNCLEAR-GPS-GATE | Design chốt nút nào bắt buộc GPS (Cập nhật vs chỉ Hoàn thành) | Design zone + PO copy · default: chặn khi UX đòi định vị |
-| UNCLEAR-MEDIA | Progress body không MediaUrl | P1 camera optional · SA Signed mới mở DTO |
-| UNCLEAR-LABEL-MAP | init-data ≠ list chrome status VN | PO/Design 1 map · FE `useFormOptions` |
+| — | Prior UNCLEAR-GPS-GATE / MEDIA / LABEL closed by PO | Keep PO CLOSED · edit chỉ Pattern B + capture |
+| UNCLEAR-BANNER-COPY | Message GPS deny / required trên banner | PO copy key · reuse `mnt.progress.gps.*` |
 
 ## Handoff
 
 | Role | Dùng |
 |------|------|
-| PO | Screens WORK-P · DoD Live · GPS Note · useFormOptions · out peers |
-| Design | Phone 430 · Android 1-1 · zone WORK-P · prototype reviewUrl · no desktop grid |
-| SA | Giữ Live progress/complete · Mobile.Bff proxy · GAP GPS/media · **cấm** invent |
-| Team-lead / Dev | Bind §B real-data · **cấm** web-bff client |
+| PO | Keep prior CLOSED · Delta Pattern B · banner copy · capture |
+| Design | Keep prototype · zone WORK-P · không desktop grid · reviewUrl sẵn |
+| SA | Giữ Live API · **không** invent DTO · Mobile.Bff |
+| Team-lead / Dev | Bind Delta · `MntProgressPage.tsx` only · **cấm** web-bff |
 
 ## DoR
 
-- [x] changeScope=`new_page` · packKind=`list`
-- [x] controlHint inventory đủ field WORK-P
+- [x] changeScope=`edit_page` · packKind=`list` · **cấm** `new_page`
+- [x] § Delta Current vs New cite SUBMIT-VALIDATE
+- [x] controlHint inventory + Pattern B CTA/banner/capture
 - [x] real-data song song
-- [x] demo N/A · **cấm** demo SSOT
+- [x] demo N/A · mfeStdUrl `/cong-viec/tien-do`
 - [x] BE Maintenance Live cite · **cấm ERP.***

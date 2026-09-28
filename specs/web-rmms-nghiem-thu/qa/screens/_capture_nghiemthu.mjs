@@ -7,8 +7,11 @@ import { createRequire } from "node:module";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = __dirname;
 const base = "http://localhost:9301";
-const featureUrl = base + "/web-rmms-nghiem-thu";
-const hubUrl = base + "/web-rmms-mobile-a";
+/** edit_page Delta — STATUS mfeStdUrl */
+const formUrl = base + "/nghiem-thu/moi";
+const listUrl = base + "/nghiem-thu";
+/** Field doors hub (Tuần đường) — door Nghiệm thu */
+const hubUrl = base + "/tuan-duong";
 const require = createRequire(import.meta.url);
 
 let chromiumLauncher = chromium;
@@ -108,16 +111,35 @@ async function dumpZones() {
     const zones = [...document.querySelectorAll("[data-des-id]")].map((el) =>
       el.getAttribute("data-des-id"),
     );
-    const ids = ["ntSearch", "ntMau", "ntRoute", "ntFieldInfo", "ntResult"].filter(
-      (id) => !!document.getElementById(id),
+    const ids = [
+      "ntSearch",
+      "ntMau",
+      "ntRoute",
+      "ntAssignee",
+      "ntFieldInfo",
+      "ntResult",
+      "ntSave",
+      "ntBanner",
+    ].filter((id) => !!document.getElementById(id));
+    const saveBtn = document.querySelector(
+      '#ntSave, [data-des-id="NT-10"] button, button[data-action="save"]',
     );
-    const text = (document.body?.innerText || "").slice(0, 900).replace(/\s+/g, " ");
+    const saveDisabled = saveBtn ? !!saveBtn.disabled : null;
+    const saveDisabledAttr = saveBtn ? saveBtn.getAttribute("disabled") : null;
+    const text = (document.body?.innerText || "").slice(0, 1200).replace(/\s+/g, " ");
+    const hasSearchInput =
+      !!document.querySelector(
+        '[data-des-id="NT-06"] input, #ntRoute input, [data-testid*="search"], .lin-search-input',
+      ) || zones.includes("NT-06");
     return {
       feature: root?.getAttribute("data-feature") || null,
       zones: [...new Set(zones)],
       ids,
       text,
       href: location.href,
+      saveDisabled,
+      saveDisabledAttr,
+      hasSearchInput,
     };
   });
 }
@@ -134,17 +156,42 @@ async function captureCurrent(id, waitSel) {
     if (fatal) throw new Error("GAP-QA-E2E-CRASH-01 " + fatal);
     await page.screenshot({ path: abs, fullPage: true });
     const dump = await dumpZones();
-    if (id === "S0" || id === "QA-20") {
+    if (id === "S0") {
+      if (!dump.feature || dump.feature !== "web-rmms-nghiem-thu") {
+        throw new Error("GAP-QA-E2E-FEAT-01 expected web-rmms-nghiem-thu got " + dump.feature);
+      }
+      if (!dump.zones?.includes("NT-10") && !dump.ids?.includes("ntSave")) {
+        throw new Error("GAP-QA-E2E-FORM-01 form CTA NT-10 missing");
+      }
+      if (!dump.zones?.includes("NT-06") && !dump.hasSearchInput) {
+        throw new Error("GAP-QA-E2E-LKP-01 route SearchInput NT-06 missing");
+      }
+      // Pattern B: CTA must not be permanently disabled when empty (only saving)
+      if (dump.saveDisabled === true) {
+        throw new Error(
+          "GAP-QA-FORM-PATTERN-B CTA disabled on empty form (expected always-on except saving)",
+        );
+      }
+      // True mojibake only (cấm match tiếng Việt hợp lệ)
+      if (/á»[A-Za-z]|Ã[\x80-\xbf]|â€[œ™˜]/.test(dump.text || "")) {
+        throw new Error("GAP-QA-VI-ENC-01 mojibake in form text");
+      }
+    }
+    if (id === "S1") {
+      const hasDoor =
+        dump.zones?.includes("doorNghiemThu") ||
+        dump.zones?.includes("NT-00") ||
+        /Nghiệm thu/i.test(dump.text || "");
+      if (!hasDoor) {
+        throw new Error("GAP-QA-E2E-HUB-01 Field hub NT entry missing");
+      }
+    }
+    if (id === "QA-20") {
       if (!dump.ids?.includes("ntSearch") && !dump.zones?.includes("NT-01")) {
         throw new Error("GAP-QA-E2E-LIST-01 list surface not loaded");
       }
       if (!dump.feature || dump.feature !== "web-rmms-nghiem-thu") {
         throw new Error("GAP-QA-E2E-FEAT-01 expected web-rmms-nghiem-thu got " + dump.feature);
-      }
-    }
-    if (id === "S1") {
-      if (!dump.zones?.includes("NT-00") && !/Nghiệm thu/i.test(dump.text || "")) {
-        throw new Error("GAP-QA-E2E-HUB-01 Field hub NT entry missing");
       }
     }
     results.push({ id, result: "PASS", screenshot: file, href: page.url(), dump });
@@ -174,14 +221,14 @@ async function captureCurrent(id, waitSel) {
 try {
   await login();
 
-  // S0 — NT list surface
+  // S0 — create form Pattern B + SearchInput (edit_page Delta · mfeStdUrl)
   {
-    const res = await page.goto(featureUrl, { waitUntil: "domcontentloaded", timeout: 60000 });
+    const res = await page.goto(formUrl, { waitUntil: "domcontentloaded", timeout: 60000 });
     if (!res || !res.ok()) throw new Error("S0 HTTP " + (res ? res.status() : "none"));
     await dismissOverlay();
     await captureCurrent(
       "S0",
-      '[data-feature="web-rmms-nghiem-thu"] #ntSearch, [data-feature="web-rmms-nghiem-thu"] [data-des-id="NT-01"]',
+      '[data-feature="web-rmms-nghiem-thu"] [data-des-id="NT-10"], [data-feature="web-rmms-nghiem-thu"] #ntSave, [data-feature="web-rmms-nghiem-thu"] [data-des-id="NT-06"]',
     );
   }
 
@@ -193,12 +240,17 @@ try {
     });
     if (!res || !res.ok()) throw new Error("S1 HTTP " + (res ? res.status() : "none"));
     await dismissOverlay();
-    await captureCurrent("S1", '[data-des-id="NT-00"], button:has-text("Nghiệm thu")');
+    await captureCurrent(
+      "S1",
+      '[data-des-id="doorNghiemThu"], #doorNghiemThu, button:has-text("Nghiệm thu")',
+    );
   }
 
-  // QA-20 — Hub NT door → list (JWT kept)
+  // QA-20 — Hub door Nghiệm thu → list (JWT kept) · fallback listUrl
   {
-    const entry = page.locator('[data-des-id="NT-00"]').first();
+    const entry = page
+      .locator('[data-des-id="doorNghiemThu"], #doorNghiemThu, button:has-text("Nghiệm thu")')
+      .first();
     if (await entry.count()) {
       await entry.click();
       await dismissOverlay();
@@ -209,15 +261,18 @@ try {
       await page.waitForTimeout(800);
       await captureCurrent(
         "QA-20",
-        '[data-feature="web-rmms-nghiem-thu"] #ntSearch',
+        '[data-feature="web-rmms-nghiem-thu"] #ntSearch, [data-feature="web-rmms-nghiem-thu"] [data-des-id="NT-01"]',
       );
     } else {
-      const res = await page.goto(featureUrl, {
+      const res = await page.goto(listUrl, {
         waitUntil: "domcontentloaded",
         timeout: 60000,
       });
       if (!res || !res.ok()) throw new Error("QA-20 HTTP " + (res ? res.status() : "none"));
-      await captureCurrent("QA-20", '[data-feature="web-rmms-nghiem-thu"] #ntSearch');
+      await captureCurrent(
+        "QA-20",
+        '[data-feature="web-rmms-nghiem-thu"] #ntSearch, [data-feature="web-rmms-nghiem-thu"] [data-des-id="NT-01"]',
+      );
     }
   }
 } catch (err) {
@@ -237,10 +292,12 @@ writeFileSync(
   join(outDir, "manifest.json"),
   JSON.stringify(
     {
-      url: featureUrl,
+      url: formUrl,
+      listUrl,
       capturedAt: new Date().toISOString(),
+      changeScope: "edit_page",
       method:
-        "capture_nghiemthu · MFE /login · phone 430 · S0 list · S1 Field hub NT-00 · QA-20 click→list · geo grant · dismiss overlay · no kill worker",
+        "capture_nghiemthu · MFE /login · phone 430 · S0 form /nghiem-thu/moi Pattern B+SearchInput · S1 Field hub NT-00 · QA-20 click→list · geo grant · dismiss overlay · no kill worker · docker+start:std already up",
       steps: results,
       ok,
     },

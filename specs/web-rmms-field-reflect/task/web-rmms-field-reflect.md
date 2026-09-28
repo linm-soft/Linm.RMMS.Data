@@ -3,237 +3,172 @@
 | Field | Value |
 |-------|-------|
 | feature | `web-rmms-field-reflect` |
-| title | Phản ánh hiện trường — pick loại TS · form Hư/Mất/Hỏng · photo-geo · Create Incident |
+| title | Phản ánh hiện trường — Pattern B CTA/banner (delta edit_page) |
 | role | `team_lead` · `/agent-team-lead` |
-| status | `done` (autoApprove=ON · `route_confirm=approve` path `/web-rmms-field-reflect`) |
+| status | `done` (autoApprove=ON · `route_confirm=keep` `/phan-anh`) |
 | packKind | `list` (**phone Field form** ≠ desktop Kind B grid) |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | formPattern | Mobile full FR-00/01/02 · phone max-width **430** · Android 1-1 · N/A ERP Modal/Slideout · DES-LEAVE dirty form **KEEP** |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdRoute | `/web-rmms-field-reflect` (**route_confirm** autoApprove=ON · giữ path STATUS) |
-| mfeStdUrl | `http://localhost:9301/web-rmms-field-reflect` |
-| productRoute | `/field/reflect` (cite Design · peer field-reflect) |
+| mfeStdRoute | `/phan-anh` (**route_confirm** keep · khớp STATUS · **cấm** invent route mới) |
+| mfeStdUrl | `http://localhost:9301/phan-anh` |
+| productRoute | `/field/reflect` |
 | be | `D:/AI-QLBD/Linm.RMMS.WebService` · Incident+Patrol+Integration+AiVision(+files) · Mobile.Bff `:5202` · **cấm ERP.*** |
 | BFF bind | `mobile-bff/api/v1/**` · **cấm** web-bff · **cấm** invent `field-reflect` path |
-| DOMAIN-MAP | `web-rmms-field-reflect` → Incident/`incident` (+ cite Patrol · Integration · AiVision) · CLOSED (SA) |
+| DOMAIN-MAP | Incident/`incident` (+ Patrol · Integration · AiVision) · keep · **cấm** FieldReflectController |
 | demo | **N/A** · Live-only · hash skip |
-| contentHash | `sha256:e678be9152069e48f353f88e9f4d377e20e4fd4ad5c8d4aa2c86bd995bc1e667` |
+| editCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · Pattern B · `FieldReflectPage` |
+| contentHash | `sha256:d8f13df3772c0f27b367c5e01a5ce2cf942b1a27640c1390e76e34c3a8c267f2` |
 | skillVersion | `2026.09.05.03` |
 | schemaVersion | `1` |
-| updatedAt | `2026-09-26T03:45:00.000Z` |
-| taskId | `task_fcf96a88` |
+| updatedAt | `2026-09-27T12:10:00.000Z` |
+| taskId | `task_2ead05fa` |
+| priorTl | `task_fcf96a88` new_page **PASS** · keep T-* Live |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-field-reflect/ui/prototype/index.html` |
 | prior | data_analy·po·design·sa = **confirmed** · compact exist |
 | Step4b / migration | **skip** (SA: none · GAP-PGC-BE-01 deferred HasGps only) |
 | next | `/agent-dev` · roleOnly stop (GAP-PKT-ROLE-01) · e2eQa queued `/agent-qa*` |
 
 > TL **chia HOW + DoD + T-*** · **cấm** implement product code · **cấm** e2e / yarn build / start:std.  
-> Kind B grid / `LinErpListFilterBar` / ui-schema editor = **N/A** (PO·Design·SA chốt phone Field form).  
-> Entity/migration / Step 4b = **none** · reuse Incident + Patrol sessions + Integration asset-types + AiVision(+files).  
-> Ownership: Field Reflect = **FR-*** only · hub entry = peer `web-rmms-field` · draft deep = peer offline.
+> Kind B grid / `LinErpListFilterBar` / ui-schema editor = **N/A**.  
+> Entity/migration / Step 4b = **none**. T-BE invent = **N/A**.  
+> Ownership: Field Reflect = **FR-*** only · hub = peer `web-rmms-field` · draft = peer offline.
 
 ## Notes
 
-- changeScope=`new_page` · analy `web-rmms-field-reflect-control-hint.md` + `…-real-data.md` **PASS** → full TL pack.
-- HARD: GPS deny → block Create/Detect/geo · sessions **live-only** · checklist **local** → Description · `useFormOptions()` · **cấm** fake coords/ca · **cấm** invent field-reflect API.
-- DEC-MEDIA-01: `CreateIncidentRequest.MediaIds` = FileService guids max10 · `DetectionId` opt · `HasGps=true` · no Lat col.
-- UNCLEAR: DOMAIN-MAP-REFLECT · MEDIA-01 · PGC · ENTRY · CHK-01 · SESS-01 = **resolved** prior · GAP-PGC-BE-01 deferred.
-- Cite W3: **T-W3-10** (TASKS) — map vào T-BE-CRUD / T-UI-FR / T-QA dưới.
+- changeScope=`edit_page` · control-hint + real-data **PASS** → full TL delta (không chỉ data-analy).
+- **KEEP** prior Live FR-00/01/02 + T-BE-CRUD/INIT/PERM + T-UI-FR-* **PASS** (`task_5a08f380`).
+- **NEW** Pattern B: bỏ `disabled={!canDetect}` / `{!canCreate}` · Detect/Create **disabled chỉ** `detecting` / `creating` · `validationBanner` `string[]` **on click** · Acc>30 **chặn POST detect trong handler** (không khóa CTA idle).
+- GPS deny: **không** khóa CTA · báo on click · **cấm** fake.
+- Align cuối: `/align-mobile-to-mfe` · SSOT=`FieldReflectPage` · **cấm** tab/route/icon mới · **cấm** mở android/ios proto.
+- UNCLEAR-VALIDATE-B · UNCLEAR-ALIGN-01 → **open** · owned Dev/QA.
+- Cite: T-W3-10 keep · delta T-UI-VAL-B / T-UI-ACC / T-UI-GPS-B / T-UI-ALIGN / T-QA-VAL-B.
 
 ## route_confirm
 
 | Option | Path | Decision |
 |--------|------|----------|
-| A (default) | `/web-rmms-field-reflect` | **approve** (autoApprove=ON · khớp STATUS · peerStdUrl · STD-PORT `:9301`) |
-| B | `/field/reflect` only (no web- prefix) | rejected as mfeStdRoute · product `/field/reflect` ok |
-| C custom | — | N/A |
+| Keep STATUS | `/phan-anh` | **approve** (autoApprove=ON · khớp compact PO/Design/SA · STD-PORT `:9301`) |
+| Prior new_page | `/web-rmms-field-reflect` | **rejected** as mfeStdRoute (superseded · product `/field/reflect` ok) |
+| Invent | `/field/reflect` as MFE path | **rejected** · product only |
 
-`source.routes` = `[/web-rmms-field-reflect]` · draft `mfeStdRoute` giữ nguyên.
+`source.routes` = `[/phan-anh]` · **URL không mới** · không invent route.
 
 ## FormType pack adapt (phone Field form)
 
 | Canonical (form-type-task-pack §2a) | Adapt | Reason |
 |-------------------------------------|-------|--------|
-| T-UI-LIST-01 Kind B `tl-grid-task-template` | → **T-UI-FR-01** | DES-GRID N/A · phone Field form FR-* |
-| T-UI-FILTER-01 `LinErpListFilterBar` | **WAIVE** | phone Field form · **cấm** desktop filter bar |
-| T-UI-CFG-01 `LinCatalogUiSchemaEditorModal` | **WAIVE** | no catalog Kind B |
-| T-BE-UISCHEMA-01 | **WAIVE** | no ui-schema |
-| T-QA-FILTER-01 / T-QA-FILTER-02 | **WAIVE** | no filter-bar DTM |
-| T-UI-FORM-01 | **KEEP** → **T-UI-FR-01** | Create Incident form FR-01 |
-| T-UI-LEAVE-01 | **KEEP** | dirty form leave FR-01 |
-| T-UI-LKP-01 | **KEEP** | LookupGrid assetPick FR-00 |
-| T-UI-ACT · FIELD · PROD · UX · RESP · HIST | **KEEP** | list-form-quality-gates adapted Field form |
-| T-BE-CRUD-01 · T-BE-INIT-01 · T-PERM-01 | **KEEP** | Live sessions · asset-types · uploads/detect · incidents |
-| T-QA-CRUD-01 · T-QA-FR-01 | **KEEP** | queued `/agent-qa*` |
+| T-UI-LIST-01 Kind B | → **T-UI-FR-01** (keep PASS) | DES-GRID N/A · phone Field |
+| T-UI-FILTER / CFG / UISCHEMA / QA-FILTER | **WAIVE** | phone Field · **cấm** desktop filter bar |
+| T-UI-FORM / LEAVE / LKP / ACT / FIELD / PROD / UX / RESP / HIST | **KEEP PASS** | prior Live |
+| T-BE-CRUD / INIT / PERM | **KEEP PASS** | Live wire done · **cấm** invent API |
+| T-QA-CRUD / T-QA-FR | **KEEP PASS** | prior · **add** T-QA-VAL-B-01 queued |
+| **T-UI-VAL-B-01** · **T-UI-ACC-01** · **T-UI-GPS-B-01** | **NEW** | Pattern B SUBMIT-VALIDATE |
+| **T-UI-ALIGN-01** | **NEW** | UNCLEAR-ALIGN-01 · end-of-dev |
+| **T-QA-VAL-B-01** | **NEW** queued | Pattern B + Acc + banner |
 
-**GAP-TL-FORMTYPE-01:** PASS — pack đủ phone Field form + waive có cite.  
-**GAP-TL-FILTER-01:** N/A (waive). **GAP-TL-GRID-*-01:** N/A.
+**GAP-TL-FORMTYPE-01:** PASS — prior pack + delta T-* đủ · waive có cite.  
+**GAP-TL-FILTER-01:** N/A. **tl-retry-ssot-rereview:** N/A (task mới, không retry).
 
 ## Screens → tasks
 
 | id | Surface | Pattern | FormMode | Actions | Task | devSlash |
 |----|---------|---------|----------|---------|------|----------|
-| FR-00 | Pick loại tài sản | LookupGrid full 430 | Read | select → FR-01 | T-UI-FR-00 · T-UI-LKP-01 | `/agent-dev` |
-| FR-01 | Form phản ánh | Field form full | Create | checklist · PhotoRow→FR-02 · Detect · Create · draft | T-UI-FR-01 · T-UI-FORM/ACT/FIELD/LEAVE | `/agent-dev` |
-| FR-02 | Photo-geo overlay | Capture overlay | Create | camera · GPS stamp · commit MediaIds | T-UI-FR-02 · T-UI-ACT-01 | `/agent-dev` |
-| — | gpsLock | GPS | — | deny→block Create/Detect | T-UI-FIELD-01 · T-BE-CRUD-01 | `/agent-dev` |
-| — | sessionStamp | Text RO | — | GET patrol/sessions live | T-UI-FIELD-01 · T-BE-CRUD-01 | `/agent-dev` |
+| FR-00 | Pick loại TS | LookupGrid 430 | Read | select → FR-01 | T-UI-FR-00 **PASS** | `/agent-dev` |
+| FR-01 | Form phản ánh | Field form · Pattern B | Create | Detect/Create idle ON · banner on click | T-UI-VAL-B-01 · T-UI-ACC-01 · T-UI-GPS-B-01 | `/agent-dev` |
+| FR-02 | Photo-geo | Overlay | Create | PhotoRow · banner on Detect nếu thiếu ảnh | T-UI-FR-02 **PASS** · T-UI-VAL-B-01 | `/agent-dev` |
+| — | validationBanner | Banner | — | `string[]` on click | T-UI-VAL-B-01 | `/agent-dev` |
+| — | Align | — | — | `/align-mobile-to-mfe` cuối | T-UI-ALIGN-01 | `/agent-dev` |
 
 ## ssot.reuse
 
 | Concern | Reuse | Cấm |
 |---------|-------|-----|
-| UI | `@linm-soft-org/linm-web-common-components` + mobile kit · LookupGrid · Segment · CheckboxGroup · PhotoRow compose · `useFormOptions()` | clone Lin* · hardcode VN |
-| HTTP | apiClient SSOT · prefix `mobile-bff` | invent axios · ERP.* · web-bff · invent `/field-reflect*` |
-| BE | Incident Create · PatrolSessionsController · Integration asset-types · AiVision uploads/files/detect · CommonLib `ApiResponse` | invent Reflect entity · parent `*Json` · Lat col MIG |
-| GPS | browser geolocation · ≤30s freshness Detect · deny block | fake coords · Create without HasGps |
-| Media | FileService guids → `MediaIds` max10 · DEC-MEDIA-01 | invent media table · skip commit |
-| Copy | Android Field Reflect 1-1 | sửa iOS/Android native |
-| Peer | hub entry = `web-rmms-field` tileReflect · draft = offline peer | duplicate hub CRUD |
-| Ownership | Reflect owns **FR-*** only | implement Field hub / journal B–E here |
+| UI | `FieldReflectPage` · mobile kit · `useFormOptions()` | clone Lin* · hardcode VN · typed new_page |
+| HTTP | apiClient · prefix `mobile-bff` | invent axios · ERP.* · web-bff · `/field-reflect*` |
+| BE | Incident Create · sessions · asset-types · AiVision(+files) | invent Reflect controller · Lat col MIG |
+| GPS | geolocation · Acc>30 block **handler** · deny **banner on click** | fake coords · disable CTA idle vì deny |
+| Media | FileService guids → `MediaIds` max10 · DEC-MEDIA-01 | invent media table |
+| Align | `/align-mobile-to-mfe` · SSOT MFE page | tab/route/icon mới · android/ios proto |
+| Ownership | Reflect owns **FR-*** delta gates | Field hub / journal B–E |
 
 ## implement.wire
 
 | From | To | Note |
 |------|----|------|
-| assetPick | `GET mobile-bff/api/v1/integration/asset-types` | LookupGrid FR-00 |
-| sessionStamp | `GET mobile-bff/api/v1/patrol/sessions` | Text RO · live-only · stamp PatrolType |
-| photos / FR-02 | `POST …/ai-vision/uploads` · `files/init\|object\|commit` | MediaIds guids |
-| detect | `POST …/ai-vision/detect` | GPS age ≤30s · deny→block |
-| create | `POST …/incident/incidents` | HasGps=true · MediaIds · Description(+checklist) · DetectionId opt |
-| draftOffline | peer offline local queue | **cấm** invent draft API |
-| kind / severity / labels | LOOKUP_STATIC `useFormOptions()` | **cấm** hardcode VN |
+| detect click | validate photos+GPS+Acc → banner **or** `POST …/ai-vision/detect` | Acc>30 **no POST** · CTA idle ON |
+| create click | validate asset+session+GPS → banner **or** `POST …/incident/incidents` | CTA idle ON · HasGps when fix |
+| gpsLock deny | banner on Detect/Create click | **cấm** `disabled` vì deny |
+| draftOffline | peer offline | **cấm** invent draft API |
 
 ## implement.state
 
-- Route phone **430** · react-router under `/web-rmms-field-reflect`
-- FR-00 → FR-01 → FR-02 overlay · GPS deny block · empty/loading/error
-- Labels: `useFormOptions()` keys only · UTF-8 VN
-- STD-PORT `:9301` · mfeStdUrl STATUS
+- Route **`/phan-anh`** · phone **430** · **cấm** đổi mfeStdRoute
+- Detect/Create: idle enabled · busy `detecting`/`creating` only
+- Banner zone `validationBanner` · prototype `?miss=1` · `?deny=1` · `?acc=1`
+- Align **cuối** Dev · không trong TL
 - **cấm** fake GPS/ca · **cấm** ERP.* · **cấm** web-bff
-- Prototype modes cite: `?form=1` · `?capture=1` · `?deny=1` · `?empty=1` · `?acc=1`
 
 ## implement.init_data
 
 | Field | Source | Cấm |
 |-------|--------|-----|
-| reflect.* / kind / severity labels | LOOKUP_STATIC `useFormOptions()` | hardcode VN string |
-| assetPick options | GET integration/asset-types | invent asset catalog |
-| sessionStamp / PatrolType | GET patrol/sessions live | itemsOrDemo · fake ca |
-| checklist items | local const → fold Description | invent checklist API |
-| MediaIds | FileService commit guids | skip commit · fake ids |
+| labels | LOOKUP_STATIC `useFormOptions()` **PASS** | hardcode VN |
+| checklist | local **PASS** | invent checklist API |
+| sessions / asset-types | Live **PASS** | itemsOrDemo |
 
-## Field → control (T-UI-FIELD)
+## Field → control (T-UI-FIELD) — delta notes
 
-| uiField | controlHint | catalogKind / source | write |
-|---------|-------------|----------------------|-------|
-| assetPick | LookupGrid | GET integration/asset-types | → FR-01 |
-| kind | Segment | useFormOptions · IncidentType | Create body |
-| checklist | CheckboxGroup | local | → Description fold |
-| photos | PhotoRow | → FR-02 · MediaIds | Create MediaIds |
-| detect | Button | POST ai-vision/detect · GPS≤30 | DetectionId opt |
-| sessionStamp | Text RO | GET patrol/sessions | — |
-| gpsLock | GPS | browser · deny block | HasGps |
-| severity | Select | LOOKUP_STATIC | Create body |
-| description | Textarea | copy key + checklist | Create body |
-| create | Button | POST incident/incidents | Create |
-| draftOffline | Button | peer offline | local queue |
+| uiField | controlHint | write / delta |
+|---------|-------------|---------------|
+| detect | Button | Pattern B · disabled **chỉ** detecting · Acc handler |
+| create | Button | Pattern B · disabled **chỉ** creating · banner on click |
+| validationBanner | Banner | `string[]` Pattern B |
+| gpsLock | GPS | deny→banner on click · **không** khóa CTA |
+| photos | PhotoRow | banner on Detect nếu thiếu |
+| assetPick / sessionStamp | LookupGrid / Text RO | banner on Create nếu thiếu |
 
 ---
 
 ## Tasks
 
-### T-BE-CRUD-01 — Live API wire (sessions · asset-types · media · detect · incidents)
-- **role:** Dev · **deps:** none · **status:** pending
-- **DoD:** Wire Live `GET patrol/sessions` · `GET integration/asset-types` · AiVision `uploads` + `files/init|object|commit` · `POST ai-vision/detect` · `POST incident/incidents` (HasGps · MediaIds max10 · Description+checklist · DetectionId opt) via Mobile.Bff · **migration none** · ApiResponse · **cấm ERP.*** · **cấm** invent Reflect controller/path · **cấm** Lat col MIG (GAP-PGC-BE-01)
-- **skills:** `/agent-dev` · SA solution · DOMAIN-MAP Incident
-- **cite:** T-W3-10
+### Prior Live (KEEP · **PASS** · `task_5a08f380`)
 
-### T-BE-INIT-01 — LOOKUP_STATIC + checklist local
-- **role:** Dev · **deps:** none · **status:** pending
-- **DoD:** kind/severity/session/create/detect/draft labels từ `useFormOptions()` · checklist local fold Description · **cấm** hardcode VN · **cấm** invent Reflect init-data / checklist API
-- **skills:** `tl-dropdown-from-backend` (LOOKUP_STATIC path)
+T-BE-CRUD-01 · T-BE-INIT-01 · T-PERM-01 · T-UI-FR-00 · T-UI-FR-01 · T-UI-FR-02 · T-UI-LKP-01 · T-UI-ACT-01 · T-UI-FIELD-01 · T-UI-LEAVE-01 · T-UI-PROD-01 · T-UI-UX-01 · T-UI-RESP-01 · T-UI-HIST-01 · T-QA-CRUD-01 · T-QA-FR-01 — **không reopen** trừ regression Pattern B.
 
-### T-PERM-01 — Auth gate (Field Reflect)
-- **role:** Dev · **deps:** T-BE-CRUD-01 · **status:** pending
-- **DoD:** unauth → redirect/shell login cite · auth → FR-* + Live calls · **cấm** call APIs khi unauth · **cấm** bypass GPS deny
+### T-UI-VAL-B-01 — Pattern B gates + banner (FieldReflectPage)
+
+- **role:** Dev · **deps:** T-UI-FR-01 (PASS) · **devSlash:** `/agent-dev`
+- **status:** **PASS**
+- **DoD:** Bỏ `canDetect`/`canCreate` disable idle · Detect/Create **disabled chỉ** `detecting`/`creating` · click thiếu điều kiện → `validationBanner` `string[]` (không POST) · cite SUBMIT-VALIDATE Pattern B · prototype `?miss=1` · **cấm** khóa CTA vì thiếu ảnh/TS/ca/GPS deny · **cấm** typed new_page
+- **skills:** `/agent-dev` · UNCLEAR-VALIDATE-B
+- **ssot.reuse:** `FieldReflectPage` only
+
+### T-UI-ACC-01 — Acc>30 chặn POST detect (handler)
+
+- **role:** Dev · **deps:** T-UI-VAL-B-01 · **devSlash:** `/agent-dev`
+- **status:** **PASS**
+- **DoD:** AccuracyM > 30 → **không** `POST ai-vision/detect` · banner on click · CTA idle **ON** · prototype `?acc=1` · **cấm** disable Detect vì Acc
 - **skills:** `/agent-dev`
 
-### T-UI-FR-00 — Pick loại tài sản (LookupGrid)
-- **role:** Dev · **deps:** T-BE-CRUD-01 · T-BE-INIT-01 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** FR-00 LookupGrid · phone 430 · bind asset-types · select → FR-01 · empty/loading/error · UTF-8 · **cấm** DES-GRID / LinErpListFilterBar · Android 1-1
-- **skills:** `/agent-dev` · prototype reviewUrl `?empty=1`
-- **ssot.reuse:** LookupGrid mobile kit
+### T-UI-GPS-B-01 — GPS deny Pattern B
 
-### T-UI-FR-01 — Form phản ánh (Create)
-- **role:** Dev · **deps:** T-UI-FR-00 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** FR-01 Segment kind · CheckboxGroup · PhotoRow→FR-02 · Detect · sessionStamp · gpsLock · severity · description · Create · draftOffline · GPS deny block Create/Detect · leave dirty · **cấm** fake coords/ca
-- **skills:** `/agent-dev` · `/dev-web-responsive` · `dev-ui-ux-constitution` · prototype `?form=1` · `?deny=1`
+- **role:** Dev · **deps:** T-UI-VAL-B-01 · **devSlash:** `/agent-dev`
+- **status:** **PASS**
+- **DoD:** deny **không** khóa Detect/Create · báo banner **khi bấm** · HasGps only when fix · **cấm** fake coords · GAP-PGC-BE-01 HasGps only
+- **skills:** `/agent-dev` · prototype `?deny=1`
 
-### T-UI-FR-02 — Photo-geo capture overlay
-- **role:** Dev · **deps:** T-UI-FR-01 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** FR-02 overlay từ PhotoRow · camera + GPS stamp · uploads/files commit → MediaIds · **cấm** Create media without commit · prototype `?capture=1` · `?acc=1`
-- **skills:** `/agent-dev` · Design UNCLEAR-PGC resolved
+### T-UI-ALIGN-01 — Align mobile-to-mfe (cuối)
 
-### T-UI-LKP-01 — LookupGrid assetPick
-- **role:** Dev · **deps:** T-UI-FR-00 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** Search/select asset-types Live · **cấm** hardcode options · (**GAP-LIST-LKP** adapted)
-- **skills:** `/agent-dev`
+- **role:** Dev · **deps:** T-UI-VAL-B-01 · T-UI-ACC-01 · T-UI-GPS-B-01 · **devSlash:** `/agent-dev`
+- **status:** **PASS**
+- **DoD:** `/align-mobile-to-mfe` · SSOT=`FieldReflectPage` · phone 430 · **cấm** tab/route/icon mới · **cấm** mở android/ios proto · UNCLEAR-ALIGN-01
+- **skills:** `/align-mobile-to-mfe`
 
-### T-UI-ACT-01 — Action inventory (detect · create · draft · photo · pick)
-- **role:** Dev · **deps:** T-UI-FR-01 · T-UI-FR-02 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** mọi nút → handler · **cấm** dead button (**GAP-P2-ACT-***) · draft → offline peer · Create POST incidents
-- **skills:** `/agent-dev`
+### T-QA-VAL-B-01 — Pattern B + Acc + banner (queued)
 
-### T-UI-FIELD-01 — Field type + DTO map
-- **role:** Dev · **deps:** T-UI-FR-01 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** bảng field→control→API khớp SA DEC-MEDIA-01 · GPS · MediaIds · Description fold · (**GAP-LIST-FIELD-01**)
-- **skills:** list-form-quality-gates §2
-
-### T-UI-LEAVE-01 — Dirty leave FR-01
-- **role:** Dev · **deps:** T-UI-FR-01 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** dirty form → confirm leave SSOT · **cấm** silent discard without confirm
-- **skills:** `/agent-dev`
-
-### T-UI-PROD-01 — End-user Field Reflect
-- **role:** Dev · **deps:** T-UI-FR-01 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** **cấm** note Dev / GAP / SSOT / stub trên UI · title nghiệp vụ UTF-8 · (**GAP-DEV-DEMO-NOTE-01**)
-- **skills:** `demo-to-real-enduser`
-
-### T-UI-UX-01 — UI-Ux constitution (phone Field)
-- **role:** Dev · **deps:** T-UI-FR-01 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** Principles 1–7 · spacing 4/8/12/16/24/32 · Lin* only · empty/loading/error · phone primary 430 · (**GAP-DEV-UX-01**)
-- **skills:** `dev-ui-ux-constitution`
-
-### T-UI-RESP-01 — Responsive web
-- **role:** Dev · **deps:** T-UI-UX-01 · **devSlash:** `/dev-web-responsive`
-- **status:** pending
-- **DoD:** verify **375** (primary) · 768 · 1280 · **không** shrink mù · `/dev-ui-review` · (**GAP-DEV-UX-RESP-***)
-- **skills:** `/dev-web-responsive` · `/dev-ui-review`
-
-### T-UI-HIST-01 — Alert / toast overlay
-- **role:** Dev · **deps:** T-UI-FR-01 · **devSlash:** `/agent-dev`
-- **status:** pending
-- **DoD:** network/GPS/detect fail → toast/inline SSOT · **cấm** `alert()` · (**GAP-LIST-HIST-01** adapted)
-- **skills:** `/agent-dev`
-
-### T-QA-CRUD-01 — Reflect Live API scenarios (queued)
-- **role:** QA · **deps:** T-UI-FR-01 · T-BE-CRUD-01 · **status:** pending
-- **DoD:** scenarios Create + MediaIds + Detect + GPS deny · **chỉ** `/agent-qa*` chạy e2e · **cấm** team_lead/dev start:std
-- **skills:** `/agent-qa*`
-
-### T-QA-FR-01 — FR-00/01/02 surface AC (queued)
-- **role:** QA · **deps:** T-UI-FR-00 · T-UI-FR-01 · T-UI-FR-02 · **status:** pending
-- **DoD:** AC pick→form→capture→create · deny · empty · **queued** `/agent-qa*`
+- **role:** QA · **deps:** T-UI-VAL-B-01 · T-UI-ACC-01 · T-UI-GPS-B-01 · **status:** pending
+- **DoD:** AC idle CTA ON · banner on click (miss/deny/acc) · Acc>30 no detect POST · align 430 · **chỉ** `/agent-qa*` e2e · **cấm** team_lead/dev start:std
 - **skills:** `/agent-qa*`
 
 ---
@@ -242,29 +177,19 @@
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
-| T-BE-CRUD-01 | Live API wire | dev | — | pending | sessions·asset-types·media·detect·incidents · T-W3-10 |
-| T-BE-INIT-01 | LOOKUP_STATIC + checklist | dev | — | pending | useFormOptions · local checklist |
-| T-PERM-01 | Auth gate | dev | T-BE-CRUD-01 | pending | unauth block |
-| T-UI-FR-00 | Pick asset | dev | T-BE-CRUD-01,T-BE-INIT-01 | pending | LookupGrid FR-00 |
-| T-UI-FR-01 | Form Create | dev | T-UI-FR-00 | pending | FR-01 · GPS deny |
-| T-UI-FR-02 | Photo-geo | dev | T-UI-FR-01 | pending | FR-02 MediaIds |
-| T-UI-LKP-01 | LookupGrid | dev | T-UI-FR-00 | pending | asset-types Live |
-| T-UI-ACT-01 | Actions | dev | T-UI-FR-01,T-UI-FR-02 | pending | detect·create·draft |
-| T-UI-FIELD-01 | Field↔DTO | dev | T-UI-FR-01 | pending | DEC-MEDIA-01 |
-| T-UI-LEAVE-01 | Dirty leave | dev | T-UI-FR-01 | pending | confirm leave |
-| T-UI-PROD-01 | End-user | dev | T-UI-FR-01 | pending | no Dev notes |
-| T-UI-UX-01 | UX constitution | dev | T-UI-FR-01 | pending | Principles 1–7 |
-| T-UI-RESP-01 | Responsive | dev | T-UI-UX-01 | pending | 375/768/1280 |
-| T-UI-HIST-01 | Toast/hist | dev | T-UI-FR-01 | pending | no alert() |
-| T-QA-CRUD-01 | Live API QA | qa | T-UI-FR-01,T-BE-CRUD-01 | pending | queued /agent-qa* |
-| T-QA-FR-01 | Surface AC | qa | T-UI-FR-00…02 | pending | queued /agent-qa* |
+| T-BE-CRUD-01 … T-QA-FR-01 | prior Live | — | — | **PASS** | keep |
+| T-UI-VAL-B-01 | Pattern B gates+banner | dev | T-UI-FR-01 | **PASS** | UNCLEAR-VALIDATE-B closed Dev |
+| T-UI-ACC-01 | Acc>30 handler | dev | T-UI-VAL-B-01 | **PASS** | no POST detect |
+| T-UI-GPS-B-01 | GPS deny banner | dev | T-UI-VAL-B-01 | **PASS** | no lock CTA |
+| T-UI-ALIGN-01 | align-mobile-to-mfe | dev | T-UI-VAL-B-01,T-UI-ACC-01,T-UI-GPS-B-01 | **PASS** | UNCLEAR-ALIGN-01 closed Dev |
+| T-QA-VAL-B-01 | Pattern B AC | qa | T-UI-VAL-B-01…GPS-B | pending | queued /agent-qa* |
 
 ## Out of scope (P1)
 
 - Entity/migration / Step 4b / Lat columns (GAP-PGC-BE-01)
-- ERP.* · web-bff client · invent `/field-reflect*` BE
-- Me*/feedback/cam-view · journal/kết ca/tồn tại/tần suất (B–E)
-- Native iOS/Android code edits
+- ERP.* · web-bff · invent `/field-reflect*` BE · T-BE invent
+- Me*/feedback/cam-view · journal/kết ca (B–E)
+- Native iOS/Android · new tab/route/icon
 - yarn e2e / start:std / build (chỉ Dev/QA đúng slash)
 
 ## Handoff

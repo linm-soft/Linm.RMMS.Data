@@ -89,7 +89,25 @@
       background: #EFEFF4; color: #3A3A3C;
     }
     .control.invalid { border-color: var(--danger); }
+    .inline-err {
+      font-size: 12px; color: var(--danger); margin-top: 4px; display: none;
+    }
+    .inline-err.show { display: block; }
     .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .search-wrap { position: relative; }
+    .search-list {
+      display: none; position: absolute; left: 0; right: 0; top: 100%;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 0 0 var(--radius-control) var(--radius-control);
+      max-height: 160px; overflow: auto; z-index: 3;
+      box-shadow: 0 8px 20px rgba(0,0,0,.12);
+    }
+    .search-list.open { display: block; }
+    .search-list button {
+      display: block; width: 100%; text-align: left; border: 0;
+      background: transparent; padding: 10px 12px; font-size: 14px; cursor: pointer;
+    }
+    .search-list button:hover { background: #E8F6FC; }
     .gps-card {
       background: var(--card); border-radius: var(--radius-card);
       border: 1px solid var(--border); padding: 12px;
@@ -106,7 +124,7 @@
       border: 0; font-size: 16px; font-weight: 600; cursor: pointer;
       padding: 0 16px;
     }
-    .btn-primary { background: var(--primary); color: var(--on-primary); flex: 1; }
+    .btn-primary { background: var(--primary); color: var(--on-primary); width: 100%; }
     .btn-primary:disabled { background: #A0A0A5; cursor: not-allowed; }
     .btn-ghost {
       background: transparent; color: var(--primary);
@@ -140,11 +158,14 @@
     .toast.show { display: block; }
     .toast.ok { border-left: 4px solid var(--success); }
     .toast.err { border-left: 4px solid var(--danger); }
-    .banner {
-      background: #FFF3CD; color: #664D03; border-radius: 10px;
-      padding: 8px 10px; font-size: 12px; margin-bottom: 12px; display: none;
+    .err-banner {
+      background: #FFF5F5; color: #8A1C14; border: 1px solid #F5C2C0;
+      border-radius: 10px; padding: 10px 12px; font-size: 13px;
+      margin-bottom: 12px; display: none;
     }
-    .banner.show { display: block; }
+    .err-banner.show { display: block; }
+    .err-banner ul { margin: 6px 0 0; padding-left: 18px; }
+    .err-banner li { margin: 2px 0; }
     .leave-modal {
       display: none; position: absolute; inset: 0; background: rgba(0,0,0,.45);
       align-items: center; justify-content: center; z-index: 10; padding: 24px;
@@ -167,12 +188,13 @@
 <body>
   <div class="board-nav" role="tablist" aria-label="Board states">
     <button type="button" class="active" data-board="gps-ok">GPS OK</button>
-    <button type="button" data-board="gps-deny">GPS deny</button>
-    <button type="button" data-board="missing">Missing required</button>
+    <button type="button" data-board="gps-deny">GPS deny → submit</button>
+    <button type="button" data-board="missing">Missing → Pattern B</button>
+    <button type="button" data-board="route-missing">Route missing → --</button>
     <button type="button" data-board="success">Success toast</button>
   </div>
   <div class="meta">
-    zones AC-00…10 · reviewUrl prototype · peerStdUrl http://localhost:9301/web-rmms-asset-collect · DES-GRID N/A
+    edit_page · Pattern B · SearchInput route · GPS-on-submit · peerStdUrl http://localhost:9301/tai-san/thu-thap · DES-GRID N/A
   </div>
 
   <div class="phone" id="AC-00" data-zone="AC-00">
@@ -183,12 +205,16 @@
     </header>
 
     <div class="content">
-      <div class="banner" id="gpsBanner">GPS bị từ chối — không thể lưu. Bật định vị để tiếp tục.</div>
+      <div class="err-banner" id="errBanner" data-zone="errBanner" role="alert">
+        <strong>Không thể lưu — kiểm tra:</strong>
+        <ul id="errList"></ul>
+      </div>
 
       <div class="field zone" id="AC-02" data-zone="AC-02">
         <span class="zone-tag">AC-02</span>
         <label for="fldName">Tên tài sản <span class="req">*</span></label>
         <input class="control" id="fldName" type="text" value="Biển báo KM12+300" autocomplete="off" />
+        <div class="inline-err" id="errName">Thiếu tên tài sản</div>
       </div>
 
       <div class="field zone" id="AC-03" data-zone="AC-03">
@@ -200,17 +226,26 @@
           <option value="lan-can">Lan can</option>
           <option value="coc-tieu">Cọc tiêu</option>
         </select>
+        <div class="inline-err" id="errType">Thiếu loại tài sản</div>
       </div>
 
       <div class="field zone" id="AC-04" data-zone="AC-04">
         <span class="zone-tag">AC-04</span>
         <label for="fldRoute">Tuyến đường <span class="req">*</span></label>
-        <select class="control" id="fldRoute">
-          <option value="">— Tìm tuyến —</option>
-          <option value="QL1" selected>QL.1A — Hà Nội → TP.HCM</option>
-          <option value="CT01">CT.01 — Cao tốc Bắc Nam</option>
-        </select>
-        <div class="hint" style="font-size:12px;color:var(--muted);margin-top:4px">Prefill từ phiên tuần tra (sessions) nếu có</div>
+        <div class="search-wrap">
+          <input class="control" id="fldRoute" type="search" autocomplete="off"
+            placeholder="Tìm tuyến (SearchInput · no seed)" value="QL.1A — Hà Nội → TP.HCM"
+            aria-autocomplete="list" aria-controls="routeList" />
+          <div class="search-list" id="routeList" role="listbox">
+            <button type="button" data-code="QL1" data-label="QL.1A — Hà Nội → TP.HCM">QL.1A — Hà Nội → TP.HCM</button>
+            <button type="button" data-code="CT01" data-label="CT.01 — Cao tốc Bắc Nam">CT.01 — Cao tốc Bắc Nam</button>
+          </div>
+        </div>
+        <input type="hidden" id="fldRouteCode" value="QL1" />
+        <div class="hint" style="font-size:12px;color:var(--muted);margin-top:4px">
+          ROAD_ROUTE_LOOKUP_CONFIG · API search · prefill thiếu catalog → --
+        </div>
+        <div class="inline-err" id="errRoute">Thiếu tuyến đường</div>
       </div>
 
       <div class="row-2 zone" id="AC-05" data-zone="AC-05">
@@ -218,6 +253,7 @@
         <div class="field">
           <label for="fldKmFrom">Km từ <span class="req">*</span></label>
           <input class="control" id="fldKmFrom" type="text" inputmode="decimal" value="12.300" />
+          <div class="inline-err" id="errKm">Thiếu km từ</div>
         </div>
         <div class="field">
           <label for="fldKmTo">Km đến</label>
@@ -240,21 +276,24 @@
         <label>Vị trí GPS <span class="req">*</span></label>
         <div class="gps-card" id="gpsCard">
           <div class="coords" id="gpsCoords">21.028511 · 105.804817</div>
-          <div class="hint" id="gpsHint">Chỉ đọc · lấy từ thiết bị · không gõ tay</div>
+          <div class="hint" id="gpsHint">Chỉ đọc · lấy từ thiết bị · không gõ tay · báo lúc submit nếu deny</div>
           <div class="gps-actions">
             <button type="button" class="btn btn-ghost" id="btnGps">Làm mới GPS</button>
           </div>
         </div>
+        <div class="inline-err" id="errGps">Thiếu GPS hợp lệ</div>
       </div>
 
       <div class="field zone" id="AC-08" data-zone="AC-08">
         <span class="zone-tag">AC-08</span>
-        <label>Ảnh (thiết bị)</label>
+        <label>Ảnh (thiết bị) <span class="req">*</span></label>
         <div class="photo-row">
-          <div class="photo-thumb">local</div>
-          <div class="photo-add" title="Camera local · media GAP" role="button" aria-label="Thêm ảnh">+</div>
+          <div class="photo-thumb" id="photoThumb">local</div>
+          <label class="photo-add" title="capture=environment · media GAP" for="fldPhoto">+</label>
+          <input id="fldPhoto" type="file" accept="image/*" capture="environment" style="display:none" />
         </div>
-        <div class="hint" style="font-size:12px;color:var(--muted);margin-top:6px">P1 local only · GAP media upload</div>
+        <div class="hint" style="font-size:12px;color:var(--muted);margin-top:6px">capture environment · local only · GAP media upload</div>
+        <div class="inline-err" id="errPhotos">Thiếu ảnh</div>
       </div>
     </div>
 
@@ -281,20 +320,37 @@
     (function () {
       var board = "gps-ok";
       var gpsOk = true;
+      var hasPhoto = true;
+      var saving = false;
       var dirty = true;
+      var routeCode = "QL1";
+      var routeCatalog = [
+        { code: "QL1", label: "QL.1A — Hà Nội → TP.HCM" },
+        { code: "CT01", label: "CT.01 — Cao tốc Bắc Nam" }
+      ];
       var els = {
         name: document.getElementById("fldName"),
         type: document.getElementById("fldType"),
         route: document.getElementById("fldRoute"),
+        routeCode: document.getElementById("fldRouteCode"),
+        routeList: document.getElementById("routeList"),
         kmFrom: document.getElementById("fldKmFrom"),
         status: document.getElementById("fldStatus"),
         submit: document.getElementById("AC-09"),
         toast: document.getElementById("toast"),
-        banner: document.getElementById("gpsBanner"),
+        errBanner: document.getElementById("errBanner"),
+        errList: document.getElementById("errList"),
         gpsCard: document.getElementById("gpsCard"),
         gpsCoords: document.getElementById("gpsCoords"),
         gpsHint: document.getElementById("gpsHint"),
-        leave: document.getElementById("leaveModal")
+        photoThumb: document.getElementById("photoThumb"),
+        leave: document.getElementById("leaveModal"),
+        errName: document.getElementById("errName"),
+        errType: document.getElementById("errType"),
+        errRoute: document.getElementById("errRoute"),
+        errKm: document.getElementById("errKm"),
+        errGps: document.getElementById("errGps"),
+        errPhotos: document.getElementById("errPhotos")
       };
 
       function showToast(msg, ok) {
@@ -306,9 +362,67 @@
         }, 2800);
       }
 
-      function requiredOk() {
-        return !!(els.name.value.trim() && els.type.value && els.route.value &&
-          els.kmFrom.value.trim() && els.status.value);
+      function clearErrors() {
+        els.errBanner.classList.remove("show");
+        els.errList.innerHTML = "";
+        [els.name, els.type, els.route, els.kmFrom].forEach(function (el) {
+          el.classList.remove("invalid");
+        });
+        els.gpsCard.classList.remove("warn");
+        [els.errName, els.errType, els.errRoute, els.errKm, els.errGps, els.errPhotos].forEach(function (el) {
+          el.classList.remove("show");
+        });
+      }
+
+      function showErrors(items) {
+        els.errList.innerHTML = "";
+        items.forEach(function (t) {
+          var li = document.createElement("li");
+          li.textContent = t;
+          els.errList.appendChild(li);
+        });
+        els.errBanner.classList.toggle("show", items.length > 0);
+      }
+
+      function validate() {
+        var errors = [];
+        clearErrors();
+        if (!els.name.value.trim()) {
+          errors.push("Tên tài sản");
+          els.name.classList.add("invalid");
+          els.errName.classList.add("show");
+        }
+        if (!els.type.value) {
+          errors.push("Loại tài sản");
+          els.type.classList.add("invalid");
+          els.errType.classList.add("show");
+        }
+        if (!routeCode || els.route.value.trim() === "" || els.route.value.trim() === "--") {
+          errors.push("Tuyến đường");
+          els.route.classList.add("invalid");
+          els.errRoute.classList.add("show");
+        }
+        if (!els.kmFrom.value.trim()) {
+          errors.push("Km từ");
+          els.kmFrom.classList.add("invalid");
+          els.errKm.classList.add("show");
+        }
+        if (!gpsOk) {
+          errors.push("GPS");
+          els.gpsCard.classList.add("warn");
+          els.errGps.classList.add("show");
+        }
+        if (!hasPhoto) {
+          errors.push("Ảnh");
+          els.errPhotos.classList.add("show");
+        }
+        showErrors(errors);
+        return errors;
+      }
+
+      function syncSubmit() {
+        /* Pattern B: CTA always enabled except saving — cấm disabled={!canSave} */
+        els.submit.disabled = !!saving;
       }
 
       function applyBoard(id) {
@@ -316,54 +430,71 @@
         document.querySelectorAll(".board-nav button").forEach(function (b) {
           b.classList.toggle("active", b.getAttribute("data-board") === id);
         });
-        [els.name, els.type, els.route, els.kmFrom].forEach(function (el) {
-          el.classList.remove("invalid");
-        });
-        els.banner.classList.remove("show");
-        els.gpsCard.classList.remove("warn");
+        clearErrors();
         els.toast.className = "toast";
+        saving = false;
+        hasPhoto = true;
+        els.photoThumb.textContent = "local";
 
         if (id === "gps-ok") {
           gpsOk = true;
           els.name.value = "Biển báo KM12+300";
           els.type.value = "bien-bao";
-          els.route.value = "QL1";
+          routeCode = "QL1";
+          els.routeCode.value = "QL1";
+          els.route.value = "QL.1A — Hà Nội → TP.HCM";
           els.kmFrom.value = "12.300";
           els.status.value = "tot";
           els.gpsCoords.textContent = "21.028511 · 105.804817";
-          els.gpsHint.textContent = "Chỉ đọc · lấy từ thiết bị · không gõ tay";
+          els.gpsHint.textContent = "Chỉ đọc · lấy từ thiết bị · không gõ tay · báo lúc submit nếu deny";
         } else if (id === "gps-deny") {
           gpsOk = false;
+          els.name.value = "Biển báo KM12+300";
+          els.type.value = "bien-bao";
+          routeCode = "QL1";
+          els.routeCode.value = "QL1";
+          els.route.value = "QL.1A — Hà Nội → TP.HCM";
+          els.kmFrom.value = "12.300";
           els.gpsCoords.textContent = "— · —";
-          els.gpsHint.textContent = "Quyền định vị bị từ chối";
-          els.gpsCard.classList.add("warn");
-          els.banner.classList.add("show");
+          els.gpsHint.textContent = "Quyền định vị bị từ chối — CTA vẫn bật · báo lúc bấm Lưu";
+          /* cấm khóa CTA trước submit */
         } else if (id === "missing") {
           gpsOk = true;
+          hasPhoto = false;
+          els.photoThumb.textContent = "none";
           els.name.value = "";
           els.type.value = "";
+          routeCode = "";
+          els.routeCode.value = "";
           els.route.value = "";
           els.kmFrom.value = "";
           els.gpsCoords.textContent = "21.028511 · 105.804817";
-          els.gpsHint.textContent = "Chỉ đọc · lấy từ thiết bị · không gõ tay";
-          [els.name, els.type, els.route, els.kmFrom].forEach(function (el) {
-            el.classList.add("invalid");
-          });
+          els.gpsHint.textContent = "Chỉ đọc · lấy từ thiết bị · không gõ tay · báo lúc submit nếu deny";
+          validate();
+        } else if (id === "route-missing") {
+          gpsOk = true;
+          els.name.value = "Biển báo KM12+300";
+          els.type.value = "bien-bao";
+          routeCode = "";
+          els.routeCode.value = "";
+          els.route.value = "--";
+          els.kmFrom.value = "12.300";
+          els.status.value = "tot";
+          els.gpsCoords.textContent = "21.028511 · 105.804817";
+          els.gpsHint.textContent = "Prefill mã lạ / thiếu catalog → -- · không seed QL.*";
         } else if (id === "success") {
           gpsOk = true;
           els.name.value = "Biển báo KM12+300";
           els.type.value = "bien-bao";
-          els.route.value = "QL1";
+          routeCode = "QL1";
+          els.routeCode.value = "QL1";
+          els.route.value = "QL.1A — Hà Nội → TP.HCM";
           els.kmFrom.value = "12.300";
           els.status.value = "tot";
           els.gpsCoords.textContent = "21.028511 · 105.804817";
-          showToast("Đã tạo · Code TS-20260925-001", true);
+          showToast("Đã tạo · Code TS-20260927-001", true);
         }
         syncSubmit();
-      }
-
-      function syncSubmit() {
-        els.submit.disabled = !(gpsOk && requiredOk());
       }
 
       document.querySelectorAll(".board-nav button").forEach(function (btn) {
@@ -372,9 +503,39 @@
         });
       });
 
-      ["fldName", "fldType", "fldRoute", "fldKmFrom", "fldStatus"].forEach(function (id) {
-        document.getElementById(id).addEventListener("input", syncSubmit);
-        document.getElementById(id).addEventListener("change", syncSubmit);
+      function openRouteList() {
+        var q = els.route.value.trim().toLowerCase();
+        var html = "";
+        routeCatalog.forEach(function (r) {
+          if (!q || r.label.toLowerCase().indexOf(q) >= 0 || r.code.toLowerCase().indexOf(q) >= 0) {
+            html += '<button type="button" data-code="' + r.code + '" data-label="' + r.label + '">' + r.label + "</button>";
+          }
+        });
+        els.routeList.innerHTML = html || '<button type="button" disabled>Không có kết quả (no seed)</button>';
+        els.routeList.classList.add("open");
+        els.routeList.querySelectorAll("button[data-code]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            routeCode = b.getAttribute("data-code");
+            els.routeCode.value = routeCode;
+            els.route.value = b.getAttribute("data-label");
+            els.routeList.classList.remove("open");
+          });
+        });
+      }
+
+      els.route.addEventListener("focus", openRouteList);
+      els.route.addEventListener("input", function () {
+        routeCode = "";
+        els.routeCode.value = "";
+        openRouteList();
+      });
+      document.addEventListener("click", function (e) {
+        if (!e.target.closest("#AC-04")) els.routeList.classList.remove("open");
+      });
+
+      document.getElementById("fldPhoto").addEventListener("change", function () {
+        hasPhoto = !!(this.files && this.files.length);
+        els.photoThumb.textContent = hasPhoto ? "local" : "none";
       });
 
       document.getElementById("btnGps").addEventListener("click", function () {
@@ -385,18 +546,26 @@
         els.gpsCoords.textContent = "21.028" + Math.floor(Math.random() * 900) +
           " · 105.804" + Math.floor(Math.random() * 900);
         gpsOk = true;
-        els.banner.classList.remove("show");
         els.gpsCard.classList.remove("warn");
-        syncSubmit();
+        els.errGps.classList.remove("show");
       });
 
       els.submit.addEventListener("click", function () {
-        if (els.submit.disabled) {
-          if (!gpsOk) showToast("Cần GPS hợp lệ để lưu", false);
-          else showToast("Điền đủ trường bắt buộc", false);
+        if (saving) return;
+        var errors = validate();
+        if (errors.length) {
+          /* Pattern B: banner string[] · CTA không bị khóa trước click */
+          els.content = document.querySelector(".content");
+          if (els.content) els.content.scrollTop = 0;
           return;
         }
-        showToast("Đã tạo · Code TS-20260925-001 · POST road-assets Source=manual", true);
+        saving = true;
+        syncSubmit();
+        showToast("Đã tạo · Code TS-20260927-001 · POST road-assets Source=manual", true);
+        setTimeout(function () {
+          saving = false;
+          syncSubmit();
+        }, 600);
       });
 
       function openLeave() {

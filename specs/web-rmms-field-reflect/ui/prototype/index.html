@@ -172,6 +172,11 @@
       padding: 10px 12px; font-size: 13px; margin-bottom: 10px; line-height: 1.4;
     }
     .banner.show { display: block; }
+    .banner.validate {
+      background: #FDECEA; color: #8A1C12; border: 1px solid #F5C6C2;
+    }
+    .banner.validate ul { margin: 6px 0 0; padding-left: 18px; }
+    .banner.validate li { margin: 2px 0; }
     .toast {
       position: absolute; left: 12px; right: 12px; bottom: 20px;
       background: #2c2c2e; color: #fff; border-radius: 12px; padding: 10px 14px;
@@ -219,8 +224,8 @@
 </head>
 <body>
   <div class="meta">
-    web-rmms-field-reflect · FR-00 pick · FR-01 form · FR-02 capture · phone 430<br />
-    Live: sessions · asset-types · uploads/files · detect · POST incidents · GPS HARD · DES-GRID N/A
+    web-rmms-field-reflect · edit_page Pattern B · FR-00…02 · phone 430 · std /phan-anh<br />
+    CTA idle ON · banner on click · Acc&gt;30 no POST · DES-GRID N/A · cấm fake GPS
   </div>
   <nav class="board-nav" aria-label="Prototype modes">
     <button type="button" class="active" data-mode="default">Default</button>
@@ -229,6 +234,7 @@
     <button type="button" data-mode="deny">GPS deny</button>
     <button type="button" data-mode="empty">No session</button>
     <button type="button" data-mode="acc">Accuracy &gt;30</button>
+    <button type="button" data-mode="miss">Missing fields</button>
   </nav>
 
   <div class="phone" id="phone" data-feature="web-rmms-field-reflect" data-phone-frame="430">
@@ -269,8 +275,12 @@
         <div class="title" data-copy-key="reflect.title">Phản ánh hiện trường</div>
       </header>
       <div class="content">
-        <p class="zone-tag">FR-01 · form phản ánh</p>
-        <div class="banner" id="bannerEmpty" data-action="emptyNoSession">Không có ca đang tuần — vẫn lưu nháp; Create gắn Route bị chặn.</div>
+        <p class="zone-tag">FR-01 · form phản ánh · Pattern B</p>
+        <div class="banner" id="bannerEmpty" data-action="emptyNoSession">Không có ca đang tuần — Draft OK; Create click → banner.</div>
+        <div class="banner validate" id="validationBanner" data-action="validationBanner" role="alert">
+          <strong>Thiếu thông tin</strong>
+          <ul id="validationList"></ul>
+        </div>
 
         <div class="asset-picked" id="assetCard" data-action="assetCard">
           <span><strong id="assetLabel">Mặt đường</strong> · PAVEMENT</span>
@@ -289,7 +299,7 @@
           <button type="button" class="photo-slot" id="photoAdd" title="Mở capture">📷</button>
           <div class="photo-slot filled" id="photoFilled" style="display:none">Ảnh</div>
         </div>
-        <button type="button" class="btn btn-detect" id="btnDetect" data-action="detect" style="width:100%;margin-bottom:10px">Nhận diện (ai-vision/detect · GPS≤30m)</button>
+        <button type="button" class="btn btn-detect" id="btnDetect" data-action="detect" style="width:100%;margin-bottom:10px">Nhận diện (Pattern B · disabled chỉ detecting)</button>
 
         <div class="card-group">
           <div class="row" data-action="detectionHint">
@@ -379,7 +389,10 @@
         accuracy: 4,
         hasPhoto: false,
         session: "loaded",
-        kind: "hu"
+        kind: "hu",
+        detecting: false,
+        creating: false,
+        validationAttempted: false
       };
       var toastEl = document.getElementById("toast");
       var toastTimer;
@@ -398,30 +411,43 @@
         document.getElementById("sc-fr02").classList.toggle("show", name === "capture");
       }
 
+      function hideValidation() {
+        document.getElementById("validationBanner").classList.remove("show");
+        document.getElementById("validationList").innerHTML = "";
+      }
+
+      function showValidation(msgs) {
+        state.validationAttempted = true;
+        var list = document.getElementById("validationList");
+        list.innerHTML = "";
+        msgs.forEach(function (m) {
+          var li = document.createElement("li");
+          li.textContent = m;
+          list.appendChild(li);
+        });
+        document.getElementById("validationBanner").classList.add("show");
+      }
+
+      function applyCtaUi() {
+        /* Pattern B: CTA chỉ disabled khi busy — không khóa vì thiếu GPS/ảnh/phiên */
+        document.getElementById("btnCreate").disabled = !!state.creating;
+        document.getElementById("btnDetect").disabled = !!state.detecting;
+        document.getElementById("shutter").disabled = false;
+      }
+
       function applyGpsUi() {
         var chip = document.getElementById("gpsChip");
-        var create = document.getElementById("btnCreate");
-        var detect = document.getElementById("btnDetect");
-        var shutter = document.getElementById("shutter");
         if (state.gps === "deny") {
-          chip.textContent = "Chưa cấp quyền";
+          chip.textContent = "Chưa cấp quyền · bấm CTA để báo";
           chip.className = "gps-chip deny";
-          create.disabled = true;
-          detect.disabled = true;
-          shutter.disabled = true;
         } else if (state.accuracy > 30) {
-          chip.textContent = "±" + state.accuracy + " m · chặn Detect";
+          chip.textContent = "±" + state.accuracy + " m · Acc>30 chặn POST detect";
           chip.className = "gps-chip deny";
-          create.disabled = false;
-          detect.disabled = true;
-          shutter.disabled = false;
         } else {
           chip.textContent = "Đã chốt · ±" + state.accuracy + " m";
           chip.className = "gps-chip";
-          create.disabled = false;
-          detect.disabled = !state.hasPhoto;
-          shutter.disabled = false;
         }
+        applyCtaUi();
       }
 
       function applySessionUi() {
@@ -436,15 +462,27 @@
         }
       }
 
+      function syncAssetCard() {
+        var label = document.getElementById("assetLabel");
+        if (state.asset) {
+          label.textContent = state.asset.label;
+        } else {
+          label.textContent = "— chưa chọn";
+        }
+      }
+
       function setMode(mode) {
         document.querySelectorAll(".board-nav button").forEach(function (b) {
           b.classList.toggle("active", b.getAttribute("data-mode") === mode);
         });
         document.getElementById("modalGps").classList.remove("show");
+        hideValidation();
         state.gps = "ok";
         state.accuracy = 4;
         state.session = "loaded";
         state.hasPhoto = false;
+        state.asset = null;
+        state.validationAttempted = false;
         document.getElementById("photoFilled").style.display = "none";
         document.getElementById("detectValue").textContent = "—";
 
@@ -452,37 +490,45 @@
           setScreen("pick");
         } else if (mode === "form") {
           state.asset = { code: "PAVEMENT", label: "Mặt đường" };
-          document.getElementById("assetLabel").textContent = "Mặt đường";
+          state.hasPhoto = true;
+          document.getElementById("photoFilled").style.display = "grid";
           setScreen("form");
         } else if (mode === "capture") {
           state.asset = { code: "PAVEMENT", label: "Mặt đường" };
           setScreen("capture");
         } else if (mode === "deny") {
           state.asset = { code: "PAVEMENT", label: "Mặt đường" };
+          state.hasPhoto = true;
+          document.getElementById("photoFilled").style.display = "grid";
           state.gps = "deny";
           setScreen("form");
-          document.getElementById("modalGps").classList.add("show");
+          /* Pattern B: không auto-lock / không auto-modal — chip deny · bấm CTA mới báo */
         } else if (mode === "empty") {
           state.asset = { code: "PAVEMENT", label: "Mặt đường" };
           state.session = "empty";
           setScreen("form");
-          showToast("Không có ca đang tuần");
         } else if (mode === "acc") {
           state.asset = { code: "PAVEMENT", label: "Mặt đường" };
           state.hasPhoto = true;
           state.accuracy = 48;
           document.getElementById("photoFilled").style.display = "grid";
           setScreen("form");
-          showToast("Accuracy >30 m — không POST detect");
+        } else if (mode === "miss") {
+          state.asset = null;
+          state.hasPhoto = false;
+          state.session = "empty";
+          setScreen("form");
         }
 
+        syncAssetCard();
         applyGpsUi();
         applySessionUi();
         var q = mode === "default" ? "" : "?" + (
           mode === "form" ? "form=1" :
           mode === "capture" ? "capture=1" :
           mode === "deny" ? "deny=1" :
-          mode === "empty" ? "empty=1" : "acc=1"
+          mode === "empty" ? "empty=1" :
+          mode === "miss" ? "miss=1" : "acc=1"
         );
         if (history.replaceState) history.replaceState(null, "", location.pathname + q);
       }
@@ -494,7 +540,8 @@
       document.querySelectorAll("#assetGrid .asset-card").forEach(function (el) {
         el.addEventListener("click", function () {
           state.asset = { code: el.getAttribute("data-code"), label: el.getAttribute("data-label") };
-          document.getElementById("assetLabel").textContent = state.asset.label;
+          syncAssetCard();
+          hideValidation();
           setScreen("form");
           applyGpsUi();
           applySessionUi();
@@ -518,6 +565,7 @@
       function openCapture() {
         if (state.gps === "deny") {
           document.getElementById("modalGps").classList.add("show");
+          showValidation(["GPS chưa cấp quyền"]);
           return;
         }
         setScreen("capture");
@@ -528,41 +576,43 @@
       document.getElementById("shutter").addEventListener("click", function () {
         if (state.gps === "deny") {
           document.getElementById("modalGps").classList.add("show");
+          showValidation(["GPS chưa cấp quyền"]);
           return;
         }
         state.hasPhoto = true;
         document.getElementById("photoFilled").style.display = "grid";
+        hideValidation();
         setScreen("form");
         applyGpsUi();
         showToast("Đã gắn ảnh · MediaIds (files/ai-vision)");
       });
 
       document.getElementById("btnDetect").addEventListener("click", function () {
-        if (state.gps === "deny") {
-          document.getElementById("modalGps").classList.add("show");
+        var errs = [];
+        if (!state.hasPhoto) errs.push("Thiếu ảnh hiện trường");
+        if (state.gps === "deny") errs.push("GPS chưa cấp quyền");
+        if (state.accuracy > 30) errs.push("Độ chính xác GPS > 30 m — không POST detect");
+        if (errs.length) {
+          showValidation(errs);
+          if (state.gps === "deny") document.getElementById("modalGps").classList.add("show");
           return;
         }
-        if (state.accuracy > 30) {
-          showToast("Accuracy >30 m — không POST detect");
-          return;
-        }
-        if (!state.hasPhoto) {
-          showToast("Cần ảnh trước khi nhận diện");
-          return;
-        }
+        hideValidation();
         document.getElementById("detectValue").textContent = "Ổ gà · Mặt đường";
         showToast("POST ai-vision/detect OK (optional)");
       });
 
       document.getElementById("btnCreate").addEventListener("click", function () {
-        if (state.gps === "deny") {
-          document.getElementById("modalGps").classList.add("show");
+        var errs = [];
+        if (!state.asset) errs.push("Chưa chọn loại tài sản");
+        if (state.session === "empty") errs.push("Không có ca đang tuần / thiếu tuyến");
+        if (state.gps === "deny") errs.push("GPS chưa cấp quyền");
+        if (errs.length) {
+          showValidation(errs);
+          if (state.gps === "deny") document.getElementById("modalGps").classList.add("show");
           return;
         }
-        if (state.session === "empty") {
-          showToast("Không gắn Route — không có ca đang tuần");
-          return;
-        }
+        hideValidation();
         showToast("POST incident/incidents · HasGps · toast ok");
       });
 
@@ -589,6 +639,7 @@
       else if (params.get("deny") === "1") setMode("deny");
       else if (params.get("empty") === "1") setMode("empty");
       else if (params.get("acc") === "1") setMode("acc");
+      else if (params.get("miss") === "1") setMode("miss");
       else setMode("default");
     })();
   </script>

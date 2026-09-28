@@ -6,53 +6,55 @@ packKind: list
 role: data_analy
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T14:33:05.000Z
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
+writtenAt: 2026-09-27T09:10:00.000Z
+contentHash: sha256:bf61e3677d8c0ff81bfccd4e08df8f452a069408ae43f3d025dde73959990a79
+taskId: task_ed5bbfb2
+changeScope: edit_page
 
 ## Decisions
-- changeScope: new_page
-- formPattern: Mobile full form (phone max-width 430) · N/A ERP Modal/Slideout · master no demo · /erp-form-context labels
-- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/web-rmms-asset-collect
-- nativeRouteCite: SCREENS /asset/collect · delta T17 Thêm tài sản thủ công
-- be: D:/AI-QLBD/Linm.RMMS.WebService · Mobile.Bff :5202 mobile-bff/api/v1 · Asset (+cite Integration/Patrol) · cấm ERP.*
+- changeScope: edit_page · NEW task · cấm new_page typed CRUD · keep prior PO/Design artifacts
+- deltaCite: docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md · AssetCollectPage
+- formPattern: Mobile 430 · Pattern B validate · master no demo · /erp-form-context labels
+- toolbarExport: N/A (SUBMIT override · no Excel)
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/tai-san/thu-thap · route /tai-san/thu-thap
+- codeCurrent: src/pages/WebRmmsAssetCollect/AssetCollectPage.tsx
+- be: Linm.RMMS.WebService · Mobile.Bff :5202 mobileApiBase() · Asset(+Integration/Patrol) · cấm ERP.* · cấm web-bff
 - demo: N/A
-- Form: Name* Type* Route* KmFrom* Status* GPS* · KmTo opt · photos local GAP · POST road-assets Source→manual
-- REMOVED: me / me-profile / me-settings / feedback / cam-view
-- Field doors + journal/kết ca/tồn tại/tần suất → shell / web-rmms-mobile-a…e (out)
-- labels: useFormOptions() · cấm hardcode VN form
-- GPS: navigator.geolocation · deny blocks submit · cấm fake / type-in
-- copy: Android icon/layout 1-1 · cấm sửa iOS/Android
-- open questions: UNCLEAR-DOMAIN-MAP-ACOLLECT · UNCLEAR-MEDIA-01 · UNCLEAR-STD-ROUTE · UNCLEAR-STATUS-ANDROID
+- Delta: remove disabled={!canSave} · banner name/type/route/km/GPS/photos · GPS deny on submit click · route→SearchInput+ROAD_ROUTE_LOOKUP_CONFIG no seed · missing→-- · keep capture
+- REMOVED still: me* / feedback / cam-view · AI/adjust/list
+- labels: useFormOptions() · cấm hardcode VN
+- align-mobile-to-mfe: page đã có · no new tab/route/icon · no android/ios prototype
+- open: UNCLEAR-MEDIA-01 (GAP accepted · no invent)
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
 | navBack | back | Button/Nav | → Hub /asset |
-| name/type/route/km/status | fields | Text/Select | CreateRoadAsset required |
-| gpsPin | Lat/Lng RO | Text RO | geolocation gate |
-| photos | local | PhotoRow | media GAP |
-| submit/cancel | CTA | Button | POST · back Hub |
+| name/type/km/status | fields | Text/Select | required · Pattern B |
+| route | tuyến | SearchInput | no seed · -- if missing |
+| gpsPin | Lat/Lng RO | Text RO | validate on submit |
+| photos | local | PhotoRow | capture · media GAP |
+| submit | CTA | Button | disabled={saving} only |
+| errBanner | errors | Banner | string[] after attempt |
 
 ## Screens / zones (ids only)
 - AC-00 · AC-01 · AC-02 · AC-03 · AC-04 · AC-05 · AC-06 · AC-07 · AC-08 · AC-09 · AC-10
-- reviewUrl= (Design)
-- peerStdUrl= http://localhost:9301/web-rmms-asset-collect
-- DES-GRID / LinErpListFilterBar: N/A phone form
+- reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-collect/ui/prototype/index.html (keep · Design reopen)
+- peerStdUrl= http://localhost:9301/tai-san/thu-thap
+- DES-GRID / toolbar Excel: N/A
 
 ## API / tasks (ids only)
 - FormMode↔API: GET init-data · asset-types · road-routes/search · sessions prefill · POST road-assets
+- BFF: mobileApiBase only · users forward shared (no field on collect)
 - real-data §A+§B: PASS
-- T-*: (team_lead)
+- T-*: (team_lead · edit tasks)
 
 ## UNCLEAR
-- UNCLEAR-DOMAIN-MAP-ACOLLECT: add DOMAIN-MAP row web-rmms-asset-collect (SA)
 - UNCLEAR-MEDIA-01: GAP-MOB-ASSET-COLLECT-MEDIA-01 · no invent media path
-- UNCLEAR-STD-ROUTE: SCREENS /asset/collect vs mfeStdRoute /web-rmms-asset-collect — follow STATUS URL
-- UNCLEAR-STATUS-ANDROID: peer thiếu Tình trạng — use init-data Select
 
 ## Full paths (Read only if needed)
 - control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-asset-collect-control-hint.md
 - real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-asset-collect-real-data.md
 - context: D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/web-rmms-asset-collect.md
-- screens: D:/AI-QLBD/Linm.RMMS.Data/docs/plan/web-rmms-mobile/SCREENS.md
+- delta: D:/AI-QLBD/Linm.RMMS.Data/docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-collect/STATUS.md

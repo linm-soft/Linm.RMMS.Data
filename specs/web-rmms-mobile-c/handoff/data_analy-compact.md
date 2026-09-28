@@ -5,65 +5,53 @@ feature: web-rmms-mobile-c
 packKind: list
 role: data_analy
 status: done
+changeScope: edit_page
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T08:45:00.000Z
-contentHash: sha256:0654e7b6359dfa34767872c7ea3a74f94605bd1b73fd125e241d6c95592133a4
+writtenAt: 2026-09-27T08:00:00.000Z
+taskId: task_fce3705f
+contentHash: sha256:4a38b53861c732cbbde7208c21d766f1b8b2c8decc007d2dc24ea34a4793339c
 
 ## Decisions
-- changeScope: edit_page
-- formPattern: Mobile full (phone max-width 430) · N/A ERP Modal/Slideout
-- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/web-rmms-mobile-c
+- changeScope: edit_page · NEW task · keep PO/Design artifacts · analy § Delta only
+- Delta SSOT: docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md · Pattern B submit always on
+- formPattern: Mobile full phone 430 · N/A ERP Modal/Slideout · no Excel export · no new_page
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdRoute=/phat-hien · mfeStdUrl http://localhost:9301/phat-hien
 - be: D:/AI-QLBD/Linm.RMMS.WebService · Patrol · cấm ERP.*
 - demo: N/A
-- wave C: TK-02 list · TK-03 phiếu · TK-04 đối chiếu · TK-05 recheck · API Mới findings/recheck/review
-- HARD: Schema_PatrolFinding + entity pair trước form · review journal-line
-- labels: useFormOptions() · cấm hardcode VN form
-- GPS: navigator.geolocation · deny blocks TK-03 save + TK-05 recheck · cấm fake coords
-- TK-04 prefill GPS from journal · no new GPS unless user retake
-- out of C: TK-06/07 · WO assign · feedback (D)
-- open questions: UNCLEAR-FIND-SCHEMA · UNCLEAR-FIND-CODE · UNCLEAR-REVIEW-COL · UNCLEAR-DOMAIN-SLUG · UNCLEAR-HANGMUC
+- pages edit: FindingFormPage · JournalReviewPage · FindingDetailPage
+- Current→New: bỏ disabled=!canSave/!canConfirm/!feedbackQty · banner string[] + validationAttempted · GPS deny on click · capture=environment
+- last: /align-mobile-to-mfe · no android/ios prototype · no new tab/route/icon · mobileApiBase only · users BFF forward if missing
+- prior CRUD/schema: review PASS — không reopen schema
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| findingList | danh mục | List cards | GET findings?sessionId&status&route |
-| filter.status/route | lọc | Chip/Select | phone · no ERP filter bar |
-| source | nguồn | Dropdown | 5 keys · link journal if tuan-duong |
-| findingKind | loại phiếu | Dropdown | 7 keys |
-| kmFrom/kmTo | km | Text | |
-| side | vị trí | Dropdown | 5 keys |
-| hangMuc | hạng mục | Dropdown | LOOKUP |
-| description | mô tả | TextArea | required |
-| scope | phạm vi | Radio | bdtx/vuot-bdtx |
-| lat/lng/accuracyM | GPS | GPS | TK-03/05 HARD deny→block |
-| dueAt | hạn | Date | if bdtx |
-| mediaIds | ảnh | FileMulti | files/* |
-| review/reviewNote | khớp/lệch | Radio+Text | TK-04 · lech required note |
-| createFromLech | lập phiếu | Button | → TK-03 prefill |
-| recheckResult | kết luận | Radio | dat/chua-dat |
-| confirmDone | xác nhận | Button | only if dat |
+| saveFinding | Lưu TK-03 | Button | Pattern B · was canSave |
+| reviewSave | Lưu đối chiếu | Button | Pattern B · lech note on click |
+| submitFeedback | Gửi phản hồi | Button | Pattern B · was !feedbackQty |
+| confirmDone | Xác nhận recheck | Button | Pattern B · was canConfirm |
+| mediaIds | ảnh | FileMulti | + capture |
+| lat/lng | GPS | GPS | deny→banner on submit |
+| findingList…fields | baseline C | List/form | giữ bind Live |
 
 ## Screens / zones (ids only)
 - TK-02 · TK-03 · TK-04 · TK-05
-- reviewUrl= (Design)
-- peerStdUrl= http://localhost:9301/web-rmms-mobile-c
-- DES-GRID / LinErpListFilterBar: N/A phone
+- reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-c/ui/prototype/index.html (keep)
+- peerStdUrl= http://localhost:9301/phat-hien
+- DES-GRID / export: N/A
 
 ## API / tasks (ids only)
-- FormMode↔API: GET/POST findings · GET findings/{id} · POST …/recheck · PUT journal-lines/{id}/review · peer GET journal-lines · parent sessions
-- real-data §A+§B: PASS
-- T-*: (team_lead)
+- FormMode↔API: giữ GET/POST findings · recheck · PUT journal review · mobile-bff
+- real-data §A+§B+§Delta: PASS
+- T-*: (team_lead) UI Pattern B + capture + BFF align
 
 ## UNCLEAR
-- UNCLEAR-FIND-SCHEMA: Schema_PatrolFinding chưa Live
-- UNCLEAR-FIND-CODE: format mã tồn tại
-- UNCLEAR-REVIEW-COL: review trên Schema_B vs migration C
-- UNCLEAR-DOMAIN-SLUG: DOMAIN-MAP row web-rmms-mobile-c
-- UNCLEAR-HANGMUC: enum keys hạng mục
+- UNCLEAR-CAPTURE-PROP: LinImageUpload capture forward vs local input
+- UNCLEAR-FEEDBACK-SCOPE: feedback/assign Live vs CTX out-D — Pattern B only, no CRUD expand
 
-## Full paths (Read only if needed)
+## Full paths
 - control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-mobile-c-control-hint.md
 - real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-mobile-c-real-data.md
 - context: D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/web-rmms-mobile-c.md
-- screens: D:/AI-QLBD/Linm.RMMS.Data/docs/plan/web-rmms-mobile/IMPLEMENT-SCREENS.md
+- delta: D:/AI-QLBD/Linm.RMMS.Data/docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-c/STATUS.md

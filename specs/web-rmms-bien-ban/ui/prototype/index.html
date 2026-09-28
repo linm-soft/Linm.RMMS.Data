@@ -174,6 +174,23 @@
     .modal .actions { display: flex; gap: 8px; }
     .modal .actions .btn { flex: 1; }
     .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .field-error input, .field-error .search-input, .field-error textarea {
+      border-color: var(--danger);
+    }
+    .err { display: none; color: var(--danger); font-size: 12px; margin-top: 4px; }
+    .field-error .err { display: block; }
+    .search-input {
+      display: flex; align-items: center; gap: 8px;
+      min-height: var(--field-h); border: 1px solid var(--border);
+      border-radius: var(--radius-control); padding: 8px 12px; background: var(--card);
+    }
+    .search-input input {
+      flex: 1; border: 0; outline: 0; font-size: var(--field);
+      min-height: 36px; background: transparent; padding: 0; width: auto;
+    }
+    .search-input .si-icon { color: var(--primary); font-size: 16px; font-weight: 700; }
+    .search-input .si-code { font-size: 12px; color: var(--muted); white-space: nowrap; }
+    .banner.hidden { display: none; }
     .zone-tag {
       position: absolute; top: 8px; right: 12px; font-size: 10px;
       background: rgba(0,0,0,.55); color: #fff; padding: 2px 6px; border-radius: 4px;
@@ -261,6 +278,7 @@
           <button type="button" class="btn btn-secondary dirty-back">Hủy</button>
           <button type="button" class="btn btn-primary" id="saveTd">Lưu</button>
         </div>
+        <div class="banner danger hidden" id="bannerTd" role="alert"></div>
         <div class="field">
           <label>Lối vào</label>
           <input class="ro" readonly value="tuan-duong" />
@@ -277,21 +295,30 @@
           </div>
           <p class="hint">Không mở sổ 07 · chỉ đề nghị</p>
         </div>
-        <div class="field">
+        <div class="field" id="fieldSenderTd">
           <label>Đơn vị gửi *</label>
-          <input type="text" value="Đội QLĐT 1" />
+          <input type="text" id="senderTd" value="Đội QLĐT 1" />
+          <div class="err">Bắt buộc đơn vị gửi</div>
         </div>
-        <div class="field">
-          <label>Tuyến *</label>
-          <input type="text" value="QL1" />
+        <div class="field" id="fieldRouteTd">
+          <label>Tuyến * (SearchInput road-route)</label>
+          <div class="search-input" data-control="SearchInput" data-catalog="road-route">
+            <span class="si-icon" aria-hidden="true">⌕</span>
+            <input type="search" id="routeTd" value="QL1" placeholder="Tìm tuyến…" autocomplete="off" />
+            <span class="si-code" id="routeTdCode">QL1</span>
+          </div>
+          <p class="hint">BFF integration/road-routes/search · cấm SEED · miss → --</p>
+          <div class="err">Chọn tuyến từ danh mục</div>
         </div>
-        <div class="field">
+        <div class="field" id="fieldKmTd">
           <label>Km *</label>
-          <input type="text" value="12+300" />
+          <input type="text" id="kmTd" value="12+300" />
+          <div class="err">Bắt buộc Km</div>
         </div>
-        <div class="field">
+        <div class="field" id="fieldContentTd">
           <label>Nội dung đề nghị *</label>
-          <textarea>Đề nghị lập biên bản xâm phạm hành lang tại vị trí nêu trên.</textarea>
+          <textarea id="contentTd">Đề nghị lập biên bản xâm phạm hành lang tại vị trí nêu trên.</textarea>
+          <div class="err">Bắt buộc nội dung</div>
         </div>
         <div class="field">
           <label>Loại kiến nghị *</label>
@@ -305,7 +332,7 @@
             <span>Không có mặt / không GPS (noFace)</span>
           </label>
         </div>
-        <p class="hint">Lưu: POST petitions + PUT journal-lines ViolationFlag</p>
+        <p class="hint">Pattern B: Lưu luôn bật · validate on submit · POST petitions + PUT ViolationFlag</p>
       </div>
     </section>
 
@@ -321,6 +348,7 @@
           <button type="button" class="btn btn-secondary dirty-back">Hủy</button>
           <button type="button" class="btn btn-primary" id="saveTk">Lưu</button>
         </div>
+        <div class="banner danger hidden" id="bannerTk" role="alert"></div>
         <div class="field">
           <label>Lối vào</label>
           <input class="ro" readonly value="tuan-kiem" />
@@ -348,8 +376,13 @@
           <input type="text" value="Tổ kiểm tra Khu 2" />
         </div>
         <div class="field">
-          <label>Tuyến *</label>
-          <input type="text" value="ĐT.754" />
+          <label>Tuyến * (SearchInput road-route)</label>
+          <div class="search-input" data-control="SearchInput" data-catalog="road-route">
+            <span class="si-icon" aria-hidden="true">⌕</span>
+            <input type="search" id="routeTk" value="ĐT.754" placeholder="Tìm tuyến…" autocomplete="off" />
+            <span class="si-code" id="routeTkCode">ĐT.754</span>
+          </div>
+          <p class="hint">BFF road-routes/search · cấm SEED · miss → --</p>
         </div>
         <div class="field">
           <label>Km *</label>
@@ -371,7 +404,7 @@
             <span>Không có mặt / không GPS (noFace)</span>
           </label>
         </div>
-        <p class="hint">Lưu: POST petitions + persist ViolationAction</p>
+        <p class="hint">Pattern B: Lưu luôn bật · POST petitions + ViolationAction</p>
       </div>
     </section>
 
@@ -383,17 +416,17 @@
         <span class="spacer"></span>
       </header>
       <div class="content">
-        <div class="banner danger">Trình duyệt từ chối vị trí · không fake GPS · Lưu bị chặn trừ khi chọn noFace.</div>
+        <div class="banner danger hidden" id="bannerGps" role="alert"></div>
         <div class="gps-box">
-          <button type="button" class="btn btn-ghost btn-block" disabled>Ghim vị trí hiện tại</button>
-          <div class="gps-coords">lat/lng/accuracyM = —</div>
+          <button type="button" class="btn btn-ghost btn-block" id="btnGpsDeny">Ghim vị trí hiện tại</button>
+          <div class="gps-coords">lat/lng/accuracyM = — · deny (không fake)</div>
           <label class="choiceRow" style="margin-top:10px" id="noFaceToggle">
             <input type="checkbox" id="noFaceChk" />
             <span>Không có mặt / không GPS (noFace)</span>
           </label>
         </div>
-        <button type="button" class="btn btn-primary btn-block" id="saveGpsDeny" disabled>Lưu</button>
-        <p class="hint">List/detail không bắt GPS mới</p>
+        <button type="button" class="btn btn-primary btn-block" id="saveGpsDeny">Lưu</button>
+        <p class="hint">Pattern B: Lưu luôn bật · deny báo khi bấm · noFace cho phép lưu không GPS · list/detail không bắt GPS mới</p>
       </div>
     </section>
 
@@ -440,7 +473,7 @@
           <strong>TK-03 · Hành động VPHC</strong>
           <div class="meta">Tuần kiểm (Khu/VP) → BB-03 · ViolationAction</div>
         </article>
-        <p class="hint">STD route `/web-rmms-bien-ban` + deep BB-06</p>
+        <p class="hint">STD route `/bien-ban` + deep BB-06</p>
       </div>
     </section>
 
@@ -522,9 +555,66 @@
 
       var noFaceChk = document.getElementById("noFaceChk");
       var saveGpsDeny = document.getElementById("saveGpsDeny");
-      noFaceChk.addEventListener("change", function () {
-        saveGpsDeny.disabled = !noFaceChk.checked;
+      var bannerGps = document.getElementById("bannerGps");
+      var btnGpsDeny = document.getElementById("btnGpsDeny");
+
+      function showBanner(el, msgs) {
+        if (!el) return;
+        el.textContent = msgs.join(" · ");
+        el.classList.toggle("hidden", !msgs.length);
+      }
+
+      btnGpsDeny.addEventListener("click", function () {
+        showBanner(bannerGps, ["Trình duyệt từ chối vị trí — không fake GPS. Bấm Lưu sẽ báo trừ khi chọn noFace."]);
       });
+
+      saveGpsDeny.addEventListener("click", function () {
+        if (!noFaceChk.checked) {
+          showBanner(bannerGps, ["Chưa có GPS · chọn noFace hoặc ghim lại vị trí trước khi lưu"]);
+          return;
+        }
+        showBanner(bannerGps, []);
+        bannerGps.classList.remove("hidden");
+        bannerGps.className = "banner ok";
+        bannerGps.textContent = "Lưu OK với noFace (không GPS) — Pattern B deny-on-submit";
+      });
+
+      document.getElementById("saveTd").addEventListener("click", function () {
+        var errs = [];
+        var sender = document.getElementById("senderTd").value.trim();
+        var route = document.getElementById("routeTd").value.trim();
+        var km = document.getElementById("kmTd").value.trim();
+        var content = document.getElementById("contentTd").value.trim();
+        document.getElementById("fieldSenderTd").classList.toggle("field-error", !sender);
+        document.getElementById("fieldRouteTd").classList.toggle("field-error", !route);
+        document.getElementById("fieldKmTd").classList.toggle("field-error", !km);
+        document.getElementById("fieldContentTd").classList.toggle("field-error", !content);
+        if (!sender) errs.push("Đơn vị gửi");
+        if (!route) errs.push("Tuyến");
+        if (!km) errs.push("Km");
+        if (!content) errs.push("Nội dung");
+        var banner = document.getElementById("bannerTd");
+        banner.className = errs.length ? "banner danger" : "banner ok";
+        showBanner(banner, errs.length ? ["Thiếu: " + errs.join(", ")] : ["Validate OK · POST petitions + ViolationFlag"]);
+      });
+
+      document.getElementById("saveTk").addEventListener("click", function () {
+        var banner = document.getElementById("bannerTk");
+        banner.className = "banner ok";
+        showBanner(banner, ["Pattern B · Lưu luôn bật · POST petitions + ViolationAction"]);
+      });
+
+      function bindRouteMiss(inputId, codeId) {
+        var input = document.getElementById(inputId);
+        var code = document.getElementById(codeId);
+        if (!input || !code) return;
+        input.addEventListener("input", function () {
+          var v = input.value.trim();
+          code.textContent = v ? v : "--";
+        });
+      }
+      bindRouteMiss("routeTd", "routeTdCode");
+      bindRouteMiss("routeTk", "routeTkCode");
 
       document.querySelectorAll('input[name="tkAction"]').forEach(function (r) {
         r.addEventListener("change", function () {

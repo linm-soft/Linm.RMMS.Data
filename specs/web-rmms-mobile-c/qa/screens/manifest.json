@@ -1,26 +1,27 @@
 {
-  "url": "http://localhost:9301/web-rmms-mobile-c",
-  "capturedAt": "2026-09-25T09:23:15.494Z",
-  "method": "capture_c · MFE /login · phone 430 · geolocation mock · stock e2e-qa blocked API:5101 vs :5111",
+  "url": "http://localhost:9301/phat-hien",
+  "capturedAt": "2026-09-27T08:25:33.057Z",
+  "method": "capture_c · /phat-hien · MFE /login · phone 430 · geolocation · stock e2e QA-20=/new DUP→feature /moi",
   "steps": [
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "href": "http://localhost:9301/web-rmms-mobile-c/94515321-d332-4a3b-832a-d86ff5716b2c"
+      "href": "http://localhost:9301/m/phat-hien/dab1f08e-39b6-4145-aba8-ccf329ab7c15"
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "href": "http://localhost:9301/web-rmms-mobile-a/tuan-kiem"
+      "href": "http://localhost:9301/m/tuan-kiem"
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "href": "http://localhost:9301/web-rmms-mobile-c/94515321-d332-4a3b-832a-d86ff5716b2c/moi"
+      "href": "http://localhost:9301/m/phat-hien/dab1f08e-39b6-4145-aba8-ccf329ab7c15/moi"
     }
   ],
-  "ok": true
+  "ok": true,
+  "stockE2eNote": "yarn e2e-qa --skip-start: S0/S1 PASS · QA-20 FAIL GAP-QA-E2E-DUP-01 (appends /new ≠ /:sessionId/moi)"
 }

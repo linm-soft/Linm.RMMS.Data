@@ -2,9 +2,10 @@
   "feature": "web-rmms-incident",
   "status": "done",
   "review_confirm": "approve",
-  "contentHash": "sha256:665f3697a399a948edb0ab14da5fc13716b477aa84b0b8e43f6ca33eb7216d2d",
+  "changeScope": "edit_page",
+  "contentHash": "sha256:d753df685c7334cda81339c1c6daccaa3463c4e8c6350eaff5562a6e41584015",
   "hashGate": "skip",
-  "taskId": "task_bc0e1942",
+  "taskId": "task_cab4ccd7",
   "skillVersion": "2026.09.05.03",
-  "updatedAt": "2026-09-25T21:22:07Z"
+  "updatedAt": "2026-09-27T12:52:00.000Z"
 }

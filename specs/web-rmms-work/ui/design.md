@@ -109,7 +109,7 @@
 | search | WORK-L | SearchInput | * | query `search` · debounce |
 | filter.status | WORK-L | Chip/Select | * | init-data · live GET |
 | filter.workType | WORK-L | Chip/Select | * | init-data · live GET |
-| hub.estimate | WORK-L | HubRow | * | nav peer estimate |
+| hub.estimate | WORK-L | HubRow | * | nav peer estimate · nếu `?incidentId=` thì giữ query (parent) |
 | list.card | WORK-L | CardList | * | `GET maintenance/work-orders` pageSize=50 |
 | card.title | WORK-L | Text | * | `Title` |
 | card.code | WORK-L | Text | * | `Code` |
@@ -163,7 +163,7 @@
 
 | Method | Path | Note |
 |--------|------|------|
-| GET | `maintenance/work-orders` | search/status/workType · pageSize=50 |
+| GET | `maintenance/work-orders` | search/status/workType · **`incidentId` exact** khi mở từ sự cố · pageSize=50 |
 | GET | `maintenance/work-orders/init-data` | chip LOOKUP |
 | GET | `maintenance/work-orders/{id}` | cite peer header |
 

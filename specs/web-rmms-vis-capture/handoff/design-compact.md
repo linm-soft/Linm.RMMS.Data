@@ -4,63 +4,65 @@ schemaVersion: 1
 feature: web-rmms-vis-capture
 packKind: list
 role: design
-status: done
+status: confirmed
+changeScope: edit_page
+taskId: task_f8d03a34
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T04:29:24.000Z
-taskId: task_8f3b5723
-contentHash: sha256:96ffc2878a4c6ad0367088c699203864c2e711b055ca68da8a59d696c8d4de97
+writtenAt: 2026-09-27T11:20:00.000Z
+contentHash: sha256:f749bc65f84b7bde51beeebaa85e5db22dacc8e8a040a53de30af834fa55c8cd
 design_confirm: approve
 autoApprove: ON
 real_view_parity: v1
 shared_grid_example: N/A
 
 ## Decisions
-- changeScope: new_page
-- formPattern: Mobile full phone 430 · Android 1-1 · N/A ERP Modal/Slideout
-- Grid AC Kind B / DES-GRID / LinErpListFilterBar: N/A phone full
-- Report AC / DES-RPT: N/A
-- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/web-rmms-vis-capture · productRoute /incident/vis
-- be: D:/AI-QLBD/Linm.RMMS.WebService · AiVision+Incident(+Patrol) · cấm ERP.*
-- bff: Linm.RMMS.Mobile.Bff :5202 mobile-bff/api/v1 · cấm web-bff
-- demo: N/A · hash skip · cấm rescan (GAP-DES-DEMO-RESCAN-01)
-- TITLE-01: «Nhận diện sự cố» · PACK-01 list + full #sc-vis-capture
-- DUAL-01: resolved — section «Ảnh hiện trường» + Skip dual
-- DoD: photo+GPS→detect→attach|skip · GPS deny→block · acc≤30 · live APIs · cấm fake/on-device
-- kit_missing_confirm: N/A
+- changeScope: edit_page · cấm typed new_page · giữ prior zones + reviewUrl
+- cite: SUBMIT-VALIDATE Pattern B · VisCapturePage
+- formPattern: Mobile full 430 · #sc-vis-capture · N/A ERP Modal · N/A DES-GRID
+- Delta: Detect/Attach idle-on · disabled chỉ detecting/attaching · #validationBanner on click · Acc>30 no POST handler
+- ROUTE-01: std /chup-hien-truong · cấm /web-rmms-vis-capture
+- Align: /align-mobile-to-mfe · SSOT=VisCapturePage · cấm tab/route/icon mới · cấm mở android/ios
+- mfe: Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/chup-hien-truong · productRoute /incident/vis
+- be: Linm.RMMS.WebService · AiVision+Incident(+Patrol) · cấm ERP.*
+- bff: Mobile.Bff :5202 · cấm web-bff
+- demo: N/A · hash skip · GAP-DES-DEMO-RESCAN-01
+- DoD: Pattern B overlay photo+GPS→detect→attach|skip · useFormOptions · cấm fake GPS
 - next: /agent-sa · roleOnly stop (GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| photos | ảnh | PhotoRow | uploads init/PUT/complete |
+| photos | ảnh | PhotoRow | uploads* · capture=environment nếu file |
 | rowLoc | vị trí | ListRow RO | GPS + optional sessions |
 | rowAcc | sai số | ListRow RO | AccuracyM |
-| detect | nhận diện | Button/auto | POST ai-vision/detect · GPS≤30 |
+| detect | nhận diện | Button | Pattern B · disabled chỉ detecting |
 | rowClass | phân loại | ListRow RO | DefectClass |
 | rowSev | mức | ListRow+Badge | Severity |
-| btnAttach | gắn sự cố | Button | POST incidents + DetectionId · HasGps |
-| btnSkip | bỏ qua | Button | dismiss · dual PASS |
-| gpsLock | GPS | GPS | deny→block detect/attach |
+| btnAttach | gắn sự cố | Button | Pattern B · disabled chỉ attaching |
+| btnSkip | bỏ qua | Button | disabled chỉ attaching |
+| gpsLock | GPS | GPS | deny→banner on click · cấm fake |
+| validationBanner | lỗi client | Banner | Pattern B string[] |
 
 ## Screens / zones (ids only)
 - VIS · (peer INC-L · CAP)
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/ui/prototype/index.html
-- reviewUrl modes=?gps=deny · ?acc=45 · ?nophoto=1 · ?nosession=1 · ?error=1
-- peerStdUrl= http://localhost:9301/web-rmms-vis-capture
+- reviewUrl modes=?gps=deny · ?acc=45 · ?nophoto=1 · ?nosession=1 · ?error=1 · ?banner=1
+- peerStdUrl= http://localhost:9301/chup-hien-truong
 - real_view_parity= v1
 - DES-GRID / LinErpListFilterBar: N/A
-- prototype zone: #sc-vis-capture · DES-MOB-VIS-CAPTURE
+- prototype zone: #sc-vis-capture · DES-MOB-VIS-CAPTURE · #validationBanner
 
 ## API / tasks (ids only)
 - FormMode↔API: uploads* · POST ai-vision/detect · GET detections/{id} · GET patrol/sessions · POST incident/incidents
-- real-data §A+§B: PASS · T-W4-04 · VIS AC-VIS-01..10 · Grid AC N/A · devSlash=/agent-dev
+- peer BFF: GET integration/users (forward if missing) · road-routes/search (có)
+- real-data §A+§B: PASS · Delta PASS
+- Grid AC: N/A phone · VIS AC-VIS-01..12
+- T-*: edit VisCapturePage gates · T-BE=N/A invent
+- DES-A..D: PASS · Pattern B PASS
 
 ## UNCLEAR
-- UNCLEAR-DUAL-01: resolved Design — section+Skip
-- UNCLEAR-DOMAIN-MAP-VIS→SA add DOMAIN-MAP row web-rmms-vis-capture
-- UNCLEAR-DETECT-HOST→SA cite Live · cấm on-device
-- UNCLEAR-PGC-BE-01→SA HasGps + DetectionId · no Lat
-- UNCLEAR-SESS→Dev/QA empty toast · cấm itemsOrDemo
+- UNCLEAR-VALIDATE-B → Dev/QA Pattern B
+- UNCLEAR-ALIGN-01 → TL/Dev align-mobile-to-mfe
 
 ## Full paths (Read only if needed)
 - design: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/ui/design.md

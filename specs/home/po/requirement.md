@@ -56,7 +56,7 @@ Pack này **thay** placeholder gallery bằng hub kit. **Cấm** ship `LinmKitGa
    | Lưu trữ | **Lưu trữ** |
 
 9. Tap tín hiệu → toast **Đã làm mới** + refresh profile · **cấm** cycle hạng proto (`GAP-MOB-SIGNAL-01`) · bind `NWPathMonitor` / Connectivity (`GAP-MOB-SIGNAL-02`).
-10. **Cấm** `.home-foot` «Phiên bản Gói 1 · RMMS hiện trường / Cục Đường bộ VN…» (`GAP-F-HOME-03` · `GAP-DEV-MOB-PLACEHOLDER-01`).
+10. **Cấm** `.home-foot` «Phiên bản v1.0.0 · RMMS hiện trường / Cục Đường bộ VN…» (`GAP-F-HOME-03` · `GAP-DEV-MOB-PLACEHOLDER-01`).
 11. Kit **reuse map** (đã dual + gallery): `LinmHeroTools` · `LinmProfileButton` · `LinmNotifyButton` · `LinmNotifyCountBadge` · `LinmStatusCapsule` · `LinmQuickActions` · `LinmQuickItem` · `LinmSectionLabel` · `LinmHomeGrid` · `LinmHomeTile` · `LinmWalletCard` · `LinmTabBar` · `LinmToast`. **Cấm** raw `LazyVGrid` / `LazyVerticalGrid` / `TabView` / M3 `NavigationBar` (`GAP-MOB-ACT-05` · `GAP-MOB-ALIGN-01`).
 12. App chỉ `{BffPrefix}` · **cấm** biết Auth `:5001` / RMMS `:5101` · token Keychain / Encrypted.
 13. Dev (role sau): iOS `xcodegen` + `xcodebuild` dest **iPhone 17 Pro** PASS · Android `assembleDebug` PASS · Mobile.Bff `dotnet build` PASS — **cấm** `yarn start:std`.
@@ -112,7 +112,7 @@ Nguồn `#sc-home` dual + DA-01. UNCLEAR field = **none**.
 | tileAsset | Tài sản | HomeTile | * | `LinmHomeTile` `#i-cube` bg `#0C84C0` | sibling `asset-hub` |
 | tileOffline | Lưu trữ | HomeTile | * | `LinmHomeTile` `#i-sync` bg `#086A9A` | `reuse=patrol-offline` |
 | wallet | HỒ SƠ TÀI SẢN | WalletCard | * | `LinmWalletCard` | static demo · cùng slug `asset-hub` |
-| foot | Phiên bản Gói 1… | **Ẩn production** | | — | watermark — **cấm** ship |
+| foot | Phiên bản v1.0.0… | **Ẩn production** | | — | watermark — **cấm** ship |
 | tabHome | Trang Chủ | Tab | * | `LinmTabBar` | `shell-tabs` `shared_kit` · **không** enqueue |
 
 Toast / banner → `LinmToast`. **Cấm** AC implement raw control khi kit đã map.

@@ -6,48 +6,54 @@ packKind: list
 role: dev
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T01:25:00.000Z
-taskId: task_8af6ffa0
-contentHash: sha256:cd46c9486c0a3fe71165c27906508a1608ba46cca1351fe9df832ab7b2efa68c
-dev_confirm: approve
+writtenAt: 2026-09-27T11:05:00.000Z
+taskId: task_37051747
+contentHash: sha256:c46ae5660ccba1b8e64ce8e5294acef77ceb4e0a75474372f2a3d3901efb5796
 autoApprove: ON
-changeScope: new_page
-build: PASS
+changeScope: edit_page
 
 ## Decisions
-- formPattern: Mobile full CP-01 · phone ≤430 · Android 1-1 · N/A ERP Modal · useFormOptions / cam.*
-- mfe: Linm.Web.RMMS.Mobile · mfeStdRoute=/web-rmms-cam-patrol · alias /field/cam
-- mfeStdUrl: http://localhost:9301/web-rmms-cam-patrol
-- be: Mobile.Bff :5202 · Patrol+AiVision+Incident Live · Step 4b N/A · cấm invent cam-patrol · cấm ERP.*
-- HARD: GPS deny|Acc>30 block · ImageBase64* · Engine=P1 · ẩn score · skip=dismiss only
-- yarn build PASS · chunk web-rmms-cam-patrol · BE dotnet build PASS
-- next: /agent-qa · roleOnly stop · e2eQa ON (QA only)
+- changeScope: edit_page · DEC-PATTERN-B FE · cite SUBMIT-VALIDATE
+- detect disabled={detecting} only · confirm disabled={confirming} only
+- validationBanner string[] on click · DES-MOB-CAM-VALIDATION · clear success/frame
+- keep: finder · stamp · GPS · capture=environment · Live APIs · ẩn score
+- mfeStdRoute: /camera-tuan · mfeStdUrl http://localhost:9301/camera-tuan · product /field/cam
+- BFF: Mobile.Bff :5202 · mobile-bff/api/v1 · cấm web-bff · cấm ERP.*
+- Step 4b / API Mới / entity / migration: none · T-BE N/A
+- build: yarn build PASS · dotnet build PASS
+- e2e: queued /agent-qa* · cấm e2e ở Dev
+- next: /agent-qa · roleOnly stop (GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
-| id | controlHint | API |
-|----|-------------|-----|
-| finder | CameraViewfinder | capture→ImageBase64 |
-| stamp.route/km/type | Text RO | GET patrol/sessions Đang tuần |
-| lat/lng/accuracyM | GPS | Acc≤30 gate |
-| detect | Button | POST ai-vision/detect |
+| id | controlHint | notes |
+|----|-------------|-------|
+| finder | CameraViewfinder | keep |
+| stamp.* | Text RO | GET sessions keep |
+| lat/lng/accuracyM | GPS | báo khi bấm |
+| imageBase64 | CameraCapture | keep capture |
+| validationBanner | Banner string[] | Pattern B · shipped |
+| detect | Button | lock detecting only |
 | detection.* | Text/Chip | no Score % |
-| confirm | Button | POST incident/incidents |
-| skip | Button | dismiss only |
+| confirm | Button | lock confirming only |
+| skip | Button | dismiss · lock confirming |
 
-## Screens / zones
-- CP-01 · DES-MOB-CAM-PATROL · FINDER · RESULT · GPS-DENY · empty · offline · toast
+## Screens / zones (ids only)
+- CP-01 · DES-MOB-CAM-PATROL · FINDER · RESULT · VALIDATION · GPS-DENY · empty · offline · toast
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-cam-patrol/ui/prototype/index.html
-- peerStdUrl= http://localhost:9301/web-rmms-cam-patrol
+- peerStdUrl= http://localhost:9301/camera-tuan
+- DES-GRID / LinErpListFilterBar: N/A
 
-## API / tasks
-- FormMode↔API: sessions · detect · detections/{id} · incidents
-- T-01…T-05 done · T-BE N/A
-- debt: stamp km=planPointLabel · capture=file input
+## API / tasks (ids only)
+- FormMode↔API: sessions · detect · detections/{id} · incidents (Live keep)
+- T-01…T-05 done · T-BE N/A · T-QA /agent-qa*
+- mfeStdUrl: http://localhost:9301/camera-tuan
+- debt: stamp km=check-in planPointLabel · frame=input capture base64
 
 ## UNCLEAR
-- (none blocking)
+- UNCLEAR-CAM-FRAME: soft keep DEC-FRAME
 
-## Full paths
+## Full paths (Read only if needed)
 - implement: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-cam-patrol/implement/web-rmms-cam-patrol.md
+- code: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile/src/pages/WebRmmsCamPatrol/CamPatrolPage.tsx
+- team_lead compact: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-cam-patrol/handoff/team_lead-compact.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-cam-patrol/STATUS.md
-- task: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-cam-patrol/task/web-rmms-cam-patrol.md

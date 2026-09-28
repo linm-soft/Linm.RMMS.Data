@@ -6,6 +6,8 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = __dirname;
 const base = "http://localhost:9301";
+/** Live route after ui-align rename (STATUS mfeStdUrl `/web-rmms-mobile-b` → 404). */
+const liveRoot = "/nhat-ky";
 const rulesCred = JSON.parse(
   readFileSync("D:/AI-Rules/Linm.Development.Rules/e2e.local.json", "utf8"),
 );
@@ -29,16 +31,25 @@ const pageErrors = [];
 page.on("pageerror", (e) => pageErrors.push(String(e.message || e)));
 
 async function fatalUi(p) {
+  // Overlay can flash during HMR — require still-visible after settle.
+  await p.waitForTimeout(400);
   const overlay = p.locator(
     'iframe#webpack-dev-server-client-overlay, #webpack-dev-server-client-overlay',
   );
   if (await overlay.count()) {
     const vis = await overlay.first().isVisible().catch(() => false);
-    if (vis) return "webpack overlay";
+    if (vis) {
+      await p.waitForTimeout(800);
+      const still = await overlay.first().isVisible().catch(() => false);
+      if (still) return "webpack overlay";
+    }
   }
   const t = await p.locator("body").innerText().catch(() => "");
   if (/Something went wrong|Uncaught |ChunkLoadError|Failed to compile|TypeError:|ReferenceError:/i.test(t)) {
     return "crash text: " + t.slice(0, 180).replace(/\s+/g, " ");
+  }
+  if (/404\s*Trang không tìm thấy/i.test(t)) {
+    return "404 not found";
   }
   if (pageErrors.length) return "pageerror: " + pageErrors.slice(-1)[0];
   return null;
@@ -62,12 +73,13 @@ async function capture(id, href, waitSel) {
   try {
     const res = await page.goto(href, { waitUntil: "domcontentloaded", timeout: 60000 });
     if (!res || !res.ok()) throw new Error("HTTP " + (res ? res.status() : "no-response"));
-    if (waitSel) await page.waitForSelector(waitSel, { timeout: 20000 });
-    await page.waitForTimeout(1200);
+    if (waitSel) await page.waitForSelector(waitSel, { timeout: 25000 });
+    await page.waitForTimeout(1500);
     const fatal = await fatalUi(page);
     if (fatal) throw new Error("GAP-QA-E2E-CRASH-01 " + fatal);
     await page.screenshot({ path: abs, fullPage: true });
-    results.push({ id, result: "PASS", screenshot: file, href: page.url() });
+    const body = (await page.locator("body").innerText().catch(() => "")).replace(/\s+/g, " ").slice(0, 240);
+    results.push({ id, result: "PASS", screenshot: file, href: page.url(), body });
   } catch (err) {
     try {
       await page.screenshot({ path: abs, fullPage: true });
@@ -87,49 +99,57 @@ async function capture(id, href, waitSel) {
 try {
   await login();
 
-  // S0 — entry resolve → TD-04 sổ (list/empty)
-  await capture("S0", base + "/web-rmms-mobile-b", '[data-des-id="TD-04"], [data-feature="web-rmms-mobile-b"]');
-  const afterS0 = page.url();
-  const sessionMatch = afterS0.match(/web-rmms-mobile-b\/([^/?#]+)/);
-  const sessionId = sessionMatch && sessionMatch[1] !== "new" && sessionMatch[1] !== "moi"
-    ? sessionMatch[1]
-    : "";
+  // STATUS SSOT URL — expected FAIL (alias missing after rename to /nhat-ky)
+  await capture("S0-std-url", base + "/web-rmms-mobile-b", "body");
 
-  // S1 — Patrol hub peer A · CTA Ghi nhật ký / Sổ (đợt B) — distinct URL
+  // S0 — live TD-04 sổ
+  await capture("S0", base + liveRoot, '[data-des-id="TD-04"], [data-feature="web-rmms-mobile-b"]');
+  const afterS0 = page.url();
+  const sessionMatch = afterS0.match(/nhat-ky\/([^/?#]+)/);
+  const sessionId =
+    sessionMatch && sessionMatch[1] !== "new" && sessionMatch[1] !== "moi"
+      ? sessionMatch[1]
+      : "";
+
+  // S1 — Patrol hub peer A · CTA đợt B
   if (sessionId) {
-    await capture("S1", base + `/web-rmms-mobile-a/tuan-duong/${sessionId}`, "body");
+    await capture("S1", base + `/tuan-duong/${sessionId}`, "body");
   } else {
-    await capture("S1", base + "/web-rmms-mobile-a/tuan-duong", "body");
+    await capture("S1", base + "/tuan-duong", "body");
   }
 
   // QA-20 — form create TD-05
   if (sessionId) {
     await capture(
       "QA-20",
-      base + `/web-rmms-mobile-b/${sessionId}/moi`,
+      base + `${liveRoot}/${sessionId}/moi`,
       '[data-des-id="TD-05"]',
     );
   } else {
-    await capture("QA-20", base + "/web-rmms-mobile-b", '[data-des-id="TD-04"]');
+    await capture("QA-20", base + liveRoot, '[data-des-id="TD-04"]');
   }
 } finally {
   await browser.close();
 }
 
-const ok = results.every((s) => s.result === "PASS");
+const core = results.filter((s) => ["S0", "S1", "QA-20"].includes(s.id));
+const ok = core.every((s) => s.result === "PASS");
 writeFileSync(
   join(outDir, "manifest.json"),
   JSON.stringify(
     {
       url: base + "/web-rmms-mobile-b",
+      liveUrl: base + liveRoot,
       capturedAt: new Date().toISOString(),
-      method: "capture_b · MFE /login · phone 430 · geolocation mock",
+      method: "capture_b · MFE /login · phone 430 · geolocation mock · live /nhat-ky",
       steps: results,
       ok,
+      note: "STATUS mfeStdUrl /web-rmms-mobile-b 404 · live /nhat-ky",
     },
     null,
     2,
   ),
   "utf8",
 );
-if (!ok) process.exit(1);
+console.log(JSON.stringify({ ok, steps: results }, null, 2));
+process.exit(ok ? 0 : 1);

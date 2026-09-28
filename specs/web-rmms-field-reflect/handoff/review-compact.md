@@ -6,48 +6,48 @@ packKind: list
 role: review
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T03:30:00.000Z
-taskId: task_b28df09c
-contentHash: sha256:e678be9152069e48f353f88e9f4d377e20e4fd4ad5c8d4aa2c86bd995bc1e667
+writtenAt: 2026-09-27T12:15:00.000Z
+taskId: task_5580222d
+contentHash: sha256:d8f13df3772c0f27b367c5e01a5ce2cf942b1a27640c1390e76e34c3a8c267f2
 review_confirm: approve
 autoApprove: ON
+changeScope: edit_page
 verdict: PASS
 fix_gaps: none
+e2eQa: ON · QA prior PASS · review không chạy e2e
 
 ## Decisions
-- changeScope: new_page · Mobile full FR-00/01/02 · phone ≤430 · DES-GRID N/A · Step 4b skip
-- mfe: Linm.Web.RMMS.Mobile · mfeStdRoute=/web-rmms-field-reflect · alias /field/reflect
-- be: Mobile.Bff :5202 · Incident+Patrol+Integration+AiVision · cấm ERP.* · DOMAIN-MAP OK
-- QUERY: sessions·asset-types·uploads MediaIds·detect P1·incidents HasGps — PASS
-- SEC: guest gate · GPS Acc≤30 block Create/Detect · live-only · Media max10 — PASS
-- UI-FN: FR-00/01/02 · reflect.* · QA S0/S1/QA-20 PASS — Kind B WAIVE
-- BE-FN: DEC-MEDIA-01 · no invent FieldReflectController — PASS
-- hash unchanged → skip rescan
-- next: pipeline end · roleOnly stop (GAP-PKT-ROLE-01)
+- changeScope: edit_page · Pattern B SUBMIT-VALIDATE · hash changed → full delta scan
+- QUERY/SEC/UI-FN/BE-FN: PASS · Detect/Create disabled chỉ detecting|creating · banner string[] · Acc>30 chặn POST detect · GPS deny không khóa CTA
+- mfeStdRoute: /phan-anh · mfeStdUrl http://localhost:9301/phan-anh · product /field/reflect · data-phone-frame=430
+- be: Mobile.Bff :5202 · Live Incident+Patrol+Integration+AiVision · cấm ERP.* · invent field-reflect=none · Step4b N/A
+- UNCLEAR-VALIDATE-B / ALIGN-01 closed Dev+QA · fix_gaps=none
+- next: pipeline end · roleOnly stop (GAP-PKT-ROLE-01) · phase=done
 
 ## Inventory (slim)
-| id | controlHint | review |
+| id | controlHint | Review |
 |----|-------------|--------|
-| assetPick | LookupGrid | PASS Live |
-| kind/severity/desc | Segment/Select/Textarea | PASS |
-| checklist | CheckboxGroup | PASS local→Description |
-| photos→FR-02 | PhotoRow/overlay | PASS MediaIds |
-| detect/create/draft | Button | PASS GPS gate |
-| sessionStamp/gpsLock | Text RO/GPS | PASS live |
+| detect/create | Button Pattern B | PASS · busy-only disabled |
+| validationBanner | Banner string[] | PASS |
+| gpsLock | GPS deny/Acc | PASS · deny CTA ON · Acc block detect |
+| asset/session/photos | miss → banner | PASS |
+| FR-00/01/02 | prior keep | PASS |
 
 ## Screens / zones
-- FR-00 · FR-01 · FR-02 · GPS-DENY · toast · leave
-- mfeStdUrl= http://localhost:9301/web-rmms-field-reflect
-- screens= specs/web-rmms-field-reflect/qa/screens/{S0,S1,QA-20}.png
+- FR-00 · FR-01 · FR-02 · validationBanner
+- reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-field-reflect/ui/prototype/index.html
+- peerStdUrl= http://localhost:9301/phan-anh
+- DES-GRID / LinErpListFilterBar: N/A WAIVE
 
 ## API / tasks
-- Live: GET sessions · GET asset-types · uploads · detect · POST incidents
-- T-* · T-QA PASS · Step4b N/A
-- debt soft: stock e2e port · file-input capture · GAP-PGC-BE-01
+- FormMode↔API: sessions · asset-types · uploads · detect · incidents — Live PASS
+- T-UI-VAL-B-01 · ACC · GPS-B · ALIGN · T-QA-VAL-B-01 = PASS
+- debt soft: GAP-QA-E2E-STOCK-LOGIN · GAP-PGC-BE-01 deferred
 
 ## UNCLEAR
-- (none blocking)
+- none open · prior closed
 
 ## Full paths
 - findings: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-field-reflect/review/findings.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-field-reflect/STATUS.md
+- page: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile/src/pages/WebRmmsFieldReflect/FieldReflectPage.tsx

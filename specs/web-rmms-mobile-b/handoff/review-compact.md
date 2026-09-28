@@ -6,57 +6,53 @@ packKind: list
 role: review
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T08:33:00.000Z
-taskId: task_da114064
-contentHash: sha256:58be487c963674c63e2436a6277905c70eb483f673a867c595bbd1babca3e773
-review_confirm: done
+writtenAt: 2026-09-27T14:55:00.000Z
+taskId: task_9e45e6fd
+contentHash: sha256:fe3ccad04e66ee08b65a65aead0fbef9f46328e5c2a3b828b3bee12969bbf72e
+review_confirm: fix_gaps
 autoApprove: ON
-e2eQa: ON (already ran QA · cấm re-e2e ở review)
+e2eQa: ON (queued QA · cấm re-e2e ở review)
 mfeStdUrl: http://localhost:9301/web-rmms-mobile-b
-verdict: PASS
+liveUrl: http://localhost:9301/nhat-ky
+verdict: FAIL
+mustCount: 2
+softCount: 4
 
 ## Decisions
-- changeScope: edit_page
-- formPattern: Full (TD-04 list · TD-05 create/edit) · phone 430 · LeaveConfirmModal
+- changeScope: edit_page · editTask=1 · § Delta Pattern B / capture / BFF / align
+- formPattern: Full TD-04/05 · phone 430 · LeaveConfirmModal KEEP
 - Kind B grid/filter: **WAIVE**
-- QUERY/SEC/UI-FN/BE-FN: **PASS** · Must **0**
-- soft: RequirePermission TODO · stock e2e DUP · datetime locale en-US
-- hash unchanged · skip re-analy
-- cấm ERP.* · BE Patrol journal-lines PATH CLOSED
-- review_confirm=done · autoApprove · roleOnly stop (GAP-PKT-ROLE-01)
+- QUERY: PASS live · SEC: PASS (+ soft PERM) · UI-FN: **FAIL** Must2 · BE-FN: PASS
+- Must: GAP-QA-STD-01/REV-UI-STD-01 (STATUS URL 404) · GAP-QA-FEAT-01/REV-UI-HUB-01 (hub CTA missing)
+- Soft: PERM TODO · e2e DUP · datetime locale · Người ghi —
+- hash prior review stale → rescan · cấm ERP.*
+- review_confirm=fix_gaps · autoApprove · **cấm** phase=done · next Dev + re-QA
+- roleOnly stop (GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| journalList | sổ dòng | List cards | GET sessions/{id}/journal-lines |
-| at | giờ | DateTime | soft locale |
-| userName | người | Text RO | auth/profile |
-| lat/lng/accuracyM | GPS | GPS | deny→block save · BE validate |
-| kmText | lý trình | Text | tay |
-| direction/weather/kind | dropdowns | LOOKUP_STATIC | SA CLOSED |
-| narrative | diễn biến | TextArea | required FE+BE |
-| mediaIds | ảnh | FileMulti | files guid |
-| onSiteAction/Result | xử lý tại chỗ | Toggle+Text | |
-| reportedTo/At | báo tuần kiểm | Button+DateTime | no TK-03 |
-| violationFlag | đề nghị BB | Button | if hanh-lang |
-| status | trạng thái | Dropdown | 4 keys |
+| journalList | sổ dòng | List cards | live `/nhat-ky` PASS · std URL FAIL |
+| save | Lưu | Button | Pattern B PASS QA-20 |
+| hubCTA | Ghi nhật ký | Button | **MISSING** peer A |
+| narrative | diễn biến | TextArea | required · PASS |
+| mediaIds | ảnh | FileMulti | capture=env PASS |
 
 ## Screens / zones (ids only)
-- TD-04 · TD-05 · DES-LEAVE
-- QA PNG S0/S1/QA-20 Aligned
+- TD-04 · TD-05 · DES-LEAVE · banner
+- QA PNG: S0/S1/QA-20/S0-std-url
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-b/ui/prototype/index.html
-- peerStdUrl= http://localhost:9301/web-rmms-mobile-b
+- peerStdUrl= http://localhost:9301/nhat-ky
 
 ## API / tasks (ids only)
-- PATH: GET sessions/{id}/journal-lines · POST/GET/PUT journal-lines/{id}
-- SEC: XCO get_only · tenant_keep · PERM soft TODO
-- T-* all done · T-QA-FILTER WAIVE
-- findings: specs/web-rmms-mobile-b/review/findings.md
+- PATH: GET sessions/{id}/journal-lines · POST/GET/PUT journal-lines
+- T-QA-CRUD-01 fail · T-QA-FORM-01 pass live · T-QA-FILTER WAIVE
+- findings: Must2 · Soft4 · fix_gaps → Dev
 
 ## UNCLEAR
-- none
+- none (route rename vs STATUS SSOT + hub CTA clear)
 
 ## Full paths (Read only if needed)
 - findings: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-b/review/findings.md
+- qa: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-b/qa/scenarios.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-b/STATUS.md
-- prior: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-b/handoff/qa-compact.md

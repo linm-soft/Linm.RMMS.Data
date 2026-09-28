@@ -4,49 +4,48 @@ schemaVersion: 1
 feature: web-rmms-mobile-b
 packKind: list
 role: qa
-status: done
+status: failed
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T08:30:00.000Z
-taskId: task_14f1785a
-contentHash: sha256:58be487c963674c63e2436a6277905c70eb483f673a867c595bbd1babca3e773
+writtenAt: 2026-09-27T07:50:00.000Z
+taskId: task_8be1a3ec
+contentHash: sha256:fe3ccad04e66ee08b65a65aead0fbef9f46328e5c2a3b828b3bee12969bbf72e
 autoApprove: ON
 e2eQa: ON
 mfeStdUrl: http://localhost:9301/web-rmms-mobile-b
+liveUrl: http://localhost:9301/nhat-ky
 
 ## Decisions
-- changeScope: edit_page
-- formPattern: Full (TD-04 list · TD-05 create/edit) · phone 430 · LeaveConfirmModal
+- changeScope: edit_page · editTask=1 · § Delta Pattern B / capture / BFF / align
+- formPattern: Full TD-04/05 · phone 430 · LeaveConfirmModal KEEP
 - Kind B grid/filter: **WAIVE**
-- verdict: **PASS** · visual Aligned · Must 0
-- method: start:std :9301 + docker rebuild API + capture_b S0/S1/QA-20 · MFE /login · geo mock
-- T-QA-CRUD-01 · T-QA-FORM-01 **PASS** · T-QA-FILTER **WAIVE**
-- compile fix: LinImageUploadItem status=committed
-- next: review · `/agent-review` · roleOnly stop · **cấm** phase=done
+- verdict: **FAIL** · Must: GAP-QA-STD-01 · GAP-QA-FEAT-01
+- method: start:std :9301 + docker + yarn e2e-qa (DUP) + capture_b live /nhat-ky
+- T-QA-CRUD-01 **FAIL** · T-QA-FORM-01 PASS live · T-QA-FILTER **WAIVE**
+- next: qa_fail_rollback · **cấm** phase=review/done · **cấm** tự sửa prod
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| journalList | sổ dòng | List cards | S0 empty L-01 live |
-| at | giờ | DateTime | QA-20 |
-| userName | người | Text RO | Linm Soft Admin |
-| lat/lng/accuracyM | GPS | GPS | OK ±12m mock |
-| kmText | lý trình | Text | placeholder |
-| direction/weather/kind | dropdowns | LOOKUP_STATIC | Chiều đi · Nắng · KCHT |
-| narrative | diễn biến | TextArea | visible |
+| journalList | sổ dòng | List cards | S0 live PASS empty |
+| save | Lưu | Button | Pattern B enabled QA-20 |
+| lat/lng | GPS | GPS | mock OK |
+| narrative | diễn biến | TextArea | required * |
+| hubCTA | Ghi nhật ký | Button | **MISSING** on peer A |
 
 ## Screens / zones (ids only)
-- TD-04 · TD-05 · DES-LEAVE · PNG `qa/screens/{S0,S1,QA-20}.png`
-- S1 peer hub: `/web-rmms-mobile-a/tuan-duong/{sessionId}` CTA B
+- TD-04 · TD-05 · DES-LEAVE · PNG `qa/screens/{S0,S1,QA-20,S0-std-url}.png`
+- S0-std-url: STATUS URL **404**
+- S1 peer hub: `/tuan-duong/{sessionId}` — no journal CTA
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-b/ui/prototype/index.html
-- peerStdUrl= http://localhost:9301/web-rmms-mobile-b
+- peerStdUrl= http://localhost:9301/nhat-ky
 
 ## API / tasks (ids only)
-- VERIFY: GET sessions/{id}/journal-lines **200** · hashes distinct · Read PNG Aligned
-- T-QA-CRUD-01 · T-QA-FORM-01 = done
-- soft: stock e2e DUP · playwright junction · datetime locale
+- VERIFY: live GET journal path via `/nhat-ky` · STATUS slug broken
+- T-QA-CRUD-01 = fail · T-QA-FORM-01 = pass live
+- rollback: alias `/web-rmms-mobile-b`→`/nhat-ky` OR STATUS mfeStdRoute=`/nhat-ky` + hub CTA
 
 ## UNCLEAR
-- none
+- none (route rename vs STATUS SSOT is clear fail)
 
 ## Full paths (Read only if needed)
 - qa: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-b/qa/scenarios.md

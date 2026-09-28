@@ -1,159 +1,171 @@
 # SA — Solution — web-rmms-incident
 
-> Status: **confirmed** · autoApprove ON · task `task_b1cd136a` · 2026-09-26T04:20:00.000Z  
+> Status: **confirmed** · autoApprove ON · task `task_73c6c2b2` · 2026-09-27T12:32:00.000Z  
 > **Cấm** ERP.* · **cấm** invent `web-rmms-incident` controller/path · **cấm** fake GPS/ca · **cấm** itemsOrDemo sessions · **cấm** Step 4b / migration ở role SA · **cấm** Write MFE/native · **cấm** Web BFF base từ Mobile MFE.
 
 | | |
 |--|--|
 | Feature | `web-rmms-incident` |
-| Title | Sự cố list, tạo, chi tiết |
+| Title | Sự cố — Pattern B submit-validate (edit INC-N) |
 | Role | `sa` |
 | packKind | `list` |
-| changeScope | `new_page` |
-| formPattern | Mobile full INC-L/N/D · phone ≤430 · N/A ERP Modal/Slideout · Android 1-1 · useFormOptions |
-| domain | **Incident** (`incident`) · cite **Patrol** (sessions) · **Integration** (asset-types) · **AiVision** (+ files) · Maintenance cite peer estimate only |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` · route `/web-rmms-incident` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-incident` |
-| productRoute | `/incident` · `/incident/new` · `/incident/:id` |
+| changeScope | `edit_page` |
+| formPattern | Mobile full phone ≤430 · Pattern B INC-N · N/A ERP Modal/Slideout · useFormOptions |
+| domain | **Incident** (`incident`) · cite **Patrol** (sessions) · **Integration** (asset-types) · **AiVision** (+ files) |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
+| mfeStdRoute | `/van-de` · `/van-de/moi` · `/van-de/:id` |
+| mfeStdUrl | `http://localhost:9301/van-de/moi` |
+| productRoute | `/incident` · `/incident/new` · `/incident/:id` (alias std `/van-de*`) |
 | be | `D:/AI-QLBD/Linm.RMMS.WebService` |
 | BFF | Mobile.Bff `http://localhost:5202` · prefix `mobile-bff/api/v1` |
-| contentHash | `sha256:665f3697a399a948edb0ab14da5fc13716b477aa84b0b8e43f6ca33eb7216d2d` |
+| contentHash | `sha256:d753df685c7334cda81339c1c6daccaa3463c4e8c6350eaff5562a6e41584015` |
 | skillVersion | `2026.09.05.03` |
 | solution_confirm | **approve** (autoApprove) |
+| deltaCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · IncidentCreatePage |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-incident/ui/prototype/index.html` |
+| prior SA | new_page `task_b1cd136a` — keep DEC-CREATE-01 / Live endpoints · **delta** Pattern B FE gate only |
 
 ## 1. Domain / ownership
 
 | Item | Decision |
 |------|----------|
-| DOMAIN-MAP slug | `web-rmms-incident` → **Incident** / `incident` |
-| Rationale | Core write `incident/incidents` list+create+detail+close · ca stamp cite Patrol · pick cite Integration · media/detect cite AiVision/FileService — **không** domain IncidentHub mới |
-| Cite peers | `incident-list` · `incident-create` · `incident-detail` · `web-rmms-field-reflect` · offline · Maintenance WO peer |
-| API folder | **reuse** Incident · Patrol sessions · Integration asset-types · AiVision uploads/detect · FileService — **no new** IncidentHub controller |
-| **Cấm** | invent `web-rmms-incident/*` · ERP.* · Web BFF base · Me/feedback/cam-view · journal B–E · invent Lat on Create · primary WO CRUD |
+| DOMAIN-MAP slug | `web-rmms-incident` → **Incident** / `incident` (row exists — keep) |
+| Rationale | edit_page Pattern B = client validate UX trên INC-N · **không** domain mới · **không** API mới |
+| Cite peers | prior INC-L/N/D · offline draft · Maintenance WO peer-only |
+| API folder | **reuse** Incident · Patrol sessions · Integration asset-types · AiVision/FileService — **no new** controller |
+| **Cấm** | invent path · ERP.* · Web BFF · Me* · journal B–E · invent Lat on Create · primary WO CRUD |
 
-**DOMAIN-MAP row (applied):**
+**DOMAIN-MAP row (applied — unchanged):**
 
 | Feature slug | Domain Pascal | kebab |
 |--------------|---------------|-------|
-| `web-rmms-incident` | Incident | `incident` · Live incidents GET/POST/GET{id}/close + sessions + asset-types + uploads/files/detect · cite Patrol/Integration/AiVision · MFE `Linm.Web.RMMS.Mobile` `/web-rmms-incident` · **cấm** invent IncidentHubController |
-
-→ resolves **UNCLEAR-DOMAIN-MAP-INC** / GAP-DOMAIN-MAP-INC.
+| `web-rmms-incident` | Incident | `incident` · Live GET/POST/GET{id}/close + sessions + asset-types + uploads/files/detect · MFE Mobile · **cấm** invent IncidentHubController |
 
 ## 2. FormMode ↔ API
 
-Surfaces **INC-L** (list) · **INC-N** (create) · **INC-D** (detail). Peer **INC-V/C/E** nav-only. GPS deny → block Create / Detect / geo. Nested std mount `/new` `/:id` (Design resolved).
+Surfaces keep **INC-L** · **INC-N (Delta Pattern B)** · **INC-D**. Peer **INC-V/C/E** nav-only.
+
+### DEC-PB-01 — Pattern B client gate (HARD · edit_page)
+
+| Rule | Decision |
+|------|----------|
+| create Button | `disabled` **chỉ** khi `creating` · **cấm** `disabled={!canCreate}` |
+| validate.banner | client `string[]` trước POST · keys AC-PB-04 · useFormOptions · **không** API validate endpoint mới |
+| GPS deny | gate **on-submit** (+ modal deny) · **cấm** khóa nút Create vì GPS · deny → **không** gọi POST |
+| photos | capture=`environment` giữ · MediaIds path giữ |
+| sessions empty | banner key `incident.session.empty` · block Route on-submit · live-only |
+| asset empty | banner key `incident.pick.title` · block on-submit |
+| offline | banner `incident.offline` · draft local peer · **cấm** invent OfflineQueueController |
+
+Banner keys (PO AC-PB-04 · Design confirmed):
+
+| Condition | i18n key |
+|-----------|----------|
+| asset missing | `incident.pick.title` |
+| session empty | `incident.session.empty` |
+| GPS deny | `incident.gps.deny` (+ modal `deny.title` / `deny.body`) |
+| offline | `incident.offline` |
+
+### FormMode ↔ API matrix
 
 | Mode / zone | UI | API | Write | Notes |
 |-------------|----|-----|-------|-------|
-| INC-L search | SearchInput | `GET incident/incidents?search=` | — | empty → EmptyState |
-| INC-L filters | Chip status/severity | query `status` · `severity` | — | LOOKUP_STATIC |
-| INC-L cards | CardList | list DTO | — | Title/Type/Code/Route/Km/Status/**HasGps** · **không** Lat/Lng |
-| INC-L fab | FAB | — | nav `/incident/new` | — |
-| INC-N assetPick | LookupGrid | `GET integration/asset-types` | → AssetLabel / Title | empty pick toast |
-| INC-N kind | Segment 3 | LOOKUP_STATIC | → `IncidentType` | Hư/Mất/Hỏng |
-| INC-N checklist | CheckboxGroup | local by asset | fold → `Description` | **no** checklist API |
-| INC-N photos | PhotoRow | uploads hoặc files/* | → `MediaIds` | FileService guids |
-| INC-N detect | Button | `POST ai-vision/detect` | Lat/Lng/AccuracyM | GPS Acc≤30 · optional |
-| INC-N sessionStamp | Text RO | `GET patrol/sessions` | `RouteName` · `KmStart` | live-only · empty toast+block Route |
-| INC-N gpsLock | GPS | `navigator.geolocation` | `HasGps=true` | deny → block · **cấm** fake |
-| INC-N severity | Select | LOOKUP_STATIC | `Severity` | useFormOptions |
-| INC-N create | Button | `POST incident/incidents` | CreateIncidentRequest | required Title·RouteName·IncidentType·Status·RequestedAt |
-| INC-N draftOffline | Button | — | local queue peer offline | **cấm** invent OfflineQueueController |
-| INC-D detail | Text RO | `GET incident/incidents/{id}` | — | **cấm** invent Lat |
-| INC-D close | Button+Note | `POST …/{id}/close` | `Note` optional | empty Note OK |
+| INC-L * | Search+Chip+Card+FAB | `GET incident/incidents` | — | **keep** prior · HasGps on card · no Lat |
+| INC-N assetPick | LookupGrid | `GET integration/asset-types` | → Title/AssetLabel | empty → banner · on-submit block |
+| INC-N kind | Segment | LOOKUP_STATIC | → `IncidentType` | keep |
+| INC-N checklist | CheckboxGroup | local | → `Description` | no checklist API |
+| INC-N photos | PhotoRow | uploads/files | → `MediaIds` | keep capture |
+| INC-N detect | Button | `POST ai-vision/detect` | DetectionId · Acc≤30 | optional · GPS gate on action |
+| INC-N sessionStamp | Text RO | `GET patrol/sessions` | RouteName · KmStart | empty → banner |
+| INC-N gpsLock | GPS | `navigator.geolocation` | `HasGps=true` | deny → on-submit banner/modal · **cấm** fake |
+| INC-N validate.banner | Banner | — | — | Pattern B string[] · **no** BE |
+| INC-N create | Button | `POST incident/incidents` | CreateIncidentRequest | disabled chỉ `creating` · preflight banner then POST |
+| INC-N draftOffline | Button | — | local queue | peer offline |
+| INC-D * | RO + close | GET{id} · POST close | Note opt | **keep** |
 
-### DEC-CREATE-01 — CreateIncidentRequest (HARD · GAP-PGC-BE-01)
+### DEC-CREATE-01 — CreateIncidentRequest (HARD · keep · GAP-PGC-BE-01)
 
-**DTO:** `CreateIncidentRequest` · cite Incident Models DTOs  
-**Controller:** `IncidentsController` · `POST api/v1/incident/incidents`  
+**DTO:** `CreateIncidentRequest` · **Controller:** `IncidentsController` · `POST api/v1/incident/incidents`  
 **Service:** `IncidentRecordService.CreateAsync` · MediaIds CSV max 10.
 
-| Field | Source map (INC-*) |
-|-------|-------------------|
-| `MediaIds` | FileService guids từ uploads/files · max 10 · **cấm** full URL |
-| `DetectionId` | optional detect.`Id`.ToString() |
-| `Description` | free text + checklist labels fold (GAP-MOB-INC-CREATE-CHK-01 local) |
-| `HasGps` | **true** khi có fix · **không** cột Lat/Lng trên Create (**UNCLEAR-PGC-BE-01** → cite HasGps only) |
-| `Title` | asset label / seed |
-| `RouteName` | session stamp Route |
-| `IncidentType` | kind Segment |
-| `Status` | `new` (online) · draft offline = local only |
-| `RequestedAt` | client UTC now |
-| `Severity` / `AssetLabel` / `KmStart` | optional bind §B |
+| Field | Source map |
+|-------|------------|
+| `MediaIds` | FileService guids · max 10 · **cấm** full URL |
+| `DetectionId` | optional detect Id |
+| `Description` | free + checklist fold |
+| `HasGps` | **true** khi có fix · **không** cột Lat/Lng Create |
+| `Title` · `RouteName` · `IncidentType` · `Status` | required · Status=`new` online |
+| `RequestedAt` | client ISO UTC lúc submit · server UtcNow fallback |
+| `Severity` / `AssetLabel` / `KmStart` | optional |
 
-→ resolves **UNCLEAR-PGC-BE-01** (SA cite) · Lat columns deferred BE — **no MIG at SA**.
+→ Pattern B **không** đổi DTO/shape · chỉ đổi thời điểm client gate (on-submit + banner).
 
-### Live endpoints (HARD — real-data §B)
+### Live endpoints (HARD — real-data §B · reuse)
 
-| Method | BFF path (client) | Downstream | Response bind | Status |
-|--------|-------------------|------------|----------------|--------|
-| GET | `mobile-bff/api/v1/incident/incidents` | Incident | INC-L cards · filters | **Live** |
-| POST | `mobile-bff/api/v1/incident/incidents` | Incident | create toast · nav opt | **Live** |
-| GET | `mobile-bff/api/v1/incident/incidents/{id}` | Incident | INC-D RO | **Live** |
-| POST | `mobile-bff/api/v1/incident/incidents/{id}/close` | Incident | close · back list | **Live** |
-| GET | `mobile-bff/api/v1/patrol/sessions` | Patrol | stamp Route/Km · empty block | **Live** |
-| GET | `mobile-bff/api/v1/integration/asset-types` | Integration | INC-N pick | **Live** |
-| POST | `mobile-bff/api/v1/ai-vision/uploads` (+ PUT) | AiVision | optional pre-detect | **Live** |
-| POST | `mobile-bff/api/v1/files/init` · PUT · `commit` | FileService | guids → MediaIds | **Live** |
-| POST | `mobile-bff/api/v1/ai-vision/detect` | AiVision | optional DetectionId | **Live** |
+| Method | BFF path (client) | Downstream | Status |
+|--------|-------------------|------------|--------|
+| GET | `mobile-bff/api/v1/incident/incidents` | Incident | **Live** |
+| POST | `mobile-bff/api/v1/incident/incidents` | Incident | **Live** |
+| GET | `mobile-bff/api/v1/incident/incidents/{id}` | Incident | **Live** |
+| POST | `mobile-bff/api/v1/incident/incidents/{id}/close` | Incident | **Live** |
+| GET | `mobile-bff/api/v1/patrol/sessions` | Patrol | **Live** |
+| GET | `mobile-bff/api/v1/integration/asset-types` | Integration | **Live** |
+| POST | `mobile-bff/api/v1/ai-vision/uploads` (+ PUT) | AiVision | **Live** |
+| POST | `mobile-bff/api/v1/files/init` · PUT · `commit` | FileService | **Live** |
+| POST | `mobile-bff/api/v1/ai-vision/detect` | AiVision | **Live** |
 
-- Client base: `http://localhost:5202` + `mobile-bff/api/v1` — **không** gọi `web-bff` từ Mobile MFE.
-- **API Mới:** none · **migration:** none · **entity mới:** none.
+- Client base: `:5202` + `mobile-bff/api/v1` — **không** `web-bff` từ Mobile MFE.
+- **API Mới:** none · **migration:** none · **entity mới:** none · **Step 4b:** skip SA.
 - Labels: `useFormOptions()` · **cấm** hardcode VN.
-- Sessions: UNCLEAR-SESS → Dev/QA empty toast · **cấm** itemsOrDemo.
+- Sessions: empty → banner · **cấm** itemsOrDemo.
 
 ## 3. BFF vs API
 
-| Layer | Role for Incident pack |
-|-------|------------------------|
-| Mobile.Bff `:5202` | sole FE entry · proxy incident / patrol / integration / ai-vision / files · auth |
-| RMMS.Service.Api | Live domains above — **no new** IncidentHub controller |
+| Layer | Role |
+|-------|------|
+| Mobile.Bff `:5202` | sole FE entry · proxy incident/patrol/integration/ai-vision/files |
+| RMMS.Service.Api | Live domains — **no new** controller |
 | web-bff | cite only · **not** Mobile client base |
 
-Fail: 503/network → toast + retry · 4xx create/close → toast · GPS deny → disable gated actions — **cấm** mock SSOT · **cấm** fake coords · **cấm** silent ok.
+Fail: 503/network → toast+retry · 4xx create/close → toast · Pattern B preflight → banner (no POST) · GPS deny on-submit → modal+banner · **cấm** mock SSOT · **cấm** fake coords.
 
 ## 4. Entity / migration
 
 | Item | Decision |
 |------|----------|
-| Tables | none (reuse incidents · patrol_sessions · asset-types · detections · FileService) |
-| EF migration | **skip** at SA · GAP-PGC-BE-01 Lat columns deferred (HasGps only) |
-| Step 4b | **skip** at SA |
-| Upload | FileService + optional AiVision uploads — **cấm** invent media controller |
+| Tables / EF / Step 4b | **none** at SA · edit_page FE-only Delta |
+| Upload | FileService + optional AiVision — **cấm** invent media controller |
+| Lat columns | GAP-PGC-BE-01 deferred — HasGps only · **no MIG** |
 
 ## 5. FE surface (SA contract — Dev implements)
 
 | Zone | Contract |
 |------|----------|
-| INC-L | Search+Chip · CardList HasGps · FAB → new · EmptyState |
-| INC-N | asset pick · kind · checklist local · photos/detect · session · GPS · severity · create · draftOffline |
-| INC-D | RO fields · close Note optional |
-| Peer | INC-V/C/E nav-only · **không** WO CRUD primary |
-| Required create | Title* · RouteName* · IncidentType* · Status* · RequestedAt* · HasGps when fix · MediaIds opt |
-| HARD | GPS deny block · sessions live-only · checklist local · useFormOptions · nested `/new` `/:id` |
-| REMOVED | `me*` · feedback · cam-view · journal B–E · invent path |
+| INC-L / INC-D | **keep** prior SA · Search+Chip+Card+FAB · close Note |
+| INC-N Delta | Pattern B: create always-on · validate.banner string[] · GPS deny on-submit · photos capture giữ |
+| Required create | Title* · RouteName* · IncidentType* · Status* · HasGps when fix · RequestedAt default · MediaIds opt |
+| HARD | useFormOptions banner keys · sessions live-only · checklist local · nested `/van-de/moi` `/:id` |
+| REMOVED | `disabled={!canCreate}` · Me* · journal B–E · invent path |
 | DES-GRID / LinErpListFilterBar | **N/A** phone |
-| Route | `mfeStdRoute=/web-rmms-incident` · product `/incident` |
+| Route | `mfeStdRoute=/van-de/moi` · product `/incident*` |
 
 ## 6. Risks / open
 
 | ID | Status |
 |----|--------|
-| UNCLEAR-DOMAIN-MAP-INC | **resolved** — DOMAIN-MAP row Incident |
-| UNCLEAR-PGC-BE-01 | **resolved SA** — HasGps only · no Lat Create · no MIG SA |
-| UNCLEAR-CHK-01 / PEER-VIS / STD-NEST | **resolved Design** |
-| UNCLEAR-SESS | open → Dev/QA empty toast · **cấm** itemsOrDemo |
-| GAP-PGC-BE-01 Lat cols | deferred BE — **no** MIG at SA |
+| UNCLEAR-PB-BANNER-01 | **resolved** PO AC-PB-04 · Design |
+| UNCLEAR-DOMAIN-MAP-INC / PGC-BE-01 | **resolved** prior SA · keep |
+| UNCLEAR-SESS | Dev/QA empty banner · **cấm** itemsOrDemo |
+| GAP-PGC-BE-01 Lat | deferred BE — **no** MIG at SA |
 
 ## 7. Handoff
 
 | Next | Need |
 |------|------|
-| team-lead | Tasks INC-L/N/D wire · Live endpoints · HasGps · nested mount |
-| Dev | Mobile MFE only · `/agent-dev` · **cấm** native iOS/Android · empty sessions toast |
-| QA | empty list · GPS deny · Acc>30 detect · close empty Note · offline draft · no fake · no Web BFF · E2E queued |
+| team-lead | T-* edit IncidentCreatePage Pattern B · keep L/D · no BE task |
+| Dev | Mobile MFE only · `/agent-dev` · align-mobile-to-mfe no_demo · **cấm** native · **cấm** Step 4b |
+| QA | AC-PB-01…04 · GPS deny on-submit · banner keys · create always-on · E2E queued `/agent-qa*` |
 
 ## Version meta
 
-`skillVersion=2026.09.05.03` · `contentHash=sha256:665f3697a399a948edb0ab14da5fc13716b477aa84b0b8e43f6ca33eb7216d2d` · `solution_confirm=approve` · `writtenAt=2026-09-26T04:20:00.000Z`
+`skillVersion=2026.09.05.03` · `contentHash=sha256:d753df685c7334cda81339c1c6daccaa3463c4e8c6350eaff5562a6e41584015` · `solution_confirm=approve` · `writtenAt=2026-09-27T12:32:00.000Z` · `taskId=task_73c6c2b2`

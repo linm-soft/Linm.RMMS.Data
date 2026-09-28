@@ -5,60 +5,52 @@ feature: web-rmms-mobile-b
 packKind: list
 role: dev
 status: done
-skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T08:15:00.000Z
-taskId: task_86d662d7
-contentHash: sha256:58be487c963674c63e2436a6277905c70eb483f673a867c595bbd1babca3e773
-autoApprove: ON
-mfeStdRoute: /web-rmms-mobile-b
+skillVersion: 2026.09.19.01
+writtenAt: 2026-09-27T07:40:00.000Z
+taskId: task_8b5d947e
+contentHash: sha256:fe3ccad04e66ee08b65a65aead0fbef9f46328e5c2a3b828b3bee12969bbf72e
 mfeStdUrl: http://localhost:9301/web-rmms-mobile-b
+autoApprove: ON
+e2eQa: queued /agent-qa*
 
 ## Decisions
-- changeScope: edit_page
-- formPattern: Full (TD-04 list · TD-05 create/edit) · phone 430 · LeaveConfirmModal
-- Kind B grid/filter/ui-schema: **WAIVE**
-- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile
-- be: D:/AI-QLBD/Linm.RMMS.WebService · Patrol · cấm ERP.*
-- build: MFE yarn build **PASS** · BE Api+Bff **PASS** · Schema_PatrolJournalLine migration shipped
-- PATH: GET sessions/{id}/journal-lines · POST/GET/PUT journal-lines/{id}
-- GPS deny blocks save · kmText tay · LOOKUP_STATIC 6/9/4 keys · check-in ≠ list
-- next: /agent-qa* (e2eQa queued) · roleOnly stop (GAP-PKT-ROLE-01)
+- changeScope: edit_page · editTask=1 · § Delta Pattern B / capture / BFF / align
+- formPattern: Full TD-04/05 · phone 430 · LeaveConfirmModal KEEP
+- Pattern B: Lưu disable only saving/hydrating/capturing · banner string[] + inline · 0 alert.warning client · 0 disabled=!canSave
+- capture: local input capture=environment + mediaApi · LinImageUpload no capture prop (no fork)
+- BFF: mobileApiBase/bindMobileApiClient · UsersMobileController forward · cấm web-bff · cấm ERP.*
+- align: data-phone-frame=430 · 0 new route/tab/icon
+- build: MFE yarn build PASS · Api PASS · Mobile.Bff PASS · migration=none new
+- demo: N/A · Kind B WAIVE
+- next: /agent-qa* · roleOnly stop (GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| journalList | sổ dòng | List cards | GET sessions/{id}/journal-lines |
-| at | giờ | DateTime | UTC store |
-| userName | người | Text RO | auth/profile |
-| lat/lng/accuracyM | GPS | GPS | HARD deny→block |
-| kmText | lý trình | Text | tay |
-| direction | chiều | Dropdown | Note chieu= |
-| weather | thời tiết | Dropdown | 6 keys |
-| kind | loại | Dropdown | 9 keys |
-| narrative | diễn biến | TextArea | required |
-| mediaIds | ảnh | FileMulti | files guid |
-| onSiteAction/Result | xử lý tại chỗ | Toggle+Text | |
-| reportedTo/At | báo tuần kiểm | Button+DateTime | no TK-03 |
-| violationFlag | đề nghị BB | Button | if hanh-lang |
-| status | trạng thái | Dropdown | 4 keys |
+| save | Lưu | Button | Pattern B |
+| validationBanner | banner | Banner | string[] on-click |
+| lat/lng/accuracyM | GPS | GPS | banner+inline |
+| narrative | diễn biến | TextArea | required · banner+inline |
+| mediaIds | ảnh | FileMulti | capture=environment |
+| journalList | sổ dòng | List cards | KEEP |
 
 ## Screens / zones (ids only)
-- TD-04 · TD-05 · DES-LEAVE
-- Leave: TD-04↔TD-05 · Back→TD-01 · Save→TD-04
-- reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-b/ui/prototype/index.html
+- TD-04 · TD-05 · banner · DES-LEAVE
 - peerStdUrl= http://localhost:9301/web-rmms-mobile-b
-- DES-GRID / LinErpListFilterBar: N/A WAIVE
+- reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-b/ui/prototype/index.html
 
 ## API / tasks (ids only)
-- FormMode↔API: GET sessions/{id}/journal-lines · POST journal-lines · GET/PUT journal-lines/{id} · GET sessions/{id} · auth · files/*
-- entity/migration: PatrolJournalLineEntity + Schema_PatrolJournalLine · done
-- T-*: SCHEMA/CRUD/INIT/PERM · UI-LIST/FORM/ACT/LEAVE/FIELD/PROD/UX/RESP = **done**
-- WAIVE: KindB · FILTER · CFG · UISCHEMA · LKP master · HIST
-- debt: RequirePermission TODO · apply migration before QA live · out D scope/WO/TD-06
+- FormMode↔API: GET sessions/{id}/journal-lines · POST/PUT journal-lines · GET/{id} · sessions/{id} · auth/profile · files/* · integration/users (BFF)
+- T-DELTA-PATTERN-B-01 · CAPTURE-01 · BFF-01 · ALIGN-01 = **done**
+- T-QA-CRUD-01 · T-QA-FORM-01 pending
+- build PASS · debt: RequirePermission TODO · LRS KEEP · gallery LinImageUpload no capture prop
 
 ## UNCLEAR
-- none
+- UNCLEAR-CAPTURE-PROP → resolved local input
+- UNCLEAR-BANNER-KEYS → JOURNAL_LOOKUP_STATIC error.*
+- UNCLEAR-LRS → KEEP
 
 ## Full paths (Read only if needed)
 - implement: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-b/implement/web-rmms-mobile-b.md
+- task: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-b/task/web-rmms-mobile-b.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-b/STATUS.md

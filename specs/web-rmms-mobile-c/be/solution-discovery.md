@@ -7,284 +7,186 @@
 | status | `confirmed` (autoApprove=ON · agent self-confirm) |
 | changeScope | `edit_page` |
 | packKind | `list` (phone Field list/form ≠ desktop Kind B grid) |
-| domain | **Patrol** (+ Auth · Files · journal peer B · parent session Live) · DOMAIN-MAP slug `web-rmms-mobile-c` → Patrol |
+| domain | **Patrol** (+ Auth · Files · Integration peer · journal peer B) · DOMAIN-MAP `web-rmms-mobile-c` → Patrol |
 | BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
 | be_repo_confirm | `approve` |
-| MFE | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` · `mfeStdRoute=/web-rmms-mobile-c` · `mfeStdUrl=http://localhost:9301/web-rmms-mobile-c` |
+| MFE | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` · `mfeStdRoute=/phat-hien` · `mfeStdUrl=http://localhost:9301/phat-hien` |
 | ui_repo_confirm | `approve` |
-| solution_confirm | `approve` (autoApprove=ON · `task_0327ea87`) |
+| solution_confirm | `approve` (autoApprove=ON · `task_8e6ea5bb`) |
 | prior · design | `confirmed` · compact + `ui/design.md` · reviewUrl prototype |
 | prior · po | `confirmed` · compact + `po/requirement.md` |
-| prior · data_analy | `confirmed` · hash `sha256:0654e7b6359dfa34767872c7ea3a74f94605bd1b73fd125e241d6c95592133a4` |
-| contentHash | `sha256:0654e7b6359dfa34767872c7ea3a74f94605bd1b73fd125e241d6c95592133a4` |
+| prior · data_analy | `confirmed` · hash `sha256:4a38b53861c732cbbde7208c21d766f1b8b2c8decc007d2dc24ea34a4793339c` |
+| contentHash | `sha256:4a38b53861c732cbbde7208c21d766f1b8b2c8decc007d2dc24ea34a4793339c` |
 | skillVersion | `2026.09.05.03` |
 | schemaVersion | `1` |
-| updatedAt | `2026-09-25T09:00:00.000Z` |
+| updatedAt | `2026-09-27T08:15:00.000Z` |
 | demo | **N/A** · **cấm** rescan / demo-json / fake GPS SSOT |
-| wave | **C** · TK-02 list · TK-03 phiếu · TK-04 đối chiếu · TK-05 recheck · API **Mới** findings/recheck/review · out: TK-06/07 · WO · feedback (D) |
+| wave | **C delta** · Pattern B submit/validate + `capture=environment` · **no** new schema · keep Live findings/recheck/review |
 
-> SA **chốt** FormMode↔API · code gen · entity+Schema pair · review migration C · BFF vs API · gates TZ/XCO/SHARE.  
-> **Cấm** invent API · **cấm** ERP.* · **cấm** fake GPS · **cấm** mock findings · **cấm** HOW (TL) · **cấm** Write MFE ở role này.
+> SA **chốt** FormMode↔API · BFF vs API · no-migration delta · gates.  
+> **Cấm** invent API · **cấm** ERP.* · **cấm** fake GPS · **cấm** mock findings · **cấm** HOW (TL) · **cấm** Write MFE · **cấm** Step 4b ở role này.
 
-## Architecture (repo SSOT)
+## Architecture (repo SSOT) — KEEP Live
 
 | Layer | Choice |
 |-------|--------|
 | BackendRoot | `D:/AI-QLBD/Linm.RMMS.WebService` |
-| Domain | Patrol / `patrol` · cite Auth · Files · peer B journal · parent `PatrolSession` Live |
-| API host | `api/src/RMMS.Service.Api/Domains/Patrol/` · Models `api/domains/patrol/…/DTOs/` |
-| Entity / table **Mới** | `PatrolFindingEntity` → `rmms_patrol_findings` · pair `Schema_PatrolFinding` **trước** form |
-| Entity peer extend | `PatrolJournalLineEntity` → add review cols (migration C) · pair Schema_B extend |
-| Entity parent Live | `PatrolSessionEntity` → `rmms_patrol_sessions` (FK `sessionId`) |
-| BFF web (cite peer) | `web-bff/api/v1/patrol/**` · proxy |
-| BFF mobile (UI bind) | `mobile-bff/api/v1/patrol/**` · cùng `{resource}` |
-| MFE | `Linm.Web.RMMS.Mobile` · phone max-width 430 |
+| Domain | Patrol / `patrol` · cite Auth · Files · Integration · peer B journal |
+| API host | `api/src/RMMS.Service.Api/Domains/Patrol/` · Models patrol DTOs Live |
+| Entity / table | `PatrolFindingEntity` → `rmms_patrol_findings` · `Schema_PatrolFinding` **Live** — **không** reopen |
+| Entity peer | `PatrolJournalLineEntity` review cols **Live** — **không** migration mới |
+| Entity parent | `PatrolSessionEntity` → `rmms_patrol_sessions` (FK `sessionId`) Live |
+| BFF web (cite) | `web-bff/api/v1/patrol/**` · **cấm** MFE bind |
+| BFF mobile (UI bind) | `mobile-bff/api/v1/patrol/**` · `mobileApiBase()` only |
+| BFF Integration | `mobile-bff/api/v1/integration/**` · `users` **forward nếu thiếu** (GAP-DA-MOB-C-BFF-USERS-01) |
+| MFE | `Linm.Web.RMMS.Mobile` · phone max-width 430 · route `/phat-hien` |
 | Response | Linm.Platform.CommonLib `ApiResponse` / paged |
-| Auth perm | Linm.Platform.Authentication · peer Patrol + new finding/recheck/review codes |
-| Persist | scalar columns · `MediaIds` CSV guid · **cấm** parent `*Json` blob · **cấm** full URL |
-| Out of C | TK-06/07 · `POST maintenance/work-orders` · `POST …/feedback` · assign WO |
+| Persist | scalar · `MediaIds` CSV guid · **cấm** parent `*Json` · **cấm** full URL |
+| Out of this task | schema/migration · invent feedback CRUD · WO · TK-06/07 |
 
 ## SSOT / anti-duplicate
 
 | Concern | Package / rule | Note |
 |---------|----------------|------|
-| UI | `@linm-soft-org/linm-web-common-components` + mobile kit | no local Lin* clones · labels `useFormOptions()` |
-| HTTP | apiClient SSOT | re-export only · prefix mobile-bff |
-| BE | Linm.Platform.CommonLib | ApiResponse |
-| Auth | Linm.Platform.Authentication + RequirePermission | peer Patrol · new finding perms |
-| Files | FileService BFF `files/*` | guid only · **cấm** full URL persist |
-| Catalog | LOOKUP_STATIC FE keys | status · source · findingKind · side · scope · review · recheck · hangMuc · violation — **không** invent `patrol/init-data` |
-| Persist | no-parent-json-field | MediaIds CSV · scalar finding + review cols |
-| Finding ≠ journal ≠ check-in | separate entity/table/API | **cấm** reuse journal DTO cho findings |
+| UI | `@linm-soft-org/linm-web-common-components` + mobile kit | no fork LinImageUpload · capture prop vs local → Dev soft |
+| HTTP | apiClient SSOT | prefix **mobile-bff only** |
+| BE | Linm.Platform.CommonLib | ApiResponse — **no** new controller this wave |
+| Auth | Linm.Platform.Authentication | KEEP finding/recheck/review perms Live |
+| Files | FileService BFF `files/*` | guid only |
+| Catalog | LOOKUP_STATIC FE keys | **không** invent `patrol/init-data` |
+| Persist | no-parent-json-field | MediaIds CSV |
 
 ## FormType pack (list · phone)
 
 | Item | Value |
 |------|-------|
 | packKind | `list` |
-| formPattern | Full (TK-02 list · TK-03 create · TK-04 review · TK-05 detail+recheck) · LeaveConfirmModal · N/A ERP Modal/Slideout |
-| Grid AC Kind B / DES-GRID / `LinErpListFilterBar` | **N/A** — phone cards · Chip/Select filter only |
+| formPattern | Full phone 430 · LeaveConfirmModal · N/A ERP Modal/Slideout |
+| Grid AC / DES-GRID / `LinErpListFilterBar` | **N/A** |
 | Report AC | **N/A** |
 | List query keys | `sessionId` · `status?` · `route?` · `page?` · `pageSize?` |
-| filterItems | **cấm** DES-GRID |
-| Leave | dirty TK-03 → LeaveConfirmModal (Design DES-LEAVE) |
+| Leave | dirty TK-03 → LeaveConfirmModal (DES-LEAVE) |
 | Tabs | `none` |
-| Map | none wave C · GPS point capture TK-03 + TK-05 recheck · TK-04 prefill từ journal |
+| Map | none · GPS point TK-03 + TK-05 · Pattern B check **on click** |
 
-## § UNCLEAR CLOSED (SA chốt)
+## § Delta SA chốt (edit_page)
 
-### UNCLEAR-FIND-SCHEMA → CLOSED (gate)
+| Topic | Decision |
+|-------|----------|
+| Schema / migration | **none** — Schema_PatrolFinding + journal review cols **Live** (prior CRUD PASS) · **cấm** Step 4b |
+| FormMode↔API | **KEEP** API-01…05 + peers — **cấm** invent path / body |
+| Pattern B FE | CTA `disabled` chỉ `saving`/`hydrating` · `validationAttempted` · banner `string[]` · API toast riêng · GPS deny on submit click |
+| Pattern B BE | **không** đổi contract · vẫn 422 thiếu GPS/requireds trên create/recheck · FE không pre-disable |
+| capture | `capture="environment"` TK-03/05 · no package fork · UNCLEAR-CAPTURE-PROP → Dev |
+| feedback | Pattern B CTA only nếu Live · **cấm** expand CRUD D · UNCLEAR-FEEDBACK-SCOPE soft |
+| mfeStd | `/phat-hien` · `http://localhost:9301/phat-hien` — supersede old `/web-rmms-mobile-c` URL |
+| BFF users | Mobile.Bff forward `GET …/integration/users?search=` **nếu thiếu** · không invent ERP User API |
 
-| | |
-|--|--|
-| Decision | Pair **entity + `Schema_PatrolFinding` + table `rmms_patrol_findings` trước** wire form TK-03 |
-| Entity | `PatrolFindingEntity` |
-| Schema file | `Schema_PatrolFinding` (Domains/Patrol schema pack peer) |
-| FK | `SessionId` → `rmms_patrol_sessions.Id` · optional `JournalLineId` → `rmms_patrol_journal_lines.Id` |
-| Soft-delete | KEEP peer Patrol soft-delete (`IsActive`) |
-| Dev | migration + controller **Mới** (Step 4b / team-lead T-*) — **không** mock list khi 404 |
+## FormMode ↔ API (KEEP Live)
 
-### UNCLEAR-FIND-CODE → CLOSED
-
-| | |
-|--|--|
-| Decision | Server-generated `Code` on `POST findings` · **cấm** client gửi code |
-| Format | `TK-{yyyyMMdd}-{seq:D3}` · mirror peer `TD-` / `CC-` day seq |
-| Scope | unique per `CompanyCode` · day prefix · seq 001… |
-| Rationale | CTX «server sinh code» · peer `PatrolSessionService.NextCodeAsync` pattern |
-
-### UNCLEAR-REVIEW-COL → CLOSED
-
-| | |
-|--|--|
-| Decision | **Migration C** extend Live `PatrolJournalLineEntity` / `Schema_PatrolJournalLine` — **không** invent bảng review riêng |
-| Columns | `Review` (max 32, nullable) · `ReviewNote` (max 2000) · `FindingId` (Guid?, FK findings) |
-| API | `PUT …/patrol/journal-lines/{id}/review` **Mới** · body `{ review, reviewNote?, findingId? }` |
-| Rules | `lech` → `reviewNote` required · `khop` → note optional · **cấm** sửa `Narrative` / GPS journal trên TK-04 |
-| Wave B | Schema_B Live **không** có review cols — C owns add |
-
-### UNCLEAR-DOMAIN-SLUG → CLOSED
-
-| | |
-|--|--|
-| Decision | DOMAIN-MAP row `web-rmms-mobile-c` → **Patrol** · `patrol` · MFE `Linm.Web.RMMS.Mobile` `/web-rmms-mobile-c` |
-| Cite | peer rows `web-rmms-mobile-a` / `web-rmms-mobile-b` |
-| Action | row added in this SA pass |
-
-### UNCLEAR-HANGMUC → CLOSED (prior PO)
-
-Slug keys (LOOKUP_STATIC · labels via `useFormOptions`):  
-`nen` · `mat` · `cau` · `cong` · `ham` · `thoat-nuoc` · `atgt` · `ho-lan` · `bien` · `dai-phan-cach` · `thiet-bi` · `thi-cong`
-
-## FormMode ↔ API
-
-| Screen / FormMode | Method · Path | Purpose |
-|-------------------|---------------|---------|
-| TK-02 List | `GET …/patrol/findings?sessionId&status&route` | danh mục tồn tại |
-| TK-03 Create | `POST …/patrol/findings` | tạo phiếu · GPS HARD · status=`phat-hien` · server `code` |
-| TK-05 Detail | `GET …/patrol/findings/{id}` | chi tiết RO |
-| TK-05 Recheck | `POST …/patrol/findings/{id}/recheck` | kết luận · GPS HARD · status transition |
+| Screen / FormMode | Method · Path | Purpose · Delta |
+|-------------------|---------------|-----------------|
+| TK-02 List | `GET …/patrol/findings?sessionId&status&route` | KEEP · no export |
+| TK-03 Create | `POST …/patrol/findings` | KEEP body · FE Pattern B validate on click |
+| TK-05 Detail | `GET …/patrol/findings/{id}` | KEEP RO |
+| TK-05 Recheck | `POST …/patrol/findings/{id}/recheck` | KEEP · GPS on click · CTA not pre-disabled |
 | TK-04 Journal list | `GET …/patrol/sessions/{id}/journal-lines` | peer B Live |
-| TK-04 Review | `PUT …/patrol/journal-lines/{id}/review` | khớp/lệch · optional findingId |
-| Parent / peer | `GET …/patrol/sessions` · `{id}` | đợt TK + ca TD |
-| Auth / Files | `auth/profile` · `files/*` | Live |
+| TK-04 Review | `PUT …/patrol/journal-lines/{id}/review` | KEEP · `lech` note on submit click |
+| Parent / peer | `GET …/patrol/sessions` · `{id}` | Live |
+| Auth / Files | `auth/profile` · `files/*` | Live · capture FE only |
+| Integration (peer) | `GET …/integration/road-routes/search` · `…/users?search=` | BFF forward users if missing |
+| Feedback (soft Live) | `POST …/feedback` **only if Live** | Pattern B CTA · **cấm** invent |
 
-**Cấm** invent alternate finding paths · **cấm** nested `sessions/{id}/findings` create (list filter by query `sessionId` only).
+**Cấm** invent alternate finding paths · **cấm** nested `sessions/{id}/findings` create · **cấm** web-bff từ MFE.
 
 ## Persist / entity / migration
 
-| Entity | Table | Wave C migration |
-|--------|-------|------------------|
-| `PatrolFindingEntity` | `rmms_patrol_findings` | **required** · pair Schema trước form |
-| `Schema_PatrolFinding` | schema pack | **required** |
-| `PatrolJournalLineEntity` | `rmms_patrol_journal_lines` | **required** add `Review` · `ReviewNote` · `FindingId` |
-| `PatrolSessionEntity` | `rmms_patrol_sessions` | **none** — Live parent FK only |
+| Entity | Table | This wave |
+|--------|-------|-----------|
+| `PatrolFindingEntity` | `rmms_patrol_findings` | **KEEP Live** · no migration |
+| `Schema_PatrolFinding` | schema pack | **KEEP** · no reopen |
+| `PatrolJournalLineEntity` | review cols Live | **KEEP** · no migration |
+| `PatrolSessionEntity` | parent FK | **none** |
 
-**Finding columns (chốt):** `Code` · `SessionId` · `Source` · `JournalLineId?` · `LinkSessionId?` · `FindingKind` · `KmFrom` · `KmTo` · `Side` · `HangMuc` · `Description` · `QtyEstimate?` · `Scope` · `MediaIds` · `Lat` · `Lng` · `AccuracyM` · `DueAt?` · `ViolationAction?` · `ThiCongFlags?` · `Status` · recheck last: `RecheckResult?` · `RecheckNote?` · `RecheckMediaIds?` · `RecheckLat/Lng/AccuracyM?` · `RecheckAt?` · `WorkOrderId?` (RO wave D write) · tenant · soft-delete · timestamps.
+**parent_json:** PASS.  
+**HARD GPS BE:** 422 thiếu lat/lng create/recheck — **không** nới BE vì Pattern B.  
+**Recheck status:** KEEP `dat`→`xong` · `chua-dat`→`da-giao`.
 
-**parent_json:** **PASS** — không `*LinesJson` · findings = bảng riêng · MediaIds = CSV guid.
+## ControlHint ↔ write (slim · Delta CTA)
 
-**HARD GPS:** FE deny → block TK-03 save + TK-05 confirm · BE 422 nếu thiếu lat/lng trên create/recheck · **cấm** fake coords.
+| id | controlHint | GET | write | Delta |
+|----|-------------|-----|-------|-------|
+| findingList | List cards | `GET findings?…` | — | keep |
+| saveFinding | Button | — | `POST findings` | always-on except pending |
+| reviewSave | Button | — | `PUT …/review` | note if lech on click |
+| confirmDone | Button | — | `POST …/recheck` | GPS on click |
+| submitFeedback | Button | — | `POST feedback` if Live | Pattern B only |
+| mediaIds | FileMulti | files | guid[] | + capture |
+| lat/lng/accuracyM | GPS | device | create + recheck | deny→banner on submit |
+| source…thiCongFlags | form fields | — | POST body KEEP | validate on submit |
+| review/reviewNote | Radio+Text | — | PUT review | keep rules |
+| recheckResult… | Radio+… | — | recheck body KEEP | Pattern B |
 
-**Recheck status:** `dat` → `xong` · `chua-dat` → `da-giao` (+ optional `newDueAt`).
+**Create / Recheck / Review bodies:** KEEP prior SA — **không** đổi field names.
 
-## ControlHint ↔ write (slim)
+## API catalog (ids · KEEP)
 
-| id | controlHint | GET | write |
-|----|-------------|-----|-------|
-| findingList | List cards | `GET findings?sessionId&status&route` | — |
-| filter.status/route | Chip/Select | query | — |
-| source | Dropdown | — | `source` required |
-| journalLineId | Lookup | peer B list | if `tuan-duong` |
-| findingKind | Dropdown | — | `findingKind` |
-| kmFrom/kmTo | Text | — | required |
-| side | Dropdown | — | `side` |
-| hangMuc | Dropdown | — | PO slug keys |
-| description | TextArea | — | required |
-| scope | Radio | — | `bdtx`/`vuot-bdtx` |
-| lat/lng/accuracyM | GPS | device | create + recheck |
-| dueAt | Date | — | if bdtx |
-| mediaIds | FileMulti | files | guid[] |
-| review/reviewNote | Radio+Text | — | PUT review |
-| createFromLech | Button | — | → TK-03 prefill |
-| recheckResult | Radio | — | `result` |
-| confirmDone | Button | — | only if `dat` |
-
-**Create body:** `sessionId` · `source` · `journalLineId?` · `linkSessionId?` · `findingKind` · `kmFrom` · `kmTo` · `side` · `hangMuc` · `description` · `qtyEstimate?` · `scope` · `mediaIds` · `lat` · `lng` · `accuracyM` · `dueAt?` · `violationAction?` · `thiCongFlags?` · status set server=`phat-hien`.
-
-**Recheck body:** `result` · `note?` · `mediaIds?` · `lat` · `lng` · `accuracyM` · `newDueAt?`.
-
-**Review body:** `review` · `reviewNote?` · `findingId?`.
-
-## API catalog
-
-### API-01: GET /api/v1/patrol/findings
-
-| | |
-|--|--|
-| Purpose | TK-02 list |
-| Permission | finding list |
-| Tenant | X-Company-Id |
-| Request | query `sessionId` required · `status?` · `route?` · page |
-| Response | list/paged `PatrolFindingDto` |
-| Errors | empty OK · 404 until schema → empty + gap (**cấm** mock) |
-| Form surfaces | TK-02 |
-| Migration | entity+schema **Mới** |
-
-### API-02: POST /api/v1/patrol/findings
-
-| | |
-|--|--|
-| Purpose | TK-03 Create |
-| Permission | finding create |
-| Request body | Create DTO · GPS + description required · server `Code` |
-| Response | created finding + `code` |
-| Errors | 404 session · 422 GPS/requireds · 403 XCO |
-| HARD | GPS deny FE block · **cấm** client `code` |
-| Migration | same |
-
-### API-03: GET /api/v1/patrol/findings/{id}
-
-| | |
-|--|--|
-| Purpose | TK-05 Detail |
-| Permission | finding get |
-| Response | `PatrolFindingDto` |
-| Errors | 404 · 403 |
-| Migration | same |
-
-### API-04: POST /api/v1/patrol/findings/{id}/recheck
-
-| | |
-|--|--|
-| Purpose | TK-05 Recheck |
-| Permission | finding recheck |
-| Request body | Recheck DTO · GPS required · `note` if `chua-dat` · `mediaIds` if `dat` |
-| Response | updated finding + status |
-| Errors | 404 · 422 · 403 |
-| HARD | GPS deny FE block confirm |
-| Migration | same entity recheck cols |
-
-### API-05: PUT /api/v1/patrol/journal-lines/{id}/review
-
-| | |
-|--|--|
-| Purpose | TK-04 review |
-| Permission | journal review |
-| Request body | `{ review, reviewNote?, findingId? }` |
-| Response | updated journal line (review fields) |
-| Errors | 404 · 422 if `lech` thiếu note · 403 |
-| HARD | **cấm** mutate narrative/GPS |
-| Migration | journal review cols C |
-
-### API-06… peer/parent Live
-
-`GET …/sessions` · `{id}` · `GET …/sessions/{id}/journal-lines` · `auth/profile` · `files/*` — **KEEP** peer A/B · no invent.
+| id | Method · Path | Migration |
+|----|---------------|-----------|
+| API-01 | `GET /api/v1/patrol/findings` | none |
+| API-02 | `POST /api/v1/patrol/findings` | none |
+| API-03 | `GET /api/v1/patrol/findings/{id}` | none |
+| API-04 | `POST /api/v1/patrol/findings/{id}/recheck` | none |
+| API-05 | `PUT /api/v1/patrol/journal-lines/{id}/review` | none |
+| API-06 peer | sessions · journal-lines · auth · files · road-routes · users | BFF users forward if missing |
 
 ## BFF vs API
 
 | | |
 |--|--|
-| Ownership | API Patrol owns findings + review · BFF **proxy only** |
-| Mobile bind | `mobile-bff/api/v1/patrol/findings` · `…/findings/{id}/recheck` · `…/journal-lines/{id}/review` |
-| Web BFF cite | `web-bff/api/v1/patrol/**` same resource |
-| Integration / Auth / Files | existing BFF prefixes · **cấm** nest under patrol |
-| Cấm | MFE gọi API host trực tiếp bypass BFF (repo SSOT) |
+| Ownership | API Patrol owns findings/recheck/review **Live** · BFF **proxy only** |
+| Mobile bind | `mobile-bff/api/v1/patrol/findings` · `…/recheck` · `…/journal-lines/{id}/review` |
+| Web BFF | cite only · **cấm** MFE |
+| Integration | `mobile-bff/api/v1/integration/users` forward **nếu thiếu** (GAP-DA-MOB-C-BFF-USERS-01) |
+| Cấm | MFE → API host trực tiếp · invent users/ERP endpoint |
 
 ## Gates
 
-| Gate | Value | Note | Review slash | Dev |
-|------|-------|------|--------------|-----|
-| TZ | **tz_required** | `dueAt` · `recheckAt` UTC · FE local | `/review-timezone-implement` | store UTC · form date |
-| XCO | **xco_required** | company on finding + journal review | peer Patrol | X-Company-Id |
-| SHARE | **share_none** wave C | no cross-tenant share | — | — |
-| FILE | **file_guid** | MediaIds CSV | peer FILE-01 | guid only |
-| GPS | **gps_hard** | create + recheck | — | 422 missing |
-| ERP | **forbid** | DOMAIN-MAP Patrol only | — | **cấm ERP.*** |
+| Gate | Value | Note | Dev |
+|------|-------|------|-----|
+| TZ | **tz_required** | `dueAt` · `recheckAt` UTC | store UTC |
+| XCO | **xco_required** | finding + journal review | X-Company-Id |
+| SHARE | **share_none** | wave C | — |
+| FILE | **file_guid** | MediaIds CSV · capture FE | guid only |
+| GPS | **gps_hard_be** · **gps_soft_cta_fe** | BE 422 · FE check on click | Pattern B |
+| ERP | **forbid** | DOMAIN-MAP Patrol | **cấm ERP.*** |
+| SCHEMA | **no_migration** | this delta | **cấm** Step 4b |
 
-## Gaps closed / handoff
+## Gaps / UNCLEAR
 
-| id | Note |
-|----|------|
-| GAP-DA-MOB-C-SCHEMA-01 | CLOSED — Schema_PatrolFinding pair gate |
-| GAP-DA-MOB-C-CODE-01 | CLOSED — `TK-{yyyyMMdd}-{seq:D3}` |
-| GAP-DA-MOB-C-REVIEW-01 | CLOSED — migration C review cols on journal |
-| GAP-DA-MOB-C-DOMAIN-01 | CLOSED — DOMAIN-MAP row C |
-| GAP-DA-MOB-C-OUT-D | KEEP out — WO/feedback/TK-06/07 = D/E |
-| GAP-TK-01…03 | KEEP product · APIs above cover |
+| id | Status | Note |
+|----|--------|------|
+| GAP-DA-MOB-C-SUBMIT-01 | → Dev | Pattern B CTA/banner |
+| GAP-DA-MOB-C-CAPTURE-01 | → Dev | capture=environment |
+| GAP-DA-MOB-C-ALERT-01 | → Dev | banner string[] |
+| GAP-DA-MOB-C-BFF-USERS-01 | **SA chốt** | Mobile.Bff forward users if missing · no invent |
+| GAP-DA-MOB-C-URL-01 | **SA chốt** | mfeStd=`/phat-hien` |
+| UNCLEAR-CAPTURE-PROP | soft → Dev | prop vs local input · no fork package |
+| UNCLEAR-FEEDBACK-SCOPE | soft → Dev | Pattern B only · no CRUD D |
+| Prior schema/code/review/domain | CLOSED KEEP | không reopen |
 
 ## DoR SA
 
 | Check | Result |
 |-------|--------|
 | Design confirmed | PASS |
-| FormMode↔API | API-01…05 + peers |
-| entity / migration | Finding **required** · journal review cols **required** |
-| BFF vs API | mobile-bff proxy · API Patrol owns |
-| UNCLEAR closed | FIND-SCHEMA · FIND-CODE · REVIEW-COL · DOMAIN-SLUG · HANGMUC |
+| FormMode↔API | API-01…05 + peers KEEP · no invent |
+| entity / migration | **none** this wave · Live pair |
+| BFF vs API | mobile-bff proxy · users forward if missing |
+| UNCLEAR | CAPTURE/FEEDBACK soft Dev · BFF-USERS + URL chốt |
 | solution_confirm | `approve` (autoApprove) |
 | cấm Write MFE / e2e / Step 4b | PASS |
 
 ## Version meta
 
-`skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:0654e7b6359dfa34767872c7ea3a74f94605bd1b73fd125e241d6c95592133a4` · `updatedAt=2026-09-25T09:00:00.000Z` · `taskId=task_0327ea87`
+`skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:4a38b53861c732cbbde7208c21d766f1b8b2c8decc007d2dc24ea34a4793339c` · `updatedAt=2026-09-27T08:15:00.000Z` · `taskId=task_8e6ea5bb`

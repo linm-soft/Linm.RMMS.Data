@@ -6,46 +6,48 @@ packKind: list
 role: review
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T15:12:00.000Z
-taskId: task_9e41d4d7
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
-review_confirm: approve
+writtenAt: 2026-09-27T09:42:00.000Z
+taskId: task_e249d547
+contentHash: sha256:bf61e3677d8c0ff81bfccd4e08df8f452a069408ae43f3d025dde73959990a79
 autoApprove: ON
-changeScope: new_page
-mfeStdUrl: http://localhost:9301/web-rmms-asset-collect
-mfeStdRoute: /web-rmms-asset-collect
+e2eQa: ON
+changeScope: edit_page
+review_confirm: approve
+verdict: PASS
+mfeStdUrl: http://localhost:9301/tai-san/thu-thap
+mfeStdRoute: /tai-san/thu-thap
+nextRole: —
 
 ## Decisions
-- Verdict: PASS · P0=0 · Must=0 · fix_gaps=none
-- Gates: QUERY/SEC/UI-FN/BE-FN PASS · hash unchanged skip
-- formPattern: Mobile full form ≤430 · Create · GPS gate · photos local GAP · DES-LEAVE
-- Live: init-data · asset-types · road-routes/search · sessions · POST road-assets Source=manual
-- GPS: geolocation RO · deny blocks submit · cấm fake/type-in
-- Auth: hasAccessToken guest gate
-- ERP.*: none · DOMAIN-MAP Asset row present · no invent CollectController/media
-- Kind B / filter-bar: WAIVE phone form
-- QA cite: S0/S1/QA-20 PASS · Aligned · POST/Leave smoke WAIVE accepted
-- debt: MEDIA GAP · STOCK-PORT soft · LOOKUP_HINT_KEYS soft
-- next: roleOnly stop (GAP-PKT-ROLE-01) · pipeline Review done
+- changeScope: edit_page · re-review (prior findings hash lệch) · Pattern B · SearchInput · GPS-on-submit
+- review_confirm: approve · autoApprove=ON · P0=0 · Must=0 · fix_gaps=none
+- QUERY/SEC/UI-FN/BE-FN: all PASS · cite FE AssetCollectPage + assetCollect endpoint
+- QA S0/S1/QA-20 PASS · visual Aligned · Kind B/filter-bar WAIVE phone form
+- DOMAIN-MAP Asset · cấm ERP.* · no invent CollectController/media · no Step 4b
+- debt accepted: UNCLEAR-MEDIA-01 · STOCK-DUP soft · Hub LOOKUP hints
+- next: roleOnly stop (GAP-PKT-ROLE-01) · cấm e2e/start:std this role · cấm phase=done invent
 
 ## Inventory (slim)
 | id | controlHint | API / nav |
 |----|-------------|-----------|
 | navBack | Button/Nav | Hub · DES-LEAVE |
-| name/type/route/km/status | Text/Select | Live lookups |
-| gpsPin | Text RO | geolocation gate |
+| name/type/km/status | Text/Select | Live lookups |
+| route | SearchInput | no seed · miss `--` |
+| gpsPin | Text RO | geolocation · validate on submit |
 | photos | PhotoRow | local GAP |
-| submit/cancel | Button | POST · Hub |
+| submit | Button | disabled={saving} only |
+| errBanner | Banner | after attempt |
 
 ## Screens / zones
-- AC-00…AC-10 · review Aligned cite QA S0/S1/QA-20
-- peerStdUrl= http://localhost:9301/web-rmms-asset-collect
+- AC-00…AC-10 · errBanner · S0/S1/QA-20 PNG PASS
+- peerStdUrl= http://localhost:9301/tai-san/thu-thap
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-collect/ui/prototype/index.html
+- DES-GRID / LinErpListFilterBar: N/A phone form
 
 ## API / tasks
-- FormMode↔API: init-data · asset-types · road-routes/search · sessions · POST road-assets
-- T-01…T-07 **done**
-- debt: MEDIA · STOCK-PORT · LOOKUP_HINT_KEYS
+- Live: init-data · asset-types · road-routes/search · sessions · POST road-assets Source=manual
+- T-07 review **done** · pipeline Review complete
+- debt: MEDIA GAP · STOCK-DUP · LOOKUP_WALLET_DASH
 
 ## UNCLEAR
 - UNCLEAR-MEDIA-01: open GAP — local only · accepted

@@ -62,7 +62,7 @@
 | Bản đồ | `Select` common | yes | `split50` / `off` |
 | Mã TS | text | yes | `CameraDevice.code` |
 | Tên / vị trí | text | yes | `{Tuyến} · Km {km}` · GPS `Latitude`/`Longitude` |
-| countToday | number | event | `GET /cameras/events` hôm nay · join **`cameraDeviceId`** (SSOT) **hoặc** Host / `isapiNotifyUrl?host=` / A-record DDNS — **cấm** invent `gis-camera-map` API · **cấm** `cameraDeviceId` trên URL cam |
+| countToday | number | event | `GET /cameras/events/totals` hôm nay · join **`cameraDeviceId`** (SSOT) · host chỉ khi event chưa có device id — **cấm** walk trang `/cameras/events` · **cấm** invent `gis-camera-map` API |
 | speedEvents | list | event | `speedKmh` > 60 (mặc định QL) |
 | Live | HLS | yes | Wall + fullscreen auto `mode=hls` · **frame 16:9** `object-fit: contain` |
 
@@ -74,7 +74,7 @@
 |--------|-----|--------|
 | Online / Offline | `CameraDevice.online` | Wall + pin màu |
 | Live | MediaMTX HLS | Auto-start ô wall online · heartbeat lease · stop khi gỡ/unmount |
-| Event KPI | ingest ISAPI | Poll 15s GET `/cameras/events` hôm nay · **cấm** tick mock +xe · **GAP-CAM-MAP-PUSH-01 DEFER** SignalR/MQTT |
+| Event KPI | ingest ISAPI | Poll 15s **một** GET `/cameras/events/totals` · skip nếu inflight · **cấm** walk `events?page=` · **GAP-CAM-MAP-PUSH-01 DEFER** SignalR/MQTT |
 | Layout persist | localStorage `rmms:gis-camera-map:layout` | Slot id = Guid device · bỏ slot CAM-VINH cũ |
 
 ## 7. API / DB (**cấm** invent `gis-camera-map`)
@@ -82,7 +82,8 @@
 | Method | Path | Status |
 |--------|------|--------|
 | GET | `/api/v1/cameras` | **SSOT list** — GIS gọi BFF cùng host |
-| GET | `/api/v1/cameras/events` | `host` · default hôm nay VN · stats loại xe |
+| GET | `/api/v1/cameras/events/totals` | **SSOT đếm** map — một query group theo camera · `speedLimitKmh` mặc định 60 |
+| GET | `/api/v1/cameras/events` | Tab Tốc độ: `host` + `minSpeedKmh` · **một** trang · **cấm** paginate toàn bộ trên poll map |
 | POST | `/api/v1/cameras/{id}/live/start` | `mode=hls` `profile=sub` |
 | POST | `/api/v1/cameras/{id}/live/heartbeat` | TTL lease |
 | POST | `/api/v1/cameras/{id}/live/stop` | Gỡ tile / unmount |

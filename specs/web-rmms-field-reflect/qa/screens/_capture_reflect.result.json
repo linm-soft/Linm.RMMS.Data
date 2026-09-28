@@ -1,15 +1,18 @@
 {
   "feature": "web-rmms-field-reflect",
+  "route": "/phan-anh",
   "cases": [
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "href": "http://localhost:9301/web-rmms-field-reflect",
+      "href": "http://localhost:9301/m/phan-anh",
       "dump": {
         "feature": "web-rmms-field-reflect",
         "zones": [
-          "FR-00"
+          "UA-00",
+          "FR-00",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-FIELD-REFLECT"
@@ -18,48 +21,52 @@
         "ids": [
           "FR-REFLECT"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Phản ánh FR-00…02 Alias /field/reflect Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Phản ánh hiện trường Đăng nhập để phản ánh hiện trường. Đăng nhập",
-        "href": "http://localhost:9301/web-rmms-field-reflect",
-        "guestGate": true
+        "text": "Phản ánh hiện trường Đăng nhập để phản ánh hiện trường. Đăng nhập Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/phan-anh",
+        "guestGate": true,
+        "detectDisabled": null,
+        "createDisabled": null,
+        "bannerVisible": false,
+        "bannerText": ""
       }
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "href": "http://localhost:9301/web-rmms-home",
+      "href": "http://localhost:9301/m/dang-nhap",
       "dump": {
-        "feature": "web-rmms-home",
+        "feature": "login",
         "zones": [
-          "SH-00",
-          "HM-00",
-          "HM-01",
-          "HM-02",
-          "SH-01",
-          "SH-02"
+          "LG-00"
         ],
         "des": [],
         "actions": [],
         "ids": [
-          "loginUser",
-          "loginPass",
-          "loginSubmit",
-          "guestLogin"
+          "f-user",
+          "f-pass",
+          "btn-login"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
-        "href": "http://localhost:9301/web-rmms-home",
-        "guestGate": false
+        "text": "AI-RMMS HỆ THỐNG BẢO TRÌ KẾT CẤU HẠ TẦNG ĐƯỜNG BỘ Đăng nhập Tín hiệu Tốt · đồng bộ hệ thống Quên mật khẩu?",
+        "href": "http://localhost:9301/m/dang-nhap",
+        "guestGate": false,
+        "detectDisabled": null,
+        "createDisabled": null,
+        "bannerVisible": false,
+        "bannerText": ""
       }
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "href": "http://localhost:9301/web-rmms-field-reflect",
+      "href": "http://localhost:9301/m/phan-anh",
       "dump": {
         "feature": "web-rmms-field-reflect",
         "zones": [
-          "FR-00"
+          "UA-00",
+          "FR-00",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-FIELD-REFLECT",
@@ -71,12 +78,153 @@
         "ids": [
           "FR-REFLECT"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Phản ánh FR-00…02 Alias /field/reflect Chấm công (attendance) Asset adjust GIS map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chọn loại tài sản FR-00 · LOOKUPGRID ASSET-TYPES Loại tài sản PAVEMENT Mặt đường BRIDGE Cầu TUNNEL Hầm CULVERT_X Cống thoát nước ngang DITCH Rãnh / cống dọc UNDERPASS Hầm chui dân sinh TRAFFIC_SIGN Biển báo DELINEATOR Cọc tiêu / cọc H KM_POST Cột Km MEDIAN Dải phân cách giữa ANTI_GLARE Tấm chống chói TRAFFIC_ISLAND Đảo giao thông ROAD_STUD Đinh phản quang GUARDRAIL Hộ lan / tôn sóng ROAD_MARKING Vạch sơn CRASH_CUSHION Thùng giảm chấn CONVEX_MIRROR Gương cầu TRAFFIC_SIGNAL Đèn tín hiệu BOUNDARY Mốc lộ giới / GPMB RETAINING Kè / tường chắn SHOULDER Lề đường / hàng rào LIGHTING Chiếu sáng đường GREEN Cây xanh / thảm cỏ INTERCHANGE Nút giao đường bộ SLOPE_PROTECT Bảo vệ mái dốc GANTRY_SIGN Giá long môn / cột cần ROW_UTIL CT HTKT trong HLATĐB STATION_HOUSE Nhà hạt QLĐB BUS_STATION Bến xe buýt / khách BUS_STOP Điểm đỗ /",
-        "href": "http://localhost:9301/web-rmms-field-reflect",
-        "guestGate": false
+        "text": "Chọn loại tài sản FR-00 · LOOKUPGRID ASSET-TYPES Loại tài sản PAVEMENT Mặt đường BRIDGE Cầu TUNNEL Hầm CULVERT_X Cống thoát nước ngang DITCH Rãnh / cống dọc UNDERPASS Hầm chui dân sinh ! TRAFFIC_SIGN Biển báo DELINEATOR Cọc tiêu / cọc H Km KM_POST Cột Km MEDIAN Dải phân cách giữa ANTI_GLARE Tấm chống chói TRAFFIC_ISLAND Đảo giao thông ROAD_STUD Đinh phản quang GUARDRAIL Hộ lan / tôn sóng ROAD_MARKING Vạch sơn CRASH_CUSHION Thùng giảm chấn CONVEX_MIRROR Gương cầu TRAFFIC_SIGNAL Đèn tín hiệu LG BOUNDARY Mốc lộ giới / GPMB RETAINING Kè / tường chắn SHOULDER Lề đường / hàng rào LIGHTING Chiếu sáng đường GREEN Cây xanh / thảm cỏ INTERCHANGE Nút giao đường bộ SLOPE_PROTECT Bảo vệ mái dốc GANTRY_SIGN Giá long môn / cột cần ROW_UTIL CT HTKT trong HLATĐB STATION_HOUSE Nhà hạt QLĐB BUS_STATION Bến xe buýt / khách BUS_STOP Điểm đỗ / dừng xe RAIL_CROSS Giao bằng đường sắt LAND_ROW Đất thuộc TS hạ tầng EMS_POST Trạm trực cấp cứu TOLL Trạm thu phí FERRY Bến phà P REST_AREA Trạm dừng nghỉ WEIGH_STATION Trạm cân COUNT_STATION Trạm đếm xe RESCUE_STATION Trạm cứu nạn ITS_CAMERA Camera ITS NOISE_BARRIER Tường chống ồn PONTOON Cầu phao RESCUE_VEHICLE Xe cứu hộ SPILLWAY Tràn PARKING Bãi đỗ xe Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/phan-anh",
+        "guestGate": false,
+        "detectDisabled": null,
+        "createDisabled": null,
+        "bannerVisible": false,
+        "bannerText": ""
+      }
+    },
+    {
+      "id": "VAL-B-miss",
+      "result": "PASS",
+      "screenshot": "VAL-B-miss.png",
+      "href": "http://localhost:9301/m/phan-anh?miss=1",
+      "dump": {
+        "feature": "web-rmms-field-reflect",
+        "zones": [
+          "UA-00",
+          "FR-00",
+          "DES-MOB-TABBAR"
+        ],
+        "des": [
+          "DES-MOB-FIELD-REFLECT",
+          "FR-01",
+          "DES-MOB-FR-VALIDATION"
+        ],
+        "actions": [
+          "validationBanner",
+          "assetCard",
+          "kind",
+          "photos",
+          "detect",
+          "detectionHint",
+          "sessionStamp",
+          "gpsLock",
+          "severity",
+          "checklist",
+          "description",
+          "create",
+          "draftOffline"
+        ],
+        "ids": [
+          "FR-REFLECT",
+          "validationBanner"
+        ],
+        "text": "Phản ánh hiện trường FR-01 · FORM PHẢN ÁNH Không có ca đang tuần × Mặt đường · PAVEMENT Đổi Loại phản ánh Hư Mất Hỏng Ảnh hiện trường ＋ Nhận diện Nhận diện — Ca / tuyến — Không có ca đang tuần GPS Đã chốt · ±0 m Làm mới GPS Mức Cao Trung bình Thấp Checklist theo loại tài sản hư Ổ gà hư Nứt dọc / ngang hỏng Bong tróc mặt hỏng Mờ vạch sơn Mô tả Tạo vấn đề Lưu nháp mất sóng Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/phan-anh?miss=1",
+        "guestGate": false,
+        "detectDisabled": false,
+        "createDisabled": false,
+        "bannerVisible": true,
+        "bannerText": "Không có ca đang tuần×"
+      }
+    },
+    {
+      "id": "VAL-B-deny",
+      "result": "PASS",
+      "screenshot": "VAL-B-deny.png",
+      "href": "http://localhost:9301/m/phan-anh?deny=1",
+      "dump": {
+        "feature": "web-rmms-field-reflect",
+        "zones": [
+          "UA-00",
+          "FR-00",
+          "DES-MOB-TABBAR"
+        ],
+        "des": [
+          "DES-MOB-FIELD-REFLECT",
+          "FR-01",
+          "DES-MOB-FR-VALIDATION"
+        ],
+        "actions": [
+          "validationBanner",
+          "assetCard",
+          "kind",
+          "photos",
+          "photosError",
+          "detect",
+          "detectionHint",
+          "sessionStamp",
+          "gpsLock",
+          "severity",
+          "checklist",
+          "description",
+          "create",
+          "draftOffline"
+        ],
+        "ids": [
+          "FR-REFLECT",
+          "validationBanner"
+        ],
+        "text": "Phản ánh hiện trường FR-01 · FORM PHẢN ÁNH Trình duyệt chưa cho phép vị trí của trang này. Cho phép Vị trí, rồi bấm Làm mới GPS. Cần ảnh trước khi nhận diện. × Mặt đường · PAVEMENT Đổi Loại phản ánh Hư Mất Hỏng Ảnh hiện trường ＋ Cần ảnh trước khi nhận diện. Nhận diện Nhận diện — Ca / tuyến — GPS Trình duyệt chưa cho phép vị trí của trang này. Cho phép Vị trí, rồi bấm Làm mới GPS. Trình duyệt chưa cho phép vị trí của trang này. Cho phép Vị trí, rồi bấm Làm mới GPS. Làm mới GPS Mức Cao Trung bình Thấp Checklist theo loại tài sản hư Ổ gà hư Nứt dọc / ngang hỏng Bong tróc mặt hỏng Mờ vạch sơn Mô tả Tạo vấn đề Lưu nháp mất sóng Chưa cấp quyền vị trí Trình duyệt chưa cho phép vị trí của trang này. Cho phép Vị trí, rồi bấm Làm mới GPS. Để sau Làm mới GPS Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/phan-anh?deny=1",
+        "guestGate": false,
+        "detectDisabled": false,
+        "createDisabled": false,
+        "bannerVisible": true,
+        "bannerText": "Trình duyệt chưa cho phép vị trí của trang này. Cho phép Vị trí, rồi bấm Làm mới GPS.Cần ảnh trước khi nhận diện.×"
+      }
+    },
+    {
+      "id": "VAL-B-acc",
+      "result": "PASS",
+      "screenshot": "VAL-B-acc.png",
+      "href": "http://localhost:9301/m/phan-anh?acc=1",
+      "dump": {
+        "feature": "web-rmms-field-reflect",
+        "zones": [
+          "UA-00",
+          "FR-00",
+          "DES-MOB-TABBAR"
+        ],
+        "des": [
+          "DES-MOB-FIELD-REFLECT",
+          "FR-01",
+          "DES-MOB-FR-VALIDATION"
+        ],
+        "actions": [
+          "validationBanner",
+          "assetCard",
+          "kind",
+          "photos",
+          "photosError",
+          "detect",
+          "detectionHint",
+          "sessionStamp",
+          "gpsLock",
+          "severity",
+          "checklist",
+          "description",
+          "create",
+          "draftOffline"
+        ],
+        "ids": [
+          "FR-REFLECT",
+          "validationBanner"
+        ],
+        "text": "Phản ánh hiện trường FR-01 · FORM PHẢN ÁNH Sai số > 30 m Cần ảnh trước khi nhận diện. × Mặt đường · PAVEMENT Đổi Loại phản ánh Hư Mất Hỏng Ảnh hiện trường ＋ Cần ảnh trước khi nhận diện. Nhận diện Nhận diện — Ca / tuyến — GPS ±48 m · Sai số > 30 m Sai số > 30 m Làm mới GPS Mức Cao Trung bình Thấp Checklist theo loại tài sản hư Ổ gà hư Nứt dọc / ngang hỏng Bong tróc mặt hỏng Mờ vạch sơn Mô tả Tạo vấn đề Lưu nháp mất sóng Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/phan-anh?acc=1",
+        "guestGate": false,
+        "detectDisabled": false,
+        "createDisabled": false,
+        "bannerVisible": true,
+        "bannerText": "Sai số > 30 mCần ảnh trước khi nhận diện.×"
       }
     }
   ],
   "pass": true,
-  "at": "2026-09-25T20:23:49.910Z"
+  "at": "2026-09-27T12:09:53.978Z"
 }

@@ -6,62 +6,58 @@ packKind: list
 role: design
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T04:10:00.000Z
-taskId: task_8e35732f
-contentHash: sha256:665f3697a399a948edb0ab14da5fc13716b477aa84b0b8e43f6ca33eb7216d2d
+writtenAt: 2026-09-27T12:26:00.000Z
+taskId: task_7da17034
+contentHash: sha256:d753df685c7334cda81339c1c6daccaa3463c4e8c6350eaff5562a6e41584015
 design_confirm: approve
 autoApprove: ON
 real_view_parity: v1
 shared_grid_example: N/A
 
 ## Decisions
-- changeScope: new_page
-- formPattern: Mobile full phone 430 · Android 1-1 · N/A ERP Modal/Slideout
+- changeScope: edit_page · Pattern B INC-N · keep L/D + reviewUrl
+- formPattern: Mobile full phone 430 · Pattern B · N/A ERP Modal/Slideout
 - Grid AC Kind B / DES-GRID / LinErpListFilterBar: N/A phone Search+Chip
 - Report AC / DES-RPT: N/A
-- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/web-rmms-incident · productRoute /incident|/incident/new|/incident/:id
-- be: D:/AI-QLBD/Linm.RMMS.WebService · Incident+Patrol+Integration+AiVision(+files; Maintenance peer) · cấm ERP.*
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/van-de/moi · std /van-de|/van-de/moi|/van-de/:id
+- be: D:/AI-QLBD/Linm.RMMS.WebService · Incident+Patrol+Integration+AiVision · cấm ERP.*
 - bff: Linm.RMMS.Mobile.Bff :5202 mobile-bff/api/v1 · cấm web-bff
 - demo: N/A · hash skip · cấm rescan (GAP-DES-DEMO-RESCAN-01)
-- INC-L/N/D core · peer INC-V/C/E nav-only · GPS deny→block Create/Detect · HasGps only · checklist local→Description
-- UNCLEAR-STD-NEST / CHK-01 / PEER-VIS: resolved Design
+- Delta: create always-on (disabled chỉ creating) · validate.banner string[] · GPS deny on-submit · photos capture giữ
+- Banner keys AC-PB-04: asset→incident.pick.title · session→incident.session.empty · GPS→incident.gps.deny · offline→incident.offline
+- UNCLEAR-PB-BANNER-01: resolved PO
 - kit_missing_confirm: N/A
 - next: /agent-sa · roleOnly stop (GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| search/filters | tìm/status/severity | Search+Chip | GET incident/incidents |
-| list.card | thẻ | CardList | Title/Type/Code/Route/Km/Status/HasGps · no Lat |
-| fab | tạo | FAB | /incident/new |
-| assetPick | loại TS | LookupGrid | GET integration/asset-types |
-| kind | Hư/Mất/Hỏng | Segment | → IncidentType |
-| checklist | checklist | CheckboxGroup | local → Description |
-| photos/detect | ảnh/AI | PhotoRow/Button | uploads · detect GPS≤30 |
+| create | Tạo vấn đề | Button | always-on · disabled chỉ creating · AC-PB-01 |
+| validate.banner | lỗi client | Banner | string[] Pattern B · AC-PB-03/04 |
+| gpsLock | GPS | GPS | deny on-submit · cấm khóa nút |
+| gps.deny.modal | modal GPS | Modal | deny.title/body keys |
+| photos | ảnh | PhotoRow | capture=environment giữ |
+| assetPick | loại TS | LookupGrid | GET asset-types |
 | sessionStamp | ca/tuyến | Text RO | GET patrol/sessions |
-| gpsLock | GPS | GPS | deny→block create |
-| severity/create/draft | mức/tạo/nháp | Select/Button | POST · HasGps · peer offline |
-| detail.close | đóng | Button | POST close · Note optional |
+| list/filters/fab | list | Search+Chip+Card+FAB | giữ INC-L |
+| detail.close | đóng | Button | giữ INC-D · disabled closing |
 
 ## Screens / zones (ids only)
-- INC-L · INC-N · INC-D · (peer INC-V · INC-C · INC-E)
+- INC-L · INC-N (Delta Pattern B) · INC-D · peer INC-V/C/E
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-incident/ui/prototype/index.html
 - reviewUrl modes=?screen=create|detail · ?empty=1 · ?gps=deny · ?acc=45 · ?nosession=1 · ?error=1
-- peerStdUrl= http://localhost:9301/web-rmms-incident
+- peerStdUrl= http://localhost:9301/van-de/moi
 - real_view_parity= v1
 - DES-GRID / LinErpListFilterBar: N/A
 
 ## API / tasks (ids only)
-- FormMode↔API: GET/POST incident/incidents · GET{id} · POST close · GET patrol/sessions · GET integration/asset-types · ai-vision uploads/detect · files/*
-- real-data §A+§B: PASS · T-W4-01/02/03 · Grid AC-GRID-01..05 · Create AC-CREATE-01..07 · Detail AC-DETAIL-01..03 · devSlash=/agent-dev
+- FormMode↔API: GET/POST incident/incidents · GET{id} · POST close · sessions · asset-types · ai-vision/files
+- real-data §A+§B+Delta: PASS · AC-PB-01…04 · AC-CREATE-05 edit · keep GRID/DETAIL
+- T-*: edit IncidentCreatePage Pattern B · align-mobile-to-mfe no_demo · devSlash=/agent-dev
 
 ## UNCLEAR
-- UNCLEAR-DOMAIN-MAP-INC→SA add DOMAIN-MAP row web-rmms-incident
-- UNCLEAR-CHK-01: resolved Design — local checklist
-- UNCLEAR-PGC-BE-01→SA HasGps only
-- UNCLEAR-PEER-VIS: resolved Design — peer nav
-- UNCLEAR-STD-NEST: resolved Design — nested /new /:id
-- UNCLEAR-SESS→Dev/QA empty toast · cấm itemsOrDemo
+- UNCLEAR-PB-BANNER-01: **resolved** (AC-PB-04)
+- Prior UNCLEAR-*: resolved prior pipeline
 
 ## Full paths (Read only if needed)
 - design: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-incident/ui/design.md

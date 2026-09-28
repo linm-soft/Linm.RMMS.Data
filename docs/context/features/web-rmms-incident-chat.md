@@ -16,6 +16,7 @@
 | Persona | Tuần đường · tuần kiểm · điều phối hiện trường |
 | Entry | Card action từ `web-rmms-incident` list (`#i-chat` / `btn-inc-chat-{id}`) · product `/incident/{id}/chat` |
 | DoD P1 | INC-C screen Live: GET/POST messages · kit `LinmChatThread` + `LinmChatComposer` · Mobile.Bff only · empty/error khi thiếu id / API fail |
+| Chrome | Shared shell `src/shared/chat` · contract `rmms-mobile-chat-shell.md` · **không** gộp slug/API với công việc |
 | Out P1 | Me* · feedback · cam-view · create/detail deep · vis-capture · estimate · journal/kết ca/tồn tại/tần suất (`web-rmms-mobile-b…e`) · invent `api/v1/incident-chat` · kit SignalR · toast-only |
 
 ## 2. Routes / screens

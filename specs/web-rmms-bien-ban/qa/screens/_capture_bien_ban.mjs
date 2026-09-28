@@ -6,7 +6,7 @@ import { createRequire } from "node:module";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = __dirname;
-const base = "http://localhost:9301";
+const base = "http://127.0.0.1:9301";
 const feature = "web-rmms-bien-ban";
 const require = createRequire(import.meta.url);
 
@@ -42,7 +42,7 @@ const pageErrors = [];
 page.on("pageerror", (e) => pageErrors.push(String(e.message || e)));
 
 /** Dev server deep-link returns 404 HTML — fulfill document nav with index. */
-await page.route(/http:\/\/localhost:9301(\/[^?]*)?(\?.*)?$/, async (route) => {
+await page.route(/http:\/\/(localhost|127\.0\.0\.1):9301(\/[^?]*)?(\?.*)?$/, async (route) => {
   const req = route.request();
   if (req.resourceType() !== "document") {
     await route.continue();
@@ -111,34 +111,23 @@ async function clearSession() {
   });
 }
 
-async function loginViaSheet() {
+async function loginViaPage() {
   await clearSession();
-  await page.goto(base + "/web-rmms-home", {
+  await page.goto(base + "/dang-nhap", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
-  await page.waitForSelector("#guestLogin", { timeout: 20000 });
-  await page.locator("#guestLogin").click();
-  await page.waitForSelector("#loginUser, [data-zone='SH-02'] input", {
-    timeout: 15000,
+  await page.waitForSelector("#f-user, [data-zone='LG-00'] #f-user", {
+    timeout: 20000,
   });
-  const userSel = (await page.locator("#loginUser").count())
-    ? "#loginUser"
-    : '[data-zone="SH-02"] input[type="text"], [data-zone="SH-02"] input:not([type="password"])';
-  const passSel = (await page.locator("#loginPass").count())
-    ? "#loginPass"
-    : '[data-zone="SH-02"] input[type="password"]';
-  await page.fill(userSel, user);
-  await page.fill(passSel, password);
-  await page
-    .locator("#loginSubmit, [data-zone='SH-02'] button[type='submit']")
-    .first()
-    .click({ force: true });
-  await page.waitForTimeout(2500);
+  await page.fill("#f-user", user);
+  await page.fill("#f-pass", password);
+  await page.locator("#btn-login").click({ force: true });
+  await page.waitForTimeout(2800);
   await page
     .waitForSelector(
-      '[data-feature="web-rmms-home"][data-mode="staff"] #gridSupervise, [data-mode="staff"] #walletAsset',
-      { timeout: 25000 },
+      '[data-feature="web-rmms-home"][data-mode="staff"] #gridSupervise, [data-mode="staff"] #walletAsset, [data-feature="web-rmms-home"]',
+      { timeout: 30000 },
     )
     .catch(() => {});
 }
@@ -160,9 +149,16 @@ async function dumpZones() {
     const controls = [...document.querySelectorAll("[data-control]")].map((el) =>
       el.getAttribute("data-control"),
     );
-    const ids = ["loginUser", "loginPass", "loginSubmit", "guestLogin", "BB-ROOT"].filter(
-      (id) => document.getElementById(id),
-    );
+    const ids = [
+      "loginUser",
+      "loginPass",
+      "loginSubmit",
+      "guestLogin",
+      "BB-ROOT",
+      "f-user",
+      "f-pass",
+      "btn-login",
+    ].filter((id) => document.getElementById(id));
     const text = (document.body?.innerText || "").slice(0, 1600).replace(/\s+/g, " ");
     const guestGate = /Đăng nhập để xem đề nghị biên bản/i.test(text);
     const cardCount = document.querySelectorAll('[data-field="list.card"]').length;
@@ -227,7 +223,7 @@ try {
   // S0 — guest BB-00 gate (no Live list · CTA Đăng nhập)
   pageErrors.length = 0;
   await clearSession();
-  await page.goto(base + "/web-rmms-bien-ban", {
+  await page.goto(base + "/bien-ban", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
@@ -236,34 +232,45 @@ try {
     "[data-feature='web-rmms-bien-ban'] #BB-ROOT, [data-feature='web-rmms-bien-ban'][data-zone='BB-00'], #BB-ROOT",
   );
 
-  // QA-20 — LoginSheet SH-02 from Home guest
+  // QA-20 — LoginPage LG-00 (/dang-nhap · supersede LoginSheet SH-02)
   pageErrors.length = 0;
   await clearSession();
-  await page.goto(base + "/web-rmms-home", {
+  await page.goto(base + "/dang-nhap", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
-  await page.waitForSelector("#guestLogin", { timeout: 20000 });
-  await page.locator("#guestLogin").click();
-  await captureCurrent("QA-20", "#loginUser, [data-zone='SH-02']");
+  await captureCurrent("QA-20", "#f-user, [data-zone='LG-00'], [data-feature='login']");
 
-  // S1 — staff BB-01 list Live after LoginSheet (search · create chips · cards/empty)
+  // S1 — staff BB-01 list Live after LoginPage
   pageErrors.length = 0;
-  await loginViaSheet();
-  await page.goto(base + "/web-rmms-bien-ban", {
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
-  });
-  await page.waitForSelector(
-    "[data-feature='web-rmms-bien-ban'] [data-field='list.search'], [data-zone='BB-01'], [data-field='btnCreateTd']",
-    { timeout: 25000 },
-  );
-  await page.waitForTimeout(1200);
-  await dismissOverlay(page);
-  await captureCurrent(
-    "S1",
-    "[data-feature='web-rmms-bien-ban'] [data-field='list.search'], [data-zone='BB-01'], [data-field='btnCreateTd']",
-  );
+  try {
+    await loginViaPage();
+    await page.goto(base + "/bien-ban", {
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
+    });
+    await page.waitForSelector(
+      "[data-feature='web-rmms-bien-ban'] [data-field='list.search'], [data-zone='BB-01'], [data-field='btnCreateTd']",
+      { timeout: 25000 },
+    );
+    await page.waitForTimeout(1200);
+    await dismissOverlay(page);
+    await captureCurrent(
+      "S1",
+      "[data-feature='web-rmms-bien-ban'] [data-field='list.search'], [data-zone='BB-01'], [data-field='btnCreateTd']",
+    );
+  } catch (err) {
+    const abs = join(outDir, "S1.png");
+    await page.screenshot({ path: abs, fullPage: true }).catch(() => {});
+    results.push({
+      id: "S1",
+      result: "FAIL",
+      screenshot: "S1.png",
+      error: err instanceof Error ? err.message : String(err),
+      href: page.url(),
+      dump: await dumpZones().catch(() => null),
+    });
+  }
 } finally {
   await browser.close();
 }

@@ -6,41 +6,46 @@ packKind: list
 role: review
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T04:50:31.318Z
-taskId: task_8a5cc868
-contentHash: sha256:96ffc2878a4c6ad0367088c699203864c2e711b055ca68da8a59d696c8d4de97
-review_confirm: approve
+writtenAt: 2026-09-27T11:40:00.000Z
+taskId: task_e73eaeff
+contentHash: sha256:f749bc65f84b7bde51beeebaa85e5db22dacc8e8a040a53de30af834fa55c8cd
 autoApprove: ON
-e2eQa: ON · prior QA PASS · no re-run
-changeScope: new_page
+review_confirm: approve
+e2eQa: ON · prior QA PASS · cấm re-run
+changeScope: edit_page
 hashGate: skip · unchanged
 
 ## Decisions
-- formPattern: Mobile full VIS · phone ≤430 · N/A ERP Modal · DES-GRID N/A WAIVE
-- mfe: Linm.Web.RMMS.Mobile · mfeStdRoute=/web-rmms-vis-capture · :9301 · alias /incident/vis
-- be: Mobile.Bff mobile-bff/api/v1 · AiVision+Incident(+Patrol) · cấm ERP.* · cấm invent VisCapture
-- P0: none · QUERY/SEC/UI-FN/BE-FN PASS · Engine=P1 · HasGps+DetectionId · GPS deny/Acc≤30 · guestGate · TITLE-01 · DUAL-01
-- Step 4b/MIG: N/A · Lat deferred PGC-BE-01
-- next: queue completed · GAP-PKT-ROLE-01 stop
+- review_confirm=approve · P0=none · autoApprove=ON
+- Pattern B PASS: Detect/Attach idle-on · disabled chỉ detecting/attaching · #validationBanner on click · Acc>30 no POST
+- ROUTE-01: /chup-hien-truong · cấm /web-rmms-vis-capture
+- QUERY/SEC/UI-FN/BE-FN: PASS · DES-GRID WAIVE · T-BE=N/A
+- be: Mobile.Bff · AiVision+Incident(+Patrol) · cấm ERP.* · cấm web-bff
+- hash skip · contentHash pipeline unchanged
+- next: queue completed · roleOnly stop (GAP-PKT-ROLE-01)
+- **cấm** phase=done · **cấm** e2e/build/start:std ở role này
 
 ## Inventory (slim)
-| id | controlHint | review |
-|----|-------------|--------|
-| guestGate | Static/Button | PASS |
-| photos/detect | PhotoRow/Button | PASS |
-| rowLoc/rowAcc | ListRow RO | PASS |
-| rowClass/rowSev | ListRow+Badge | PASS |
-| btnAttach/btnSkip | Button | PASS |
-| gpsLock/modalGps | GPS | PASS |
+| id | controlHint | notes |
+|----|-------------|-------|
+| photos/detect | PhotoRow/Button | Pattern B · idle-on |
+| rowLoc/rowAcc | ListRow RO | GPS-only + Acc≤30 handler |
+| btnAttach/btnSkip | Button | Pattern B · idle-on |
+| validationBanner | Banner | string[] on click |
+| gpsLock/modalGps | GPS | deny→modal · 0 fake |
 
 ## Screens / zones (ids only)
-- VIS · #sc-vis-capture · DES-MOB-VIS-CAPTURE · DES-MOB-GPS-DENY · SH-02
-- mfeStdUrl= http://localhost:9301/web-rmms-vis-capture
+- VIS · #sc-vis-capture · DES-MOB-VIS-CAPTURE · #validationBanner
+- mfeStdUrl= http://localhost:9301/chup-hien-truong
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/ui/prototype/index.html
 
-## API / debt (ids only)
-- Live: uploads* · detect P1 · detections/{id} · sessions · incidents HasGps
-- debt: stock e2e port soft · Lat MIG deferred · WDS/playwright soft
+## API / tasks (ids only)
+- uploads* · detect · detections/{id} · sessions · incidents · HasGps+DetectionId
+- T-01…T-06 · T-QA PASS · T-BE=N/A
+- UNCLEAR: none open · SESS/VALIDATE-B/ALIGN-01 closed prior
+
+## Debt
+- GAP-QA-E2E-STOCK-PORT · GAP-PGC-BE-01 Lat · WDS soft · LG-00 soft
 
 ## Full paths
 - findings: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/review/findings.md

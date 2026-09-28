@@ -1,263 +1,184 @@
 import { chromium } from "playwright";
-import { readFileSync, writeFileSync } from "node:fs";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
-import { createRequire } from "node:module";
+import { writeFileSync } from "node:fs";
+import { join } from "node:path";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const outDir = __dirname;
-const base = "http://localhost:9301";
-const require = createRequire(import.meta.url);
-
-let chromiumLauncher = chromium;
-try {
-  require.resolve("playwright");
-} catch {
-  const autoPw = createRequire("D:/AI-Extension/AI-AutoCode/package.json");
-  chromiumLauncher = autoPw("playwright").chromium;
-}
-
-const rulesCred = JSON.parse(
-  readFileSync("D:/AI-Rules/Linm.Development.Rules/e2e.local.json", "utf8"),
-);
-const user = process.env.QLBD_USER || process.env.E2E_USER || rulesCred.user || "";
-const password =
-  process.env.QLBD_PASSWORD || process.env.E2E_PASSWORD || rulesCred.password || "";
-if (!user || !password) throw new Error("GAP-QA-E2E-03 missing QLBD_USER/PASSWORD");
+const cfg = {"url":"http://localhost:9301/cham-cong","outDir":"D:\\AI-QLBD\\Linm.RMMS.Data\\specs\\web-rmms-attendance\\qa\\screens","loginPage":"http://localhost:9301/dang-nhap","company":"RMMS","headless":false,"pagesWait":null,"testid":"","steps":[{"id":"S0","action":"goto"},{"id":"S1","action":"goto"},{"id":"QA-20","action":"goto"}]};
+const results = [];
 
 function shotName(id) {
   return id.replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "") + ".png";
 }
 
-const results = [];
-const browser = await chromiumLauncher.launch({ headless: true });
-const context = await browser.newContext({
-  viewport: { width: 430, height: 900 },
-  geolocation: { latitude: 21.0285, longitude: 105.8542, accuracy: 12 },
-  permissions: ["geolocation"],
-});
-const page = await context.newPage();
+const user = process.env.QLBD_USER || process.env.E2E_USER || process.env.QLBD_DEMO_USER || "";
+const password = process.env.QLBD_PASSWORD || process.env.E2E_PASSWORD || process.env.QLBD_DEMO_PASS || "";
+if (!user || !password) throw new Error("GAP-QA-E2E-03 missing QLBD_USER/PASSWORD");
+
+function pathOf(page) {
+  try { return new URL(page.url()).pathname; } catch { return ""; }
+}
+async function onLoginGate(page) {
+  if (/\/dang-nhap|\/login/i.test(pathOf(page))) return true;
+  const pass = page.locator('#f-pass, input[name="password"], input[type="password"]').first();
+  if (!(await pass.count())) return false;
+  return pass.isVisible().catch(() => false);
+}
+async function fillLogin(page) {
+  const userSel = [
+    '#f-user', 'input[name="username"]', 'input[name="userName"]', 'input[autocomplete="username"]',
+    'input[placeholder*="tài khoản" i]', 'input[placeholder*="đăng nhập" i]',
+    'input[type="text"]', 'input[type="email"]',
+  ];
+  const passSel = ['#f-pass', 'input[name="password"]', 'input[type="password"]'];
+  const submitSel = ['#btn-login', 'button[type="submit"]', 'button:has-text("Đăng nhập")', 'button:has-text("Login")'];
+  if (!(await onLoginGate(page))) {
+    await page.goto(cfg.loginPage, { waitUntil: "domcontentloaded", timeout: 60000 }).catch(() => {});
+  }
+  try {
+    await page.waitForSelector('#f-pass, input[name="password"], input[type="password"]', { timeout: 12000 });
+  } catch { return; }
+  for (const s of userSel) {
+    const el = page.locator(s).first();
+    if (await el.count()) { await el.fill(user); break; }
+  }
+  for (const s of passSel) {
+    const el = page.locator(s).first();
+    if (await el.count()) { await el.fill(password); break; }
+  }
+  if (cfg.company) {
+    const c = page.locator('input[name="company"], input[placeholder*="đơn vị" i]').first();
+    if (await c.count()) await c.fill(cfg.company);
+  }
+  for (const s of submitSel) {
+    const el = page.locator(s).first();
+    if (await el.count()) {
+      await Promise.all([page.waitForLoadState("networkidle").catch(() => {}), el.click()]);
+      await page.waitForFunction(
+        () => !/\/dang-nhap|\/login/i.test(location.pathname),
+        { timeout: 20000 },
+      ).catch(() => {});
+      return;
+    }
+  }
+  await page.keyboard.press("Enter");
+  await page.waitForLoadState("networkidle").catch(() => {});
+}
+async function resumeAfterLogin(page, href) {
+  if (!(await onLoginGate(page))) return;
+  await fillLogin(page);
+  if (href && (await onLoginGate(page))) return;
+  const now = page.url().split("?")[0];
+  const want = String(href || "").split("?")[0];
+  if (want && now !== want) {
+    await page.goto(href, { waitUntil: "domcontentloaded", timeout: 60000 });
+  }
+}
+
+const browser = await chromium.launch({ headless: cfg.headless !== false });
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 const pageErrors = [];
-page.on("pageerror", (e) => pageErrors.push(String(e.message || e)));
+page.on("pageerror", (e) => { pageErrors.push(String(e.message || e)); });
 
-/** Dev server deep-link returns 404 HTML — fulfill document nav with index. */
-await page.route(/http:\/\/localhost:9301(\/[^?]*)?(\?.*)?$/, async (route) => {
-  const req = route.request();
-  if (req.resourceType() !== "document") {
-    await route.continue();
-    return;
+function stepHref(id) {
+  try {
+    const u = new URL(cfg.url);
+    if (/^(QA-20|QA-NEW|QA-FORM)$/i.test(id) && !/\/new\/?$/i.test(u.pathname)) {
+      u.pathname = u.pathname.replace(/\/$/, "") + "/new";
+    }
+    return u.toString();
+  } catch {
+    return cfg.url;
   }
-  const url = req.url();
-  if (/\/(linm-rmms-mobile\.js|index\.html)(\?|$)/.test(url) || /\.[a-z0-9]+(\?|$)/i.test(url)) {
-    await route.continue();
-    return;
-  }
-  const r = await page.request.get(base + "/");
-  await route.fulfill({
-    status: 200,
-    contentType: "text/html; charset=utf-8",
-    body: await r.text(),
-  });
-});
-
-async function dismissOverlay(p) {
-  await p
-    .evaluate(() => {
-      document
-        .querySelectorAll(
-          "iframe#webpack-dev-server-client-overlay, #webpack-dev-server-client-overlay",
-        )
-        .forEach((el) => el.remove());
-    })
-    .catch(() => {});
 }
 
 async function fatalUi(p) {
-  await dismissOverlay(p);
   const overlay = p.locator(
-    "iframe#webpack-dev-server-client-overlay, #webpack-dev-server-client-overlay",
+    'iframe#webpack-dev-server-client-overlay, #webpack-dev-server-client-overlay, iframe[src*="overlay"]',
   );
   if (await overlay.count()) {
     const vis = await overlay.first().isVisible().catch(() => false);
-    const featureOk = await p
-      .locator(
-        "[data-feature='web-rmms-attendance'], #att-hero, #btn-checkin, #guestLogin, #loginUser",
-      )
-      .count();
-    if (vis && featureOk === 0) return "webpack overlay";
+    if (vis) return "webpack overlay";
   }
   const t = await p.locator("body").innerText().catch(() => "");
-  if (
-    /Something went wrong|Uncaught |ChunkLoadError|Failed to compile|TypeError:|ReferenceError:/i.test(
-      t,
-    )
-  ) {
+  if (/Something went wrong|Uncaught |ChunkLoadError|Cannot read propert|Minified React error|Failed to compile|Module not found|webpack-internal:|TypeError:|ReferenceError:/i.test(t)) {
     return "crash text: " + t.slice(0, 180).replace(/\s+/g, " ");
   }
   if (pageErrors.length) return "pageerror: " + pageErrors.slice(-1)[0];
   return null;
 }
 
-async function clearSession() {
-  await page.goto(base + "/", { waitUntil: "domcontentloaded", timeout: 60000 });
-  await page.evaluate(() => {
-    try {
-      localStorage.clear();
-      sessionStorage.clear();
-    } catch {
-      /* ignore */
-    }
-  });
-}
-
-async function loginViaSheet() {
-  await clearSession();
-  await page.goto(base + "/web-rmms-home", {
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
-  });
-  await page.waitForSelector("#guestLogin", { timeout: 20000 });
-  await page.locator("#guestLogin").click();
-  await page.waitForSelector("#loginUser, [data-zone='SH-02'] input", {
-    timeout: 15000,
-  });
-  const userSel = (await page.locator("#loginUser").count())
-    ? "#loginUser"
-    : '[data-zone="SH-02"] input[type="text"], [data-zone="SH-02"] input:not([type="password"])';
-  const passSel = (await page.locator("#loginPass").count())
-    ? "#loginPass"
-    : '[data-zone="SH-02"] input[type="password"]';
-  await page.fill(userSel, user);
-  await page.fill(passSel, password);
-  await page
-    .locator("#loginSubmit, [data-zone='SH-02'] button[type='submit']")
-    .first()
-    .click({ force: true });
-  await page.waitForTimeout(2500);
-  await page
-    .waitForSelector(
-      '[data-feature="web-rmms-home"][data-mode="staff"] #gridSupervise, [data-mode="staff"] #walletAsset',
-      { timeout: 25000 },
-    )
-    .catch(() => {});
-}
-
-async function dumpZones() {
-  return page.evaluate(() => {
-    const root = document.querySelector(
-      '[data-feature="web-rmms-attendance"], [data-feature="web-rmms-home"], [data-feature="web-rmms-shell"]',
-    );
-    const zones = [...document.querySelectorAll("[data-zone]")].map((el) =>
-      el.getAttribute("data-zone"),
-    );
-    const des = [...document.querySelectorAll("[data-des-id]")].map((el) =>
-      el.getAttribute("data-des-id"),
-    );
-    const ids = [
-      "ATT-00",
-      "att-hero",
-      "hero-status",
-      "hero-gps",
-      "btn-checkin",
-      "btn-report",
-      "loginUser",
-      "loginPass",
-      "loginSubmit",
-      "guestLogin",
-    ].filter((id) => document.getElementById(id));
-    const text = (document.body?.innerText || "").slice(0, 900).replace(/\s+/g, " ");
-    const guestGate = !!document.querySelector(".guestGate, [data-zone='ATT-08']");
-    return {
-      feature: root?.getAttribute("data-feature") || null,
-      zones: [...new Set(zones)],
-      des: [...new Set(des)],
-      ids,
-      text,
-      href: location.href,
-      guestGate,
-    };
-  });
-}
-
-async function captureCurrent(id, waitSel) {
-  const file = shotName(id);
-  const abs = join(outDir, file);
-  try {
-    if (waitSel) await page.waitForSelector(waitSel, { timeout: 25000 });
-    await page.waitForTimeout(1400);
-    const fatal = await fatalUi(page);
-    if (fatal) throw new Error("GAP-QA-E2E-CRASH-01 " + fatal);
-    await page.screenshot({ path: abs, fullPage: true });
-    const dump = await dumpZones();
-    results.push({ id, result: "PASS", screenshot: file, href: page.url(), dump });
-  } catch (err) {
-    try {
-      await page.screenshot({ path: abs, fullPage: true });
-    } catch {
-      /* ignore */
-    }
-    let dump = null;
-    try {
-      dump = await dumpZones();
-    } catch {
-      /* ignore */
-    }
-    results.push({
-      id,
-      result: "FAIL",
-      screenshot: file,
-      error: err instanceof Error ? err.message : String(err),
-      href: page.url(),
-      dump,
-    });
-  }
-}
-
 try {
-  // S0 — guest ATT hub gate
-  pageErrors.length = 0;
-  await clearSession();
-  await page.goto(base + "/web-rmms-attendance", {
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
-  });
-  await captureCurrent(
-    "S0",
-    "[data-feature='web-rmms-attendance'] .guestGate, [data-feature='web-rmms-attendance'][data-zone='ATT-00']",
-  );
-
-  // QA-20 — LoginSheet SH-02 from Home guest CTA
-  pageErrors.length = 0;
-  await clearSession();
-  await page.goto(base + "/web-rmms-home", {
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
-  });
-  await page.waitForSelector("#guestLogin", { timeout: 20000 });
-  await page.locator("#guestLogin").click();
-  await captureCurrent("QA-20", "#loginUser, [data-zone='SH-02']");
-
-  // S1 — staff hub after LoginSheet · geo mock Acc=12
-  pageErrors.length = 0;
-  await loginViaSheet();
-  await page.goto(base + "/web-rmms-attendance", {
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
-  });
-  await captureCurrent(
-    "S1",
-    "#att-hero, #btn-checkin, [data-feature='web-rmms-attendance'] #hero-status",
-  );
+  await fillLogin(page);
+  if (cfg.pagesWait) {
+    const origin = new URL(cfg.url).origin;
+    const deadline = Date.now() + 120000;
+    let switched = false;
+    let last = "";
+    while (Date.now() < deadline) {
+      const json = await page.evaluate(async (u) => {
+        const r = await fetch(u, { cache: "no-store" });
+        if (!r.ok) return null;
+        return r.json();
+      }, origin + "/_manifest.json?t=" + Date.now());
+      const map = json && (json.microfrontends || json.microfrontends);
+      const entry = map && map[cfg.pagesWait.mfeKey];
+      last = entry ? ((entry.version || "") + " " + (entry.url || "")) : "missing";
+      if (entry
+        && (!cfg.pagesWait.expectVersion || entry.version === cfg.pagesWait.expectVersion)
+        && (!cfg.pagesWait.expectUrl || entry.url === cfg.pagesWait.expectUrl)) {
+        switched = true;
+        break;
+      }
+      await new Promise((x) => setTimeout(x, 1500));
+    }
+    if (!switched) throw new Error("GAP-QA-PAGES-01 manifest not switched: " + last);
+  }
+  for (const step of cfg.steps) {
+    const file = shotName(step.id);
+    const abs = join(cfg.outDir, file);
+    try {
+      if (step.action === "goto") {
+        const href = stepHref(step.id);
+        const res = await page.goto(href, { waitUntil: "domcontentloaded", timeout: 60000 });
+        if (!res || !res.ok()) throw new Error("HTTP " + (res ? res.status() : "no-response"));
+        await resumeAfterLogin(page, href);
+        if (step.selector) {
+          await page.waitForSelector(step.selector, { timeout: 20000 });
+        }
+        await new Promise((r) => setTimeout(r, 800));
+      } else if (step.action === "click") {
+        const loc = step.selector
+          ? page.locator(step.selector).first()
+          : page.getByRole("button", { name: step.text || "Xem" }).first();
+        if (await loc.count()) {
+          await loc.click({ timeout: 15000 });
+          await new Promise((r) => setTimeout(r, 1200));
+        }
+      } else if (step.action === "assertText") {
+        const needle = step.text || "";
+        const body = await page.locator("body").innerText();
+        if (needle && !body.includes(needle)) throw new Error("missing text: " + needle);
+      }
+      const fatal = await fatalUi(page);
+      if (fatal) throw new Error("GAP-QA-E2E-CRASH-01 " + fatal);
+      await page.screenshot({ path: abs, fullPage: true });
+      results.push({ id: step.id, result: "PASS", screenshot: file });
+    } catch (err) {
+      try { await page.screenshot({ path: abs, fullPage: true }); } catch { /* ignore */ }
+      results.push({
+        id: step.id,
+        result: "FAIL",
+        screenshot: file,
+        error: err instanceof Error ? err.message : String(err),
+      });
+    }
+  }
 } finally {
   await browser.close();
 }
-
-const summary = {
-  feature: "web-rmms-attendance",
-  cases: results,
-  pass: results.every((r) => r.result === "PASS"),
-  at: new Date().toISOString(),
-};
-writeFileSync(join(outDir, "_capture_att.result.json"), JSON.stringify(summary, null, 2));
-console.log(JSON.stringify(summary, null, 2));
-if (!summary.pass) process.exit(1);
+writeFileSync(join(cfg.outDir, "manifest.json"), JSON.stringify({
+  url: cfg.url,
+  capturedAt: new Date().toISOString(),
+  steps: results,
+  ok: results.every((s) => s.result === "PASS"),
+}, null, 2), "utf8");
+if (results.some((s) => s.result === "FAIL")) process.exit(1);

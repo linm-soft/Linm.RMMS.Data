@@ -1,26 +1,43 @@
 {
   "url": "http://localhost:9301/web-rmms-mobile-a",
-  "capturedAt": "2026-09-25T07:35:57.466Z",
-  "method": "e2e runtime · yarn start:std :9301 + docker (API:5111 BFF mobile:5202) + playwright · JWT inject auth_token · phone-hub routes · viewport 430",
+  "liveUrl": "http://localhost:9301/m/tuan-duong",
+  "capturedAt": "2026-09-27T14:47:49.299Z",
+  "method": "capture_a · MFE /dang-nhap · phone 430 · geolocation mock · live /m/tuan-duong · edit delta T-QA-EDIT-01",
   "steps": [
+    {
+      "id": "S0-std-url",
+      "result": "FAIL",
+      "screenshot": "S0-std-url.png",
+      "hash16": "31694fd2157959e1",
+      "error": "GAP-QA-E2E-CRASH-01 404 not found",
+      "href": "http://localhost:9301/m/web-rmms-mobile-a"
+    },
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "pathShown": "/web-rmms-mobile-a"
+      "href": "http://localhost:9301/m/tuan-duong",
+      "hash16": "857e18736de3523e",
+      "body": "Tuần đường Tuần đường Chấm công Chưa mở ca · Tốt Chưa có ca đang chạy — · — Điểm tuần 0/3 · Độ phủ 0% Mở ca Ghim vị trí hiện tại — Đã ghi điểm tuần — Còn lại — Độ phủ Hôm nay TD-20260927-001 Tuần đường · QL.1 · Hoàn thành Xong TD-20260926-001 Tuần kiểm · QL.7C · Hoàn thành Xong T"
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "pathShown": "/web-rmms-mobile-a/tuan-duong/44fceb67-b83a-4fb5-b906-18d7e1009eb8"
+      "href": "http://localhost:9301/m/tuan-duong/8aac8961-dbd9-466e-b8a2-c5a0560c0e81",
+      "hash16": "5371adac9968e9bc",
+      "body": "Chi tiết ca ⋯ Mã phiên TD-20260927-001 Hoàn thành Thông tin — Nhân viên QL.1 Tuyến Tuần đường Loại tuần 27/09/2026 Ngày KH 12:19 Bắt đầu 0% Độ phủ Điểm tuần Km 472+000 · tuyến tránh 14:38 · định vị không đạt Km 472+000 · tuyến tránh 15:13 · định vị không đạt Km 472+000 · tuyến tr"
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "pathShown": "/web-rmms-mobile-a/tuan-duong/mo-ca"
+      "href": "http://localhost:9301/m/tuan-duong/mo-ca",
+      "hash16": "8e4d822b4edd0227",
+      "body": "Mở ca Hủy Mở ca Tuyến Chiều Chiều đi Chiều về Hai chiều Người Ngày Loại / trạng thái"
     }
   ],
-  "ok": true
+  "ok": true,
+  "dup": null,
+  "note": "STATUS mfeStdUrl /web-rmms-mobile-a alias soft · live /m/tuan-duong"
 }

@@ -45,6 +45,7 @@ Reuse Signed GIS (MapService):
 | GET | `/api/v1/gis/layers` | Guest thấy lớp public; inspector thêm overlay |
 | GET | `/api/v1/gis/tiles/{layer}/{z}/{x}/{y}.pbf` | Guest: `basemap`/`boundaries`/`mask`/`notices`. Inspector: `routes`/`assets`/`cameras`/`patrol`. **`basemap`** = MBTiles OSM (`OsmTileMaxZoom` **12**). Empty z≤12 → **200** `no-store` (ocean). Empty z>12 → **404** (MapLibre overzoom). **`boundaries`** = PostGIS ST_AsMVT · empty ocean **200**. Query `?v=` MFE Live — BFF bỏ query khi forward MapService. |
 | GET | `/api/v1/gis/geojson/{layer}?bbox=` | JWT inspector; **cấm** guest |
+| GET | `/api/v1/gis/streets/search?lat=&lng=&km=` | **AllowAnonymous** + rate limit. **Cấm** 401 — interceptor phone đá login. Đồ thị `street.lua` (`Map:OsrmStreetBaseUrl`, host `:5001`) — primary/secondary/tertiary/residential/service/unclassified **và** pedestrian, living_street, footway, path. Nearest named way trong 80 m (`number=8`). `km` = lý trình caller. **Cấm** `router.project-osrm.org`. BFF: `web-bff` + `mobile-bff` `…/gis/streets/search`. Car `/route` vẫn `car.lua` cổng 5000. |
 
 Heatmap PCI / drawings / **clusters (pin theo view)** = **RMMS.WebService** Gis — không chuyển MapService.
 

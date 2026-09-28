@@ -148,10 +148,17 @@
     }
     .gps-ok { color: var(--success); font-size: 13px; }
     .gps-deny { color: var(--danger); font-size: 13px; }
-    .banner-deny {
+    .banner-deny, .banner-errors {
       background: #FDECEA; color: var(--danger); border-radius: 12px;
       padding: 10px 12px; margin-bottom: 12px; font-size: 13px;
     }
+    .banner-errors ul { margin: 6px 0 0; padding-left: 18px; }
+    .banner-errors .banner-close {
+      float: right; border: 0; background: transparent; cursor: pointer;
+      font-size: 16px; color: var(--danger); line-height: 1;
+    }
+    .field.err input, .field.err textarea, .field.err select { border-color: var(--danger); }
+    .field .inline-err { color: var(--danger); font-size: 12px; margin-top: 4px; }
     .photo-row { display: flex; gap: 8px; flex-wrap: wrap; }
     .photo-add {
       width: 72px; height: 72px; border: 1px dashed var(--border);
@@ -195,7 +202,7 @@
     <button type="button" data-go="TK-02e" class="active">TK-02 empty</button>
     <button type="button" data-go="TK-02">TK-02 data</button>
     <button type="button" data-go="TK-03">TK-03 form</button>
-    <button type="button" data-go="TK-03g">TK-03 GPS deny</button>
+    <button type="button" data-go="TK-03g">TK-03 Pattern B fail</button>
     <button type="button" data-go="TK-04">TK-04 review</button>
     <button type="button" data-go="TK-05">TK-05 recheck</button>
   </nav>
@@ -376,17 +383,19 @@
         <div class="field" data-field="mediaIds">
           <label>Ảnh hiện trường</label>
           <div class="photo-row">
-            <div class="photo-add" title="FileMulti">+</div>
+            <div class="photo-add" title="FileMulti · capture=environment">+</div>
           </div>
+          <p class="hint">capture=&quot;environment&quot; · không fork LinImageUpload</p>
         </div>
         <p class="hint" data-field="thiCongChecks">thi-cong → ≥1 checkbox biển/rào/phân luồng</p>
         <p class="hint" data-field="violationAction">hanh-lang → violationAction · không mở sổ 07</p>
         <p class="hint" data-field="assignWo">Giao BĐTX — OUT C (đợt D) · ẩn</p>
+        <p class="hint" data-pattern="B">Pattern B · Lưu luôn bật · chỉ disabled khi saving/hydrating</p>
       </div>
     </section>
 
-    <!-- TK-03 GPS deny -->
-    <section class="screen" id="sc-TK-03g" data-des-id="TK-03" data-route="/field/tuan-kiem/phieu/moi" data-state="gps-deny">
+    <!-- TK-03 Pattern B — post-click validation (GPS deny + required) -->
+    <section class="screen" id="sc-TK-03g" data-des-id="TK-03" data-route="/field/tuan-kiem/phieu/moi" data-state="validation-attempted">
       <header class="topbar">
         <button type="button" class="back" data-leave="1" aria-label="Hủy">‹</button>
         <div class="title">Lập phiếu</div>
@@ -395,21 +404,27 @@
       <div class="content">
         <div class="toolbar-form">
           <button type="button" class="btn btn-secondary" data-leave="1">Hủy</button>
-          <button type="button" class="btn btn-primary" data-field="saveFinding" disabled>Lưu</button>
+          <button type="button" class="btn btn-primary" data-field="saveFinding">Lưu</button>
         </div>
-        <div class="banner-deny" data-field="gps-deny">
-          Chưa có GPS — cấp quyền vị trí để lưu. Cấm tọa độ mẫu.
+        <div class="banner-errors" data-field="validationBanner" data-pattern="B">
+          <button type="button" class="banner-close" aria-label="Đóng">×</button>
+          <strong>Không lưu được</strong>
+          <ul>
+            <li>Chưa có GPS — cấp quyền vị trí (cấm tọa độ mẫu)</li>
+            <li>Mô tả bắt buộc</li>
+          </ul>
         </div>
-        <div class="field">
+        <div class="field" data-field="getGps">
           <label>GPS *</label>
           <button type="button" class="btn btn-ghost btn-block" data-field="getGps">Ghim vị trí hiện tại</button>
           <p class="gps-deny">Từ chối / chưa cấp quyền</p>
         </div>
-        <div class="field" data-field="description">
+        <div class="field err" data-field="description">
           <label>Mô tả *</label>
           <textarea placeholder="Bắt buộc"></textarea>
+          <p class="inline-err">Bắt buộc</p>
         </div>
-        <p class="hint">Lưu disabled khi thiếu GPS hoặc mô tả</p>
+        <p class="hint">Pattern B · Lưu vẫn bật · banner string[] + inline sau bấm · cấm alert.warning · cấm disable vì thiếu GPS</p>
       </div>
     </section>
 
@@ -448,7 +463,7 @@
           </div>
           <button type="button" class="btn btn-ghost btn-block" data-field="createFromLech" data-go="TK-03">Lập phiếu từ lệch</button>
           <button type="button" class="btn btn-primary btn-block" data-field="reviewSave">Lưu đối chiếu</button>
-          <p class="hint">Prefill GPS/ảnh/km từ journal · không GPS mới trừ lấy lại</p>
+          <p class="hint">Pattern B · Lưu luôn bật · lệch thiếu note → banner khi bấm · prefill GPS/ảnh/km từ journal</p>
         </div>
       </div>
     </section>
@@ -467,8 +482,13 @@
           <dt>Km / vị trí</dt><dd>12+100–12+150 · trái · mặt đường</dd>
           <dt>Mô tả</dt><dd>Ổ gà mặt đường Km 12+100–12+150.</dd>
           <dt>Phạm vi / hạn</dt><dd>BĐTX · 2026-09-30</dd>
-          <dt>WO / phản hồi</dt><dd class="hint" data-field="feedbackBlock">OUT C (đợt D)</dd>
         </div>
+        <div class="field" data-field="feedbackQty">
+          <label>KL hoàn thành (nếu Live feedback)</label>
+          <input type="text" placeholder="vd. 4" />
+          <p class="hint" data-field="feedbackBlock">Pattern B · Gửi luôn bật · thiếu qty → banner khi bấm · không expand CRUD D</p>
+        </div>
+        <button type="button" class="btn btn-ghost btn-block" data-field="submitFeedback">Gửi phản hồi</button>
         <div class="field" data-field="recheckResult">
           <label>Kết luận kiểm tra lại *</label>
           <div class="radio-grid">
@@ -484,12 +504,13 @@
         <div class="field" data-field="recheckMedia">
           <label>Ảnh sau xử lý (đạt) *</label>
           <div class="photo-row">
-            <div class="photo-add">+</div>
+            <div class="photo-add" title="capture=environment">+</div>
           </div>
+          <p class="hint">capture=&quot;environment&quot;</p>
         </div>
-        <p class="hint" data-field="recheckNote">chua-dat → note + newDueAt bắt buộc</p>
+        <p class="hint" data-field="recheckNote">chua-dat → note + newDueAt bắt buộc khi bấm</p>
         <button type="button" class="btn btn-primary btn-block" data-field="confirmDone">Xác nhận xong</button>
-        <p class="hint">confirmDone chỉ khi dat · GPS deny → chặn</p>
+        <p class="hint">Pattern B · confirm/markNotOk chỉ disabled={saving} · GPS deny → banner khi bấm · API toast không vào banner</p>
       </div>
     </section>
 

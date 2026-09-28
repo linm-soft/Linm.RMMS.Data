@@ -6,44 +6,44 @@ packKind: list
 role: review
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T16:25:00.000Z
-taskId: task_5065b058
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
+writtenAt: 2026-09-27T17:30:00.000Z
+taskId: task_0a0af34d
+contentHash: sha256:e223304b3658e8067766aed729e36988d54f1df8ad38ca953b2e176e63c9594c
 review_confirm: approve
 autoApprove: ON
 e2eQa: ON
-changeScope: new_page
-mfeStdUrl: http://localhost:9301/web-rmms-asset-ai
-mfeStdRoute: /web-rmms-asset-ai
+changeScope: edit_page
+mfeStdUrl: http://localhost:9301/m/tai-san/ai
+mfeStdRoute: /tai-san/ai
 verdict: PASS
 
 ## Decisions
-- formPattern: Mobile full ≤430 · detect + HITL · Android 1-1 · useFormOptions / assetAi.*
+- changeScope: edit_page · Pattern B + SearchInput · Acc≤30 submit · no seed
 - gates: QUERY·SEC·UI-FN·BE-FN all PASS · P0/Must 0 · no fix_gaps
-- hash: unchanged → skip analy rescan
-- be: Mobile.Bff AiVision Live · Step 4b skip · cấm ERP.* · cấm invent AssetAiController · cấm auto-confirm
-- Detect: photo* GPS Acc≤30 RouteId* · POST detect → Draft → HITL
-- HITL: score SHOW RO · pin local note-only · confirm|dismiss · DES-LEAVE
-- DES-GRID: N/A phone
+- hash: chain khớp → skip analy rescan · supersede prior new_page review
+- be: Mobile.Bff AiVision Live · Step 4b skip · cấm ERP.* · cấm invent API · cấm auto-confirm
+- Detect: disabled={detecting} · validationAttempted banner · SearchInput Live · miss=--
+- HITL: score SHOW RO · pin local note-only · confirm|dismiss busy-only · DES-LEAVE
+- DES-GRID: N/A phone · QA S0/S1/QA-20 Aligned
 - next: pipeline complete · roleOnly stop (GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
 | id | controlHint | API / nav |
 |----|-------------|-----------|
 | navBack | Button/Nav | Hub · DES-LEAVE |
-| photo/gps/route/trip | Photo/Text/Select | uploads · geo · routes · sessions |
+| photo/gps/route/trip | Photo/Text/SearchInput/Select | uploads · geo · search · sessions |
 | nearbyWarn | Alert | GET nearby (opt) |
-| detect/cancel | Button | POST detect · Hub |
+| detect/cancel | Button | POST detect · Hub · Pattern B |
 | hitl/score/pin | Text/MapPin | GET · confirm · dismiss |
 
 ## Screens / zones
-- AA-00…AA-14 · QA S0/S1/QA-20 Must 0
-- peerStdUrl= http://localhost:9301/web-rmms-asset-ai
+- AA-00…AA-14 · aaValidateBanner · QA S0/S1/QA-20 Must 0
+- peerStdUrl= http://localhost:9301/m/tai-san
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-ai/ui/prototype/index.html
 
 ## API / tasks
-- Live BFF only · T-01…T-05 + T-QA done · T-BE N/A
-- debt: DEBT-PIN · DEBT-SCORE · DEBT-QA-STOCK · DEBT-LOOKUP (non-blocking)
+- Live BFF only · T-01…T-05 · T-EDIT · T-QA · T-REV done · T-BE N/A
+- debt: DEBT-PIN · DEBT-SCORE · GAP-QA-E2E-STOCK-PORT · GAP-HITL-SMOKE (non-blocking)
 
 ## UNCLEAR
 - (none blocking)

@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | feature | `web-rmms-mobile-d` |
-| title | Đợt D — kết ca, giao việc, sổ kiến nghị |
+| title | Đợt D — kết ca, giao việc, sổ kiến nghị · **delta SUBMIT-VALIDATE** |
 | packKind | `list` |
 | changeScope | `edit_page` |
 | mode | `feature_context` |
@@ -14,133 +14,114 @@
 | workflowVersion | `2026.09.19.02` |
 | rulesVersion | `2026.09.25.2` |
 | versionGate | `ok` |
-| contentHash | `sha256:7ea5a5b9a00060f5de09af3b8e3688b39fd566383859a8e73748b9d3885ea034` |
-| analyzedAt | `2026-09-25T09:28:04.000Z` |
+| contentHash | `sha256:5f81d29ed889b244e81f537e7e3f8e8d4033a5f3a2e8b37e000d83ad97784488` |
+| analyzedAt | `2026-09-27T08:35:00.000Z` |
 | demo | **N/A** |
 | realData | `specs/_data-analy/features/web-rmms-mobile-d-real-data.md` |
 | beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Patrol** + **Maintenance** WO · **cấm ERP.*** |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-mobile-d` |
-| mfeStdRoute | `/web-rmms-mobile-d` |
-| taskId | `task_0ba23800` |
+| mfeStdUrl | `http://localhost:9301/kien-nghi/moi` |
+| mfeStdRoute | `/kien-nghi/moi` |
+| taskId | `task_b83eb3a7` |
+| priorTask | `task_0ba23800` (wave D full pipeline **done**) |
 | phoneFrame | `max-width: 430px` |
 | formPattern | Mobile full · **không** ERP Modal/Slideout Kind B desktop |
-| priorWave | `web-rmms-mobile-a/b/c` · wave D = close session + WO assign + petition + feedback |
+| citeDelta | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · slug `web-rmms-mobile-d` |
+| priorWave | `web-rmms-mobile-a/b/c` · wave D baseline implemented · **this task = edit_page delta** |
 
-> Data-analy **đề xuất** controlHint. Design **chốt** control-map. SA **chốt** Schema handover/pause · petition · workOrderId · feedback.  
+> Data-analy **đề xuất** controlHint. **Giữ** PO/Design/SA artifacts baseline — chỉ § Delta dưới.  
 > Nhãn UI: `useFormOptions()` / copy key — **cấm** hardcode tiếng Việt trên form.  
-> **Cấm** nhét màn vào MFE desktop · **cấm** iOS/Android native · **cấm** tọa độ mẫu.
+> **Cấm** typed CRUD `new_page` · **cấm** Excel export · **cấm** desktop Asset · **cấm** iOS/Android · **cấm** tọa độ mẫu.
+
+## § Delta Current vs New (HARD — edit_page)
+
+Cite: `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · Pattern B (`erp-form-context` validation) · Search control users/tuyến · Mobile.Bff.
+
+| Zone / file | Current (code) | New (task) |
+|-------------|----------------|------------|
+| `CloseSessionPage.tsx` · `receiverName` | `<input>` tự do · prefill profile | **SearchInput** → `GET …/integration/users?search=` (Mobile.Bff) · cột mã=`username`/`code` · tên=`fullName` · không thấy → `--` · **cấm** giữ chuỗi gõ tay |
+| `CloseSessionPage.tsx` · Lưu | `disabled={!canSave}` · early `return` nếu thiếu | Pattern B: nút **luôn bật** (chỉ `disabled` khi `saving`) · bấm → `validationAttempted` · banner `string[]` + inline · **cấm** khóa vì thiếu required |
+| `PetitionFormPage.tsx` · `route` | `<input>` tự do | **SearchInput** + `ROAD_ROUTE_LOOKUP_CONFIG` · **cấm** seed · mã không có → `--` |
+| `PetitionFormPage.tsx` · Lưu | `disabled={!canSave}` · early return im | Pattern B giống trên · GPS deny / thiếu field → báo **sau** bấm · **cấm** khóa nút trước |
+| `lookups.ts` (shared) | `ROAD_ROUTE_SEED` + filter `QL.22` | **Xóa** seed/filterSeed · API rỗng/lỗi → list rỗng · bỏ lọc `QL.22` |
+| Mobile.Bff | chưa forward `integration/users` | Thêm forward `GET api/v1/integration/users` (pattern `RoadRoutesMobileController`) · **cấm** API mới WebService |
+| API base | — | mọi call `mobileApiBase()` / `VITE_MOBILE_API_URL` · **cấm** web-bff trực tiếp |
+| Align | — | `/align-mobile-to-mfe` · SSOT = page MFE đã có · khung 430 · **cấm** tab/route/icon mới · **cấm** prototype android/ios |
+| mfeStdUrl | packet cũ `/web-rmms-mobile-d` | **Real** `http://localhost:9301/kien-nghi/moi` (`paths.ts`) |
+| Out of scope | — | Excel · `new_page` · iOS/Android · invent endpoint · ERP.WebService |
+
+**Screens đợt D (baseline — không đổi route):**
+
+| id | route / file | surface delta |
+|----|--------------|---------------|
+| TD-06 | `CloseSessionPage.tsx` · `/field/tuan-duong/ket-ca` (sheet) | SearchInput users + Pattern B |
+| TK-06 create | `PetitionFormPage.tsx` · `/kien-nghi/moi` | SearchInput road-routes + Pattern B |
+| TK-03 / TK-05 | giữ baseline | **không** delta submit-validate slug D (cite bảng A/C nếu peer) |
 
 ## Sources
 
 | Source | Path | note |
 |--------|------|------|
-| CTX | `docs/context/features/web-rmms-mobile-d.md` | created this run · hash gate |
-| Screens D | `docs/plan/web-rmms-mobile/IMPLEMENT-SCREENS.md` | TD-06 · TK-03 assign · TK-05 feedback · TK-06 |
-| Gap | `GAP-TUAN-DUONG-TUAN-KIEM.md` | GAP-TK-04 sổ kiến nghị · đợt D |
-| WO cite | `docs/plan/web-rmms-mobile/SCREENS.md` | `CreateWorkOrderRequest` Live |
-| Peer A/B/C | CTX + `_data-analy/...-a/b/c-*` | sessions · journal · findings |
-| BE Live | `PUT patrol/sessions/{id}` · `POST maintenance/work-orders` | status ca · WO |
-| BE Mới | handover/pause · petition · feedback · workOrderId | Schema **trước** form |
-| DOMAIN-MAP | Patrol · Maintenance | SA thêm slug `web-rmms-mobile-d` · **cấm ERP.*** |
+| CTX | `docs/context/features/web-rmms-mobile-d.md` | hash gate · demo N/A |
+| Delta SSOT | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` | Pattern B · users · road-routes · BFF |
+| Screens D | `IMPLEMENT-SCREENS.md` | TD-06 · TK-03/05/06 baseline |
+| Code | `src/pages/WebRmmsMobileD/CloseSessionPage.tsx` · `PetitionFormPage.tsx` | Current canSave/input |
+| BE | DOMAIN-MAP Patrol · Maintenance · `integration/users` Live WebService | BFF forward only |
+| Prior analy | task_0ba23800 control-hint/real-data | keep inventory; delta overlays |
 
-## Screens đợt D (ids)
-
-| id | route | surface |
-|----|-------|---------|
-| TD-06 | `/field/tuan-duong/ket-ca` | form 1-of-3 action + Lưu PUT |
-| TK-03 | `/field/tuan-kiem/phieu/moi` | **nút** Giao BDTX (delta D trên form C) |
-| TK-05 | `/field/tuan-kiem/phieu/:id` | khối **Phản hồi BDTX** (delta D) |
-| TK-06 | `/field/tuan-kiem/kien-nghi` · `/moi` | list + form kiến nghị |
-
-**Out of D:** TK-07 · track GPS liên tục · native.
-
-**Peer delta:** TD-05 scope `bdtx`→WO · `vuot-bdtx`→`kien-nghi-khu`.
-
-## ControlHint inventory (đợt D)
+## ControlHint inventory — **delta fields only**
 
 | uiField | screen | controlHint | catalogKind / notes |
 |---------|--------|-------------|---------------------|
-| actionKind | TD-06 | Radio | `ket-ca` \| `ban-giao` \| `tam-dung` · **một** chọn |
-| summaryDone | TD-06 | Text RO | số dòng journal `xong` / chưa (peer B) |
-| openLinesList | TD-06 | List RO | dòng chưa xong · **không** xóa |
-| handoverNote | TD-06 | TextArea | **required** nếu bàn giao |
-| handoverOpenIds | TD-06 | Chip/List | id dòng chưa xong kèm note |
-| receiverName | TD-06 | Text/Lookup | profile cùng đơn vị nếu có · else tay + GAP |
-| pauseReason | TD-06 | Dropdown | 5 keys · **required** nếu tạm dừng |
-| saveSession | TD-06 | Button | `PUT sessions/{id}` · Status Live · handover/pause → Schema cột (hoặc Note tạm chốt 1 format) |
-| cancel | TD-06 | Button | về TD-01 · không ghi |
-| assignWo | TK-03 | Button | sau có id: `POST maintenance/work-orders` · IncidentId trống · Title=code · DueAt=hạn · lưu `workOrderId` · status `da-giao` |
-| workOrderId | TK-03/05 | Text RO | sau assign |
-| feedbackQty | TK-05 | Text | khối lượng thực hiện |
-| feedbackQuality | TK-05 | Radio | `dat` \| `chua-dat` |
-| feedbackAt | TK-05 | DateTime | thời điểm |
-| feedbackMedia | TK-05 | FileMulti | ảnh sau |
-| feedbackNote | TK-05 | TextArea | ghi chú |
-| saveFeedback | TK-05 | Button | `POST …/feedback` → status `cho-kiem-tra` |
-| petitionList | TK-06 | List cards | `GET patrol/petitions` |
-| createPetition | TK-06 | Button | → `/moi` |
-| senderUnit | TK-06 | Text | profile / đơn vị BDTX · **required** |
-| route / km | TK-06 | Text | **required** |
-| content | TK-06 | TextArea | **required** |
-| petitionKind | TK-06 | Dropdown | 5 keys |
-| getGps | TK-06 | Button | hiện trường · accuracy |
-| lat/lng/accuracyM | TK-06 | GPS | deny + không mặt → cho Lưu **không** tọa độ + flag «không có mặt» · **cấm** fake |
-| savePetition | TK-06 | Button | POST · status `moi` |
-| openFinding | TK-06 | Button | → TK-03 nguồn `kien-nghi` |
-| closePetition | TK-06 | Button | chỉ khi phiếu liên kết `xong` hoặc lý do đóng tay |
-| emptyHint | TK-06 | EmptyState | copy key |
+| receiverName | TD-06 | **SearchInput** (users) | `GET mobile-bff/…/integration/users` · no free text · miss → `--` |
+| handoverNote | TD-06 | TextArea | required **validate-on-submit** (Pattern B) · ban-giao |
+| pauseReason | TD-06 | Dropdown | required **validate-on-submit** · tam-dung |
+| saveSession | TD-06 | Button | **always enabled** trừ `saving` · banner on fail |
+| route | TK-06 | **SearchInput** (road-routes) | `ROAD_ROUTE_LOOKUP_CONFIG` · no seed · miss → `--` |
+| senderUnit / km / content / kind | TK-06 | Text / TextArea / Dropdown | required **validate-on-submit** |
+| savePetition | TK-06 | Button | **always enabled** trừ `saving` · GPS deny báo sau bấm |
+| getGps / noFace | TK-06 | Button / Flag | giữ baseline · **cấm** fake coords |
 
 ## Filter / grid (desktop HARD)
 
 | | |
 |--|--|
-| LinErpListFilterBar / DES-GRID-* | **N/A** — phone Field · **không** Kind B desktop grid |
-| TK-06 list | cards phone · **cấm** clone ERP filter bar |
+| LinErpListFilterBar / DES-GRID-* / toolbar export | **N/A** — phone Field · **không** Excel · **không** Kind B |
 
 ## GPS
 
 | Màn | Rule |
 |-----|------|
 | TD-06 | **không** GPS |
-| TK-03 assign | không bắt GPS mới (GPS lúc tạo phiếu = peer C) |
-| TK-05 feedback | ảnh sau · GPS **không** HARD trên feedback (IMPLEMENT không bắt) |
-| TK-06 | GPS nếu hiện trường · không mặt → lưu không tọa độ + ghi · **cấm** mẫu |
+| TK-06 | GPS hiện trường · deny → báo **sau** submit · no-face OK · **cấm** fake · **cấm** khóa nút trước |
 
-## API — Live vs Mới
+## API — Live vs Mới (delta focus)
 
 | Method | Path | Live? | Note |
 |--------|------|-------|------|
-| PUT | `patrol/sessions/{id}` | **Live** | Status `Hoàn thành` / giữ `Đang tuần` |
-| — | session handover/pause columns | **Mới** | Schema session hoặc bảng handover · Note tạm 1 format đến Schema |
-| POST | `maintenance/work-orders` | **Live** | Giao BDTX · lưu `workOrderId` trên finding/journal |
-| POST | `patrol/findings/{id}/feedback` | **Mới** | Schema finding feedback |
-| GET\|POST | `patrol/petitions` | **Mới** | `Schema_PatrolPetition` · **không** inbox |
-| — | `workOrderId` trên finding/journal | **Mới** cột | pair trước form |
-
-**Schema trước form (HARD):** handover/pause · petition · feedback · workOrderId.
+| GET | `integration/users?search=` | **Live** WebService | Mobile.Bff **forward** (thiếu → thêm) |
+| GET | `integration/road-routes/search` | **Live** BFF | đã có · **cấm** seed FE |
+| PUT | `patrol/sessions/{id}` | **Live** | giữ baseline |
+| GET\|POST | `patrol/petitions` | Live (post Schema D) | giữ |
+| — | web-bff | **cấm** | chỉ `mobileApiBase()` |
 
 ## UNCLEAR
 
 | id | Issue | Action |
 |----|-------|--------|
-| UNCLEAR-HANDOVER-COL | Cột session vs bảng handover · format Note tạm | SA chốt Schema 1 lần · FE/BE cùng format |
-| UNCLEAR-PAUSE-STATUS | Pause có Status riêng hay flag trên `Đang tuần` | SA · IMPLEMENT: tạm dừng không tính thiếu lượt |
-| UNCLEAR-PETITION-SCHEMA | Chưa có `Schema_PatrolPetition` Live | SA entity+schema **trước** form |
-| UNCLEAR-FEEDBACK-DTO | Body feedback finding chưa DTO Live | SA chốt · pair C finding |
-| UNCLEAR-WO-LINK | workOrderId trên finding vs journal-line | SA · IMPLEMENT cả hai surface |
-| UNCLEAR-RECEIVER-API | User cùng đơn vị cho bàn giao | GAP nếu chưa có · Text tay |
-| UNCLEAR-DOMAIN-SLUG | DOMAIN-MAP row `web-rmms-mobile-d` | SA thêm → Patrol (+ Maintenance cite) |
+| UNCLEAR-USER-SEARCH-CTRL | SearchInput users trên Mobile — component mới vs reuse pattern road-routes | Design/Dev · **cấm** gắn nguyên ERP `UserSearchInput` |
+| UNCLEAR-RECEIVER-MISS | User không trong list → `--` | PO/Dev · không free-text fallback |
+| (baseline CLOSED) | Handover/pause/petition Schema | SA prior · không mở lại trừ GAP mới |
 
 ## Handoff
 
 | Role | Dùng |
 |------|------|
-| PO | TD-06/TK-03/05/06 DoD · Schema-before-form · useFormOptions · no inbox · WO Live |
-| Design | Phone 430 · zones TD-06 · TK-03 assign · TK-05 feedback · TK-06 · no desktop grid |
-| SA | Schema handover/pause · petition · feedback · workOrderId · **cấm** ERP.* |
-| TL/Dev | Wire Mobile MFE only · pair schema trước UI submit · PUT Live status |
-| QA | GPS deny TK-06 · no fake coords · no desktop · queue qldb |
+| PO | Delta DoD: Pattern B · SearchInput users/tuyến · no seed · BFF users forward · mfeStd `/kien-nghi/moi` |
+| Design | Giữ prototype baseline · reviewUrl cũ · **chỉ** cập nhật zone receiver + route control nếu prototype lệch |
+| SA | Confirm forward-only `integration/users` · **cấm** ERP.* · **cấm** API mới WebService |
+| TL/Dev | Wire CloseSession + PetitionForm · lookups no-seed · Mobile.Bff · align 430 |
+| QA | Submit luôn bật · banner required · users 200 BFF · route `--` khi miss · no fake GPS |
 
 ## Version meta
 

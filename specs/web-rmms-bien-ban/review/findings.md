@@ -1,6 +1,6 @@
 # Review — Findings — web-rmms-bien-ban
 
-> Status: **confirmed** · writtenAt `2026-09-26T01:05:30.000Z` · task `task_f17fb486`  
+> Status: **confirmed** · writtenAt `2026-09-27T16:26:00.000Z` · task `task_32e69e2b`  
 > skillVersion: `2026.09.05.03` · packKind: `list` · autoApprove: ON · `review_confirm=approve`  
 > **Cấm** xóa file này.
 
@@ -9,14 +9,15 @@
 | Feature | `web-rmms-bien-ban` |
 | Title | Đề nghị lập biên bản |
 | Role | `review` |
-| changeScope | `new_page` |
-| formPattern | Mobile list + create TD/TK + detail · phone ≤430 · LeaveConfirmModal · N/A ERP Modal |
+| changeScope | `edit_page` |
+| formPattern | Mobile list + create TD/TK + detail · phone ≤430 · Pattern B · LeaveConfirmModal · N/A ERP Modal |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdRoute | `/web-rmms-bien-ban` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-bien-ban` |
+| mfeStdRoute | `/bien-ban` |
+| mfeStdUrl | `http://localhost:9301/bien-ban` |
 | be | `D:/AI-QLBD/Linm.RMMS.WebService` · Mobile.Bff · Patrol · **cấm ERP.*** |
-| contentHash | `sha256:bc9070c4ab20da1960355a727eae18029943c2d95865aebd7d9bcb443ea60cd2` |
-| prior QA | `confirmed` · S0/S1/QA-20 PASS · screens PNG |
+| contentHash | `sha256:3f196a65ee5bc6578aa8d96f9c08a6e0d0ca3fb263399e7a8d3fe3863da26b0e` |
+| prior QA | `confirmed` · S0/S1/QA-20 PASS · screens PNG · task `task_5a9c35f8` |
+| deltaCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` |
 
 ## Verdict
 
@@ -25,19 +26,20 @@
 | Overall | **PASS** |
 | `review_confirm` | **approve** (autoApprove=ON) |
 | fix_gaps | **none** (P0=0) |
-| Hash | skip — contentHash unchanged vs Dev/QA |
+| Hash | skip — contentHash unchanged vs data_analy→Dev/QA |
 
 ## QUERY
 
 | Check | Result | Evidence |
 |-------|--------|----------|
-| LIST kind filter | **PASS** | `GET /patrol/petitions?kind=hanh-lang` · `BienBanListPage` + `PatrolPetitionService` kind Where |
+| LIST kind filter | **PASS** | `GET petitions` kind=`hanh-lang` · `BienBanListPage` |
 | DETAIL GET `{id}` | **PASS** | `patrolPetitionsEndpoint.getById` · `BienBanDetailPage` |
 | CREATE POST | **PASS** | `patrolPetitionsEndpoint.create` · kind=`hanh-lang` · BB-02/03 |
-| Parent TD GET/PUT | **PASS** | `patrolJournalLinesEndpoint.getById` + `update` ViolationFlag=true |
-| Parent TK GET/PUT | **PASS** | `patrolFindingsEndpoint.getById` + `update` ViolationAction |
-| Parent id required | **PASS** | thiếu `journalLineId`/`findingId` → parentError · canSave false |
-| No invent BienBan* | **PASS** | Live petitions/journal/findings only · DOMAIN-MAP cite |
+| Parent TD GET/PUT | **PASS** | journal-lines update ViolationFlag=true · UI key `de-nghi-bien-ban` |
+| Parent TK GET/PUT | **PASS** | findings update ViolationAction · radios BB-03 |
+| Parent id required | **PASS** | thiếu parent → banner + block submit · by design |
+| road-routes LKP | **PASS** | `ROAD_ROUTE_LOOKUP_CONFIG` SearchInput · API search · miss=`--` · no SEED |
+| No invent BienBan* | **PASS** | Live petitions/journal/findings only |
 
 ## SEC
 
@@ -45,24 +47,27 @@
 |-------|--------|----------|
 | cấm ERP.* | **PASS** | `/patrol/*` Mobile endpoints · no ERP namespace |
 | cấm web-bff FE | **PASS** | Mobile apiClient · BFF catch-all patrol |
-| Auth gate | **PASS** | `hasAccessToken` guestGate · QA-20 SH-02 |
-| GPS deny block | **PASS** | deny → block save trừ `noFace` · no fake coords |
+| Auth gate | **PASS** | guestGate · QA-20 LoginPage `/dang-nhap` |
+| GPS deny-on-submit | **PASS** | `gpsOk=noFace\|\|gps.status==='ok'` · submit blocks · no fake coords |
 | Labels | **PASS** | `useFormOptions('web-rmms-bien-ban')` + LOOKUP_STATIC |
 | id encode | **PASS** | `paths.*` `encodeURIComponent` · peer BB-06 |
-| UI→bool TD | **PASS** | `de-nghi-bien-ban` → ViolationFlag bool (LOOKUP_STATIC) · cấm string invent |
+| UI→bool TD | **PASS** | `TD_FLAG_UI_KEY` → ViolationFlag bool |
+| cấm Excel | **PASS** | no export in feature pages |
 
 ## UI-FN
 
 | Check | Result | Evidence |
 |-------|--------|----------|
-| Shell phone ≤430 | **PASS** | `WebRmmsBienBanLayout` `data-phone-frame=430` · `#BB-ROOT` · DES-MOB-BIEN-BAN |
-| Zones BB-00…07 | **PASS** | list/create TD/TK/detail · BB-07 chips · DES-LEAVE |
-| Hai lối TD/TK | **PASS** | BB-02 ViolationFlag · BB-03 ViolationAction radios |
-| Leave dirty | **PASS** | `LeaveConfirmModal` on BB-02/03 |
-| leadSo07 | **PASS** | `SO07_HOSTED=false` → disable+toast/copy (debt PO) |
-| DES-GRID / FilterBar | **N/A** | phone list · T-QA-FILTER WAIVE |
-| Prototype parity | **PASS** | DES-MOB-BIEN-BAN · QA S0/S1 Aligned |
-| Labels | **PASS** | `bienBan.*` via useFormOptions |
+| Shell phone ≤430 | **PASS** | `WebRmmsBienBanLayout` · `#BB-ROOT` · DES-MOB-BIEN-BAN |
+| Zones BB-00…07 | **PASS** | list/create TD/TK/detail · BB-07 · DES-LEAVE |
+| Pattern B Save | **PASS** | `disabled={saving}` only · banner+inline · scroll first error |
+| SearchInput route | **PASS** | `ROAD_ROUTE_LOOKUP_CONFIG` on BB-02/03 |
+| Hai lối TD/TK | **PASS** | BB-02 ViolationFlag · BB-03 ViolationAction |
+| Leave dirty | **PASS** | `LeaveConfirmModal` BB-02/03 |
+| Route STD | **PASS** | `/bien-ban` · index Route + paths SSOT |
+| leadSo07 | **PASS** | `SO07_HOSTED=false` · disable+copy (soft debt) |
+| DES-GRID / FilterBar | **N/A** | phone · T-QA-FILTER WAIVE |
+| Prototype / QA parity | **PASS** | DES-MOB-BIEN-BAN · S0/S1/QA-20 Aligned |
 
 ## BE-FN
 
@@ -70,29 +75,29 @@
 |-------|--------|----------|
 | DOMAIN-MAP row | **PASS** | `web-rmms-bien-ban` → patrol · cấm invent BienBan* |
 | Entity / migration | **N/A** | Live reuse · Step 4b skip Review |
-| kind filter | **PASS** | `PatrolPetitionsController` query kind · AllowedKinds incl. hanh-lang |
-| ViolationAction allow | **PASS** | `lap-bien-ban\|de-nghi-vphc` · PUT findings |
-| ViolationFlag PUT | **PASS** | journal-lines PUT Live scalar |
-| FormMode↔API | **PASS** | GET\|POST\|GET{id} petitions · PUT journal · PUT findings · auth |
-| Debt soft (non-block) | noted | stock e2e port · SO07 Mobile not hosted · create needs parent query |
+| FormMode↔API | **PASS** | GET\|POST\|GET{id} petitions · PUT journal · PUT findings · road-routes/search · auth |
+| Kind / allow lists | **PASS** | hanh-lang · ViolationAction allow prior SA |
+| Debt soft (non-block) | noted | stock e2e port · SO07 not hosted · create parent id · ipv6 localhost |
 
 ## Cross-role consistency
 
 | Prior | Align |
 |-------|-------|
-| data_analy → po → design → sa → team_lead → dev → qa | inventory + API + hai lối consistent |
-| UNCLEAR DOMAIN-MAP/BFF/JOURNAL-KIND | CLOSED (SA) |
-| T-BE/UI Dev done · T-QA-* PASS/WAIVE | yes |
-| contentHash | stable `bc9070c4…60cd2` Dev/QA/Review |
+| data_analy → po → design → sa → team_lead → dev → qa | inventory + Delta HARD + hai lối consistent |
+| UNCLEAR DOMAIN/BFF/JOURNAL/STD-ROUTE | CLOSED |
+| Soft LIST-SCOPE / SO07 | chốt PO · non-block |
+| T-BE/UI Dev done · T-QA PASS/WAIVE | yes |
+| contentHash | stable `3f196a65…26b0e` across pipeline |
 
 ## Must / Gaps
 
 | ID | Sev | Action |
 |----|-----|--------|
 | — | P0 | **none** |
-| GAP-QA-E2E-STOCK-PORT | soft | carry · stock yarn e2e port 5101/5201 |
-| GAP-SO07-MOBILE-HOST | soft | carry · disable+copy until Mobile hosts csdl-bieu-07 |
+| GAP-QA-E2E-STOCK-PORT | soft | carry · stock yarn e2e API :5101 vs :5111 |
+| GAP-SO07-MOBILE-HOST | soft | carry · disable+copy until Mobile hosts `csdl-bieu-07` |
 | GAP-CREATE-PARENT-ID | soft | carry · create requires journalLineId/findingId (by design) |
+| GAP-IPV6-LOCALHOST | soft | carry · capture dùng `127.0.0.1:9301` |
 
 ## review_confirm
 

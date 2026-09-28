@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>web-rmms-vis-capture — VIS · DES-MOB-VIS-CAPTURE</title>
+  <title>web-rmms-vis-capture — VIS · DES-MOB-VIS-CAPTURE · Pattern B</title>
   <style>
     :root {
       --primary: #0C84C0;
@@ -74,6 +74,21 @@
     }
     .icon-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .content { flex: 1; overflow: auto; padding-bottom: 96px; }
+    .validation-banner {
+      display: none; margin: 10px 16px 0; padding: 12px 14px;
+      background: rgba(240,60,48,.12); border: 1px solid rgba(240,60,48,.35);
+      border-radius: 12px; font-size: 13px; color: #8a1f18;
+    }
+    .validation-banner.show { display: block; }
+    .validation-banner .vb-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      font-weight: 650; margin-bottom: 6px;
+    }
+    .validation-banner ul { margin: 0; padding-left: 18px; }
+    .validation-banner .vb-close {
+      border: 0; background: transparent; color: #8a1f18; cursor: pointer;
+      font-size: 16px; line-height: 1; padding: 2px 4px;
+    }
     .section-label {
       font-size: var(--label); color: var(--muted); text-transform: uppercase;
       letter-spacing: 0.04em; padding: 12px 16px 6px;
@@ -87,6 +102,7 @@
     .photo-slot.filled {
       border: 0; background: linear-gradient(135deg, #5ac8fa, #007aff); color: #fff;
     }
+    .photo-slot.invalid { border-color: var(--danger); }
     .photo-slot svg { width: 28px; height: 28px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
     .card-group {
       margin: 0 16px 8px; background: var(--card); border-radius: var(--radius-card); overflow: hidden;
@@ -96,6 +112,7 @@
       display: flex; align-items: center; gap: 8px;
     }
     .row:last-child { border-bottom: 0; }
+    .row.invalid .row-title { color: var(--danger); }
     .row-body { flex: 1; min-width: 0; }
     .row-sub { font-size: var(--label); color: var(--muted); }
     .row-title { font-size: var(--field); font-weight: 600; margin-top: 2px; }
@@ -146,7 +163,7 @@
 </head>
 <body>
   <div class="meta">
-    web-rmms-vis-capture · #sc-vis-capture · DES-MOB-VIS-CAPTURE · Android 1-1 (section + Skip) · TITLE-01 «Nhận diện sự cố»
+    web-rmms-vis-capture · #sc-vis-capture · Pattern B · idle CTA on · banner on click · std /chup-hien-truong
   </div>
   <div class="board-nav" role="toolbar" aria-label="Prototype modes">
     <button type="button" data-mode="ok" class="active">Default</button>
@@ -158,7 +175,7 @@
   </div>
 
   <div class="phone">
-    <!-- #sc-vis-capture · DES-MOB-VIS-CAPTURE · dual parity · đóng GAP-MOB-VIS-DUAL-01 -->
+    <!-- #sc-vis-capture · DES-MOB-VIS-CAPTURE · edit_page Pattern B · cấm pre-disable Detect/Attach -->
     <div class="screen active" id="sc-vis-capture" data-des-id="DES-MOB-VIS-CAPTURE" data-tab="incident">
       <div class="topbar">
         <button type="button" class="icon-btn" id="navBack" onclick="goBack()" aria-label="Quay lại">
@@ -167,6 +184,13 @@
         <div class="title" id="screenTitle">Nhận diện sự cố</div>
       </div>
       <div class="content">
+        <div class="validation-banner" id="validationBanner" data-control="Banner" role="alert" aria-live="polite">
+          <div class="vb-head">
+            <span>Cần bổ sung</span>
+            <button type="button" class="vb-close" onclick="clearBanner()" aria-label="Đóng">×</button>
+          </div>
+          <ul id="validationList"></ul>
+        </div>
         <div class="section-label" id="sectionPhoto">Ảnh hiện trường</div>
         <div class="photo-row" id="photos" data-control="PhotoRow">
           <div class="photo-slot filled" id="slot-filled">Ảnh</div>
@@ -240,14 +264,22 @@
   </svg>
 
   <script>
-    /** Modes: ?gps=deny|?deny=1 · ?acc=35 · ?nophoto=1 · ?nosession=1 · ?error=1 */
+    /**
+     * Pattern B (SUBMIT-VALIDATE · edit_page):
+     * Detect/Attach idle-on · disabled chỉ detecting/attaching
+     * thiếu GPS/ảnh/detection → banner string[] on click · Acc>30 no POST in handler
+     * Modes: ?gps=deny|?deny=1 · ?acc=45 · ?nophoto=1 · ?nosession=1 · ?error=1 · ?banner=1
+     */
     const params = new URLSearchParams(location.search);
     let gpsOk = !(params.has('deny') || params.get('gps') === 'deny');
     let accuracyM = params.has('acc') ? Number(params.get('acc')) : 4;
     let hasPhoto = !params.has('nophoto');
-    let hasDetect = hasPhoto && gpsOk && accuracyM <= 30;
+    let hasDetect = false;
     let noSession = params.has('nosession');
     let forceError = params.has('error');
+    let validationAttempted = params.has('banner');
+    let detecting = false;
+    let attaching = false;
 
     function toast(msg) {
       const el = document.getElementById('toast');
@@ -256,26 +288,69 @@
       setTimeout(() => el.classList.remove('show'), 2400);
     }
 
+    function setBusy() {
+      document.getElementById('detect').disabled = detecting;
+      document.getElementById('btnAttach').disabled = attaching;
+      document.getElementById('btnSkip').disabled = attaching;
+    }
+
+    function showBanner(errs) {
+      const box = document.getElementById('validationBanner');
+      const list = document.getElementById('validationList');
+      list.innerHTML = '';
+      errs.forEach((e) => {
+        const li = document.createElement('li');
+        li.textContent = e;
+        list.appendChild(li);
+      });
+      box.classList.toggle('show', errs.length > 0);
+      document.getElementById('slot-filled').classList.toggle('invalid', validationAttempted && !hasPhoto);
+      document.getElementById('rowLoc').classList.toggle('invalid', validationAttempted && !gpsOk);
+      document.getElementById('rowAcc').classList.toggle('invalid', validationAttempted && accuracyM > 30);
+    }
+
+    function clearBanner() {
+      showBanner([]);
+    }
+
+    function detectClientErrors() {
+      const errs = [];
+      if (!hasPhoto) errs.push('Thiếu ảnh hiện trường');
+      if (!gpsOk) errs.push('Chưa có vị trí GPS');
+      if (gpsOk && accuracyM > 30) errs.push('Sai số định vị > 30 m · không gửi nhận diện');
+      return errs;
+    }
+
+    function attachClientErrors() {
+      const errs = [];
+      if (!hasDetect) errs.push('Chưa có kết quả nhận diện');
+      if (!hasPhoto) errs.push('Thiếu ảnh hiện trường');
+      if (!gpsOk) errs.push('Chưa có vị trí GPS');
+      return errs;
+    }
+
     function setDetectResult(ok) {
       if (ok) {
         document.getElementById('row-class').textContent = 'Nứt dọc';
         document.getElementById('row-sev').textContent = 'Cao';
         document.getElementById('badge-sev').classList.remove('hidden');
-        document.getElementById('btnAttach').disabled = false;
         hasDetect = true;
       } else {
         document.getElementById('row-class').textContent = '—';
         document.getElementById('row-sev').textContent = '—';
         document.getElementById('badge-sev').classList.add('hidden');
-        document.getElementById('btnAttach').disabled = true;
         hasDetect = false;
       }
     }
 
-    function applyGate() {
+    function applySurface() {
       document.getElementById('row-acc').textContent = '±' + accuracyM + ' m';
-      if (noSession) {
+      if (!gpsOk) {
+        document.getElementById('row-loc').textContent = '— · chưa chốt';
+      } else if (noSession) {
         document.getElementById('row-loc').textContent = 'GPS · chưa có ca';
+      } else {
+        document.getElementById('row-loc').textContent = 'QL.1 · Km 1556+050';
       }
       if (!hasPhoto) {
         document.getElementById('slot-filled').classList.remove('filled');
@@ -284,31 +359,17 @@
         document.getElementById('slot-filled').classList.add('filled');
         document.getElementById('slot-filled').textContent = 'Ảnh';
       }
-      document.getElementById('detect').disabled = !gpsOk || accuracyM > 30 || !hasPhoto;
-      if (!gpsOk) {
-        document.getElementById('row-loc').textContent = '— · chưa chốt';
-        setDetectResult(false);
-        document.getElementById('modal-gps').classList.add('open');
-        return;
-      }
-      if (accuracyM > 30) {
-        setDetectResult(false);
-        toast('Sai số định vị quá lớn · cần ≤ 30 m trước khi nhận diện');
-        return;
-      }
-      if (!hasPhoto) {
-        setDetectResult(false);
-        return;
-      }
-      if (forceError) {
-        setDetectResult(false);
-        toast('Không nhận diện được · thử lại');
-        return;
-      }
-      setDetectResult(true);
+      /* Pattern B: cấm pre-disable Detect/Attach vì thiếu GPS/ảnh/acc */
+      detecting = false;
+      attaching = false;
+      setBusy();
+      const readyDefault = hasPhoto && gpsOk && accuracyM <= 30 && !forceError;
+      setDetectResult(readyDefault);
+      if (validationAttempted) showBanner(detectClientErrors());
+      else clearBanner();
     }
 
-    applyGate();
+    applySurface();
 
     document.querySelectorAll('.board-nav button').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -324,52 +385,58 @@
     });
 
     function openCapture() {
-      if (!gpsOk) {
-        document.getElementById('modal-gps').classList.add('open');
-        return;
-      }
-      if (accuracyM > 30) {
-        toast('Sai số định vị quá lớn · cần ≤ 30 m trước khi nhận diện');
-        return;
-      }
       hasPhoto = true;
       document.getElementById('slot-filled').classList.add('filled');
       document.getElementById('slot-filled').textContent = 'Ảnh';
-      document.getElementById('detect').disabled = false;
+      document.getElementById('slot-filled').classList.remove('invalid');
+      if (validationAttempted) showBanner(detectClientErrors());
       toast('Đã chụp · sẵn sàng nhận diện');
     }
 
     function onDetect() {
-      if (!gpsOk) {
-        document.getElementById('modal-gps').classList.add('open');
+      validationAttempted = true;
+      const errs = detectClientErrors();
+      if (errs.length) {
+        showBanner(errs);
+        if (!gpsOk) document.getElementById('modal-gps').classList.add('open');
         return;
       }
-      if (accuracyM > 30 || !hasPhoto) {
-        toast('Sai số định vị quá lớn · cần ≤ 30 m trước khi nhận diện');
-        return;
-      }
+      clearBanner();
       if (forceError) {
         setDetectResult(false);
         toast('Không nhận diện được · thử lại');
         return;
       }
-      setDetectResult(true);
-      toast('Đã nhận diện');
+      detecting = true;
+      setBusy();
+      setTimeout(() => {
+        detecting = false;
+        setBusy();
+        setDetectResult(true);
+        toast('Đã nhận diện');
+      }, 400);
     }
 
     function onAttach() {
-      if (!gpsOk) {
-        document.getElementById('modal-gps').classList.add('open');
+      validationAttempted = true;
+      const errs = attachClientErrors();
+      if (errs.length) {
+        showBanner(errs);
+        if (!gpsOk) document.getElementById('modal-gps').classList.add('open');
         return;
       }
-      if (accuracyM > 30 || !hasDetect || !hasPhoto) {
-        toast('Sai số định vị quá lớn · cần ≤ 30 m trước khi nhận diện');
-        return;
-      }
-      toast('Đã gắn sự cố');
+      clearBanner();
+      attaching = true;
+      setBusy();
+      setTimeout(() => {
+        attaching = false;
+        setBusy();
+        toast('Đã gắn sự cố');
+      }, 400);
     }
 
     function onSkip() {
+      if (attaching) return;
       toast('← Vấn đề (incident-list)');
     }
 

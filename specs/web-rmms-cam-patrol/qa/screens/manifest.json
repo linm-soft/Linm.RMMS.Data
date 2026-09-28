@@ -1,6 +1,6 @@
 {
-  "url": "http://localhost:9301/web-rmms-cam-patrol",
-  "capturedAt": "2026-09-25T18:23:19.148Z",
+  "url": "http://localhost:9301/camera-tuan",
+  "capturedAt": "2026-09-27T10:57:24.182Z",
   "steps": [
     {
       "id": "S0",
@@ -9,14 +9,14 @@
     },
     {
       "id": "S1",
-      "result": "FAIL",
-      "screenshot": "S1.png",
-      "error": "GAP-QA-E2E-DUP-01 same as S0"
+      "result": "PASS",
+      "screenshot": "S1.png"
     },
     {
       "id": "QA-20",
-      "result": "PASS",
-      "screenshot": "QA-20.png"
+      "result": "FAIL",
+      "screenshot": "QA-20.png",
+      "error": "GAP-QA-E2E-BLANK-01"
     }
   ],
   "ok": false

@@ -14,7 +14,7 @@
 | peerStdUrl | `http://localhost:9302/gis/camera` |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Gis` |
 | demo | `Linm.RMMS.Demo/src/demo/features/camera-ops-dashboard-demo.html` |
-| updatedAt | `2026-09-21T10:48:00.000Z` |
+| updatedAt | `2026-09-26T10:10:00.000Z` |
 
 ## 1. Screens / zones
 
@@ -42,6 +42,17 @@ Mọi chỗ **có hình/live** trên `/gis/camera`:
 **Cấm** worker: `.videoEl { object-fit: cover }` · `flex:1` video fill chiều cao wall · bỏ `.videoFrame`.
 
 Control: `CameraHlsTile` → `.liveVideo` stage + `.videoFrame` 16:9.
+
+## 2b. Load (`/edit-web-feature` 2026-09-26)
+
+| Zone | Khi `camerasLoading` |
+|------|----------------------|
+| KPI | 4 ô: nhãn giữ · giá trị = `.skelVal` |
+| Pool | 4 `.skelCard` · **cấm** copy «Chưa có camera» trong lúc tải |
+| Wall | 4 `.skelTile` · HLS chưa mount |
+| Tab Tốc độ | `.skelRow` khi đang `GET /cameras/events?minSpeedKmh` |
+
+Refresh 15s **không** bật lại skeleton. Đếm xe = `events/totals`, không walk trang event.
 
 ## 3. Keep prior
 

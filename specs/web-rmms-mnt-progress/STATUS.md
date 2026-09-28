@@ -6,19 +6,22 @@
 | phase | `done` |
 | status | `done` |
 | packKind | `list` |
+| changeScope | `edit_page` |
 | demo | **N/A** |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/web-rmms-mnt-progress.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdRoute | `/web-rmms-mnt-progress` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-mnt-progress` |
+| mfeStdRoute | `/cong-viec/tien-do` |
+| mfeStdUrl | `http://localhost:9301/m/cong-viec/tien-do` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| contentHash | `sha256:a7e3c91b4d2f6801e5a9b0c3d8f1472e6b5a0d9c4e1f2837a6b5c4d3e2f1098a` |
-| updatedAt | `2026-09-25T22:53:34.261Z` |
-| design_confirm | `approve` (autoApprove=ON · task_93aa1b29) |
-| solution_confirm | `approve` (autoApprove=ON · task_401f070c) |
-| team_lead_confirm | `approve` (autoApprove=ON · task_4b78e867) |
-| route_confirm | `confirm` (`/web-rmms-mnt-progress` · product `/work/progress?id=`) |
-| review_confirm | `approve` (autoApprove=ON · task_95a5dbdb · verdict PASS) |
+| contentHash | `sha256:544d007b5b40b3f3b71bb94aa78e804b2342af0c6eb7ec1edcea4b76b1b28080` |
+| updatedAt | `2026-09-27T14:14:01.063Z` |
+| taskId | `task_eaab5968` |
+| deltaCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` |
+| design_confirm | `approve` (autoApprove · Pattern B re-confirm) |
+| solution_confirm | `approve` (autoApprove · edit re-confirm · Pattern B) |
+| team_lead_confirm | `approve` (autoApprove · T-EDIT Pattern B) |
+| route_confirm | `confirm` (`/cong-viec/tien-do` · product `/work/progress?id=`) |
+| review_confirm | `approve` (autoApprove · Pattern B PASS · no P0) |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mnt-progress/ui/prototype/index.html` |
 
 ## Lock
@@ -43,25 +46,30 @@
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
-| T-01 | Route+shell WORK-P | FE | — | **done** | `/web-rmms-mnt-progress` · `/work/progress?id=` alias |
-| T-02 | Header prefill GET{id} | FE | T-01 | **done** | list chrome badge |
-| T-03 | % / note / photo local | FE | T-02 | **done** | cấm MediaUrl body |
-| T-04 | GPS gate both CTAs | FE | T-02 | **done** | GPS→Note · cấm fake |
-| T-05 | BFF POST + labels + parity | FE | T-01…T-04 | **done** | Mobile.Bff :5202 |
-| T-BE | — | — | — | N/A | no API Mới / migration |
-| T-QA | e2e | QA | T-01…T-05 | **done** | S0/S1/QA-20 PASS · capture |
-| T-REV | review | Review | T-QA | **done** | PASS · review_confirm approve |
+| T-01…T-05 | WORK-P prior | FE | — | **done** | baseline Live (prior task) |
+| T-EDIT-01 | Pattern B CTA | FE | — | **done** | `disabled={saving}` only |
+| T-EDIT-02 | Banner validate | FE | T-EDIT-01 | **done** | GPS deny/required → banner on click · `mnt.progress.gps.*` |
+| T-EDIT-03 | capture | FE | — | **done** | `input` + `capture="environment"` |
+| T-BE | — | — | — | N/A | no API mới / migration |
+| T-QA | e2e | QA | T-EDIT-* | **done** | S0/S1/QA-20 PASS Pattern B |
+| T-REV | review | Review | T-QA | **done** | PASS · review_confirm=approve |
 
 ## Blockers / open questions
 
-- (none) · GAP-MEDIA Signed **defer P2** · stock e2e port gate soft (5101/5201 vs 5111/5202)
+- (none) · UNCLEAR-BANNER-COPY **CLOSED** (PO) · GAP-MEDIA Signed **defer P2**
 
 ## Links
 
 - data-analy → po → ui → be → task → implement → qa → review
-- mfeStdUrl: `http://localhost:9301/web-rmms-mnt-progress`
-- mfeStdRoute: `/web-rmms-mnt-progress`
+- mfeStdUrl: `http://localhost:9301/m/cong-viec/tien-do`
+- mfeStdRoute: `/cong-viec/tien-do`
 - reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mnt-progress/ui/prototype/index.html`
 - handoff: `specs/web-rmms-mnt-progress/handoff/review-compact.md`
-- findings: `specs/web-rmms-mnt-progress/review/findings.md`
+- deltaCite: `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md`
+- control-hint: `specs/_data-analy/features/web-rmms-mnt-progress-control-hint.md`
+- real-data: `specs/_data-analy/features/web-rmms-mnt-progress-real-data.md`
+- solution: `specs/web-rmms-mnt-progress/be/solution-discovery.md`
+- task: `specs/web-rmms-mnt-progress/task/web-rmms-mnt-progress.md`
+- implement: `specs/web-rmms-mnt-progress/implement/web-rmms-mnt-progress.md`
 - scenarios: `specs/web-rmms-mnt-progress/qa/scenarios.md`
+- findings: `specs/web-rmms-mnt-progress/review/findings.md`

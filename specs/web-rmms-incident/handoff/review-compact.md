@@ -6,43 +6,50 @@ packKind: list
 role: review
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T21:22:07Z
-taskId: task_bc0e1942
-contentHash: sha256:665f3697a399a948edb0ab14da5fc13716b477aa84b0b8e43f6ca33eb7216d2d
+writtenAt: 2026-09-27T12:52:00.000Z
+taskId: task_cab4ccd7
+contentHash: sha256:d753df685c7334cda81339c1c6daccaa3463c4e8c6350eaff5562a6e41584015
 review_confirm: approve
 autoApprove: ON
 e2eQa: ON · prior QA PASS · no re-run
-changeScope: new_page
+changeScope: edit_page
 hashGate: skip · unchanged
 
 ## Decisions
-- formPattern: Mobile full INC-L/N/D · phone ≤430 · N/A ERP Modal · DES-GRID N/A WAIVE
-- mfe: Linm.Web.RMMS.Mobile · mfeStdRoute=/web-rmms-incident · :9301
-- be: Mobile.Bff mobile-bff/api/v1 · Incident+Patrol+Integration+AiVision · cấm ERP.* · cấm invent hub
-- P0: none · QUERY/SEC/UI-FN/BE-FN PASS · HasGps only · GPS deny/Acc≤30 · guestGate · MediaIds≤10
-- Step 4b/MIG: N/A · Lat deferred · peer INC-V/C/E OOS
+- formPattern: Mobile 430 · Pattern B INC-N · N/A ERP Modal/DES-GRID WAIVE
+- mfeStdRoute: /van-de|/van-de/moi|/van-de/:id · mfeStdUrl http://localhost:9301/m/van-de/moi
+- be: Mobile.Bff :5202 · Live keep · T-BE/MIG N/A · cấm ERP.* · cấm invent hub
+- HARD: create disabled chỉ creating · banner string[] AC-PB-04 · GPS deny on-submit · photos capture giữ
+- P0: none · QUERY/SEC/UI-FN/BE-FN PASS · QA S0/S1/QA-20/PB-01/PB-GPS cited
 - next: queue completed · GAP-PKT-ROLE-01 stop
 
 ## Inventory (slim)
 | id | controlHint | review |
 |----|-------------|--------|
-| guestGate | Static/Button | PASS |
-| search/filters/fab | Search+Chip+FAB | PASS |
-| list.card | CardList HasGps | PASS |
+| create | Button Pattern B | PASS · disabled=creating |
+| validate.banner | Banner string[] | PASS · AC-PB-04 |
+| gpsLock | GPS on-submit | PASS · modal deny |
+| photos | PhotoRow capture | PASS |
 | assetPick | LookupGrid | PASS |
-| photos/detect/gps | PhotoRow/GPS | PASS |
-| sessionStamp | Text RO toast | PASS |
-| detail.close | Button | PASS |
+| sessionStamp | Text RO | PASS · banner empty |
+| list/filters/fab | Search+Chip+FAB | PASS keep |
+| detail.close | Button | PASS keep |
+| auth.gate | LoginPage LG-00 | PASS |
 
-## Screens / zones (ids only)
-- INC-L · INC-N · INC-D · guestGate · SH-02
-- mfeStdUrl= http://localhost:9301/web-rmms-incident
+## Screens / zones
+- INC-L · INC-N (Pattern B) · INC-D · LG-00 · peer INC-V/C/E OOS
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-incident/ui/prototype/index.html
+- peerStdUrl= http://localhost:9301/m/van-de/moi
+- DES-GRID / LinErpListFilterBar: N/A · WAIVE
 
-## API / debt (ids only)
+## API / debt
 - Live: GET/POST incidents · GET{id} · close · sessions · asset-types · uploads · detect
 - debt: stock e2e port soft · Lat MIG deferred · peer OOS
+
+## UNCLEAR
+- (none)
 
 ## Full paths
 - findings: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-incident/review/findings.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-incident/STATUS.md
+- prior-qa: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-incident/handoff/qa-compact.md

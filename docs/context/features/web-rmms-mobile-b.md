@@ -5,7 +5,7 @@
 > **Demo:** N/A (field master-adjacent · **cấm** demo HTML / tọa độ mẫu SSOT)  
 > **MFE:** `Linm.Web.RMMS.Mobile` · khung phone `max-width` 430px · **cấm** nhét màn vào MFE desktop Asset/Field  
 > **BE:** `Linm.RMMS.WebService` · domain **Patrol** (+ Auth · Files · Integration peer) · **cấm ERP.*** / Domains/Master  
-> **mfeStdRoute:** `/web-rmms-mobile-b` · **mfeStdUrl:** `http://localhost:9301/web-rmms-mobile-b`  
+> **mfeStdRoute:** `/nhat-ky` · **mfeStdUrl:** `http://localhost:9301/nhat-ky`  
 > **Queue:** `/agent-qldb-workflow` · alias `web-rmms-mobile-b` · **cấm** iOS/Android native
 
 ## 1. Mục tiêu
@@ -89,5 +89,5 @@ Trong ca tuần đường đang mở: **sổ nhật ký (TD-04)** + **tạo/sử
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `done` | `done` | `2026-09-25T08:36:15.959Z` |
+| web | `done` | `done` | `2026-09-27T07:56:13.558Z` |
 | mobile | — | — | — |

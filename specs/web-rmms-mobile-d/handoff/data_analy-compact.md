@@ -1,65 +1,65 @@
-# Handoff compact — data_analy
+# handoff compact — data_analy → po
 
-schemaVersion: 1
-feature: web-rmms-mobile-d
-packKind: list
-role: data_analy
-status: done
-skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T09:28:04.000Z
-contentHash: sha256:7ea5a5b9a00060f5de09af3b8e3688b39fd566383859a8e73748b9d3885ea034
+| Field | Value |
+|-------|-------|
+| schemaVersion | `1` |
+| feature | `web-rmms-mobile-d` |
+| role | `data_analy` |
+| packKind | `list` |
+| changeScope | `edit_page` |
+| taskId | `task_b83eb3a7` |
+| status | `PASS` |
+| demo | `N/A` |
+| contentHash | `sha256:5f81d29ed889b244e81f537e7e3f8e8d4033a5f3a2e8b37e000d83ad97784488` |
+| skillVersion | `2026.09.05.03` |
+| workflowVersion | `2026.09.19.02` |
+| rulesVersion | `2026.09.25.2` |
+| analyzedAt | `2026-09-27T08:35:00.000Z` |
+| nextRole | `po` |
 
-## Decisions
-- changeScope: edit_page
-- formPattern: Mobile full (phone max-width 430) · N/A ERP Modal/Slideout
-- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/web-rmms-mobile-d
-- be: D:/AI-QLBD/Linm.RMMS.WebService · Patrol + Maintenance WO · cấm ERP.*
-- demo: N/A
-- wave D: TD-06 ket-ca/ban-giao/tam-dung · TK-03 assign WO · TK-05 feedback · TK-06 petitions
-- Live: PUT sessions Status · POST maintenance/work-orders
-- HARD: Schema handover/pause · petition · feedback · workOrderId pair trước form
-- labels: useFormOptions() · cấm hardcode VN form
-- GPS: navigator.geolocation · deny blocks nút cần tọa độ · TK-06 no-face OK không fake · TD-06 no GPS
-- petition ≠ notification/inbox
-- out of D: TK-07 (E)
-- open questions: UNCLEAR-HANDOVER-COL · UNCLEAR-PAUSE-STATUS · UNCLEAR-PETITION-SCHEMA · UNCLEAR-FEEDBACK-DTO · UNCLEAR-WO-LINK · UNCLEAR-RECEIVER-API · UNCLEAR-DOMAIN-SLUG
+## Paths
 
-## Inventory (slim)
-| id | label | controlHint | notes |
-|----|-------|-------------|-------|
-| actionKind | việc TD-06 | Radio | ket-ca/ban-giao/tam-dung |
-| handoverNote | bàn giao | TextArea | required if ban-giao |
-| pauseReason | tạm dừng | Dropdown | 5 keys required |
-| saveSession | Lưu | Button | PUT sessions Live Status |
-| assignWo | giao BDTX | Button | POST WO Live · workOrderId · da-giao |
-| feedback.* | phản hồi | form block | POST …/feedback → cho-kiem-tra |
-| petitionList | sổ KN | List cards | GET petitions Mới |
-| sender/route/km/content/kind | tạo KN | form | POST petitions |
-| lat/lng | GPS TK-06 | GPS | no-face → save w/o coords |
+| Artifact | Path |
+|----------|------|
+| controlHint | `specs/_data-analy/features/web-rmms-mobile-d-control-hint.md` |
+| realData | `specs/_data-analy/features/web-rmms-mobile-d-real-data.md` |
+| context | `docs/context/features/web-rmms-mobile-d.md` |
+| deltaCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
+| be | `D:/AI-QLBD/Linm.RMMS.WebService` |
+| mfeStdUrl | `http://localhost:9301/kien-nghi/moi` |
+| mfeStdRoute | `/kien-nghi/moi` |
+| reviewUrl (keep) | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-d/ui/prototype/index.html` |
 
-## Screens / zones (ids only)
-- TD-06 · TK-03 (assign) · TK-05 (feedback) · TK-06
-- reviewUrl= (Design)
-- peerStdUrl= http://localhost:9301/web-rmms-mobile-d
-- DES-GRID / LinErpListFilterBar: N/A phone
+## Delta (mandatory)
 
-## API / tasks (ids only)
-- FormMode↔API: PUT sessions · POST work-orders · POST findings/{id}/feedback · GET|POST petitions
-- real-data §A+§B: PASS
-- T-*: (team_lead)
+- **edit_page** · NEW task · **cấm** `new_page` typed CRUD · **cấm** Excel
+- TD-06 `CloseSessionPage`: `receiverName` → **SearchInput users** (`integration/users` via Mobile.Bff) · Pattern B submit
+- TK-06 `PetitionFormPage`: `route` → **SearchInput road-routes** · no `ROAD_ROUTE_SEED` · Pattern B
+- BFF: forward `GET integration/users` · all calls `mobileApiBase()` · **cấm** web-bff
+- Align: MFE 430 · no new tab/route/icon · no android/ios prototype
+- Keep prior PO/Design/SA baseline · overlay delta only
 
-## UNCLEAR
-- UNCLEAR-HANDOVER-COL: session cols vs bảng · Note tạm format
-- UNCLEAR-PAUSE-STATUS: flag vs Status riêng
-- UNCLEAR-PETITION-SCHEMA: Schema_PatrolPetition chưa Live
-- UNCLEAR-FEEDBACK-DTO: body feedback
-- UNCLEAR-WO-LINK: workOrderId finding vs journal
-- UNCLEAR-RECEIVER-API: user cùng đơn vị
-- UNCLEAR-DOMAIN-SLUG: DOMAIN-MAP row web-rmms-mobile-d
+## Screens / zones
 
-## Full paths (Read only if needed)
-- control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-mobile-d-control-hint.md
-- real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-mobile-d-real-data.md
-- context: D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/web-rmms-mobile-d.md
-- screens: D:/AI-QLBD/Linm.RMMS.Data/docs/plan/web-rmms-mobile/IMPLEMENT-SCREENS.md
-- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-d/STATUS.md
+| id | file | zone |
+|----|------|------|
+| TD-06 | `WebRmmsMobileD/CloseSessionPage.tsx` | receiver SearchInput · save Pattern B |
+| TK-06 | `WebRmmsMobileD/PetitionFormPage.tsx` | route SearchInput · save Pattern B |
+
+## DoR checklist
+
+- [x] control-hint + real-data both present
+- [x] § Delta Current vs New cited SUBMIT-VALIDATE
+- [x] packKind=list · changeScope=edit_page · demo N/A
+- [x] mfeStd real `/kien-nghi/moi`
+- [x] BE ONLY RMMS.WebService + DOMAIN-MAP
+- [x] handoff PO ready
+
+## Open (non-blocking)
+
+| id | note |
+|----|------|
+| UNCLEAR-USER-SEARCH-CTRL | Mobile SearchInput users pattern (not ERP UserSearchInput) |
+| GAP-DA-MOB-D-USERS-01 | BFF forward users |
+| GAP-DA-MOB-D-SEED-01 | remove ROAD_ROUTE_SEED |

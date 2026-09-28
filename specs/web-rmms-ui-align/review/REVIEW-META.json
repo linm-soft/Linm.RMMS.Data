@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1",
+  "feature": "web-rmms-ui-align",
+  "status": "done",
+  "reviewHash": "sha256:554b56d529a010b6225fe92fc369904fd070a80f12503c35e914643f82bcfe4b",
+  "contentHash": "sha256:554b56d529a010b6225fe92fc369904fd070a80f12503c35e914643f82bcfe4b",
+  "skillId": "agent-review",
+  "skillVersion": "2026.09.05.03",
+  "rulesVersion": "2026.09.05.03",
+  "review_confirm": "done",
+  "mustCount": 0,
+  "p0Count": 0,
+  "taskId": "task_6a32558a",
+  "writtenAt": "2026-09-26T07:30:00.000Z"
+}

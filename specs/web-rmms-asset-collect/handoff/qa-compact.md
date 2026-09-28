@@ -6,21 +6,21 @@ packKind: list
 role: qa
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T15:05:00.000Z
-taskId: task_1e2c84e5
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
+writtenAt: 2026-09-27T09:38:00.000Z
+taskId: task_7609b588
+contentHash: sha256:bf61e3677d8c0ff81bfccd4e08df8f452a069408ae43f3d025dde73959990a79
 autoApprove: ON
 e2eQa: ON
-changeScope: new_page
-mfeStdUrl: http://localhost:9301/web-rmms-asset-collect
-mfeStdRoute: /web-rmms-asset-collect
+changeScope: edit_page
+mfeStdUrl: http://localhost:9301/tai-san/thu-thap
+mfeStdRoute: /tai-san/thu-thap
+nextRole: review
 
 ## Decisions
-- formPattern: Mobile full form ≤430 · Create · GPS gate · photos local GAP · DES-LEAVE
+- changeScope: edit_page · Pattern B · SearchInput route · GPS-on-submit · photos local GAP
 - e2e: docker up + start:std :9301 (no kill) + capture_acollect · cases S0,S1,QA-20
-- stock yarn e2e-qa FAIL soft (API probe :5101 vs :5111) · workaround capture
-- visual: Aligned · Must 0 · P0 none
-- hotfix QA: restore `.topbar .title` in WebRmmsShell CSS (compile)
+- stock yarn e2e-qa FAIL soft (S1 DUP-01) · workaround capture Hub `/tai-san`
+- visual: Aligned · Must 0 · P0 none · searchInput=true · submitDisabled=false
 - WAIVE: filter-bar · POST create smoke · Leave click
 - next: /agent-review · roleOnly stop (GAP-PKT-ROLE-01) · cấm phase=done
 
@@ -28,20 +28,24 @@ mfeStdRoute: /web-rmms-asset-collect
 | id | controlHint | API / nav |
 |----|-------------|-----------|
 | navBack | Button/Nav | Hub · DES-LEAVE |
-| name/type/route/km/status | Text/Select | Live lookups |
+| name/type/km/status | Text/Select | Live lookups |
+| route | SearchInput | no seed · miss `--` |
 | gpsPin | Text RO | geolocation |
 | photos | PhotoRow | local GAP |
-| submit/cancel | Button | POST · Hub |
+| submit | Button | disabled={saving} only |
+| errBanner | Banner | after attempt |
 
 ## Screens / zones
-- AC-00…AC-10 · S0/S1/QA-20 PNG PASS
-- peerStdUrl= http://localhost:9301/web-rmms-asset-collect
+- AC-00…AC-10 · errBanner · S0/S1/QA-20 PNG PASS
+- peerStdUrl= http://localhost:9301/tai-san/thu-thap
+- hubStdUrl= http://localhost:9301/tai-san
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-collect/ui/prototype/index.html
+- DES-GRID / LinErpListFilterBar: N/A phone form
 
 ## API / tasks
-- Live 200: asset-types · road-routes/search · road-assets/init-data · patrol/sessions
+- Live: asset-types · form zones · Hub tileCollect → collect
 - T-06 qa **done** · T-07 review pending
-- debt: MEDIA GAP · LOOKUP_HINT_KEYS · STOCK-PORT
+- debt: MEDIA GAP · STOCK-DUP · LOOKUP_WALLET_DASH
 
 ## UNCLEAR
 - UNCLEAR-MEDIA-01: open GAP — local only

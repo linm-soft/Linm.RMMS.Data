@@ -24,6 +24,7 @@
 | 0 | `master` | Danh mục Master (hub) | Master | P1 | — | Context | [master.md](master.md) · [import SSOT](import-gov-ssot.md) |
 | 0a | `org-unit` | Cơ cấu tổ chức DRVN | Master | P1 | — (**no demo**) | Context | [org-unit.md](org-unit.md) |
 | 0b | `road-route` | Tuyến đường | Master | P1 | `Sau-sat-nhap/gov` raw tuyến | Context | [road-route.md](road-route.md) · [đề cương LRS](../24-TUAN-DUONG-DUONG-BO.md) |
+| 0b2 | `gps-route-capture` | Fill tuyến theo GPS (phone) | Patrol·Incident | P1 | Mobile capture · sự cố · check-in | Context | [gps-route-capture.md](gps-route-capture.md) |
 | 0c | `asset-type` | Loại tài sản KCHT | Master | P1 | `Sau-sat-nhap/gov` (catalog) | Context | [asset-type.md](asset-type.md) |
 | 0c2 | `traffic-sign-type` | Loại biển báo (mã QCVN) | Master | P1 | Excel số hiệu biển + dump `gov-vn` | Context | [traffic-sign-type.md](traffic-sign-type.md) |
 | 0d | `partner-unit` | Sở / BOT / Cty | Master | P1 | Seed 13 + Excel T6 `t6-org-scope` · CUC 2 = demo | Context | [partner-unit.md](partner-unit.md) |
@@ -110,6 +111,7 @@
 | 18 | `integration` | Open API và tích hợp | Integration | P1–P3 | Import TS · offline sync | Demo | [integration.md](integration.md) |
 | — | `feedback` | Góp ý phần mềm | Integration | P1 | Mobile **Góp ý** | Demo | [feedback.md](feedback.md) |
 | — | `users` | QL người dùng / tổ chức | Auth / Integration | P1 | Web QL Cơ quan/User · profile | Demo | [users.md](users.md) |
+| — | `rmms-phan-quyen` | Data scope tuần đường (LEAD / phòng ban / mã NV) | Patrol | support | Checker seed cuc-01 · khóa `UserId` | Context | [rmms-phan-quyen.md](rmms-phan-quyen.md) |
 | — | `login` | Login platform + TK theo HĐ | Auth × Contract | P1 / P1.5 | — (platform login) | Context · await_approve | [login.md](login.md) · [SPEC](../../plan/login-contract-lifecycle/SPEC.md) |
 
 ## Nguyên tắc P1 (từ 09 + map)

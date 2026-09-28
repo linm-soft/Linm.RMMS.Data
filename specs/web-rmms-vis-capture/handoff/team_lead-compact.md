@@ -5,22 +5,25 @@ feature: web-rmms-vis-capture
 packKind: list
 role: team_lead
 status: confirmed
+changeScope: edit_page
+taskId: task_9ed74d76
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T04:40:00.000Z
-taskId: task_45fa6cfc
-contentHash: sha256:96ffc2878a4c6ad0367088c699203864c2e711b055ca68da8a59d696c8d4de97
+writtenAt: 2026-09-27T11:35:00.000Z
+contentHash: sha256:f749bc65f84b7bde51beeebaa85e5db22dacc8e8a040a53de30af834fa55c8cd
 autoApprove: ON
-route_confirm: confirm
+route_confirm: keep
 
 ## Decisions
-- changeScope: new_page · formPattern: Mobile full VIS · phone ≤430 · Android 1-1 #sc-vis-capture · N/A ERP Modal · DES-GRID N/A
-- TITLE-01: «Nhận diện sự cố» · PACK-01 list + full · DUAL-01 section+Skip
-- mfeStdRoute: /web-rmms-vis-capture · mfeStdUrl http://localhost:9301/web-rmms-vis-capture · product /incident/vis
-- BFF: Mobile.Bff :5202 · **cấm** web-bff · **cấm** invent VisCapture · **cấm** ERP.*
-- DEC-DETECT-HOST: Vision :5311 via BFF · **cấm** on-device · DEC-PGC-BE-01: HasGps+DetectionId · no Lat
-- HARD: GPS deny block · Acc≤30 detect · Skip=dismiss · live · useFormOptions · **cấm** fake
-- Step 4b / migration / API Mới: **none** · T-BE=N/A
-- T-*: T-01 route · T-02 Photo+GPS · T-03 detect · T-04 result · T-05 attach/skip · T-06 session+labels · T-QA queued
+- changeScope: edit_page · cấm typed new_page · giữ Live API / DEC-*
+- cite: SUBMIT-VALIDATE Pattern B · VisCapturePage
+- Delta: Detect/Attach idle-on · disabled chỉ detecting/attaching · #validationBanner on click · Acc>30 no POST handler
+- ROUTE-01: std /chup-hien-truong · cấm /web-rmms-vis-capture · route_confirm=keep
+- Align: /align-mobile-to-mfe · SSOT=VisCapturePage · cấm tab/route/icon mới
+- formPattern: Mobile full 430 · #sc-vis-capture · N/A DES-GRID · useFormOptions
+- BFF: Mobile.Bff :5202 · users forward if missing · cấm web-bff · cấm ERP.*
+- DEC-DETECT-HOST: Vision :5311 via BFF · cấm on-device · DEC-PGC-BE-01: HasGps+DetectionId · no Lat
+- Step 4b / migration / API Mới: none · T-BE=N/A
+- T-*: T-01 keep route · T-02 Photo+GPS · T-03 Detect Pattern B · T-04 result · T-05 Attach Pattern B · T-06 banner+align · T-QA queued
 - next: /agent-dev · roleOnly stop (GAP-PKT-ROLE-01) · e2eQa queued /agent-qa*
 
 ## Inventory (slim)
@@ -28,31 +31,32 @@ route_confirm: confirm
 |----|-------|-------------|-------|
 | photos | ảnh | PhotoRow | T-02 uploads |
 | rowLoc | vị trí | ListRow RO | T-02 · T-06 |
-| rowAcc | sai số | ListRow RO | T-02 · Acc≤30 |
-| detect | nhận diện | Button/auto | T-03 Engine=P1 |
+| rowAcc | sai số | ListRow RO | T-02 · Acc>30 handler |
+| detect | nhận diện | Button | T-03 Pattern B |
 | rowClass | phân loại | ListRow RO | T-04 |
 | rowSev | mức | ListRow+Badge | T-04 |
-| btnAttach | gắn sự cố | Button | T-05 HasGps |
+| btnAttach | gắn sự cố | Button | T-05 Pattern B |
 | btnSkip | bỏ qua | Button | T-05 dismiss |
-| gpsLock | GPS | GPS | T-02 deny→block |
+| gpsLock | GPS | GPS | T-02 deny→banner |
+| validationBanner | lỗi client | Banner | T-03 · T-05 · T-06 |
 
 ## Screens / zones (ids only)
-- VIS · #sc-vis-capture · DES-MOB-VIS-CAPTURE · peer INC-L · CAP
+- VIS · #sc-vis-capture · DES-MOB-VIS-CAPTURE · #validationBanner · peer INC-L · CAP
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/ui/prototype/index.html
-- peerStdUrl= http://localhost:9301/web-rmms-vis-capture
+- peerStdUrl= http://localhost:9301/chup-hien-truong
 - DES-GRID / LinErpListFilterBar: N/A
 
 ## API / tasks (ids only)
-- FormMode↔API: uploads* · sessions · detect · detections/{id} · incidents
+- FormMode↔API: uploads* · sessions · detect · detections/{id} · incidents · users forward
 - T-01…T-06 · T-BE=N/A · T-QA queued
-- cite: T-W4-04 · AC-VIS-01..10
+- cite: AC-VIS-01..12 · Pattern B
 
 ## UNCLEAR
-- UNCLEAR-SESS → Dev/QA empty toast · GPS-only · cấm itemsOrDemo
-- (closed: DOMAIN-MAP-VIS · DETECT-HOST · PGC-BE-01 · DUAL-01 · TITLE-01 · PACK-01)
+- UNCLEAR-VALIDATE-B → Dev/QA Pattern B
+- UNCLEAR-ALIGN-01 → Dev align-mobile-to-mfe
+- UNCLEAR-SESS → Dev/QA GPS-only empty sessions
 
 ## Full paths (Read only if needed)
 - task: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/task/web-rmms-vis-capture.md
-- sa compact: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/handoff/sa-compact.md
-- design: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/ui/design.md
+- sa-compact: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/handoff/sa-compact.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/STATUS.md

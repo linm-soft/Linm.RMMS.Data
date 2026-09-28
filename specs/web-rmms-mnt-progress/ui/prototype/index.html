@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>web-rmms-mnt-progress — Tiến độ công việc</title>
+  <title>web-rmms-mnt-progress — Tiến độ công việc (Pattern B)</title>
   <style>
     :root {
       --primary: #0C84C0;
@@ -179,6 +179,10 @@
       border-style: solid; background: linear-gradient(135deg, #cfe8f5, #e8f4fa);
       color: var(--deep); font-size: 12px; font-weight: 600;
     }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); border: 0;
+    }
     .actions {
       display: flex; flex-direction: column; gap: 10px;
       margin-top: 8px; padding-bottom: 8px;
@@ -213,11 +217,12 @@
 <body>
   <div class="meta">
     feature <code>web-rmms-mnt-progress</code> · zone <code>WORK-P</code> · phone 430 ·
-    reviewUrl prototype · GPS gate cả 2 nút · MediaUrl = cấm body
+    Pattern B · CTA <code>disabled=saving</code> only · GPS deny → banner on click ·
+    <code>capture=environment</code> · MediaUrl = cấm body · std <code>/cong-viec/tien-do</code>
   </div>
   <div class="board-nav" id="boardNav">
     <a href="?" data-q="">Default (GPS ok)</a>
-    <a href="?deny=1" data-q="deny">GPS deny</a>
+    <a href="?deny=1" data-q="deny">GPS deny (banner on click)</a>
     <a href="?pct=100" data-q="pct">% = 100</a>
     <a href="?done=1" data-q="done">Post-complete</a>
   </div>
@@ -228,8 +233,9 @@
       <div class="nav-title">Cập nhật trạng thái</div>
     </div>
     <div class="content">
-      <div class="banner" id="gpsBanner">
-        Không có vị trí GPS. Bật định vị để Cập nhật / Hoàn thành. Không dùng tọa độ giả.
+      <div class="banner" id="gpsBanner" data-field="validationBanner" role="alert">
+        <!-- key: mnt.progress.gps.denied -->
+        Không có vị trí GPS. Bật định vị rồi thử lại. Không dùng tọa độ giả.
       </div>
 
       <div class="card" data-field="woHeader">
@@ -256,7 +262,7 @@
       <div class="card">
         <label class="field-label" for="note">Ghi chú</label>
         <textarea id="note" data-field="note" placeholder="Mô tả tiến độ…">Đã vá lớp mặt · chờ lăn.</textarea>
-        <p class="hint" id="gpsNoteHint">GPS sẽ được ghi vào Note khi gửi (lat/lng/acc) — không gửi field body riêng.</p>
+        <p class="hint" id="gpsNoteHint">GPS ghi vào Note khi gửi (lat/lng/acc) — không field body · Pattern B báo lúc bấm.</p>
       </div>
 
       <div class="card">
@@ -271,12 +277,21 @@
       </div>
 
       <div class="card">
-        <div class="field-label">Ảnh (local · không MediaUrl body)</div>
+        <div class="field-label">Ảnh (local · capture=environment · không MediaUrl body)</div>
         <div class="photo-row" data-field="photoLocalIds">
           <div class="photo-slot has">1</div>
-          <div class="photo-slot">+</div>
+          <label class="photo-slot" for="photoInput" title="capture=environment">+</label>
+          <input
+            id="photoInput"
+            class="sr-only"
+            type="file"
+            accept="image/*"
+            capture="environment"
+            multiple
+            data-field="photoCapture"
+          />
         </div>
-        <p class="hint">P1 preview local only · persist media = SA Signed (GAP).</p>
+        <p class="hint">P1 preview local · <code>capture=&quot;environment&quot;</code> · persist media = SA Signed (GAP).</p>
       </div>
 
       <div class="actions">
@@ -298,6 +313,7 @@
       var done = params.has("done");
       var pctQ = params.get("pct");
       var pct = pctQ != null ? Math.min(100, Math.max(0, parseInt(pctQ, 10) || 0)) : (done ? 100 : 45);
+      var saving = false;
 
       var range = document.getElementById("pct");
       var pctVal = document.getElementById("pctVal");
@@ -322,13 +338,22 @@
         setTimeout(function () { toast.classList.remove("show"); }, 2200);
       }
 
+      function setSaving(v) {
+        saving = v;
+        if (!done) {
+          btnP.disabled = saving;
+          btnC.disabled = saving;
+        }
+      }
+
+      // Pattern B: deny does NOT pre-disable CTAs — banner only after click
       if (deny) {
         chip.classList.add("deny");
         document.getElementById("gpsTitle").innerHTML = "<strong>GPS bị từ chối</strong>";
-        document.getElementById("gpsCoords").textContent = "Không có tọa độ · cấm fake";
-        banner.classList.add("show");
-        btnP.disabled = true;
-        btnC.disabled = true;
+        document.getElementById("gpsCoords").textContent = "Không có tọa độ · cấm fake · CTA vẫn bật";
+        banner.classList.remove("show");
+        btnP.disabled = false;
+        btnC.disabled = false;
       } else {
         note.value = note.value + "\n[GPS 21.0285,105.8542 ±8m]";
       }
@@ -343,14 +368,24 @@
         badge.textContent = "Đang xử lý";
       }
 
-      btnP.addEventListener("click", function () {
-        if (btnP.disabled) return;
-        showToast("POST …/progress · ProgressPercent=" + range.value);
-      });
-      btnC.addEventListener("click", function () {
-        if (btnC.disabled) return;
-        showToast("POST …/complete · Note + GPS suffix");
-      });
+      function attemptSubmit(kind) {
+        if (done || saving) return;
+        if (deny) {
+          banner.classList.add("show");
+          return;
+        }
+        banner.classList.remove("show");
+        setSaving(true);
+        if (kind === "progress") {
+          showToast("POST …/progress · ProgressPercent=" + range.value);
+        } else {
+          showToast("POST …/complete · Note + GPS suffix");
+        }
+        setTimeout(function () { setSaving(false); }, 900);
+      }
+
+      btnP.addEventListener("click", function () { attemptSubmit("progress"); });
+      btnC.addEventListener("click", function () { attemptSubmit("complete"); });
 
       document.querySelectorAll("#boardNav a").forEach(function (a) {
         var q = a.getAttribute("data-q");

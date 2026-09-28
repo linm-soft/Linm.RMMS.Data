@@ -131,32 +131,35 @@ async function captureCurrent(id, waitSel) {
 try {
   await login();
 
-  // S0 — hub đợt D
+  // S0 — hub đợt D (D-00)
   await capture(
     "S0",
-    base + "/web-rmms-mobile-d",
+    base + "/dot-tuan",
     '[data-des-id="D-00"], [data-feature="web-rmms-mobile-d"]',
   );
 
-  // S1 — peer Patrol hub A · CTA Kết ca (đợt D)
-  await capture("S1", base + "/web-rmms-mobile-a/tuan-duong", '[data-des-id="TD-00"], body');
+  // S1 — peer mfeStd TK-06 Pattern B + SearchInput route (delta)
+  await capture(
+    "S1",
+    base + "/kien-nghi/moi",
+    '[data-des-id="TK-06"]',
+  );
 
-  // QA-20 — prefer in-app click (keeps JWT) → TD-06; fallback TK-06 create
-  const ketCaBtn = page.locator('.qTitle:has-text("Kết ca"), button:has-text("Kết ca")').first();
-  if (await ketCaBtn.count()) {
-    await ketCaBtn.click();
-    await captureCurrent("QA-20", '[data-des-id="TD-06"]');
+  // QA-20 — Pattern B validate-on-click (banner/inline) on TK-06; fallback TD-06 via peer A
+  const saveBtn = page.locator('button:has-text("Lưu")').first();
+  if (await saveBtn.count()) {
+    await saveBtn.click({ force: true });
+    await page.waitForTimeout(600);
+    await captureCurrent("QA-20", '[data-des-id="TK-06"], [data-des-id="TK-06v"]');
   } else {
-    // re-login then petition form
-    await login();
-    await capture(
-      "QA-20",
-      base + "/web-rmms-mobile-d/kien-nghi/moi",
-      '[data-des-id="TK-06"]',
-    );
+    await capture("QA-20", base + "/tuan-duong", '[data-des-id="TD-00"], body');
+    const ketCaBtn = page.locator('.qTitle:has-text("Kết ca"), button:has-text("Kết ca")').first();
+    if (await ketCaBtn.count()) {
+      await ketCaBtn.click();
+      await captureCurrent("QA-20", '[data-des-id="TD-06"]');
+    }
   }
 
-  // If QA-20 failed with login redirect, retry petition form after fresh login
   const qa = results.find((r) => r.id === "QA-20");
   if (qa && qa.result === "FAIL") {
     results.splice(
@@ -166,7 +169,7 @@ try {
     await login();
     await capture(
       "QA-20",
-      base + "/web-rmms-mobile-d/kien-nghi/moi",
+      base + "/kien-nghi/moi",
       '[data-des-id="TK-06"]',
     );
   }
@@ -179,10 +182,10 @@ writeFileSync(
   join(outDir, "manifest.json"),
   JSON.stringify(
     {
-      url: base + "/web-rmms-mobile-d",
+      url: base + "/kien-nghi/moi",
       capturedAt: new Date().toISOString(),
       method:
-        "capture_d · MFE /login · phone 430 · geo mock · S1 click→TD-06 · fallback TK-06 · stock e2e playwright junction",
+        "capture_d · MFE /login · phone 430 · geo mock · S0 /dot-tuan · S1 /kien-nghi/moi · QA-20 Pattern B Lưu",
       steps: results,
       ok,
     },

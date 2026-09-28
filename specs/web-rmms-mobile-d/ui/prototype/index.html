@@ -152,6 +152,41 @@
       background: #E8F8EA; color: #1B7A28; border-radius: 12px;
       padding: 10px 12px; margin-bottom: 12px; font-size: 13px;
     }
+    .banner-validation {
+      background: #FFF4E0; color: #9A6200; border: 1px solid #FCB43C;
+      border-radius: 12px; padding: 10px 12px; margin-bottom: 12px; font-size: 13px;
+    }
+    .banner-validation ul { margin: 6px 0 0; padding-left: 18px; }
+    .field.has-error input, .field.has-error .search-input,
+    .field.has-error textarea, .field.has-error select {
+      border-color: var(--danger);
+    }
+    .field-error { color: var(--danger); font-size: 12px; margin-top: 4px; }
+    .search-input {
+      display: flex; align-items: center; gap: 8px;
+      min-height: var(--field-h); border: 1px solid var(--border);
+      border-radius: var(--radius-control); padding: 8px 12px; background: var(--card);
+      font-size: var(--field); cursor: text;
+    }
+    .search-input .si-code {
+      font-size: 12px; font-weight: 600; color: var(--primary);
+      background: #E8F6FC; border-radius: 6px; padding: 2px 6px; flex-shrink: 0;
+    }
+    .search-input .si-name { flex: 1; color: var(--on-surface); }
+    .search-input .si-miss { color: var(--muted); font-style: italic; }
+    .search-input .si-ph { color: var(--muted); flex: 1; }
+    .search-drop {
+      margin-top: 4px; border: 1px solid var(--border); border-radius: 12px;
+      background: var(--card); overflow: hidden;
+    }
+    .search-drop button {
+      display: block; width: 100%; text-align: left; border: 0; background: transparent;
+      padding: 10px 12px; font-size: 14px; cursor: pointer; color: var(--on-surface);
+      border-bottom: 1px solid #EEE;
+    }
+    .search-drop button:last-child { border-bottom: 0; }
+    .search-drop button:hover { background: #E8F6FC; }
+    .search-drop .si-meta { color: var(--muted); font-size: 12px; }
     .photo-row { display: flex; gap: 8px; flex-wrap: wrap; }
     .photo-add {
       width: 72px; height: 72px; border: 1px dashed var(--border);
@@ -213,6 +248,7 @@
     <button type="button" data-go="TK-06e">TK-06 empty</button>
     <button type="button" data-go="TK-06">TK-06 list</button>
     <button type="button" data-go="TK-06c">TK-06 create</button>
+    <button type="button" data-go="TK-06v">TK-06 Pattern B</button>
     <button type="button" data-go="TK-06g">TK-06 no-face</button>
   </nav>
 
@@ -267,7 +303,7 @@
       <div class="content">
         <div class="toolbar-form">
           <button type="button" class="btn btn-secondary" data-field="cancel" data-leave="1">Hủy</button>
-          <button type="button" class="btn btn-primary" data-field="saveSession">Lưu</button>
+          <button type="button" class="btn btn-primary" data-field="saveSession" data-pattern="B">Lưu</button>
         </div>
         <div class="session-bar"><strong>TD-2026-118</strong> · QL.1 · Đang tuần</div>
         <div class="field" data-field="actionKind">
@@ -289,11 +325,15 @@
             <span class="chip-open">JL-044</span>
           </div>
         </div>
-        <div class="field" data-field="receiverName">
+        <div class="field" data-field="receiverName" data-control="SearchInput" data-catalog="users">
           <label>Người nhận</label>
-          <input type="text" placeholder="Nhập tên (Text tay · GAP Lookup)" value="Nguyễn Văn B" />
+          <div class="search-input" role="combobox" aria-expanded="false" data-api="integration/users">
+            <span class="si-code">nvb</span>
+            <span class="si-name">Nguyễn Văn B</span>
+          </div>
+          <p class="hint">SearchInput users · Mobile.Bff · miss → <code>--</code> · cấm free-text · cấm ERP UserSearchInput</p>
         </div>
-        <p class="hint">Lưu giữ Status Đang tuần + Note tạm 1 format · Schema SA</p>
+        <p class="hint">Pattern B: Lưu luôn bật (trừ saving) · Lưu giữ Status Đang tuần</p>
       </div>
     </section>
 
@@ -466,15 +506,19 @@
       <div class="content">
         <div class="toolbar-form">
           <button type="button" class="btn btn-secondary" data-leave="1">Hủy</button>
-          <button type="button" class="btn btn-primary" data-field="savePetition">Lưu</button>
+          <button type="button" class="btn btn-primary" data-field="savePetition" data-pattern="B">Lưu</button>
         </div>
         <div class="field" data-field="senderUnit">
           <label>Người / đơn vị *</label>
           <input type="text" value="Tổ tuần kiểm 1 · BDTX Đông" />
         </div>
-        <div class="field" data-field="route">
+        <div class="field" data-field="route" data-control="SearchInput" data-catalog="road-routes">
           <label>Tuyến *</label>
-          <input type="text" value="QL.1" />
+          <div class="search-input" role="combobox" aria-expanded="false" data-api="integration/road-routes/search">
+            <span class="si-code">QL.1</span>
+            <span class="si-name">Quốc lộ 1</span>
+          </div>
+          <p class="hint">SearchInput road-routes · no ROAD_ROUTE_SEED · miss → <code>--</code></p>
         </div>
         <div class="field" data-field="km">
           <label>Km *</label>
@@ -502,7 +546,63 @@
         <div class="check-row" data-field="noFaceFlag">
           <label><input type="checkbox" /> Không có mặt tại hiện trường</label>
         </div>
-        <p class="hint">POST petitions status moi · Schema trước form · cấm fake coords</p>
+        <p class="hint">Pattern B · POST petitions · cấm fake coords · Lưu luôn bật trừ saving</p>
+      </div>
+    </section>
+
+    <!-- TK-06 Pattern B validate-on-click -->
+    <section class="screen" id="sc-TK-06v" data-des-id="TK-06" data-route="/kien-nghi/moi" data-state="pattern-b">
+      <header class="topbar">
+        <button type="button" class="back" data-leave="1" aria-label="Hủy">‹</button>
+        <div class="title">Tạo kiến nghị</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="toolbar-form">
+          <button type="button" class="btn btn-secondary" data-leave="1">Hủy</button>
+          <button type="button" class="btn btn-primary" data-field="savePetition" data-pattern="B">Lưu</button>
+        </div>
+        <div class="banner-validation" data-field="validationBanner" role="alert">
+          Kiểm tra lại các trường bắt buộc:
+          <ul>
+            <li>Tuyến</li>
+            <li>Km</li>
+            <li>Nội dung</li>
+          </ul>
+        </div>
+        <div class="field" data-field="senderUnit">
+          <label>Người / đơn vị *</label>
+          <input type="text" value="Tổ tuần kiểm 1 · BDTX Đông" />
+        </div>
+        <div class="field has-error" data-field="route" data-control="SearchInput" data-catalog="road-routes">
+          <label>Tuyến *</label>
+          <div class="search-input" role="combobox" aria-expanded="true" data-api="integration/road-routes/search">
+            <span class="si-miss">--</span>
+            <span class="si-ph">Gõ mã / tên tuyến…</span>
+          </div>
+          <div class="search-drop">
+            <button type="button"><strong>QL.1</strong> <span class="si-meta">Quốc lộ 1</span></button>
+            <button type="button"><strong>ĐT.1</strong> <span class="si-meta">Đường tỉnh 1</span></button>
+          </div>
+          <p class="field-error">Chọn tuyến từ danh sách · mã không có → --</p>
+        </div>
+        <div class="field has-error" data-field="km">
+          <label>Km *</label>
+          <input type="text" value="" placeholder="vd. 18+050" />
+          <p class="field-error">Bắt buộc</p>
+        </div>
+        <div class="field has-error" data-field="content">
+          <label>Nội dung *</label>
+          <textarea placeholder="Mô tả kiến nghị"></textarea>
+          <p class="field-error">Bắt buộc</p>
+        </div>
+        <div class="field" data-field="petitionKind">
+          <label>Phân loại *</label>
+          <select>
+            <option selected>mặt đường</option>
+          </select>
+        </div>
+        <p class="hint">Pattern B: validationAttempted sau bấm Lưu · banner string[] + inline · cấm disabled={!canSave}</p>
       </div>
     </section>
 
@@ -523,9 +623,12 @@
           <label>Người / đơn vị *</label>
           <input type="text" value="Tổ tuần kiểm 1" />
         </div>
-        <div class="field" data-field="route">
+        <div class="field" data-field="route" data-control="SearchInput" data-catalog="road-routes">
           <label>Tuyến *</label>
-          <input type="text" value="ĐT.1" />
+          <div class="search-input" role="combobox" aria-expanded="false" data-api="integration/road-routes/search">
+            <span class="si-code">ĐT.1</span>
+            <span class="si-name">Đường tỉnh 1</span>
+          </div>
         </div>
         <div class="field" data-field="km">
           <label>Km *</label>

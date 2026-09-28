@@ -6,48 +6,58 @@ packKind: list
 role: dev
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T16:15:00.000Z
-taskId: task_e57c44e0
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
-dev_confirm: approve
+writtenAt: 2026-09-27T17:20:00.000Z
+taskId: task_9f56dd9a
+contentHash: sha256:e223304b3658e8067766aed729e36988d54f1df8ad38ca953b2e176e63c9594c
 autoApprove: ON
-changeScope: new_page
-build: PASS
+changeScope: edit_page
+mfeStdUrl: http://localhost:9301/tai-san/ai
+mfeStdRoute: /tai-san/ai
+nextRole: qa
+e2eQa: queued
 
 ## Decisions
-- formPattern: Mobile full ≤430 · detect + HITL · N/A ERP Modal/Slideout · Android 1-1 · useFormOptions / assetAi.*
-- mfe: Linm.Web.RMMS.Mobile · mfeStdRoute=/web-rmms-asset-ai · hitl=/web-rmms-asset-ai/hitl/:id · alias /asset/ai(+hitl)
-- mfeStdUrl: http://localhost:9301/web-rmms-asset-ai
-- be: Mobile.Bff :5202 · AiVision Live · Step 4b skip · cấm invent AssetAiController · cấm ERP.*
-- Detect: photo* upload Live · GPS Acc≤30 · RouteId* · trip opt · nearby · POST detect → Draft → HITL · no auto-confirm
-- HITL: score SHOW RO % · pin local drag · confirm+dismiss · DES-LEAVE in-app
-- yarn build PASS · chunk web-rmms-asset-ai
-- next: /agent-qa · roleOnly stop · e2eQa ON (QA only)
+- changeScope: edit_page · delta SUBMIT-VALIDATE · cấm new_page typed CRUD · cấm invent API
+- Pattern B: Detect always-on except detecting · validationAttempted · banner photo/route/GPS Acc≤30 + inline + scroll
+- route: SearchInput ROAD_ROUTE_LOOKUP_CONFIG · no seed · miss `--` · sessions prefill keep
+- GPS: deny/poor không khóa CTA trước · Acc≤30 gate on submit · cấm fake/type-in
+- HITL: confirm/dismiss busy-only · pin local · score SHOW % · no auto-confirm
+- DES-LEAVE: LeaveConfirmModal · cấm native confirm
+- Labels: useFormOptions assetAi.* · lookupStatic fallback
+- Kind B / ui-schema / filter-bar: WAIVE phone form
+- BE Step 4b: no API/entity/migration write · verify build PASS · cấm ERP.*
+- Build: MFE yarn build PASS · BE WebService.sln PASS
+- next: /agent-qa* · roleOnly stop (GAP-PKT-ROLE-01) · e2e queued QA
 
 ## Inventory (slim)
-| id | controlHint | API |
-|----|-------------|-----|
-| navBack | Button/Nav | Hub /web-rmms-asset-hub |
-| photo/gps/route/trip | Photo/Text/Select | uploads · geo · road-routes · sessions |
-| nearbyWarn | Alert | GET …/nearby |
-| detect/cancel | Button | POST detect-assets · Hub |
-| hitl fields/pin/score | Text/MapPin | GET {id} · score SHOW · pin local |
-| confirm/dismiss | Button | POST confirm · dismiss |
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| navBack | back | Button/Nav | → Hub · DES-LEAVE |
+| photo/gps/trip | fields | Photo/Text/Select | Pattern B |
+| route | tuyến | SearchInput | no seed · miss `--` |
+| nearbyWarn | warn | Alert | optional nearby |
+| detect/cancel | CTA | Button | disabled={detecting} only |
+| hitl fields/pin/score | HITL | Text/MapPin | Draft · score SHOW · local drag |
+| confirm/dismiss | CTA | Button | busy-only |
+| errBanner | errors | Banner | string[] after attempt |
 
-## Screens / zones
-- AA-00 · AA-01 · AA-02 · AA-03 · AA-04 · AA-05 · AA-06 · AA-07 · AA-08 · AA-09 · AA-10 · AA-11 · AA-12 · AA-13 · AA-14
+## Screens / zones (ids only)
+- AA-00…AA-14 · aaValidateBanner
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-ai/ui/prototype/index.html
-- peerStdUrl= http://localhost:9301/web-rmms-asset-ai
+- peerStdUrl= http://localhost:9301/tai-san/ai
+- DES-GRID / LinErpListFilterBar: N/A phone form
 
-## API / tasks
-- FormMode↔API: Detect Create Draft · HITL Confirm|Dismiss
-- T-01…T-05 done · T-BE N/A
-- debt: pin note-only (no PUT GPS) · score no CTA gate
+## API / tasks (ids only)
+- FormMode↔API: uploads · detect-assets · nearby · sessions · road-routes/search · candidates/{id} · confirm · dismiss
+- BFF: mobileApiBase only · no new WS/BFF write
+- T-01…T-05 done · T-EDIT done · T-BE N/A · T-QA pending · T-REV pending
+- debt: (none) · Kind B WAIVE phone
 
 ## UNCLEAR
-- (none blocking)
+- (none)
 
 ## Full paths
 - implement: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-ai/implement/web-rmms-asset-ai.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-ai/STATUS.md
-- task: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-ai/task/web-rmms-asset-ai.md
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile
+- be: D:/AI-QLBD/Linm.RMMS.WebService

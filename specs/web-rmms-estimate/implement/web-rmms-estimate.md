@@ -55,6 +55,13 @@
 | Confirm | POST `ai-vision/estimates/{id}/confirm` |
 | WO | POST `maintenance/work-orders` (after confirm only) |
 
+## Notes (edit-web-feature 2026-09-27)
+
+- Footer không `position: absolute` — nằm trong cột flex, content scroll hết phía trên (Tổng / dòng cuối không bị che).
+- KL / diện tích / giờ / ngày = common `NumberInput`. Đơn giá = `MoneyInput`. Thành tiền + Tổng = `LabelMoney`.
+- Thêm / xóa dòng dự toán. UI disable Xóa khi còn 1 dòng. API `ReplaceLinesAsync` từ chối `lines` rỗng (422).
+- PUT/draft không còn `RemoveRange` + `Clear()` (log `DbUpdateConcurrencyException` 500 trên `PUT /api/v1/ai-vision/estimates/{id}`). Upsert theo line id; dòng xóa dùng `ExecuteDelete` trong transaction.
+
 ## Debt / OUT
 
 - from-defects · UnitPriceCatalog UI · Me* · GPS · invent `ai-estimate/*` · Kind B list · e2e (QA)

@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | feature | `web-rmms-mobile-c` |
-| title | Tuần kiểm đợt C — danh mục, phiếu, đối chiếu, kiểm tra lại |
+| title | Tuần kiểm đợt C — Pattern B submit/validate + capture (edit_page) |
 | packKind | `list` · **confirmed** |
 | changeScope | `edit_page` |
 | lane | `web` · MFE Mobile phone |
@@ -15,99 +15,108 @@
 | workflowVersion | `2026.09.19.02` |
 | rulesVersion | `2026.09.25.2` |
 | versionGate | `ok` |
-| contentHash | `sha256:0654e7b6359dfa34767872c7ea3a74f94605bd1b73fd125e241d6c95592133a4` |
-| writtenAt | `2026-09-25T08:55:00.000Z` |
-| prior | data_analy `confirmed` · compact + control-hint + real-data §A+§B · hash skip |
+| contentHash | `sha256:4a38b53861c732cbbde7208c21d766f1b8b2c8decc007d2dc24ea34a4793339c` |
+| contentHashSource | CTX + `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · hash skip analy |
+| writtenAt | `2026-09-27T08:10:00.000Z` |
+| taskId | `task_1ea5ccc8` |
+| prior | data_analy `confirmed` · compact + control-hint + real-data §A+§B · **cấm** re-scan demo |
+| priorWave | CRUD / Schema_PatrolFinding · review PASS — **giữ** AC L/F/R/K · **không** reopen schema |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdRoute | `/web-rmms-mobile-c` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-mobile-c` |
+| mfeStdRoute | `/phat-hien` |
+| mfeStdUrl | `http://localhost:9301/phat-hien` |
 | be | `D:/AI-QLBD/Linm.RMMS.WebService` · Patrol · **cấm ERP.*** |
 | phoneFrame | `max-width: 430px` |
 | formPattern | Mobile full · **không** ERP Modal/Slideout Kind B |
+| deltaSSOT | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · Pattern B · slug C |
 
-> Reuse analy inventory + controlHint (hash skip) — **cấm** re-scan demo.  
-> Labels: `useFormOptions()` / copy key — **cấm** hardcode VN trên form.  
-> Schema + entity `PatrolFinding` / `Schema_PatrolFinding` (+ review journal) **trước** wire form.
+> Reuse analy inventory + controlHint (hash skip) — **cấm** re-scan demo / crawl CTX.  
+> Labels: `useFormOptions()` / copy key — **cấm** hardcode VN mới trên form.  
+> Toolbar/export: **override** — **không** Excel · **không** `new_page`.  
+> Schema Live prior wave — task này = UX submit/validate/capture only.
 
 ## 1. Goal
 
-Trong đợt tuần kiểm đang mở (peer A Live): **TK-02 danh mục tồn tại** · **TK-03 tạo phiếu** · **TK-04 đối chiếu journal-lines** · **TK-05 chi tiết + kiểm tra lại**. List = data thật `findings` (API Mới). GPS deny trên TK-03 / TK-05 recheck **chặn Lưu/Xác nhận**. Prefill TK-04→03 dùng GPS journal — **không** GPS mới trừ user lấy lại.
+Giữ CRUD đợt C (TK-02…05) đã PASS. Task **NEW** = chỉnh submit/validate **Pattern B** trên TK-03/04/05 + `capture="environment"` ảnh + GPS deny báo khi bấm (không khóa nút). Route `/phat-hien` · phone 430 · Mobile.Bff only · align-mobile-to-mfe · **cấm** tab/route/icon mới · **cấm** iOS/Android prototype.
 
 ## 2. Screens
 
-| id | route | surface | DoD |
-|----|-------|---------|-----|
-| TK-02 | `/field/tuan-kiem/ton-tai` | List cards tồn tại theo đợt | Cards từ GET findings · filter status/route · empty copy key · tap → TK-05 · Tạo phiếu → TK-03 |
-| TK-03 | `/field/tuan-kiem/phieu/moi` | Form tạo phiếu | GPS HARD · POST findings · status `phat-hien` → TK-05 · **ẩn** Giao BDTX (D) |
-| TK-04 | `/field/tuan-kiem/doi-chieu` | Đối chiếu journal | Chọn ca TD · list journal-lines · `khop`/`lech` · lập phiếu từ lệch → TK-03 prefill |
-| TK-05 | `/field/tuan-kiem/phieu/:id` | Detail RO + recheck | GET finding · POST recheck · **ẩn** feedback (D) |
+| id | route (field) · MFE | surface | DoD (this task) |
+|----|---------------------|---------|-----------------|
+| TK-02 | `/field/tuan-kiem/ton-tai` · `/phat-hien/:sessionId` | List cards | **giữ** L-* · **không** đổi layout/export |
+| TK-03 | `/field/tuan-kiem/phieu/moi` · `/phat-hien/:sessionId/moi` | Form tạo phiếu | Pattern B Lưu · capture · GPS on-submit · giữ field AC F-02…F-08 |
+| TK-04 | `/field/tuan-kiem/doi-chieu` · `/phat-hien/:sessionId/review/:lineId` | Đối chiếu | Pattern B Lưu · lech note on click · giữ R-* |
+| TK-05 | `/field/tuan-kiem/phieu/:id` · `/phat-hien/:sessionId/:id` | Detail + recheck (+ feedback nếu Live) | Pattern B confirm/feedback · capture · GPS on-submit · giữ K-02…K-03 |
 
-**Out of C:** TK-06 · TK-07 · `POST maintenance/work-orders` · `POST …/feedback` · nút Giao BDTX trên TK-03.
+**Out of C write-new:** TK-06/07 · invent WO/feedback API · expand CRUD đợt D.  
+**Feedback Live:** nếu block đã có trên TK-05 → chỉ Pattern B nút — **không** mở rộng CRUD D (`UNCLEAR-FEEDBACK-SCOPE`).
 
-**Nav peer:** Hub A (đợt TK) · peer B journal-lines cho TK-04.
-
-## 3. List / Grid AC (packKind=list · phone)
+## 3. List / Grid AC (packKind=list · phone) — **giữ**
 
 | AC | Rule | Pass |
 |----|------|------|
-| DES-GRID / LinErpListFilterBar | **N/A** — Field phone · **cấm** clone ERP Kind B filter bar / desktop grid | Design note N/A |
-| L-01 empty | Không finding → EmptyState copy key «Chưa có tồn tại trong đợt» · CTA → TK-03 | QA |
-| L-02 data | Cards bind GET `findings?sessionId&status&route` · code · route/km · kind · due · status | QA |
-| L-03 filter | Chip/Select status + Dropdown route · phone · **không** ERP filter bar | QA |
-| L-04 tap | Card → TK-05 `:id` | QA |
-| L-05 create | Nút Tạo phiếu → TK-03 | QA |
-| L-06 parent | Không đợt Đang tuần+Tuần kiểm → empty/redirect hub A · toast · **cấm** `window.alert` | QA |
-| L-07 no mock | Schema chưa Live → empty + gap · **cấm** fake findings / demo seed | Dev/QA |
-| F-01 GPS create | TK-03: deny geolocation → disable Lưu · hiện accuracy · **cấm** fake coords | QA |
-| F-02 desc | Thiếu `description` → chặn Lưu | QA |
-| F-03 source TD | `source=tuan-duong` → `journalLineId` required | QA |
-| F-04 scope due | `scope=bdtx` → `dueAt` required | QA |
-| F-05 thi-cong | `findingKind=thi-cong` → ≥1 checkbox biển/rào/phân luồng | QA |
-| F-06 hanh-lang | `findingKind=hanh-lang` → `violationAction` · **không** mở sổ 07 | QA |
-| F-07 save | POST findings · body §B · status `phat-hien` → TK-05 | QA |
+| DES-GRID / LinErpListFilterBar / export | **N/A** — Field phone · SUBMIT-VALIDATE override no Excel | Design N/A |
+| L-01 empty | EmptyState copy key · CTA → TK-03 | QA |
+| L-02 data | Cards GET findings · code · route/km · kind · due · status | QA |
+| L-03 filter | Chip/Select status + route · **không** ERP filter bar | QA |
+| L-04 tap | Card → TK-05 | QA |
+| L-05 create | Tạo phiếu → TK-03 | QA |
+| L-06 parent | Không đợt hợp lệ → empty/redirect hub · toast · **cấm** `window.alert` | QA |
+| L-07 no mock | **cấm** fake findings / demo seed / fake GPS | Dev/QA |
+
+## 4. Form AC — **giữ** field rules + **Delta Pattern B**
+
+### 4.1 Field rules (giữ — validate **on submit**, không gate nút)
+
+| AC | Rule | Pass |
+|----|------|------|
+| F-02 desc | Thiếu `description` → fail client (banner+inline) khi bấm Lưu | QA |
+| F-03 source TD | `source=tuan-duong` → `journalLineId` required on submit | QA |
+| F-04 scope due | `scope=bdtx` → `dueAt` required on submit | QA |
+| F-05 thi-cong | `findingKind=thi-cong` → ≥1 checkbox on submit | QA |
+| F-06 hanh-lang | `findingKind=hanh-lang` → `violationAction` on submit · **không** mở sổ 07 | QA |
+| F-07 save | POST findings · status `phat-hien` → TK-05 | QA |
 | F-08 labels | useFormOptions keys (status·source·findingKind·side·scope·hangMuc·review·recheck·violation) | QA |
-| R-01 review | TK-04: `lech` → `reviewNote` required · PUT `…/journal-lines/{id}/review` | QA |
-| R-02 prefill | Lập phiếu từ lệch → TK-03 prefill GPS/ảnh/km từ journal · **không** GPS mới trừ lấy lại | QA |
+| R-01 review | `lech` → `reviewNote` required **khi bấm** Lưu · PUT review | QA |
+| R-02 prefill | Lập phiếu từ lệch → TK-03 prefill GPS/ảnh/km journal · không GPS mới trừ lấy lại | QA |
 | R-03 no rewrite TD | TK-04 **không** sửa narrative tuần đường | QA |
-| K-01 recheck GPS | TK-05: deny GPS → chặn xác nhận | QA |
-| K-02 recheck dat | `dat` → media required · confirmDone → POST recheck → `xong` | QA |
-| K-03 recheck chua | `chua-dat` → note required · `newDueAt` hoặc giữ hạn cũ | QA |
-| K-04 out D | WO assign / feedback / Giao BDTX ẩn hoặc disabled | QA |
+| K-02 recheck dat | `dat` → media required on submit · POST recheck → `xong` | QA |
+| K-03 recheck chua | `chua-dat` → note required · `newDueAt` hoặc giữ hạn | QA |
+| K-04 out D expand | **không** invent WO/assign/Giao BDTX mới trong task C | QA |
 
-## 4. Field inventory (from analy · Design chốt control-map)
+### 4.2 Pattern B + capture + GPS (NEW — cite SUBMIT-VALIDATE)
 
-| uiField | screen | controlHint | notes |
+| AC | Rule | Pass |
+|----|------|------|
+| PB-01 always-on | Lưu / Lưu đối chiếu / Gửi feedback / Xác nhận recheck **luôn bật** khi UI sẵn sàng · **cấm** `disabled` vì thiếu required/GPS/ảnh/`canSave`/`canConfirm`/`!feedbackQty` | QA |
+| PB-02 pending-only | Chỉ `disabled` khi `saving` / `hydrating` / `loading` request | QA |
+| PB-03 attempted | Lần bấm đầu set `validationAttempted` · trước đó **cấm** inline error | QA |
+| PB-04 banner | Fail client: banner `string[]` + thu gọn/đóng + inline + scroll lỗi đầu · **cấm** một `alert.warning` thay banner | QA |
+| PB-05 api-toast | Lỗi API → toast · **cấm** banner API | QA |
+| PB-06 gps-create | TK-03: GPS deny **không** khóa Lưu · báo khi bấm (banner/modal quyền) · **cấm** fake coords · **thay** F-01 cũ | QA |
+| PB-07 gps-recheck | TK-05: GPS deny **không** khóa confirm · báo khi bấm · **thay** K-01 cũ | QA |
+| PB-08 capture | TK-03/05 ảnh: `capture="environment"` · prop forward nếu có · else input local · **cấm** fork `LinImageUpload` | QA |
+| PB-09 feedback | Nếu feedback Live trên TK-05: Gửi **không** gate `!feedbackQty` · qty required trong banner khi bấm · **không** expand CRUD D | QA |
+| PB-10 align | `/align-mobile-to-mfe` · 430px · mọi call `mobileApiBase()` · **cấm** web-bff trực tiếp · **cấm** route/tab/icon mới | Dev/QA |
+
+**Superseded (không còn Pass nếu còn gate nút):** F-01 cũ (deny→disable Lưu) · K-01 cũ (deny→chặn confirm).
+
+## 5. Field inventory (analy · Design chốt control-map)
+
+| uiField | screen | controlHint | Delta |
 |---------|--------|-------------|-------|
-| findingList | TK-02 | List cards | GET findings?sessionId&status&route |
-| filter.status / route | TK-02 | Chip/Select · Dropdown | phone |
-| createFinding / emptyHint | TK-02 | Button / EmptyState | copy key |
-| source | TK-03 | Dropdown | 5 keys · link journal if tuan-duong |
-| journalLineId / linkSessionId | TK-03 | Lookup/Text | required if tuan-duong |
-| findingKind | TK-03 | Dropdown | 7 keys |
-| kmFrom / kmTo | TK-03 | Text | |
-| side | TK-03 | Dropdown | 5 keys |
-| hangMuc | TK-03 | Dropdown | LOOKUP_STATIC · PO chốt keys CTX §5 |
-| description | TK-03 | TextArea | **required** |
-| qtyEstimate | TK-03 | Text | optional |
-| scope | TK-03 | Radio | bdtx / vuot-bdtx |
-| mediaIds | TK-03 | FileMulti | files/* |
-| getGps · lat/lng/accuracyM | TK-03 | GPS | HARD deny→block |
-| dueAt | TK-03 | Date | if bdtx |
-| violationAction | TK-03 | Radio | if hanh-lang |
-| thiCongChecks | TK-03 | Checkbox×3 | if thi-cong ≥1 |
-| saveFinding / cancel | TK-03 | Button | POST · không ghi |
-| assignWo | TK-03 | Button | **OUT C** ẩn |
-| tdSessionPick | TK-04 | Dropdown | sessions cùng tuyến |
-| journalList | TK-04 | List cards | peer B journal-lines |
-| review / reviewNote | TK-04 | Radio + TextArea | lech → note required |
-| createFromLech / reviewSave | TK-04 | Button | → TK-03 · PUT review |
-| detailRO | TK-05 | Detail | GET finding |
-| feedbackBlock | TK-05 | — | **OUT C** |
-| recheckResult / recheckNote | TK-05 | Radio + TextArea | chua-dat → note |
-| recheckMedia / recheckGps | TK-05 | FileMulti + GPS | dat → media · HARD GPS |
-| newDueAt / confirmDone | TK-05 | Date + Button | confirm chỉ khi dat |
+| findingList · filter.* · createFinding | TK-02 | List / Chip / Button | giữ |
+| source…dueAt · violation · thiCong · fields | TK-03 | form | validate on submit Pattern B |
+| getGps · lat/lng/accuracyM | TK-03 | GPS | deny → banner on submit · **không** disable Lưu |
+| mediaIds | TK-03 | FileMulti | + `capture="environment"` |
+| saveFinding | TK-03 | Button | `disabled` chỉ `saving\|\|hydrating` |
+| review / reviewNote | TK-04 | Radio+TextArea | note if lech **on click** |
+| reviewSave · createFromLech | TK-04 | Button | Pattern B · prefill giữ |
+| detailRO | TK-05 | Detail | giữ |
+| feedbackQty · submitFeedback | TK-05 | Text+Button | Pattern B nếu Live · no CRUD D |
+| recheckResult… · media · gps | TK-05 | form | validate on submit |
+| confirmDone / markNotOk | TK-05 | Button | chỉ `disabled={saving}` |
 
-## 5. Enum keys (PO chốt · label via useFormOptions)
+## 6. Enum keys (giữ · label via useFormOptions)
 
 | Key group | Values |
 |-----------|--------|
@@ -121,72 +130,63 @@ Trong đợt tuần kiểm đang mở (peer A Live): **TK-02 danh mục tồn t�
 | hangMuc | `nen` · `mat` · `cau` · `cong` · `ham` · `thoat-nuoc` · `atgt` · `ho-lan` · `bien` · `dai-phan-cach` · `thiet-bi` · `thi-cong` |
 | violationAction | `lap-bien-ban` · `de-nghi-vphc` |
 
-**UNCLEAR-HANGMUC:** **closed** — keys trên · Design map label copy.
+## 7. API / data (cite real-data §A+§B — **Live** · không invent)
 
-## 6. API / data (cite real-data §A+§B)
-
-| Method | Path | Live |
+| Method | Path | Note |
 |--------|------|------|
-| GET | `patrol/findings?sessionId&status&route` | **Mới** |
-| POST | `patrol/findings` | **Mới** · server `code` |
-| GET | `patrol/findings/{id}` | **Mới** |
-| POST | `patrol/findings/{id}/recheck` | **Mới** |
-| PUT | `patrol/journal-lines/{id}/review` | **Mới** |
-| GET | `patrol/sessions/{id}/journal-lines` | peer B |
-| GET | `patrol/sessions` · `{id}` | parent Live |
-| GET | `auth/profile` | Live |
+| GET/POST | `patrol/findings` | Live · create body giữ prior |
+| GET | `patrol/findings/{id}` | Live |
+| POST | `patrol/findings/{id}/recheck` | Live |
+| PUT | `patrol/journal-lines/{id}/review` | Live |
+| GET | `patrol/sessions` · journal-lines peer B | Live |
+| GET | `integration/road-routes/search` | BFF Live · **cấm** `ROAD_ROUTE_SEED` khi đụng lookups chung |
+| GET | `integration/users` | BFF forward nếu thiếu · **cấm** invent WebService · **cấm** ERP UserSearch nguyên bản |
 | files | init → object → commit | Live |
 
-**Create body:** `sessionId` · `source` · `journalLineId?` · `linkSessionId?` · `findingKind` · `kmFrom` · `kmTo` · `side` · `hangMuc` · `description` · `qtyEstimate?` · `scope` · `mediaIds` · `lat` · `lng` · `accuracyM` · `dueAt?` · `violationAction?` · `thiCongFlags?` · `status=phat-hien`.
+Prefix runtime: `mobile-bff/api/v1` via `mobileApiBase()` / `VITE_MOBILE_API_URL`.  
+**HARD:** **cấm ERP.*** · **cấm** fake GPS · **cấm** mock findings · **không** schema migration mới (không Step 4b ở PO).
 
-**Recheck body:** `result` · `note?` · `mediaIds?` · `lat` · `lng` · `accuracyM` · `newDueAt?`.
-
-**Review body:** `review` · `reviewNote?` · `findingId?`.
-
-**HARD:** pair entity + `Schema_PatrolFinding` (+ review trên journal) trước form · **cấm** stub fake · **cấm ERP.***.
-
-## 7. Leave (navigation / exit)
+## 8. Leave (navigation / exit) — giữ
 
 | From | Action | To |
 |------|--------|-----|
-| TK-02 | Back | Hub A (đợt TK) |
+| TK-02 | Back | Hub A |
 | TK-02 | Tạo / empty CTA | TK-03 |
 | TK-02 | Card tap | TK-05 `:id` |
 | TK-03 | Cancel / Back | TK-02 · không ghi |
-| TK-03 | Save OK | TK-05 (finding mới) |
-| TK-04 | Back | Hub A / TK-02 (Design) |
+| TK-03 | Save OK | TK-05 |
+| TK-04 | Back | Hub A / TK-02 |
 | TK-04 | createFromLech | TK-03 prefill |
 | TK-05 | Back | TK-02 |
 | TK-05 | confirmDone OK | TK-05 refresh / TK-02 |
 | * | Auth fail | redirect login |
 
-## 8. Non-goals (C)
+## 9. Non-goals (this task)
 
-- TK-06 sổ kiến nghị · TK-07 kế hoạch  
-- `POST maintenance/work-orders` · `POST …/feedback` · Giao BDTX trên TK-03  
+- typed CRUD `new_page` · Excel export · DES-GRID desktop  
+- Invent WO/feedback API · mở rộng đợt D CRUD  
 - Desktop Asset MFE · iOS/Android native · ERP.*  
-- Demo HTML / fake GPS / mock findings SSOT  
-- Re-scan demo / crawl CTX từ đầu (hash skip)
+- Demo HTML / fake GPS / mock list · re-scan demo (hash skip)  
+- yarn build / e2e / start:std ở role PO  
+- Schema reopen / Step 4b
 
-## 9. Open → SA / Design
+## 10. Open (soft · không chặn DoR)
 
 | id | Issue | Owner |
 |----|-------|-------|
-| UNCLEAR-FIND-SCHEMA | `Schema_PatrolFinding` chưa Live | SA · pair trước form |
-| UNCLEAR-FIND-CODE | Format `code` server-generated | SA |
-| UNCLEAR-REVIEW-COL | Review trên Schema_B vs migration C | SA |
-| UNCLEAR-DOMAIN-SLUG | DOMAIN-MAP row `web-rmms-mobile-c` | SA thêm → Patrol |
-| (closed) UNCLEAR-HANGMUC | keys §5 | PO done · Design labels |
+| UNCLEAR-CAPTURE-PROP | `LinImageUpload` forward `capture`? | Dev: prop nếu có · else input local · **cấm** fork package |
+| UNCLEAR-FEEDBACK-SCOPE | feedback Live D-adjacent trên TK-05 | Dev: Pattern B nút only · **không** expand CRUD D |
+| (resolved) schema/DOMAIN prior | review PASS | **không** reopen |
 
-## 10. Handoff
+## 11. Handoff
 
 | Role | Packet |
 |------|--------|
-| Design | Phone 430 · zones TK-02…05 · control-map · empty TK-02 · DES-GRID N/A · reviewUrl |
-| SA | Schema_PatrolFinding + recheck + review · code gen · DOMAIN slug · **cấm ERP.*** |
-| TL/Dev | Mobile MFE only · pair schema trước submit · no WO/feedback C |
-| QA | L-* · F-* · R-* · K-* · no fake coords · no mock list |
+| Design | **giữ** prototype zones TK-02…05 · reviewUrl · annotate Delta CTA/banner nếu cần · phone 430 · DES-GRID N/A |
+| SA | **không** schema mới · confirm BFF users forward nếu thiếu · **cấm ERP.*** |
+| TL/Dev | edit FindingForm · JournalReview · FindingDetail + capture · mobileApiBase · align-mobile-to-mfe |
+| QA | PB-* + L-* + field rules · queued e2e · **cấm** fake coords |
 
 ## Version meta
 
-`skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:0654e7b6359dfa34767872c7ea3a74f94605bd1b73fd125e241d6c95592133a4` · `rulesVersion=2026.09.25.2` · `writtenAt=2026-09-25T08:55:00.000Z` · `taskId=task_9b8aa107`
+`skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:4a38b53861c732cbbde7208c21d766f1b8b2c8decc007d2dc24ea34a4793339c` · `rulesVersion=2026.09.25.2` · `writtenAt=2026-09-27T08:10:00.000Z` · `taskId=task_1ea5ccc8` · `packKind=list` · `changeScope=edit_page`

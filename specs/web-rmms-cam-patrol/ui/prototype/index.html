@@ -228,8 +228,8 @@
 </head>
 <body>
   <div class="meta">
-    CP-01 · DES-MOB-CAM-PATROL / FINDER · phone 430 · Android 1-1 · score ẩn ship<br/>
-    review states: default · ?ship=1 · ?deny=1 · ?nosession=1 · ?fail=1 · ?offline=1
+    CP-01 · DES-MOB-CAM-PATROL / FINDER · phone 430 · Pattern B · score ẩn ship<br/>
+    review: default · ?ship=1 · ?deny=1 · ?nosession=1 · ?fail=1 · ?offline=1 · CTA không pre-disable
   </div>
   <div class="board-nav" id="boardNav">
     <button type="button" data-q="">ready</button>
@@ -248,6 +248,7 @@
 
     <div class="content" id="sc-cam-patrol">
       <div id="offlineBanner" class="banner hidden" data-des-id="DES-MOB-CAM-OFFLINE">Mất sóng — hàng đợi offline (peer). Không giả thành công.</div>
+      <div id="validationBanner" class="banner danger hidden" data-des-id="DES-MOB-CAM-VALIDATION" role="alert"></div>
       <div id="emptyNoSession" class="empty hidden" data-des-id="DES-MOB-CAM-EMPTY">Không có ca Đang tuần. Mở ca từ hub Field trước.</div>
 
       <div id="mainCam" data-des-id="DES-MOB-CAM-FINDER">
@@ -328,9 +329,36 @@
       document.getElementById('modalGps').classList.remove('show');
     }
 
-    function setBlocked(blocked) {
-      document.getElementById('btnDetect').disabled = blocked;
-      document.getElementById('btnConfirm').disabled = blocked;
+    /** Pattern B: chỉ lock khi detecting/confirming — không pre-disable vì thiếu GPS/frame. */
+    function setInFlight(btnId, locked) {
+      document.getElementById(btnId).disabled = !!locked;
+    }
+
+    function showValidation(msgs) {
+      const el = document.getElementById('validationBanner');
+      if (!msgs || !msgs.length) {
+        el.classList.add('hidden');
+        el.textContent = '';
+        return;
+      }
+      el.innerHTML = msgs.map((m) => '<div>' + m + '</div>').join('');
+      el.classList.remove('hidden');
+    }
+
+    function clientErrorsDetect() {
+      const errs = [];
+      if (nosession) errs.push('cam.banner.noSession');
+      if (deny) errs.push('cam.banner.gpsRequired');
+      if (offline) errs.push('cam.banner.offline');
+      if (fail) errs.push('cam.banner.frameRequired');
+      return errs;
+    }
+
+    function clientErrorsConfirm() {
+      const errs = [];
+      if (deny) errs.push('cam.banner.gpsRequired');
+      if (offline) errs.push('cam.banner.offline');
+      return errs;
     }
 
     function showResult(show) {
@@ -340,35 +368,51 @@
     }
 
     function onDetect() {
-      if (deny) {
-        document.getElementById('modalGps').classList.add('show');
-        toastCopy('cam.toast.gpsDeny');
-        return;
-      }
-      if (fail) {
+      const errs = clientErrorsDetect();
+      if (errs.length) {
+        showValidation(errs);
+        if (deny) {
+          document.getElementById('modalGps').classList.add('show');
+          toastCopy('cam.toast.gpsDeny');
+        }
+        if (fail && !deny) toastCopy('Không nhận diện được. Thử lại.');
         showResult(false);
-        toastCopy('Không nhận diện được. Thử lại.');
         return;
       }
-      showResult(true);
-      toastCopy('cam.toast.detectOk');
+      showValidation([]);
+      setInFlight('btnDetect', true);
+      setTimeout(() => {
+        setInFlight('btnDetect', false);
+        showResult(true);
+        toastCopy('cam.toast.detectOk');
+      }, 280);
     }
 
     function onConfirm() {
-      if (deny) {
-        document.getElementById('modalGps').classList.add('show');
+      const errs = clientErrorsConfirm();
+      if (errs.length) {
+        showValidation(errs);
+        if (deny) document.getElementById('modalGps').classList.add('show');
         return;
       }
-      toastCopy('Đã tạo sự cố · định vị đã chốt');
-      showResult(false);
+      showValidation([]);
+      setInFlight('btnConfirm', true);
+      document.getElementById('btnSkip').disabled = true;
+      setTimeout(() => {
+        setInFlight('btnConfirm', false);
+        document.getElementById('btnSkip').disabled = false;
+        toastCopy('Đã tạo sự cố · định vị đã chốt');
+        showResult(false);
+      }, 280);
     }
 
     function onSkip() {
+      showValidation([]);
       toastCopy('Đã bỏ · nhận nhầm');
       showResult(false);
     }
 
-    // Initial state from query
+    // Initial state from query — Pattern B: CTA luôn enabled (trừ in-flight)
     if (ship) {
       document.getElementById('scoreRow').classList.add('hidden');
       showResult(true);
@@ -378,18 +422,16 @@
       document.getElementById('gpsChip').classList.add('bad');
       document.getElementById('stampGps').innerHTML =
         '— · ±— m <span class="gps-chip bad" id="gpsChip">GPS tắt</span>';
-      setBlocked(true);
-      document.getElementById('modalGps').classList.add('show');
+      // không setBlocked · không mở modal trước khi bấm
     }
     if (nosession) {
-      document.getElementById('mainCam').classList.add('hidden');
       document.getElementById('emptyNoSession').classList.remove('hidden');
+      // giữ mainCam + CTA để demo banner on click (Pattern B)
     }
     if (offline) {
       document.getElementById('offlineBanner').classList.remove('hidden');
     }
     if (fail && !nosession && !deny) {
-      // stay on ready; detect click shows fail toast
       showResult(false);
     }
   </script>

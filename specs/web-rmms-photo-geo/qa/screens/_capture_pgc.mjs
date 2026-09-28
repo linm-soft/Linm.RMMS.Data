@@ -115,31 +115,35 @@ async function clearSession() {
 
 async function loginViaSheet() {
   await clearSession();
-  await page.goto(base + "/web-rmms-home", {
+  await page.goto(base + "/", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
   await page.waitForSelector("#guestLogin", { timeout: 20000 });
   await page.locator("#guestLogin").click();
-  await page.waitForSelector("#loginUser, [data-zone='SH-02'] input", {
+  await page.waitForSelector("#f-user, #loginUser, [data-zone='LG-00'] input, [data-zone='SH-02'] input", {
     timeout: 15000,
   });
-  const userSel = (await page.locator("#loginUser").count())
-    ? "#loginUser"
-    : '[data-zone="SH-02"] input[type="text"], [data-zone="SH-02"] input:not([type="password"])';
-  const passSel = (await page.locator("#loginPass").count())
-    ? "#loginPass"
-    : '[data-zone="SH-02"] input[type="password"]';
+  const userSel = (await page.locator("#f-user").count())
+    ? "#f-user"
+    : (await page.locator("#loginUser").count())
+      ? "#loginUser"
+      : '[data-zone="LG-00"] input[name="username"], [data-zone="SH-02"] input:not([type="password"])';
+  const passSel = (await page.locator("#f-pass").count())
+    ? "#f-pass"
+    : (await page.locator("#loginPass").count())
+      ? "#loginPass"
+      : '[data-zone="LG-00"] input[type="password"], [data-zone="SH-02"] input[type="password"]';
   await page.fill(userSel, user);
   await page.fill(passSel, password);
   await page
-    .locator("#loginSubmit, [data-zone='SH-02'] button[type='submit']")
+    .locator("#btn-login, #loginSubmit, [data-zone='LG-00'] button[type='submit'], [data-zone='SH-02'] button[type='submit']")
     .first()
     .click({ force: true });
-  await page.waitForTimeout(2500);
+  await page.waitForTimeout(3000);
   await page
     .waitForSelector(
-      '[data-feature="web-rmms-home"][data-mode="staff"] #gridSupervise, [data-mode="staff"] #walletAsset',
+      '[data-feature="web-rmms-home"] #gridSupervise, #gridSupervise, #walletAsset, [data-feature="trang-chu"]',
       { timeout: 25000 },
     )
     .catch(() => {});
@@ -174,6 +178,10 @@ async function dumpZones() {
       "btn-use",
       "btn-cancel",
       "modal-gps",
+      "validation-banner",
+      "f-user",
+      "f-pass",
+      "btn-login",
       "loginUser",
       "loginPass",
       "loginSubmit",
@@ -194,6 +202,10 @@ async function dumpZones() {
       const el = document.getElementById("btn-detect");
       return el ? el.disabled === true || el.hasAttribute("disabled") : null;
     })();
+    const patternB =
+      shutterDisabled === false &&
+      detectDisabled === false &&
+      (useDisabled === false || useDisabled === true);
     return {
       feature: root?.getAttribute("data-feature") || null,
       zones: [...new Set(zones)],
@@ -206,6 +218,8 @@ async function dumpZones() {
       shutterDisabled,
       useDisabled,
       detectDisabled,
+      patternB,
+      routeOk: /\/anh-vi-tri(\?|$)/.test(location.pathname + location.search) || location.href.includes("/anh-vi-tri"),
     };
   });
 }
@@ -248,7 +262,7 @@ try {
   // S0 — guest gate PGC
   pageErrors.length = 0;
   await clearSession();
-  await page.goto(base + "/web-rmms-photo-geo", {
+  await page.goto(base + "/anh-vi-tri", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
@@ -257,21 +271,21 @@ try {
     "[data-feature='web-rmms-photo-geo'] #PGC, #PGC, [data-zone='PGC']",
   );
 
-  // QA-20 — LoginSheet SH-02
+  // QA-20 — LoginSheet SH-02 · Home SSOT `/` → `/m/trang-chu` (cấm /web-rmms-home 404)
   pageErrors.length = 0;
   await clearSession();
-  await page.goto(base + "/web-rmms-home", {
+  await page.goto(base + "/", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
   await page.waitForSelector("#guestLogin", { timeout: 20000 });
   await page.locator("#guestLogin").click();
-  await captureCurrent("QA-20", "#loginUser, [data-zone='SH-02']");
+  await captureCurrent("QA-20", "#f-user, #loginUser, [data-zone='LG-00'], [data-zone='SH-02']");
 
-  // S1 — staff sheet after LoginSheet
+  // S1 — staff sheet after LoginSheet · Pattern B route /anh-vi-tri
   pageErrors.length = 0;
   await loginViaSheet();
-  await page.goto(base + "/web-rmms-photo-geo", {
+  await page.goto(base + "/anh-vi-tri", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
@@ -280,26 +294,44 @@ try {
     "[data-feature='web-rmms-photo-geo'] #sheet-pgc, #sheet-pgc, #capture-preview",
   );
 
-  // Mode dumps — Dev E2E modes
+  // Pattern B — click btn-use without still → validation banner (no pre-disable)
+  try {
+    pageErrors.length = 0;
+    const useBtn = page.locator("#btn-use");
+    if (await useBtn.count()) {
+      await useBtn.click({ force: true });
+      await page.waitForTimeout(600);
+      await captureCurrent("S1-PATTERN-B", "#validation-banner, #sheet-pgc");
+    }
+  } catch {
+    results.push({
+      id: "S1-PATTERN-B",
+      result: "FAIL",
+      error: "Pattern B validation banner click failed",
+      href: page.url(),
+    });
+  }
+
+  // Mode dumps — Dev E2E modes · SSOT /anh-vi-tri
   const modeCases = [
     {
       id: "MODE-deny",
-      path: "/web-rmms-photo-geo?deny=1",
+      path: "/anh-vi-tri?deny=1",
       wait: "#modal-gps, #sheet-pgc",
     },
     {
       id: "MODE-compass",
-      path: "/web-rmms-photo-geo?compass=1",
+      path: "/anh-vi-tri?compass=1",
       wait: "#sheet-pgc, #capture-preview",
     },
     {
       id: "MODE-step-map",
-      path: "/web-rmms-photo-geo?step=map",
+      path: "/anh-vi-tri?step=map",
       wait: "#map-confirm, #sheet-pgc",
     },
     {
       id: "MODE-fail",
-      path: "/web-rmms-photo-geo?fail=1",
+      path: "/anh-vi-tri?fail=1",
       wait: "#sheet-pgc, #capture-preview",
     },
   ];

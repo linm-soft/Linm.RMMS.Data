@@ -7,6 +7,10 @@ import { createRequire } from "node:module";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = __dirname;
 const base = "http://localhost:9301";
+/** SSOT mfeStdRoute — cấm /web-rmms-field-reflect */
+const reflectPath = "/phan-anh";
+const homePath = "/trang-chu";
+const loginPath = "/dang-nhap";
 const require = createRequire(import.meta.url);
 
 let chromiumLauncher = chromium;
@@ -81,7 +85,7 @@ async function fatalUi(p) {
     const vis = await overlay.first().isVisible().catch(() => false);
     const featureOk = await p
       .locator(
-        "[data-feature='web-rmms-field-reflect'], #FR-REFLECT, [data-des-id='FR-00'], [data-des-id='FR-01'], #loginUser",
+        "[data-feature='web-rmms-field-reflect'], #FR-REFLECT, [data-des-id='FR-00'], [data-des-id='FR-01'], [data-feature='login'], #f-user, #loginUser",
       )
       .count();
     if (vis && featureOk === 0) return "webpack overlay";
@@ -110,34 +114,26 @@ async function clearSession() {
   });
 }
 
-async function loginViaSheet() {
+async function loginViaPage() {
   await clearSession();
-  await page.goto(base + "/web-rmms-home", {
+  await page.goto(base + loginPath, {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
-  await page.waitForSelector("#guestLogin", { timeout: 20000 });
-  await page.locator("#guestLogin").click();
-  await page.waitForSelector("#loginUser, [data-zone='SH-02'] input", {
-    timeout: 15000,
-  });
-  const userSel = (await page.locator("#loginUser").count())
-    ? "#loginUser"
-    : '[data-zone="SH-02"] input[type="text"], [data-zone="SH-02"] input:not([type="password"])';
-  const passSel = (await page.locator("#loginPass").count())
-    ? "#loginPass"
-    : '[data-zone="SH-02"] input[type="password"]';
+  await page.waitForSelector("#f-user, #loginUser", { timeout: 20000 });
+  const userSel = (await page.locator("#f-user").count()) ? "#f-user" : "#loginUser";
+  const passSel = (await page.locator("#f-pass").count()) ? "#f-pass" : "#loginPass";
+  const submitSel = (await page.locator("#btn-login").count())
+    ? "#btn-login"
+    : "#loginSubmit";
   await page.fill(userSel, user);
   await page.fill(passSel, password);
-  await page
-    .locator("#loginSubmit, [data-zone='SH-02'] button[type='submit']")
-    .first()
-    .click({ force: true });
-  await page.waitForTimeout(2500);
+  await page.locator(submitSel).first().click({ force: true });
+  await page.waitForTimeout(2800);
   await page
     .waitForSelector(
-      '[data-feature="web-rmms-home"][data-mode="staff"] #gridSupervise, [data-mode="staff"] #walletAsset',
-      { timeout: 25000 },
+      '[data-feature="web-rmms-home"][data-mode="staff"], [data-mode="staff"] #walletAsset, [data-feature="web-rmms-home"]',
+      { timeout: 30000 },
     )
     .catch(() => {});
 }
@@ -145,7 +141,7 @@ async function loginViaSheet() {
 async function dumpZones() {
   return page.evaluate(() => {
     const root = document.querySelector(
-      '[data-feature="web-rmms-field-reflect"], [data-feature="web-rmms-home"], [data-feature="web-rmms-shell"]',
+      '[data-feature="web-rmms-field-reflect"], [data-feature="web-rmms-home"], [data-feature="web-rmms-shell"], [data-feature="login"]',
     );
     const zones = [...document.querySelectorAll("[data-zone]")].map((el) =>
       el.getAttribute("data-zone"),
@@ -156,10 +152,29 @@ async function dumpZones() {
     const actions = [...document.querySelectorAll("[data-action]")].map((el) =>
       el.getAttribute("data-action"),
     );
-    const ids = ["FR-REFLECT", "loginUser", "loginPass", "loginSubmit", "guestLogin"].filter(
-      (id) => document.getElementById(id),
+    const ids = [
+      "FR-REFLECT",
+      "loginUser",
+      "loginPass",
+      "loginSubmit",
+      "guestLogin",
+      "f-user",
+      "f-pass",
+      "btn-login",
+      "validationBanner",
+      "btnDetect",
+      "btnCreate",
+    ].filter((id) => document.getElementById(id));
+    const detectBtn = document.querySelector(
+      '[data-action="detect"], #btnDetect, button[data-action="detect"]',
     );
-    const text = (document.body?.innerText || "").slice(0, 1200).replace(/\s+/g, " ");
+    const createBtn = document.querySelector(
+      '[data-action="create"], #btnCreate, button[data-action="create"]',
+    );
+    const banner = document.querySelector(
+      "#validationBanner, [data-action='validationBanner']",
+    );
+    const text = (document.body?.innerText || "").slice(0, 1400).replace(/\s+/g, " ");
     const guestGate = /Đăng nhập để phản ánh hiện trường/i.test(text);
     return {
       feature: root?.getAttribute("data-feature") || null,
@@ -170,11 +185,18 @@ async function dumpZones() {
       text,
       href: location.href,
       guestGate,
+      detectDisabled: detectBtn ? Boolean(detectBtn.disabled) : null,
+      createDisabled: createBtn ? Boolean(createBtn.disabled) : null,
+      bannerVisible: banner
+        ? banner.getAttribute("hidden") == null &&
+          getComputedStyle(banner).display !== "none"
+        : false,
+      bannerText: banner?.textContent?.slice(0, 400)?.replace(/\s+/g, " ") || "",
     };
   });
 }
 
-async function captureCurrent(id, waitSel) {
+async function captureCurrent(id, waitSel, assertFn) {
   const file = shotName(id);
   const abs = join(outDir, file);
   try {
@@ -182,8 +204,12 @@ async function captureCurrent(id, waitSel) {
     await page.waitForTimeout(1400);
     const fatal = await fatalUi(page);
     if (fatal) throw new Error("GAP-QA-E2E-CRASH-01 " + fatal);
-    await page.screenshot({ path: abs, fullPage: true });
     const dump = await dumpZones();
+    if (assertFn) {
+      const msg = assertFn(dump);
+      if (msg) throw new Error(msg);
+    }
+    await page.screenshot({ path: abs, fullPage: true });
     results.push({ id, result: "PASS", screenshot: file, href: page.url(), dump });
   } catch (err) {
     try {
@@ -212,30 +238,41 @@ try {
   // S0 — guest gate reflect
   pageErrors.length = 0;
   await clearSession();
-  await page.goto(base + "/web-rmms-field-reflect", {
+  await page.goto(base + reflectPath, {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
   await captureCurrent(
     "S0",
     "[data-feature='web-rmms-field-reflect'], #FR-REFLECT",
+    (d) => (d.guestGate ? null : "GAP-QA-S0 guestGate missing"),
   );
 
-  // QA-20 — LoginSheet SH-02 (auth path for Create/Live)
+  // QA-20 — Login page LG-00 (replaces LoginSheet SH-02)
   pageErrors.length = 0;
   await clearSession();
-  await page.goto(base + "/web-rmms-home", {
+  await page.goto(base + homePath, {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
   await page.waitForSelector("#guestLogin", { timeout: 20000 });
   await page.locator("#guestLogin").click();
-  await captureCurrent("QA-20", "#loginUser, [data-zone='SH-02']");
+  await captureCurrent(
+    "QA-20",
+    "#f-user, [data-feature='login'], #loginUser, [data-zone='LG-00'], [data-zone='SH-02']",
+    (d) => {
+      if (d.ids.includes("f-user") || d.ids.includes("loginUser") || d.feature === "login") {
+        return null;
+      }
+      if (d.zones.includes("LG-00") || d.zones.includes("SH-02")) return null;
+      return "GAP-QA-20 login surface missing";
+    },
+  );
 
-  // S1 — staff FR-00 pick after LoginSheet
+  // S1 — staff FR-00 pick after login
   pageErrors.length = 0;
-  await loginViaSheet();
-  await page.goto(base + "/web-rmms-field-reflect", {
+  await loginViaPage();
+  await page.goto(base + reflectPath, {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
@@ -244,8 +281,9 @@ try {
     "[data-feature='web-rmms-field-reflect'] [data-des-id='FR-00'], [data-action='assetPick']",
   );
 
-  // Extra: if FR-00 cards present, open FR-01 for dump (not a separate case id)
-  const card = page.locator("[data-action='assetPick'] button.assetCard, [data-action='assetPick'] button").first();
+  const card = page
+    .locator("[data-action='assetPick'] button.assetCard, [data-action='assetPick'] button")
+    .first();
   if ((await card.count()) > 0) {
     await card.click();
     await page.waitForTimeout(1200);
@@ -255,12 +293,103 @@ try {
       writeFileSync(join(outDir, "_fr01.dump.json"), JSON.stringify(dump, null, 2));
     }
   }
+
+  // T-QA-VAL-B — Pattern B: ?miss=1
+  pageErrors.length = 0;
+  await page.goto(base + reflectPath + "?miss=1", {
+    waitUntil: "domcontentloaded",
+    timeout: 60000,
+  });
+  await captureCurrent(
+    "VAL-B-miss",
+    "[data-feature='web-rmms-field-reflect'] [data-des-id='FR-01'], #validationBanner, [data-action='validationBanner']",
+    (d) => {
+      if (d.detectDisabled === true) return "GAP-QA-VAL-B detect disabled idle";
+      if (d.createDisabled === true) return "GAP-QA-VAL-B create disabled idle";
+      if (!d.bannerVisible && !/Cần|thiếu|chọn|ca|Không có/i.test(d.bannerText + d.text)) {
+        return "GAP-QA-VAL-B miss banner missing";
+      }
+      return null;
+    },
+  );
+
+  // T-QA-VAL-B — GPS deny
+  pageErrors.length = 0;
+  await page.goto(base + reflectPath + "?deny=1", {
+    waitUntil: "domcontentloaded",
+    timeout: 60000,
+  });
+  await page.waitForSelector(
+    "[data-des-id='FR-01'] [data-action='detect'], [data-action='detect'], #btnDetect",
+    { timeout: 20000 },
+  );
+  await page.waitForTimeout(800);
+  const denyDump0 = await dumpZones();
+  if (denyDump0.detectDisabled === true) {
+    results.push({
+      id: "VAL-B-deny",
+      result: "FAIL",
+      error: "GAP-QA-VAL-B GPS deny locked Detect CTA",
+      dump: denyDump0,
+      screenshot: shotName("VAL-B-deny"),
+    });
+    await page.screenshot({ path: join(outDir, shotName("VAL-B-deny")), fullPage: true });
+  } else {
+    await page
+      .locator("[data-action='detect'], #btnDetect")
+      .first()
+      .click({ force: true });
+    await page.waitForTimeout(900);
+    await captureCurrent(
+      "VAL-B-deny",
+      "#validationBanner, [data-action='validationBanner'], [data-des-id='FR-01']",
+      (d) => {
+        if (d.detectDisabled === true) return "GAP-QA-VAL-B detect disabled after deny click";
+        if (!d.bannerVisible && !/GPS|định vị|quyền|Cần/i.test(d.bannerText + d.text)) {
+          return "GAP-QA-VAL-B deny banner missing on Detect";
+        }
+        return null;
+      },
+    );
+  }
+
+  // T-QA-VAL-B — Acc>30
+  pageErrors.length = 0;
+  let detectPosted = false;
+  const onReq = (req) => {
+    if (/ai-vision\/detect/i.test(req.url()) && req.method() === "POST") detectPosted = true;
+  };
+  page.on("request", onReq);
+  await page.goto(base + reflectPath + "?acc=1", {
+    waitUntil: "domcontentloaded",
+    timeout: 60000,
+  });
+  await page.waitForSelector(
+    "[data-des-id='FR-01'] [data-action='detect'], [data-action='detect'], #btnDetect",
+    { timeout: 20000 },
+  );
+  await page.waitForTimeout(800);
+  await page.locator("[data-action='detect'], #btnDetect").first().click({ force: true });
+  await page.waitForTimeout(1200);
+  page.off("request", onReq);
+  await captureCurrent(
+    "VAL-B-acc",
+    "#validationBanner, [data-action='validationBanner'], [data-des-id='FR-01']",
+    (d) => {
+      if (detectPosted) return "GAP-QA-VAL-B Acc>30 still POSTed detect";
+      if (!d.bannerVisible && !/30|Sai số|GPS|ảnh|Cần/i.test(d.bannerText + d.text)) {
+        return "GAP-QA-VAL-B Acc>30 banner missing";
+      }
+      return null;
+    },
+  );
 } finally {
   await browser.close();
 }
 
 const summary = {
   feature: "web-rmms-field-reflect",
+  route: reflectPath,
   cases: results,
   pass: results.every((r) => r.result === "PASS"),
   at: new Date().toISOString(),

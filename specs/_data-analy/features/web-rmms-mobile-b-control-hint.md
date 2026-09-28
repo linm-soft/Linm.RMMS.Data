@@ -6,45 +6,68 @@
 | title | Tuần đường đợt B — sổ và dòng nhật ký |
 | packKind | `list` |
 | changeScope | `edit_page` |
+| editTask | `1` |
 | mode | `feature_context` |
 | status | `done` |
 | skillId | `agent-data-analy` |
 | skillVersion | `2026.09.05.03` |
 | schemaVersion | `1` |
 | workflowVersion | `2026.09.19.02` |
-| rulesVersion | `2026.09.25.2` |
+| rulesVersion | `2026.09.27.1` |
 | versionGate | `ok` |
-| contentHash | `sha256:58be487c963674c63e2436a6277905c70eb483f673a867c595bbd1babca3e773` |
-| analyzedAt | `2026-09-25T07:44:00.000Z` |
+| contentHash | `sha256:fe3ccad04e66ee08b65a65aead0fbef9f46328e5c2a3b828b3bee12969bbf72e` |
+| analyzedAt | `2026-09-27T06:55:00.000Z` |
 | demo | **N/A** |
 | realData | `specs/_data-analy/features/web-rmms-mobile-b-real-data.md` |
 | beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · domain **Patrol** · **cấm ERP.*** |
 | uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
 | mfeStdUrl | `http://localhost:9301/web-rmms-mobile-b` |
 | mfeStdRoute | `/web-rmms-mobile-b` |
-| taskId | `task_372668d4` |
+| taskId | `task_c25cf1eb` |
 | phoneFrame | `max-width: 430px` |
 | formPattern | Mobile full · **không** ERP Modal/Slideout Kind B desktop |
-| priorWave | `web-rmms-mobile-a` (hub/ca/check-in Live) · wave B = **API Mới** journal-lines |
+| priorWave | `web-rmms-mobile-a` (hub/ca/check-in Live) · wave B journal-lines **Live** |
+| deltaCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · slug `web-rmms-mobile-b` |
 
-> Data-analy **đề xuất** controlHint. Design **chốt** control-map. SA **chốt** `Schema_PatrolJournalLine` + routes.  
+> Data-analy **đề xuất** controlHint. Design **chốt** control-map. SA **chốt** Bff/transport.  
 > Nhãn UI: `useFormOptions()` / copy key — **cấm** hardcode tiếng Việt trên form.  
-> **Cấm** nhét màn vào MFE desktop · **cấm** iOS/Android native · **cấm** tọa độ mẫu.
+> **Cấm** nhét màn vào MFE desktop · **cấm** iOS/Android native · **cấm** typed CRUD `new_page`.  
+> **Keep** PO/Design/implement artifacts — chỉ bổ sung **§ Delta**.
+
+## § Delta Current vs New (edit_page HARD)
+
+Cite: `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` (Pattern B + Search control + Mobile.Bff).  
+Override body: **không** toolbar/export Excel · **không** `new_page`.
+
+| Area | Current (shipped) | New (task_c25cf1eb) |
+|------|-------------------|---------------------|
+| changeScope | wave B Live journal list/form (prior pipeline PASS) | `edit_page` · NEW AutocodeTask · keep PO/Design |
+| JournalFormPage Lưu | `disabled={!canSave}` · `canSave = gps.ok && narrative.trim() && !saving && !hydrating` | Pattern B: nút **luôn bật** trừ `saving`/`hydrating` · GPS/narrative thiếu → báo **khi bấm** (banner `string[]` + inline) · **cấm** khóa nút trước · **cấm** `alert.warning` thay banner |
+| validation UX | `alert.warning` GPS/narrative trước save | `validationAttempted` · banner + inline + scroll first error · API 4xx/5xx = toast only |
+| mediaIds / LinImageUpload | upload hiện có · **chưa** `capture` | `capture="environment"` (prop forward hoặc input local) · **cấm** fork package nếu thiếu prop |
+| TD-04 list / empty / cards | Live journal-lines · no check-in | **KEEP** |
+| Schema / routes journal | Live `Schema_PatrolJournalLine` + CRUD | **KEEP** · **cấm** invent API |
+| Tuyến / users picker | N/A trên TD-04/05 (ca parent · userName profile RO) | **KEEP** N/A picker · shared Mobile.Bff users forward (peer A/d) · **cấm** ERP UserSearchInput |
+| API base | mobile-bff plan / mixed risk | **chỉ** `mobileApiBase()` / `VITE_MOBILE_API_URL` · **cấm** web-bff trực tiếp |
+| Mobile.Bff users | peer thiếu forward | Forward `GET api/v1/integration/users` nếu chưa · **cấm** API mới WebService · road-routes/search **đã có** |
+| Grid / filter Kind B | N/A phone · WAIVE | **KEEP N/A** · **cấm** LinErpListFilterBar / DES-GRID / Excel |
+| Align mobile | — | `/align-mobile-to-mfe` · SSOT = page MFE · khung 430 · **cấm** tab/route/icon mới · **cấm** prototype android/ios |
+| Out of scope B | TD-06 · TK · WO · findings | **KEEP** out |
 
 ## Sources
 
 | Source | Path | note |
 |--------|------|------|
-| CTX | `docs/context/features/web-rmms-mobile-b.md` | created this run · hash gate |
+| CTX | `docs/context/features/web-rmms-mobile-b.md` | FE3CCAD0… |
+| Delta SSOT | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` | BF61E367… · slug B |
 | Screens B | `docs/plan/web-rmms-mobile/IMPLEMENT-SCREENS.md` | TD-04 · TD-05 |
-| Gap | `docs/plan/web-rmms-mobile/GAP-TUAN-DUONG-TUAN-KIEM.md` | §2 dòng nhật ký · ≠ check-in |
-| Peer A | `docs/context/features/web-rmms-mobile-a.md` · `_data-analy/...-a-*` | nav TD-01 → sổ/ghi |
-| Peer CTX | `docs/context/features/patrol.md` | desktop · không clone shell |
-| BE parent Live | `PatrolSessionsController` · sessions/{id} | ca đang mở |
-| BE Mới | Entity `PatrolJournalLine` · `Schema_PatrolJournalLine` | **chưa** Live — pair trước form |
+| Gap | `docs/plan/web-rmms-mobile/GAP-TUAN-DUONG-TUAN-KIEM.md` | §2 · ≠ check-in |
+| Peer A | `web-rmms-mobile-a` CTX + control-hint delta | Pattern B peer |
+| BE Live | journal-lines + sessions · Schema_PatrolJournalLine | prior PASS |
 | DOMAIN-MAP | Patrol · `api/v1/patrol` | cite · **cấm ERP.*** |
+| MFE current | `src/pages/WebRmmsMobileB/JournalFormPage.tsx` · JournalList | delta probe |
 
-## Screens đợt B (ids)
+## Screens đợt B (ids) — unchanged
 
 | id | route | surface |
 |----|-------|---------|
@@ -53,7 +76,7 @@
 
 **Out of B:** TD-06 · TK-02…07 · WO `POST maintenance/work-orders` · cờ `vuot-bdtx` write (đợt D) · findings (C).
 
-## ControlHint inventory (đợt B)
+## ControlHint inventory (đợt B + delta)
 
 | uiField | screen | controlHint | catalogKind / notes |
 |---------|--------|-------------|---------------------|
@@ -66,15 +89,15 @@
 | addLine | TD-04 | Button | → TD-05 `/moi` · empty CTA |
 | emptyHint | TD-04 | EmptyState | copy key «Chưa ghi việc» · **không** hardcode VN string trong code |
 | at | TD-05 | DateTime | default now · editable |
-| userName | TD-05 | Text readonly | `GET auth/profile` |
+| userName | TD-05 | Text readonly | `GET auth/profile` · resolve users catalog miss → `--` (shared) |
 | getGps | TD-05 | Button | `navigator.geolocation` · hiện accuracy |
-| lat / lng / accuracyM | TD-05 | GPS read | deny → **disable Lưu** · **cấm** fake |
+| lat / lng / accuracyM | TD-05 | GPS read | deny → **banner on submit** · **cấm** `disabled={!gps}` · **cấm** fake |
 | kmText | TD-05 | Text | km tay · GAP-TD-LRS-01 |
 | direction | TD-05 | Dropdown | LOOKUP_STATIC · default từ ca `Note` `chieu=` |
 | weather | TD-05 | Dropdown | `nang` `mua` `mu` `lu` `bao` `khac` |
 | kind | TD-05 | Radio/Dropdown | một chọn · 9 keys kind |
-| narrative | TD-05 | TextArea | **bắt buộc** · chặn Lưu nếu thiếu |
-| mediaIds | TD-05 | FileMulti | FileService guid |
+| narrative | TD-05 | TextArea | **required** · fail → banner/inline **on submit** · **cấm** pre-disable Lưu |
+| mediaIds | TD-05 | FileMulti | FileService guid · **capture=environment** |
 | onSiteAction | TD-05 | Toggle/Checkbox | đã xử lý tại chỗ |
 | onSiteResult | TD-05 | Text | để trống nếu chỉ phát hiện |
 | reportedTo | TD-05 | Button+Text | «Báo tuần kiểm» → `reportedTo=tuan-kiem` · **không** tạo phiếu TK-03 |
@@ -82,52 +105,56 @@
 | violationFlag | TD-05 | Button/flag | nếu `kind=hanh-lang` → `de-nghi-bien-ban` · **không** mở sổ 07 |
 | status | TD-05 | Dropdown | 4 status keys |
 | scope / workOrderId | TD-05 | — | **OUT B** (đợt D) · UI ẩn hoặc disabled |
-| save | TD-05 | Button | POST tạo · PUT sửa · thiếu GPS/narrative → chặn |
-| cancel | TD-05 | Button | về TD-04 · không ghi |
+| save | TD-05 | Button | Pattern B · disable **chỉ** `saving`/`hydrating` · POST tạo · PUT sửa |
+| cancel | TD-05 | Button | về TD-04 · LeaveConfirmModal nếu dirty |
 
 ## Filter / grid (desktop HARD)
 
 | | |
 |--|--|
-| LinErpListFilterBar / DES-GRID-* | **N/A** — phone Field · **không** Kind B desktop grid |
+| LinErpListFilterBar / DES-GRID-* | **N/A** — phone Field · **không** Kind B · SUBMIT override no Excel toolbar |
 | TD-04 | Card list theo ca · **cấm** clone ERP filter bar |
+| `{feature}-filter-bar.md` | **skip** — no LinErpListFilterBar surface |
 
-## GPS
+## GPS (delta Pattern B)
 
 | Màn | Rule |
 |-----|------|
 | TD-04 | không bắt GPS |
-| TD-05 | **HARD** deny → chặn Lưu · hiện accuracy · **cấm** tọa độ mẫu |
+| TD-05 | GPS deny / thiếu narrative → **bấm Lưu mới** banner + inline · **cấm** `disabled={!canSave}` · **cấm** tọa độ mẫu |
 
-## API Mới (SA pair trước form)
+## API (Live — KEEP)
 
 | Method | Path | Note |
 |--------|------|------|
 | GET | `patrol/sessions/{id}/journal-lines` | list sổ |
-| POST | `patrol/journal-lines` | tạo (body có `sessionId`) — SA chốt exact path vs nested |
+| POST | `patrol/journal-lines` | tạo (body `sessionId`) |
 | PUT | `patrol/journal-lines/{id}` | sửa |
+| GET | `patrol/journal-lines/{id}` | hydrate edit |
+| GET | `patrol/sessions/{id}` | parent ca |
 
-**Schema:** `Schema_PatrolJournalLine` + entity table (đề xuất `rmms_patrol_journal_lines`) **trước** wire form. Body đề xuất: `sessionId` · `at` · `lat` · `lng` · `accuracyM` · `kmText` · `direction` · `weather` · `kind` · `narrative` · `mediaIds` · `onSiteAction` · `onSiteResult` · `reportedTo` · `reportedAt` · `violationFlag` · `status` (+ đợt D: `scope` · `workOrderId`).
+Transport: **chỉ** `mobile-bff/api/v1` via `mobileApiBase()`.
 
 ## UNCLEAR
 
 | id | Issue | Action |
 |----|-------|--------|
-| UNCLEAR-JL-PATH | POST nested `…/sessions/{id}/journal-lines` vs top-level `patrol/journal-lines` | SA chốt 1 path · Dev follow |
-| UNCLEAR-JL-SCHEMA | Chưa có `Schema_PatrolJournalLine` Live | SA entity+schema **trước** form · **cấm** stub fake list |
-| UNCLEAR-LRS | Km tay đến khi có snap LRS (`GAP-TD-LRS-01`) | Design giữ Text `kmText` |
-| UNCLEAR-WEATHER | `GAP-TD-WEATHER-01` enum weather | giữ 6 keys IMPLEMENT · SA confirm |
+| UNCLEAR-CAPTURE-PROP | `LinImageUpload` có/không prop `capture` | Dev: prop forward hoặc input local `capture="environment"` · **cấm** fork package |
+| UNCLEAR-LRS | Km tay đến khi có snap LRS (`GAP-TD-LRS-01`) | Design giữ Text `kmText` · **KEEP** |
+| UNCLEAR-BANNER-KEYS | Message banner GPS/narrative từ lookup vs copy key | PO: prefer `useFormOptions()` / existing keys · **cấm** invent VN label mới nếu key đã có |
+
+**Closed prior:** UNCLEAR-JL-PATH · UNCLEAR-JL-SCHEMA · UNCLEAR-WEATHER (Live 6 keys).
 
 ## Handoff
 
 | Role | Dùng |
 |------|------|
-| PO | TD-04/05 DoD · GPS · schema-before-form · useFormOptions |
-| Design | Phone 430 · zones TD-04/05 · no desktop grid · empty state |
-| SA | Entity + Schema_PatrolJournalLine · routes Mới · **cấm** ERP.* |
-| TL/Dev | Wire Mobile MFE only · pair schema trước UI submit |
-| QA | empty list · GPS deny · no check-in in journal · no fake coords |
+| PO | Copy § Delta → requirement § Current vs New · Pattern B · capture · no Excel |
+| Design | Keep prototype · patch TD-05 submit always-on + banner zone · phone 430 |
+| SA | Mobile.Bff users forward (nếu thiếu) · giữ Live journal paths · **cấm** invent API |
+| TL/Dev | Wire delta only · `JournalFormPage` · mobileApiBase · align-mobile |
+| QA | submit enabled · GPS deny on-click banner · capture · no check-in in list |
 
 ## Version meta
 
-`skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:58be487c963674c63e2436a6277905c70eb483f673a867c595bbd1babca3e773` · `rulesVersion=2026.09.25.2` · `analyzedAt=2026-09-25T07:44:00.000Z`
+`skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:fe3ccad04e66ee08b65a65aead0fbef9f46328e5c2a3b828b3bee12969bbf72e` · `rulesVersion=2026.09.27.1` · `analyzedAt=2026-09-27T06:55:00.000Z` · `taskId=task_c25cf1eb` · `changeScope=edit_page`

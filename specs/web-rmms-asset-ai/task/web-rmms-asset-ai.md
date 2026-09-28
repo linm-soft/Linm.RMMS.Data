@@ -1,48 +1,52 @@
 # Team lead — Task — web-rmms-asset-ai
 
-> Status: **confirmed** · writtenAt `2026-09-25T16:01:00.000Z` · task `task_d405f168`  
+> Status: **confirmed** · writtenAt `2026-09-27T10:45:00.000Z` · task `task_d7075d83`  
 > skillVersion: `2026.09.05.03` · packKind: `list` · autoApprove: ON  
+> contentHash: `sha256:e223304b3658e8067766aed729e36988d54f1df8ad38ca953b2e176e63c9594c`  
 > **Cấm** xóa file này · **cấm** implement trong role team_lead.
 
 | | |
 |--|--|
 | Feature | `web-rmms-asset-ai` |
-| Title | Camera AI và HITL |
+| Title | Camera AI + HITL — Pattern B detect + SearchInput route |
 | Role | `team_lead` |
-| changeScope | `new_page` |
-| formPattern | Mobile full ≤430 · detect + HITL · N/A ERP Modal/Slideout |
+| changeScope | `edit_page` |
+| formPattern | Mobile full ≤430 · Pattern B · SearchInput · N/A ERP Modal/Slideout |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdRoute | `/web-rmms-asset-ai` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-asset-ai` |
-| nativeRouteCite | SCREENS `/asset/ai` + `/asset/ai/hitl/{id}` · alias shell nếu cần |
+| mfeStdRoute | `/tai-san/ai` |
+| mfeStdUrl | `http://localhost:9301/tai-san/ai` |
+| nativeRouteCite | SCREENS `/asset/ai` + `/asset/ai/hitl/{id}` · **cấm** sửa native |
 | be | `D:/AI-QLBD/Linm.RMMS.WebService` · Mobile.Bff `:5202` `mobile-bff/api/v1` · domain **AiVision** (`ai-vision`) · **cấm ERP.*** |
-| demo | N/A |
+| demo | N/A · hash skip |
 | DES-GRID / LinErpListFilterBar | N/A phone |
-| Step 4b / migration | **skip** · API Mới / entity: **none** |
+| Step 4b / migration | **skip** · API Mới / entity: **none** · T-BE **N/A** |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-ai/ui/prototype/index.html` |
 | zones | AA-00 … AA-14 |
+| deltaCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` |
 | nextSlash | `/agent-dev` · roleOnly stop (GAP-PKT-ROLE-01) |
 
 ## route_confirm
 
 | Field | Value |
 |-------|-------|
-| action | **confirm** (new_page) |
-| mfeStdRoute | `/web-rmms-asset-ai` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-asset-ai` |
-| shellAlias | optional `/asset/ai` + `/asset/ai/hitl/{id}` if shell requires |
-| note | Follow STATUS URL · Design UNCLEAR-STD-ROUTE chốt |
+| action | **confirm** (edit_page · route đã ship) |
+| mfeStdRoute | `/tai-san/ai` |
+| mfeStdUrl | `http://localhost:9301/tai-san/ai` |
+| shellAlias | native cite `/asset/ai` + `/asset/ai/hitl/{id}` — **no** new tab/route/icon |
+| note | UNCLEAR-STD-ROUTE resolved · **cấm** đổi lại `/web-rmms-asset-ai` |
 
 ## Decisions (rolled from prior)
 
-- Detect: photo* · GPS Acc≤30 · RouteId* · PatrolTripId opt · nearby warn opt · POST detect-assets → Draft → nav HITL · **cấm auto-confirm**
-- HITL: confirm + dismiss · pin drag **local** · score **SHOW RO %** · no gate
-- GPS: `navigator.geolocation` · deny/poor blocks detect · **cấm** fake / type-in / 0,0
-- Labels: `useFormOptions()` / `assetAi.*` · **cấm** hardcode VN form
+- changeScope: **edit_page** · cấm typed CRUD new_page · cấm Excel · cấm invent API
+- **Delta Pattern B:** drop `disabled={!canDetect}` · validate on click (banner photo+route+GPS) · GPS deny **không** khóa CTA trước click · Acc≤30 vẫn gate khi submit
+- **Route:** SearchInput Live `integration/road-routes/search` · **cấm** `ROAD_ROUTE_SEED` · miss=`--`
+- Detect → Draft → nav HITL · **cấm auto-confirm**
+- HITL: confirm/dismiss **busy-only** · pin drag **local** · score **SHOW RO %**
+- Labels: `useFormOptions()` / `assetAi.*` · **cấm** hardcode VN
 - DES-LEAVE: in-app discard · **cấm** native confirm
-- Copy: Android icon/layout 1-1 · **cấm** sửa iOS/Android native
-- REMOVED: me* / feedback / cam-view · collect/adjust/list · Field doors / journal… (out of slug)
-- SA: reuse AiVision · **cấm invent AssetAiController** · DOMAIN-MAP row `web-rmms-asset-ai` done
+- BFF: Mobile.Bff only · **cấm** web-bff · **cấm** AssetAiController
+- REMOVED: me* · feedback · cam-view · collect/adjust · ROAD_ROUTE_SEED · `disabled={!canDetect}`
+- Prior ship T-01…T-05 = **done** · this run = **T-EDIT** only
 
 ## FormMode ↔ API
 
@@ -50,45 +54,48 @@
 |------|------|
 | Detect (Create Draft) | `POST ai-vision/uploads/init` + PUT · `GET integration/road-routes/search` · `GET patrol/sessions` · `GET ai-vision/asset-candidates/nearby` · `POST ai-vision/detect-assets` |
 | HITL (Confirm \| Dismiss) | `GET ai-vision/asset-candidates/{id}` · `POST …/confirm` · `POST …/dismiss` |
-| BFF | Mobile.Bff only · no new controller · Step 4b skip |
+| BFF | Mobile.Bff Live reuse · no new controller · Step 4b skip |
 
 ## Tasks
 
 | id | page / slice | role | deps | status | DoD (slim) |
 |----|--------------|------|------|--------|------------|
-| T-01 | Route + shell page `/web-rmms-asset-ai` · AA-00 navBack → Hub `/asset` | FE | — | pending | Route registered · deep-link mfeStdUrl · navBack Hub · no ERP.* |
-| T-02 | Detect form AA-01…AA-05 · photo · GPS RO · RouteId* · trip opt · Acc≤30 gate | FE | T-01 | pending | Fields bind DetectAssetsRequest · geolocation only · deny/poor blocks CTA · useFormOptions |
-| T-03 | Nearby warn AA-06 · Detect/Cancel AA-07 · POST detect → Draft → HITL | FE | T-02 | pending | Optional GET nearby · POST detect-assets · **no** auto-confirm · nav HITL with draft id |
-| T-04 | HITL AA-08…AA-14 · draft bind · pin local drag · score SHOW RO · confirm/dismiss | FE | T-03 | pending | GET candidate · pin local-only · confirm+dismiss CTA · leave=in-app discard |
-| T-05 | Wire Mobile.Bff clients · error/toast · DES-LEAVE · Android 1-1 parity zones | FE | T-01 | pending | All live APIs via BFF · labels i18n keys · prototype parity AA-* · **cấm** native confirm |
+| T-01…T-05 | AI+HITL prior ship `/tai-san/ai` · Live BFF · zones AA-* | FE | — | **done** | Route + detect + HITL + BFF wire đã ship |
+| T-EDIT | Detect validate Pattern B · SearchInput route · no seed | FE | sa | **pending** | Drop `!canDetect` · on-click banner (photo+route+GPS) · GPS deny không khóa CTA trước · SearchInput Live miss=`--` · **cấm** ROAD_ROUTE_SEED · HITL busy-only · score SHOW % · useFormOptions · prototype AA-* parity · **cấm** auto-confirm |
 | T-BE | — | — | — | **N/A** | No new API / entity / migration (SA) |
+| T-QA | e2e Pattern B + SearchInput | QA | T-EDIT | **pending** | queued `/agent-qa*` · **cấm** e2e ở TL/dev |
+| T-REV | review | review | T-QA | **pending** | after QA |
 
 ### Assignee
 
-- Impl: `/agent-dev` · MFE cwd `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile`
-- QA E2E: queued `/agent-qa*` · **cấm** e2e ở team_lead/dev unless QA role
+- Impl: `/agent-dev` · MFE cwd `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` · **chỉ** T-EDIT
+- QA E2E: queued `/agent-qa*` · **cấm** e2e / `yarn start:std` ở team_lead
 - Review: `/agent-review` after QA
+- Align cuối: `/align-mobile-to-mfe` · no new tab/route/icon · mobileApiBase only
 
 ## Acceptance map (PO → T-*)
 
 | AC | Owner task |
 |----|------------|
-| Detect photo* GPS Acc≤30 RouteId* → Draft → HITL | T-02 · T-03 |
-| Nearby optional warn | T-03 |
-| HITL confirm + dismiss · pin local · score SHOW | T-04 |
-| No auto-confirm on detect | T-03 |
-| Labels useFormOptions · no hardcode VN | T-02 · T-05 |
-| GPS deny/poor blocks · no fake | T-02 |
-| DES-LEAVE in-app | T-04 · T-05 |
-| Android 1-1 · cấm native code change | T-05 |
+| Pattern B detect · drop `!canDetect` · banner on click | T-EDIT |
+| SearchInput route Live · no seed · miss=`--` | T-EDIT |
+| GPS deny không khóa CTA trước · Acc≤30 gate on submit | T-EDIT |
+| Detect → Draft → HITL · no auto-confirm | T-EDIT (keep T-03 behavior) |
+| HITL confirm/dismiss busy-only · pin local · score SHOW % | T-EDIT (keep T-04) |
+| Labels useFormOptions · no hardcode VN | T-EDIT |
+| DES-LEAVE in-app · cấm native confirm | T-EDIT |
+| No new BE / migration | T-BE N/A |
+| E2E Pattern B + SearchInput | T-QA |
 
 ## Out of scope
 
 - me / me-profile / me-settings / feedback / cam-view
 - collect / adjust / list
-- Field doors · journal / kết ca / tồn tại / tần suất (other shells)
+- Field doors · journal / kết ca / tồn tại / tần suất
 - New BE controller · migration · Step 4b
-- ERP.* namespaces
+- ERP.* namespaces · web-bff client
+- Re-open `/web-rmms-asset-ai` alias as primary std route
+- Native iOS/Android code changes
 
 ## Prior artifacts
 
@@ -101,4 +108,4 @@
 
 ## UNCLEAR
 
-- (none blocking) DOMAIN-MAP-AAI · HITL-SPLIT · SCORE-01 · STD-ROUTE — resolved prior roles
+- (none) · DOMAIN-MAP-AAI · HITL-SPLIT · SCORE-01 · STD-ROUTE — resolved prior roles

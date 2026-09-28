@@ -16,6 +16,7 @@
 | Persona | Tuần đường (BDTX) · Tuần kiểm (Khu/VP) — hai lối Field; Work chat dùng chung |
 | Entry | Card action từ `web-rmms-work` (`#i-chat` / `btn-mnt-chat-{id}`) · product `/work/chat` |
 | DoD P1 | WORK-C screen Live: GET/POST messages · kit `LinmChatThread` + `LinmChatComposer` · Mobile.Bff only · empty/error khi thiếu id / API fail |
+| Chrome | Shared shell `src/shared/chat` · contract `rmms-mobile-chat-shell.md` · **không** gộp slug/API với sự cố |
 | Out P1 | Me* · feedback · cam-view · list WO · progress write · nhật ký RO · estimate · journal/kết ca/tồn tại/tần suất (`web-rmms-mobile-b…e`) · invent `api/v1/mnt-chat` · kit SignalR |
 
 ## 2. Routes / screens

@@ -2,11 +2,18 @@
   "feature": "web-rmms-asset-ai",
   "status": "done",
   "role": "review",
-  "taskId": "task_5065b058",
+  "taskId": "task_0a0af34d",
   "review_confirm": "approve",
   "verdict": "PASS",
-  "contentHash": "sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e",
+  "changeScope": "edit_page",
+  "contentHash": "sha256:e223304b3658e8067766aed729e36988d54f1df8ad38ca953b2e176e63c9594c",
   "skillVersion": "2026.09.05.03",
-  "writtenAt": "2026-09-25T16:25:00.000Z",
-  "autoApprove": true
+  "writtenAt": "2026-09-27T17:30:00.000Z",
+  "autoApprove": true,
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  }
 }

@@ -145,6 +145,13 @@
       background: #FDECEA; color: var(--danger); border-radius: 12px;
       padding: 10px 12px; margin-bottom: 12px; font-size: 13px;
     }
+    .banner-deny ul { margin: 0; padding-left: 18px; }
+    .banner-deny li { margin: 2px 0; }
+    .field-error input, .field-error textarea, .field-error .btn-ghost {
+      border-color: var(--danger) !important; outline: 1px solid var(--danger);
+    }
+    .inline-error { color: var(--danger); font-size: 12px; margin-top: 4px; }
+    .photo-add input[type="file"] { display: none; }
     .toggle-row {
       display: flex; align-items: center; justify-content: space-between;
       background: var(--card); border: 1px solid var(--border); border-radius: 12px;
@@ -182,7 +189,7 @@
     <button type="button" data-go="TD-04e" class="active">TD-04 empty</button>
     <button type="button" data-go="TD-04">TD-04 data</button>
     <button type="button" data-go="TD-05">TD-05 form</button>
-    <button type="button" data-go="TD-05g">TD-05 GPS deny</button>
+    <button type="button" data-go="TD-05g">TD-05 validate (Pattern B)</button>
   </nav>
 
   <div class="phone" id="phone" data-feature="web-rmms-mobile-b" data-phone-frame="430">
@@ -320,8 +327,12 @@
         <div class="field" data-field="mediaIds">
           <label>Ảnh hiện trường</label>
           <div class="photo-row">
-            <div class="photo-add" title="FileMulti">+</div>
+            <label class="photo-add" title="FileMulti · capture=environment">
+              +
+              <input type="file" accept="image/*" capture="environment" multiple />
+            </label>
           </div>
+          <p class="hint">capture=environment · LinImageUpload prop hoặc input local · cấm fork package</p>
         </div>
         <div class="toggle-row" data-field="onSiteAction">
           <span>Đã xử lý tại chỗ</span>
@@ -348,8 +359,8 @@
       </div>
     </section>
 
-    <!-- TD-05 GPS deny -->
-    <section class="screen" id="sc-TD-05g" data-des-id="TD-05" data-route="/field/tuan-duong/nhat-ky/moi" data-state="gps-deny">
+    <!-- TD-05 Pattern B — validationAttempted (GPS deny + empty narrative after Lưu click) -->
+    <section class="screen" id="sc-TD-05g" data-des-id="TD-05" data-route="/field/tuan-duong/nhat-ky/moi" data-state="validation-attempted">
       <header class="topbar">
         <button type="button" class="back" data-leave="1" aria-label="Hủy">‹</button>
         <div class="title">Ghi dòng</div>
@@ -358,21 +369,35 @@
       <div class="content">
         <div class="toolbar-form">
           <button type="button" class="btn btn-secondary" data-leave="1">Hủy</button>
-          <button type="button" class="btn btn-primary" data-field="save" disabled>Lưu</button>
+          <button type="button" class="btn btn-primary" data-field="save" id="save-validate">Lưu</button>
         </div>
-        <div class="banner-deny" data-field="gps-deny">
-          Chưa có GPS — cấp quyền vị trí để lưu. Cấm tọa độ mẫu.
+        <div class="banner-deny" data-field="validationBanner" data-zone="banner">
+          <ul>
+            <li data-msg="gps">Chưa có GPS — cấp quyền vị trí rồi ghim lại. Cấm tọa độ mẫu.</li>
+            <li data-msg="narrative">Diễn biến bắt buộc.</li>
+          </ul>
         </div>
-        <div class="field">
+        <div class="field field-error" data-field="getGps">
           <label>Định vị</label>
           <button type="button" class="btn btn-ghost btn-block" data-field="getGps">Ghim vị trí hiện tại</button>
           <p class="gps-deny">Từ chối / chưa cấp quyền</p>
+          <p class="inline-error" data-field="gps-inline">Thiếu GPS — báo khi bấm Lưu (Pattern B)</p>
         </div>
-        <div class="field" data-field="narrative">
+        <div class="field field-error" data-field="narrative">
           <label>Diễn biến *</label>
           <textarea placeholder="Bắt buộc"></textarea>
+          <p class="inline-error" data-field="narrative-inline">Bắt buộc — báo khi bấm Lưu</p>
         </div>
-        <p class="hint">Lưu disabled khi thiếu GPS hoặc narrative</p>
+        <div class="field" data-field="mediaIds">
+          <label>Ảnh hiện trường</label>
+          <div class="photo-row">
+            <label class="photo-add" title="capture=environment">
+              +
+              <input type="file" accept="image/*" capture="environment" multiple />
+            </label>
+          </div>
+        </div>
+        <p class="hint">Pattern B: Lưu luôn bật (trừ saving/hydrating) · banner string[] + inline · cấm alert.warning · cấm disabled=!canSave</p>
       </div>
     </section>
 

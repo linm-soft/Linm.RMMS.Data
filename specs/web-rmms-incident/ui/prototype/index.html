@@ -97,9 +97,39 @@
     }
     .banner .t { font-weight: 600; font-size: 15px; }
     .banner .s { font-size: var(--label); color: var(--muted); }
+    .validate-banner {
+      display: none; margin: 0 0 12px; padding: 12px; border-radius: var(--radius-card);
+      background: #FFEBEE; border: 1px solid #FFCDD2; color: var(--danger);
+    }
+    .validate-banner.show { display: block; }
+    .validate-banner .t { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+    .validate-banner ul { margin: 0; padding-left: 18px; font-size: var(--label); }
     .card {
       background: var(--card); border: 1px solid var(--border);
       border-radius: var(--radius-card); padding: 12px 14px; margin-bottom: 10px; cursor: pointer;
+    }
+    .card-main { display: flex; align-items: flex-start; gap: 10px; }
+    .card-body { flex: 1; min-width: 0; }
+    .thumb {
+      width: 72px; height: 72px; border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      padding: 6px; background: var(--surface); border: 1px dashed var(--border);
+      color: var(--muted); font-size: 11px; font-weight: 650; line-height: 1.2;
+    }
+    .thumb.photo {
+      border: 0; padding: 0; background: #d8e8f2; color: var(--primary);
+      font-size: 20px; position: relative; overflow: hidden;
+    }
+    .thumb .more {
+      position: absolute; right: 3px; bottom: 3px; min-width: 18px; padding: 2px 4px;
+      border-radius: 4px; background: color-mix(in srgb, var(--on-surface) 78%, transparent);
+      color: var(--card); font-size: 11px; font-weight: 700;
+    }
+    .detail-photos { margin: 12px 0; }
+    .detail-photos .label { font-size: var(--label); color: var(--muted); font-weight: 600; margin-bottom: 8px; }
+    .detail-photo {
+      width: 100%; min-height: 140px; border-radius: 8px; background: #d8e8f2;
+      display: grid; place-items: center; color: var(--primary); font-size: 28px;
     }
     .card .title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
     .card .line { font-size: var(--label); color: var(--muted); display: flex; gap: 6px; margin: 2px 0; }
@@ -133,6 +163,18 @@
     .wallet .k { font-size: 11px; opacity: .85; letter-spacing: .04em; }
     .wallet .t { font-size: 18px; font-weight: 700; margin-top: 4px; }
     .wallet .m { font-size: var(--label); opacity: .9; margin-top: 2px; }
+    .identify { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .identify label {
+      display: flex; align-items: center; gap: 10px; min-height: 48px; margin: 0;
+      padding: 10px 12px; background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-control); font-size: var(--field); cursor: pointer;
+    }
+    .identify label.on { border-color: var(--primary); background: #e7f4fb; }
+    .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .type-grid button {
+      min-height: 72px; border: 1px solid var(--border); border-radius: var(--radius-card);
+      background: var(--card); font-size: 14px; font-weight: 600; cursor: pointer;
+    }
     .kind-pills { display: flex; gap: 8px; margin-bottom: 8px; }
     .kind-pills button {
       flex: 1; height: 44px; border-radius: 22px; border: 1px solid var(--border);
@@ -207,17 +249,17 @@
 </head>
 <body>
   <div class="meta">
-    web-rmms-incident · zones INC-L / INC-N / INC-D · phone 430 · reviewUrl · real_view_parity=v1<br />
-    Control = controlHint · GPS HARD · HasGps only · nested /new /:id · cấm ERP.* / fake GPS / window.alert
+    web-rmms-incident · edit Pattern B · zones INC-L / INC-N / INC-D · phone 430 · reviewUrl · real_view_parity=v1<br />
+    Create always-on · validate.banner · GPS deny on-submit · capture giữ · std /van-de/moi · cấm ERP.* / fake GPS / window.alert
   </div>
   <div class="board-nav" id="board">
     <button type="button" data-mode="default" class="active">Default</button>
     <button type="button" data-mode="create">Create</button>
     <button type="button" data-mode="detail">Detail</button>
     <button type="button" data-mode="empty">Empty list</button>
-    <button type="button" data-mode="gpsdeny">GPS deny</button>
-    <button type="button" data-mode="acc45">Detect &gt;30</button>
-    <button type="button" data-mode="nosession">No session</button>
+    <button type="button" data-mode="gpsdeny">GPS deny (PB)</button>
+    <button type="button" data-mode="acc45">GPS &gt;30</button>
+    <button type="button" data-mode="nosession">No session (PB)</button>
     <button type="button" data-mode="error">Error toast</button>
   </div>
   <div class="phone" id="phone">
@@ -244,12 +286,17 @@
         </div>
         <div id="list-cards">
           <div class="card" data-field="list.card" onclick="go('INC-D')">
-            <div class="title" data-field="card.title">Nứt mặt đường</div>
-            <div class="line" data-field="card.type">⚠ Sự cố nhanh · <span data-field="card.code">SC-2401</span></div>
-            <div class="line" data-field="card.route">📍 QL.1 · Km 1556+080</div>
-            <div class="line" data-field="card.person">👤 Nguyễn Văn A</div>
-            <div class="line" data-field="card.requestedAt">🕒 2026-08-10 08:12:40</div>
-            <div class="line"><span class="flag" data-field="card.hasGps">📍 HasGps</span></div>
+            <div class="card-main">
+              <div class="card-body">
+                <div class="title" data-field="card.title">Nứt mặt đường</div>
+                <div class="line" data-field="card.type">⚠ Sự cố nhanh · <span data-field="card.code">SC-2401</span></div>
+                <div class="line" data-field="card.route">📍 QL.1 · Km 1556+080</div>
+                <div class="line" data-field="card.person">👤 Nguyễn Văn A</div>
+                <div class="line" data-field="card.requestedAt">🕒 2026-08-10 08:12:40</div>
+                <div class="line"><span class="flag" data-field="card.hasGps">📍 HasGps</span></div>
+              </div>
+              <div class="thumb photo" data-field="card.thumb" aria-label="Ảnh">📷<span class="more">+1</span></div>
+            </div>
             <div class="status" data-field="card.status">Trạng thái: Đợi phân công</div>
             <div class="actions">
               <button type="button" data-field="row.chat" onclick="event.stopPropagation();toast('→ peer chat')">Chat</button>
@@ -258,12 +305,17 @@
             </div>
           </div>
           <div class="card" onclick="go('INC-D')">
-            <div class="title">Cống tắc</div>
-            <div class="line">⚠ Hệ thống an toàn · SC-2398</div>
-            <div class="line">📍 HCM · Km 12+400</div>
-            <div class="line">👤 Trần Khánh</div>
-            <div class="line">🕒 2026-08-09 14:40:13</div>
-            <div class="line"><span class="flag">📍 HasGps</span></div>
+            <div class="card-main">
+              <div class="card-body">
+                <div class="title">Cống tắc</div>
+                <div class="line">⚠ Hệ thống an toàn · SC-2398</div>
+                <div class="line">📍 HCM · Km 12+400</div>
+                <div class="line">👤 Trần Khánh</div>
+                <div class="line">🕒 2026-08-09 14:40:13</div>
+                <div class="line"><span class="flag">📍 HasGps</span></div>
+              </div>
+              <div class="thumb" data-field="card.thumb">Chưa có ảnh</div>
+            </div>
             <div class="status ok">Trạng thái: Đang giám sát</div>
             <div class="actions">
               <button type="button" onclick="event.stopPropagation();toast('→ peer chat')">Chat</button>
@@ -274,7 +326,33 @@
         </div>
         <div class="empty" id="list-empty" style="display:none" data-field="empty">Chưa có vấn đề</div>
       </div>
-      <button class="fab" type="button" data-field="fab" title="Tạo" onclick="go('INC-N')">＋</button>
+      <button class="fab" type="button" data-field="fab" title="Tạo" onclick="go('INC-PICK')">＋</button>
+    </div>
+
+    <!-- INC-PICK -->
+    <div class="screen" id="INC-PICK" data-zone="INC-N">
+      <div class="topbar">
+        <button class="icon-btn" type="button" onclick="go('INC-L')">‹</button>
+        <div class="title">Chọn loại tài sản</div>
+        <div style="width:44px"></div>
+      </div>
+      <div class="content" data-field="assetPick">
+        <div class="identify" role="radiogroup" aria-label="Xác định loại" data-field="assetIdentify">
+          <label class="on" id="id-known">
+            <input type="radio" name="assetIdentify" checked onchange="setIdentify('known')" />
+            Đã xác định
+          </label>
+          <label id="id-unknown">
+            <input type="radio" name="assetIdentify" onchange="setIdentify('unknown')" />
+            Chưa xác định
+          </label>
+        </div>
+        <div id="type-grid" class="type-grid">
+          <button type="button" onclick="pickType('Mặt đường','PAVEMENT')">PAVEMENT<br>Mặt đường</button>
+          <button type="button" onclick="pickType('Cầu','BRIDGE')">BRIDGE<br>Cầu</button>
+        </div>
+        <button class="btn btn-primary" type="button" id="pick-continue" style="display:none" onclick="pickUnknown()">Tiếp tục</button>
+      </div>
     </div>
 
     <!-- INC-N -->
@@ -304,9 +382,8 @@
         </div>
         <div class="section-label">Ảnh hiện trường</div>
         <div class="photo-row" data-field="photos">
-          <div class="photo-slot" id="photo0" onclick="fillPhoto()">📷</div>
+          <div class="photo-slot" id="photo0" onclick="openCapture()" title="Chụp ảnh">+</div>
         </div>
-        <button class="btn btn-secondary" type="button" data-field="detect" id="btn-detect" onclick="onDetect()" style="margin-bottom:10px">Nhận diện từ ảnh</button>
         <div class="field">
           <label>Ca / tuyến (RO)</label>
           <input data-field="sessionStamp" id="sessionStamp" readonly value="QL.1 · Km 1556+080 · ca tuần PAT-0014" />
@@ -324,6 +401,10 @@
         <div class="field">
           <label>Mô tả</label>
           <textarea data-field="description" placeholder="Mô tả hiện trường…" oninput="markDirty()"></textarea>
+        </div>
+        <div class="validate-banner" id="validateBanner" data-field="validate.banner" role="alert">
+          <div class="t">Không thể tạo — kiểm tra lại</div>
+          <ul id="validateList"></ul>
         </div>
         <div class="stack">
           <button class="btn btn-primary" type="button" data-field="create" id="btn-create" onclick="onCreate()">Tạo vấn đề</button>
@@ -356,6 +437,10 @@
           <div class="sub">Định vị</div>
           <div class="val"><span class="flag">📍 HasGps = true</span> · không invent Lat/Lng DTO</div>
         </div>
+        <div class="detail-photos" data-field="detail.photos">
+          <div class="label">Ảnh</div>
+          <div class="detail-photo" aria-label="Ảnh">📷</div>
+        </div>
         <div class="field">
           <label>Ghi chú đóng (optional)</label>
           <textarea data-field="note" id="closeNote" placeholder="Note optional — empty OK"></textarea>
@@ -377,6 +462,23 @@
         <button class="btn btn-secondary" type="button" onclick="hideLeave()">Ở lại</button>
       </div>
     </div>
+    <div class="sheet" id="captureSheet" data-field="incidentCapture">
+      <div class="panel">
+        <div style="display:flex;gap:8px;margin-bottom:12px">
+          <button class="btn btn-secondary" type="button" data-field="captureCancel" onclick="closeCapture()" style="flex:1">Hủy</button>
+          <button class="btn btn-primary" type="button" data-field="captureSave" onclick="saveCapture()" style="flex:1">Lưu</button>
+        </div>
+        <p style="margin:0 0 8px;font-size:14px">Pin trên bản đồ · nhiều ảnh · Chụp thêm. Nhận diện để sau.</p>
+        <div class="photo-slot" onclick="markCaptureShot()" id="captureShot">Chụp</div>
+      </div>
+    </div>
+    <div class="sheet" id="gpsDenySheet" data-field="gps.deny.modal">
+      <div class="panel">
+        <div style="font-weight:600;margin-bottom:8px">incident.gps.deny.title</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:12px">incident.gps.deny.body · cấm fake GPS · Create vẫn bật trước khi bấm</div>
+        <button class="btn btn-primary" type="button" onclick="hideGpsDeny()">Đã hiểu</button>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -386,6 +488,9 @@
     let accuracy = 5;
     let hasPhoto = false;
     let hasSession = true;
+    let hasAsset = true;
+    let validationAttempted = false;
+    let creating = false;
 
     function toast(msg) {
       const el = document.getElementById('toast');
@@ -403,57 +508,115 @@
 
     function markDirty() { dirty = true; }
 
+    function setIdentify(mode) {
+      const known = mode === 'known';
+      document.getElementById('id-known').classList.toggle('on', known);
+      document.getElementById('id-unknown').classList.toggle('on', !known);
+      document.getElementById('type-grid').style.display = known ? 'grid' : 'none';
+      document.getElementById('pick-continue').style.display = known ? 'none' : 'block';
+    }
+
+    function pickType(name, code) {
+      hasAsset = true;
+      document.querySelector('#INC-N [data-field="assetPick"]').textContent = name;
+      document.querySelector('#INC-N .wallet .m').textContent = code + ' · LookupGrid asset-types';
+      document.querySelector('#INC-N [data-field="checklist"]').style.display = '';
+      go('INC-N');
+    }
+
+    function pickUnknown() {
+      hasAsset = true;
+      document.querySelector('#INC-N [data-field="assetPick"]').textContent = 'Chưa xác định';
+      document.querySelector('#INC-N .wallet .m').textContent = '';
+      document.querySelector('#INC-N [data-field="checklist"]').style.display = 'none';
+      go('INC-N');
+    }
+
     function setKind(btn) {
       document.querySelectorAll('.kind-pills button').forEach((b) => b.classList.remove('on'));
       btn.classList.add('on');
       markDirty();
     }
 
-    function fillPhoto() {
+    var captureShot = false;
+    function openCapture() {
+      captureShot = false;
+      document.getElementById('captureShot').textContent = 'Chụp';
+      document.getElementById('captureSheet').classList.add('show');
+    }
+    function closeCapture() {
+      document.getElementById('captureSheet').classList.remove('show');
+    }
+    function markCaptureShot() {
+      captureShot = true;
+      document.getElementById('captureShot').textContent = '✓';
+    }
+    function saveCapture() {
+      if (!captureShot) { toast('Chụp ảnh trước khi lưu.'); return; }
       hasPhoto = true;
       document.getElementById('photo0').classList.add('filled');
       document.getElementById('photo0').textContent = '✓';
       markDirty();
-      toast('Ảnh local · uploads/files peer');
+      closeCapture();
+      toast('Đã gắn ảnh · về form Ghi sự cố');
     }
+
+    function hideValidate() {
+      document.getElementById('validateBanner').classList.remove('show');
+      document.getElementById('validateList').innerHTML = '';
+    }
+
+    function showValidate(keys) {
+      const ul = document.getElementById('validateList');
+      ul.innerHTML = keys.map((k) => '<li>' + k + '</li>').join('');
+      document.getElementById('validateBanner').classList.add('show');
+      document.getElementById('validateBanner').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function hideGpsDeny() { document.getElementById('gpsDenySheet').classList.remove('show'); }
+    function showGpsDeny() { document.getElementById('gpsDenySheet').classList.add('show'); }
 
     function applyGpsUi() {
       const bar = document.getElementById('gpsBar');
       const create = document.getElementById('btn-create');
-      const detect = document.getElementById('btn-detect');
+      // Pattern B: Create disabled CHỈ khi creating — không khóa vì GPS/session/asset
+      create.disabled = creating;
       if (!gpsOk) {
         bar.className = 'gps-bar deny';
-        bar.textContent = 'GPS deny → chặn Create / Detect · cấm fake';
-        create.disabled = true;
-        detect.disabled = true;
+        bar.textContent = 'GPS deny · Create vẫn bật · báo lúc bấm (Pattern B) · cấm fake';
         return;
       }
       if (accuracy > 30) {
         bar.className = 'gps-bar warn';
-        bar.textContent = 'GPS OK · accuracy ' + accuracy + ' m > 30 → Detect blocked';
-        create.disabled = false;
-        detect.disabled = true;
+        bar.textContent = 'GPS OK · accuracy ' + accuracy + ' m · Create ON';
         return;
       }
       bar.className = 'gps-bar';
       bar.textContent = 'GPS OK · HasGps khi tạo · ±' + accuracy + ' m';
-      create.disabled = !hasSession;
-      detect.disabled = false;
-    }
-
-    function onDetect() {
-      if (!gpsOk) { toast('GPS deny — không detect'); return; }
-      if (accuracy > 30) { toast('accuracy > 30 m — không POST detect'); return; }
-      if (!hasPhoto) { toast('Cần ảnh trước khi detect'); return; }
-      toast('POST ai-vision/detect (mock review)');
     }
 
     function onCreate() {
-      if (!gpsOk) { toast('GPS deny — không tạo'); return; }
-      if (!hasSession) { toast('Không có ca — chặn gắn Route · cấm bịa'); return; }
-      dirty = false;
-      toast('POST incident/incidents · HasGps · no Lat');
-      setTimeout(() => go('INC-D'), 500);
+      if (creating) return;
+      validationAttempted = true;
+      const errs = [];
+      if (!hasAsset) errs.push('incident.pick.title');
+      if (!hasSession) errs.push('incident.session.empty');
+      if (!gpsOk) errs.push('incident.gps.deny');
+      if (errs.length) {
+        showValidate(errs);
+        if (!gpsOk) showGpsDeny();
+        return;
+      }
+      hideValidate();
+      creating = true;
+      applyGpsUi();
+      toast('POST incident/incidents · HasGps · no Lat · Pattern B PASS');
+      setTimeout(() => {
+        creating = false;
+        dirty = false;
+        applyGpsUi();
+        go('INC-D');
+      }, 500);
     }
 
     function onClose() {
@@ -483,6 +646,11 @@
       gpsOk = true;
       accuracy = 5;
       hasSession = true;
+      hasAsset = true;
+      validationAttempted = false;
+      creating = false;
+      hideValidate();
+      hideGpsDeny();
       setListEmpty(false);
 
       if (mode === 'create' || mode === 'gpsdeny' || mode === 'acc45' || mode === 'nosession') {
@@ -491,14 +659,14 @@
         if (mode === 'nosession') {
           hasSession = false;
           document.getElementById('sessionStamp').value = '— không có ca —';
-          toast('Không có ca — chặn gắn Route');
         } else {
           document.getElementById('sessionStamp').value = 'QL.1 · Km 1556+080 · ca tuần PAT-0014';
         }
         go('INC-N');
         applyGpsUi();
-        if (mode === 'gpsdeny') toast('GPS deny → Create/Detect disabled');
-        if (mode === 'acc45') toast('accuracy 45 m → Detect blocked');
+        if (mode === 'gpsdeny') toast('GPS deny · Create ON · bấm để xem banner/modal');
+        if (mode === 'nosession') toast('No session · Create ON · bấm để xem banner');
+        if (mode === 'acc45') toast('accuracy 45 m · Create ON · chụp ảnh vẫn Lưu');
         return;
       }
       if (mode === 'detail') { go('INC-D'); return; }

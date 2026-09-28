@@ -1,23 +1,40 @@
 # Feature context — web-rmms-cam-patrol
 
 > **Slug:** `web-rmms-cam-patrol` · **Title:** Camera tuần  
-> **Status:** draft → data_analy · **packKind:** `list` · **changeScope:** `new_page`  
+> **Status:** draft → data_analy · **packKind:** `list` · **changeScope:** `edit_page`  
 > **Demo:** N/A (field · **cấm** demo HTML / tọa độ mẫu SSOT trên MFE ship)  
 > **MFE:** `Linm.Web.RMMS.Mobile` · khung phone `max-width` 430px · copy 1-1 UI Android · **cấm** nhét màn vào MFE desktop Asset  
 > **BE:** `Linm.RMMS.WebService` · domain **Patrol** + **AiVision** + **Incident** · **cấm ERP.*** / Domains/Master  
 > **BFF:** `Linm.RMMS.Mobile.Bff` · `mobile-bff/api/v1` `:5202` · **cấm** gọi web-bff · **cấm** Route `mobile-bff` trên controller web-bff  
-> **mfeStdRoute:** `/web-rmms-cam-patrol` · **mfeStdUrl:** `http://localhost:9301/web-rmms-cam-patrol` · product route `/field/cam`  
-> **Queue:** `/agent-qldb-workflow` · alias `web-rmms-cam-patrol` · **cấm** iOS/Android native
+> **mfeStdRoute:** `/camera-tuan` · **mfeStdUrl:** `http://localhost:9301/camera-tuan` · product route `/field/cam`  
+> **Queue:** `/agent-qldb-workflow` · alias `web-rmms-cam-patrol` · **cấm** iOS/Android native  
+> **Delta cite:** `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · Pattern B submit/validate · **cấm** typed CRUD `new_page`
+
+## 0. § Delta Current vs New (`changeScope=edit_page`)
+
+| | Current (ship MFE) | New (this task) |
+|--|-------------------|-----------------|
+| Scope | CP-01 đã ship · route `/camera-tuan` · PO/Design/SA/Dev/QA/review PASS | **edit_page only** · keep PO/Design · **cấm** new_page CRUD |
+| Detect CTA | `disabled={!canDetect}` (GPS/frame/session/online) | Pattern B: nút **luôn bật** khi sẵn sàng UI · chỉ `disabled={detecting}` · thiếu GPS/frame → bấm mới banner |
+| Confirm CTA | `disabled={confirming \|\| gpsBlocked \|\| !online}` | Chỉ khóa lúc `confirming` · GPS/online fail → banner on click |
+| Capture | `capture="environment"` đã có | Giữ |
+| Toolbar/export | N/A phone | **Override:** không Excel · không toolbar pack |
+| Route stamp | RO từ ca | Giữ RO · mã không catalog → `--` (không SearchInput tuyến) |
+| User picker | N/A CP-01 | N/A (không field chọn người) |
+| Align end | — | `/align-mobile-to-mfe` · SSOT = `CamPatrolPage.tsx` · 430px · no tab/route/icon mới · Mobile.Bff only |
+
+**Files:** `src/pages/WebRmmsCamPatrol/CamPatrolPage.tsx` (+ styles/lookup/paths — không đổi route).
 
 ## 1. Mục tiêu
 
-Trong ca Field đang mở: **finder camera + GPS chốt** → `POST ai-vision/detect` (frame + tọa độ) → card phát hiện → user **Xác nhận** tạo sự cố hoặc **Bỏ qua**. Entry từ hub Field (hai lối Tuần đường BDTX / Tuần kiểm Khu-VP) — **không** gộp nhật ký / kết ca / tồn tại / tần suất (giữ `web-rmms-mobile-b`…`e`).
+Trong ca Field đang mở: **finder camera + GPS chốt** → `POST ai-vision/detect` (frame + tọa độ) → card phát hiện → user **Xác nhận** tạo sự cố hoặc **Bỏ qua**. Entry từ hub Field (hai lối Tuần đường BDTX / Tuần kiểm Khu-VP) — **không** gộp nhật ký / kết ca / tồn tại / tần suất (giữ `web-rmms-mobile-b`…`e`).  
+**Edit:** áp Pattern B (SUBMIT-VALIDATE) — submit không khóa trước khi bấm; validate banner client.
 
 ## 2. Màn (SSOT screens)
 
 | Id | Route | Việc |
 |----|-------|------|
-| CP-01 | `/field/cam` · alias std `/web-rmms-cam-patrol` | Full screen Camera tuần · finder + stamp · detect · confirm/skip |
+| CP-01 | `/field/cam` · alias std `/camera-tuan` | Full screen Camera tuần · finder + stamp · detect · confirm/skip |
 
 **Out of scope:** tab Cá nhân (`/me` · me-profile · me-settings · feedback · `cam-view`) · `field-reflect` · `vis-capture` · `web-rmms-asset-ai` · web `camera-connect` · journal/kết ca/tần suất (waves B–E).
 
@@ -52,7 +69,7 @@ Trong ca Field đang mở: **finder camera + GPS chốt** → `POST ai-vision/de
 | Rule | |
 |------|--|
 | Nhãn | `useFormOptions()` / copy key · **cấm** hardcode tiếng Việt trên form |
-| GPS | `navigator.geolocation` · deny **hoặc** accuracy > 30 m → **chặn** nút Nhận diện / Xác nhận cần tọa độ · **cấm** fake lat/lng |
+| GPS | `navigator.geolocation` · deny **hoặc** accuracy > 30 m → **báo khi bấm** (banner/modal) · **cấm** `disabled` nút trước bấm · **cấm** fake lat/lng |
 | Frame | `ImageBase64` bắt buộc khi detect · fail = toast · **cấm** fallback class giả UI (GAP-MOB-CAM-FRAME-02) |
 | Score chrome | **cấm** hiện % tin cậy trên ship UI (GAP-MOB-CAM-SCORE-01 · demo có 91% — Design ẩn) |
 | Shell | Phone 430 · copy Android · **cấm** desktop MFE · **cấm** iOS/Android edit |
@@ -71,13 +88,14 @@ Trong ca Field đang mở: **finder camera + GPS chốt** → `POST ai-vision/de
 |-------|-------|
 | schemaVersion | `1` |
 | packKind | `list` |
-| changeScope | `new_page` |
-| analyzedAt | `2026-09-25T18:05:00.000Z` |
-| rulesVersion | `2026.09.25.2` |
+| changeScope | `edit_page` |
+| analyzedAt | `2026-09-27T10:35:00.000Z` |
+| rulesVersion | `2026.09.27.1` |
+| deltaCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` |
 
 ## Implement tracking
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `done` | `done` | `2026-09-25T18:28:47.148Z` |
+| web | `done` | `done` | `2026-09-27T11:04:34.492Z` |
 | mobile | — | — | — |

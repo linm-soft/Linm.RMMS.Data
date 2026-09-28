@@ -1,61 +1,56 @@
 # Implement — web-rmms-vis-capture
 
-> Status: **done** · writtenAt `2026-09-25T21:42:44.973Z` · task `task_781a1036`  
-> skillVersion: `2026.09.05.03` · packKind: `list` · autoApprove: ON  
-> mfeStdUrl: `http://localhost:9301/web-rmms-vis-capture`
+> Status: **done** · writtenAt `2026-09-27T18:25:00.000Z` · task `task_46a9e73a`  
+> skillVersion: `2026.09.05.03` · packKind: `list` · changeScope: `edit_page` · autoApprove: ON  
+> mfeStdUrl: `http://localhost:9301/chup-hien-truong` · contentHash: `sha256:f749bc65f84b7bde51beeebaa85e5db22dacc8e8a040a53de30af834fa55c8cd`
 
 | | |
 |--|--|
 | Feature | `web-rmms-vis-capture` |
 | Title | Nhận diện sự cố |
 | Role | `dev` · `/agent-dev` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` · Pattern B delta |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdRoute | `/web-rmms-vis-capture` |
+| mfeStdRoute | `/chup-hien-truong` |
 | nativeAlias | `/incident/vis` |
-| be | Mobile.Bff `:5202` `mobile-bff/api/v1` · **Step 4b N/A** · reuse AiVision+Incident(+Patrol) |
+| be | Mobile.Bff `:5202` `mobile-bff/api/v1` · **Step 4b N/A invent** · users forward cite |
 | DES-GRID | N/A phone |
-| build | MFE `yarn build` **PASS** · BE `dotnet build` RMMS.Service.Api **PASS** |
+| build | MFE `yarn build` **PASS** · BE `dotnet build` WebService **PASS** · Mobile.Bff **PASS** |
 
 ## Done (T-*)
 
 | id | Result |
 |----|--------|
-| T-01 | Route + layout VIS · phone ≤430 · alias `/incident/vis` · mfe.routes · devRoutes · TITLE-01 |
-| T-02 | PhotoRow uploads init/PUT/complete · GPS Acc≤30 · deny/poor modal block · rowLoc/rowAcc |
-| T-03 | Detect → POST `/ai-vision/detect` Engine=P1 · ImageFileId|Url · Acc≤30 · `?error=1` toast |
-| T-04 | Result rowClass/rowSev + Badge · optional GET detections/{id} · **cấm** fake class |
-| T-05 | Attach → POST incidents DetectionId+HasGps · **no Lat** · Skip=dismiss · leave dirty discard |
-| T-06 | Session optional · empty toast GPS-only · useFormOptions · DUAL-01 section+Skip · INC-L banner → VIS |
-| T-BE | **N/A** — APIs Live · DOMAIN-MAP row · **cấm** invent VisCaptureController |
+| T-01 | Route keep `/chup-hien-truong` · VisCapturePage shell · **cấm** slug mới · ROUTE-01 |
+| T-02 | PhotoRow + GPS · rowLoc/rowAcc · deny→modal/banner on click · **cấm** fake |
+| T-03 | Pattern B Detect · `disabled={detecting}` only · `#validationBanner` on click · Acc>30 no POST handler · Engine=P1 |
+| T-04 | Result rowClass/rowSev + Badge · optional GET detections/{id} |
+| T-05 | Pattern B Attach · `disabled={attaching}` only · banner on click · HasGps+DetectionId · **no Lat** · Skip=dismiss |
+| T-06 | `#validationBanner` string[] · useFormOptions · session toast · SCREENS SSOT VisCapturePage · **cấm** tab/icon mới |
+| T-BE | **N/A invent** — users forward already `UsersMobileController` · no migration/API mới |
 
-## Files (MFE)
+## Files (delta)
 
-- `src/pages/WebRmmsVisCapture/*` — layout · VisCapturePage · paths · lookupStatic · styles · aliases
-- `src/services/visCapture/endpoint.ts` — thin wrap camPatrol + fieldReflect uploads
-- `src/services/camPatrol/types.ts` — `requestedAt?` on CreateIncidentRequest
-- `src/pages/WebRmmsIncident/paths.ts` · lookupStatic · IncidentListPage — peerVis → VIS
-- `src/index.tsx` · `src/dev/devRoutes.ts` · `mfe.routes.json`
+- `src/pages/WebRmmsVisCapture/VisCapturePage.tsx` — Pattern B idle-on + banner + Acc handler
+- `src/pages/WebRmmsVisCapture/styles.module.css` — bannerHead/List/Dismiss
+- `docs/plan/web-rmms-mobile/SCREENS.md` — SSOT cite VisCapturePage / Pattern B (align)
 
-## APIs (Mobile.Bff)
+## APIs (unchanged Live)
 
-- `POST ai-vision/uploads/init` · `PUT …/object` · `POST …/complete` → mediaId/imageUrl
-- `POST ai-vision/detect` · DetectAiVisionRequest ImageFileId|Url·Lat*·Lng*·AccuracyM*·Engine=P1
-- `GET ai-vision/detections/{id}` (optional reload)
-- `GET patrol/sessions` (optional stamp · empty→toast · **cấm** itemsOrDemo)
-- `POST incident/incidents` · CreateIncidentRequest DetectionId·HasGps·Title*·RouteName*·IncidentType*·Status·RequestedAt · **no Lat**
+- uploads* · `POST ai-vision/detect` · `GET detections/{id}` · `GET patrol/sessions` · `POST incident/incidents`
+- peer BFF: `GET integration/users` (forward) · `road-routes/search`
 
 ## Gates
 
-- List/grid Kind B: **N/A** phone (DES-GRID)
-- Form: Mobile full ≤430 · PhotoRow + section «Ảnh hiện trường» + Skip · LeaveConfirmModal · cấm ERP.* · cấm invent VisCapture path · cấm on-device
-- Build HARD: **PASS** (MFE + BE)
-- QA modes ready: `?gps=deny` · `?acc=45` · `?nophoto=1` · `?nosession=1` · `?error=1`
+- List/grid Kind B: **N/A** phone
+- Form: Pattern B PASS · DES-GRID N/A · cấm ERP.* · cấm invent VisCapture path
+- Build HARD: **PASS** (MFE + BE + Mobile.Bff)
+- QA modes: `?gps=deny` · `?acc=45` · `?nophoto=1` · `?nosession=1` · `?error=1` · `?banner=1`
 
 ## Debt / notes
 
-- Session empty = GPS-only continue (UNCLEAR-SESS toast) — không block form
-- Capture = `<input capture=environment>` → uploads (không getUserMedia stream)
+- UNCLEAR-VALIDATE-B · UNCLEAR-ALIGN-01 · closed on Dev (Pattern B + SCREENS SSOT)
+- UNCLEAR-SESS → QA toast GPS-only
 - E2E: queued `/agent-qa*` — **cấm** e2e ở Dev
 
 ## nextSlash

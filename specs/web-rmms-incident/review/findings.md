@@ -6,58 +6,59 @@
 | this role | `review` · `/agent-review` |
 | status | **done** |
 | review_confirm | **approve** |
-| changeScope | `new_page` |
-| packKind | `list` (phone INC-L/N/D · DES-GRID **N/A**) |
-| contentHash | `sha256:665f3697a399a948edb0ab14da5fc13716b477aa84b0b8e43f6ca33eb7216d2d` |
-| hashGate | **skip** · unchanged vs data_analy→qa |
+| changeScope | `edit_page` |
+| packKind | `list` (phone INC-L/N/D · Pattern B INC-N · DES-GRID **N/A**) |
+| contentHash | `sha256:d753df685c7334cda81339c1c6daccaa3463c4e8c6350eaff5562a6e41584015` |
+| hashGate | **skip** · unchanged data_analy→qa |
 | autoApprove | ON |
-| e2eQa | ON · prior QA S0/S1/QA-20 **PASS** (queued runtime · **cấm** re-run e2e here) |
-| mfeStdUrl | `http://localhost:9301/web-rmms-incident` |
-| taskId | `task_bc0e1942` |
+| e2eQa | ON · prior QA S0/S1/QA-20/PB-01/PB-GPS **PASS** · **cấm** re-run e2e |
+| mfeStdUrl | `http://localhost:9301/m/van-de/moi` |
+| mfeStdRoute | `/van-de` · `/van-de/moi` · `/van-de/:id` |
+| taskId | `task_cab4ccd7` |
 | skillVersion | `2026.09.05.03` |
-| updatedAt | `2026-09-25T21:22:07Z` |
+| updatedAt | `2026-09-27T12:52:00.000Z` |
 
 ## Scope
 
-Cross-check prior compact (data_analy→qa) + spot FE `WebRmmsIncident/*` + `services/incident/*` + BE `CreateIncidentRequest` / DOMAIN-MAP-INC · **cấm** implement · **cấm** yarn build/e2e/start:std.
+Cross-check compact data_analy→qa + spot FE `IncidentCreatePage` Pattern B (DEC-PB-01 / AC-PB-01…04) · prior INC-L/D keep · **cấm** implement · **cấm** yarn build/e2e/start:std.
 
 ## QUERY
 
 | ID | Severity | Finding | Verdict |
 |----|----------|---------|---------|
-| Q-01 | — | List query: `page`/`pageSize`/`search`/`status`/`severity`/`incidentType` → GET `/incident/incidents` via Mobile.Bff | **PASS** |
-| Q-02 | — | Create body: `hasGps` · `mediaIds`≤10 · **0** Lat/Lng wire · checklist fold→`description` | **PASS** |
-| Q-03 | soft | Lat column / geo persist | **DEFER** · PGC-BE-01 · HasGps only · no MIG |
+| Q-01 | — | List keep: `page`/`pageSize`/`search`/`status`/`severity`/`incidentType` → GET `/incident/incidents` Mobile.Bff | **PASS** |
+| Q-02 | — | Create body keep: `hasGps` · `mediaIds`≤10 · **0** Lat/Lng · checklist→`description` · **0** DTO change (DEC-CREATE-01) | **PASS** |
+| Q-03 | soft | Lat / geo persist | **DEFER** · GAP-PGC-BE-01 · HasGps only · no MIG |
 
 ## SEC
 
 | ID | Severity | Finding | Verdict |
 |----|----------|---------|---------|
-| S-01 | — | Guest Create → guestGate · CTA login · **0** Live create until auth (QA S0) | **PASS** |
-| S-02 | — | Client **cấm** ERP.* · **cấm** web-bff · **cấm** invent `/incident-hub*` (endpoint comment + Mobile.Bff path) | **PASS** |
-| S-03 | — | GPS deny / Acc>30 → block Create+Detect · modal · **0** fake coords / itemsOrDemo | **PASS** |
-| S-04 | — | DOMAIN-MAP row `web-rmms-incident` · Incident domain · **cấm** invent hub controller | **PASS** |
+| S-01 | — | Guest Create → guestGate / LG-00 · **0** Live create until auth (QA S0/QA-20) | **PASS** |
+| S-02 | — | FE **0** ERP.* · **0** web-bff · **0** invent hub (WebRmmsIncident scan) | **PASS** |
+| S-03 | — | GPS deny Acc>30 → block on **submit** · modal `gps.deny` · **0** fake coords · **0** khóa nút Create | **PASS** |
+| S-04 | — | DOMAIN-MAP-INC keep · Incident domain · T-BE N/A · FE-only Delta | **PASS** |
 
 ## UI-FN
 
 | ID | Severity | Finding | Verdict |
 |----|----------|---------|---------|
-| U-01 | — | INC-L Search+Chip+CardList+FAB · `card.hasGps` · **0** Lat chip (list) | **PASS** |
-| U-02 | — | INC-N assetPick Lookup · kind Segment · checklist · photos/detect · sessionStamp · gpsLock · severity/create/draft · useFormOptions | **PASS** |
-| U-03 | — | INC-D detail · HasGps chip · close Note opt | **PASS** |
-| U-04 | — | Routes: `/web-rmms-incident` nested `/new` `/:id` + aliases `/incident*` | **PASS** |
-| U-05 | — | DES-GRID / LinErpListFilterBar | **WAIVE** · phone Chip filters |
-| U-06 | soft | Peer INC-V/C/E full screens | **OOS** · nav-only (Design) |
-| U-07 | soft | QA soft: stock e2e port · WDS deep-link · playwright junction · showDevNav chrome | **ACCEPT** · not P0 |
+| U-01 | — | INC-L Search+Chip+CardList+FAB keep (QA S1) | **PASS** |
+| U-02 | — | INC-N Pattern B: `create` `disabled={creating}` only · `validate.banner` string[] AC-PB-04 keys · GPS deny on-submit · photos capture giữ | **PASS** |
+| U-03 | — | Banner keys: asset→`incident.pick.title` · session→`incident.session.empty` · GPS→`incident.gps.deny` · offline→`incident.offline` | **PASS** |
+| U-04 | — | Routes keep `/van-de`|/moi|/:id · product `/incident*` · **0** tab/route/icon mới | **PASS** |
+| U-05 | — | DES-GRID / LinErpListFilterBar | **WAIVE** · phone Chip |
+| U-06 | soft | Peer INC-V/C/E | **OOS** · nav-only |
+| U-07 | soft | QA soft: stock e2e port :5101/:5201 | **ACCEPT** · capture workaround PASS · not P0 |
 
 ## BE-FN
 
 | ID | Severity | Finding | Verdict |
 |----|----------|---------|---------|
-| B-01 | — | FormMode↔API: GET/POST incidents · GET{id} · POST close · sessions · asset-types · uploads · detect | **PASS** |
-| B-02 | — | `CreateIncidentRequest` · `HasGps` · `MediaIds` · **0** Lat props on DTO | **PASS** |
-| B-03 | — | Step 4b / T-BE / MIG | **N/A** · cite existing IncidentsController |
-| B-04 | — | Empty sessions → toast · **cấm** itemsOrDemo (UNCLEAR-SESS resolved Dev) | **PASS** |
+| B-01 | — | FormMode↔API Live keep: incidents CRUD-close · sessions · asset-types · uploads · detect | **PASS** |
+| B-02 | — | `CreateIncidentRequest` · HasGps · MediaIds · **0** Lat · **0** API mới | **PASS** |
+| B-03 | — | Step 4b / T-BE / MIG | **N/A** · FE-only Pattern B |
+| B-04 | — | Empty session → banner (not itemsOrDemo) · UNCLEAR-SESS resolved | **PASS** |
 
 ## Gate summary
 
@@ -66,7 +67,7 @@ Cross-check prior compact (data_analy→qa) + spot FE `WebRmmsIncident/*` + `ser
 | Prior roles confirmed | data_analy→qa **confirmed** |
 | P0 findings | **none** |
 | review_confirm | **approve** |
-| Hash rescan | **skip** (unchanged) |
+| Hash rescan | **skip** (unchanged `d753df68…`) |
 | yarn build / e2e / start:std | **not run** (roleOnly=review) |
 
 ## Debt (non-blocking)
@@ -80,8 +81,8 @@ Cross-check prior compact (data_analy→qa) + spot FE `WebRmmsIncident/*` + `ser
 ## Handoff
 
 - compact: `specs/web-rmms-incident/handoff/review-compact.md`
-- pipeline review = **confirmed** · feature DoR PASS · **cấm** start other roles in this task (GAP-PKT-ROLE-01)
-- next chain: queue task **completed** (e2eQa already PASS at QA)
+- pipeline review = **confirmed** · feature DoR PASS · **cấm** start other roles (GAP-PKT-ROLE-01)
+- next: queue task **completed** (e2eQa already PASS at QA)
 
 ## Version meta
 

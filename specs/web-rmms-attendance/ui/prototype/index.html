@@ -177,12 +177,19 @@
       font-size: var(--label); padding: 8px 12px; text-align: center;
     }
     .offline-banner.show { display: block; }
+    .validation-banner {
+      display: none; background: #FCE8E6; color: #8C1D18;
+      font-size: var(--label); padding: 10px 12px; margin-bottom: 12px;
+      border-radius: 10px; line-height: 1.4; text-align: left;
+    }
+    .validation-banner.show { display: block; }
+    .validation-banner ul { margin: 0; padding-left: 18px; }
   </style>
 </head>
 <body>
   <div class="meta">
-    web-rmms-attendance · phone ≤430 · Android DES-MOB-ATT 1-1 · demo N/A · live empty/[ ] · cấm demoDays<br/>
-    reviewUrl query: default · ?deny=1 · ?empty=1 · ?checked=1 · ?offline=1
+    web-rmms-attendance · edit_page Pattern B · phone ≤430 · /cham-cong · demo N/A · cấm demoDays · cấm Excel<br/>
+    CTA luôn bật (trừ saving) · thiếu auth/GPS/mạng/route → bấm mới báo · reviewUrl: default · ?deny=1 · ?empty=1 · ?checked=1 · ?offline=1 · ?guest=1
   </div>
   <div class="board-nav" id="board-nav">
     <button type="button" data-state="ready" class="active">Hub</button>
@@ -190,6 +197,7 @@
     <button type="button" data-state="empty">Empty</button>
     <button type="button" data-state="checked">Đã chấm</button>
     <button type="button" data-state="offline">Offline</button>
+    <button type="button" data-state="guest">Guest</button>
     <button type="button" data-go="report">Report</button>
     <button type="button" data-go="day">Day</button>
     <button type="button" data-go="log">Log</button>
@@ -205,6 +213,7 @@
         <div class="title" id="page-title">Chấm công</div>
       </div>
       <div class="content">
+        <div class="validation-banner" id="validation-banner" data-zone="ATT-02" data-field="validationBanner" aria-live="polite"></div>
         <div class="hero-card" id="att-hero" data-zone="ATT-02">
           <div class="hero-eyebrow" id="hero-eyebrow">Chấm công theo định vị</div>
           <div class="hero-title" id="hero-status">Chưa chấm vào</div>
@@ -340,7 +349,11 @@
   </div>
 
   <script>
-    var state = { gpsOk: true, empty: false, checked: false, offline: false };
+    /* Pattern B: CTA enabled unless saving; client errors on click → banner/modal */
+    var state = {
+      gpsOk: true, empty: false, checked: false, offline: false,
+      guest: false, routeOk: true, saving: false
+    };
 
     function toast(msg) {
       var el = document.getElementById('toast');
@@ -348,6 +361,19 @@
       el.classList.add('show');
       clearTimeout(window.__toastTimer);
       window.__toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2200);
+    }
+
+    function showBanner(errors) {
+      var el = document.getElementById('validation-banner');
+      if (!errors || !errors.length) {
+        el.classList.remove('show');
+        el.innerHTML = '';
+        return;
+      }
+      el.innerHTML = '<ul>' + errors.map(function (e) {
+        return '<li>' + e + '</li>';
+      }).join('') + '</ul>';
+      el.classList.add('show');
     }
 
     function showScreen(name) {
@@ -361,18 +387,29 @@
     }
 
     function onCheckIn() {
-      if (state.offline) {
-        toast('Không có mạng');
-        return;
-      }
+      if (state.saving) return;
+      var errors = [];
+      if (state.guest) errors.push('Cần đăng nhập để Chấm vào');
+      if (state.offline) errors.push('Không có mạng — thử lại khi online');
+      if (!state.routeOk) errors.push('Thiếu tuyến ca Field');
       if (!state.gpsOk) {
         document.getElementById('gps-deny').classList.add('show');
-        toast('Cần GPS');
+        errors.push('Cần quyền vị trí (GPS)');
+      }
+      if (errors.length) {
+        showBanner(errors);
         return;
       }
-      state.checked = true;
+      showBanner([]);
+      closeDeny();
+      state.saving = true;
       applyHero();
-      toast('Đã chấm vào');
+      setTimeout(function () {
+        state.saving = false;
+        state.checked = true;
+        applyHero();
+        toast('Đã chấm vào');
+      }, 400);
     }
 
     function applyHero() {
@@ -397,18 +434,22 @@
       if (state.checked) {
         status.textContent = 'Đã chấm vào';
         gps.innerHTML = 'Vị trí: 10.762622 · 106.660172 · ±6 m<br/>Ca sáng · hôm nay';
-      } else if (state.gpsOk) {
+      } else if (state.gpsOk && !state.guest) {
         status.textContent = 'Chưa chấm vào';
         if (!state.empty) {
           gps.innerHTML = 'Vị trí: 10.762622 · 106.660172 · ±6 m<br/>Ca sáng · hôm nay';
         }
+      } else if (state.guest) {
+        status.textContent = 'Chưa chấm vào';
+        gps.innerHTML = 'Chưa đăng nhập — bấm Chấm vào để đăng nhập<br/>Ca · —';
       } else {
         status.textContent = 'Chưa chấm vào';
-        gps.innerHTML = 'GPS bị từ chối — không thể Chấm vào<br/>Ca · —';
+        gps.innerHTML = 'GPS chưa sẵn sàng — bấm Chấm vào để xem hướng dẫn<br/>Ca · —';
       }
-      btn.disabled = !state.gpsOk || state.offline;
+      /* Pattern B HARD: chỉ disabled khi saving — cấm disabled={!canCheckIn} */
+      btn.disabled = !!state.saving;
+      btn.textContent = state.saving ? 'Đang lưu…' : 'Chấm vào';
       document.getElementById('offline-banner').classList.toggle('show', state.offline);
-      document.getElementById('gps-deny').classList.toggle('show', !state.gpsOk && document.querySelector('[data-state="deny"].active'));
     }
 
     function setState(name) {
@@ -416,16 +457,16 @@
       state.empty = name === 'empty';
       state.checked = name === 'checked';
       state.offline = name === 'offline';
+      state.guest = name === 'guest';
+      state.routeOk = true;
+      state.saving = false;
+      showBanner([]);
+      closeDeny();
       document.querySelectorAll('#board-nav [data-state]').forEach(function (b) {
         b.classList.toggle('active', b.getAttribute('data-state') === name);
       });
       showScreen('hub');
       applyHero();
-      if (name === 'deny') {
-        document.getElementById('gps-deny').classList.add('show');
-      } else {
-        closeDeny();
-      }
     }
 
     document.getElementById('board-nav').addEventListener('click', function (e) {
@@ -441,6 +482,7 @@
       else if (q.has('empty')) setState('empty');
       else if (q.has('checked')) setState('checked');
       else if (q.has('offline')) setState('offline');
+      else if (q.has('guest')) setState('guest');
       else setState('ready');
     })();
   </script>

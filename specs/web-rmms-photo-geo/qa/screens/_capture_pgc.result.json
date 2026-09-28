@@ -5,11 +5,13 @@
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "href": "http://localhost:9301/web-rmms-photo-geo",
+      "href": "http://localhost:9301/m/anh-vi-tri",
       "dump": {
         "feature": "web-rmms-photo-geo",
         "zones": [
-          "PGC"
+          "UA-00",
+          "PGC",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-PGC"
@@ -17,55 +19,55 @@
         "ids": [
           "PGC"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chụp ảnh kèm tọa độ Deny GPS HITL map Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Đăng nhập để dùng chụp ảnh kèm tọa độ. Đăng nhập",
-        "href": "http://localhost:9301/web-rmms-photo-geo",
+        "text": "Đăng nhập để dùng chụp ảnh kèm tọa độ. Đăng nhập Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/anh-vi-tri",
         "guestGate": true,
         "titleOk": true,
         "shutterDisabled": null,
         "useDisabled": null,
-        "detectDisabled": null
+        "detectDisabled": null,
+        "patternB": false,
+        "routeOk": true
       }
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "href": "http://localhost:9301/web-rmms-home",
+      "href": "http://localhost:9301/m/dang-nhap",
       "dump": {
-        "feature": "web-rmms-home",
+        "feature": null,
         "zones": [
-          "SH-00",
-          "HM-00",
-          "HM-01",
-          "HM-02",
-          "SH-01",
-          "SH-02"
+          "LG-00"
         ],
         "des": [],
         "ids": [
-          "loginUser",
-          "loginPass",
-          "loginSubmit",
-          "guestLogin"
+          "f-user",
+          "f-pass",
+          "btn-login"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work tab Work list → Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
-        "href": "http://localhost:9301/web-rmms-home",
+        "text": "AI-RMMS HỆ THỐNG BẢO TRÌ KẾT CẤU HẠ TẦNG ĐƯỜNG BỘ Đăng nhập Tín hiệu Tốt · đồng bộ hệ thống Quên mật khẩu?",
+        "href": "http://localhost:9301/m/dang-nhap",
         "guestGate": false,
         "titleOk": false,
         "shutterDisabled": null,
         "useDisabled": null,
-        "detectDisabled": null
+        "detectDisabled": null,
+        "patternB": false,
+        "routeOk": false
       }
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "href": "http://localhost:9301/web-rmms-photo-geo",
+      "href": "http://localhost:9301/m/anh-vi-tri",
       "dump": {
         "feature": "web-rmms-photo-geo",
         "zones": [
-          "PGC"
+          "UA-00",
+          "PGC",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-PGC"
@@ -83,28 +85,32 @@
           "btn-use",
           "btn-cancel"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chụp ảnh kèm tọa độ Deny GPS HITL map Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chụp ảnh kèm tọa độ QL.1-LANGSON · Tuần kiểm Key — Vị trí đã chốt ±12 m · 21.02850, 105.85420 Khoảng cách ước lượng — Tọa độ vật thể — Dùng ảnh Hủy",
-        "href": "http://localhost:9301/web-rmms-photo-geo",
+        "text": "Chụp ảnh kèm tọa độ 11 m · 21.0286, 105.8542 Mã — Vị trí đã chốt ±12 m Từ ống kính 11 m Khoảng cách ước lượng 11 m Tọa độ vật thể 21.0286, 105.8542 Dùng ảnh Hủy Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/anh-vi-tri",
         "guestGate": false,
         "titleOk": true,
-        "shutterDisabled": true,
-        "useDisabled": true,
-        "detectDisabled": null
+        "shutterDisabled": false,
+        "useDisabled": false,
+        "detectDisabled": null,
+        "patternB": false,
+        "routeOk": true
       }
     },
     {
-      "id": "MODE-deny",
+      "id": "S1-PATTERN-B",
       "result": "PASS",
-      "screenshot": "MODE-deny.png",
-      "href": "http://localhost:9301/web-rmms-photo-geo?deny=1",
+      "screenshot": "S1-PATTERN-B.png",
+      "href": "http://localhost:9301/m/anh-vi-tri",
       "dump": {
         "feature": "web-rmms-photo-geo",
         "zones": [
-          "PGC"
+          "UA-00",
+          "PGC",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-PGC",
-          "DES-MOB-GPS-DENY"
+          "DES-MOB-PGC-VALIDATION"
         ],
         "ids": [
           "PGC",
@@ -118,26 +124,30 @@
           "row-object",
           "btn-use",
           "btn-cancel",
-          "modal-gps"
+          "validation-banner"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chụp ảnh kèm tọa độ Deny GPS HITL map Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chụp ảnh kèm tọa độ QL.1-LANGSON · Tuần kiểm Key — Vị trí đã chốt — Khoảng cách ước lượng — Tọa độ vật thể — Dùng ảnh Hủy Làm mới GPS Định vị bị tắt Cần vị trí để chụp ảnh kèm tọa độ. Mở Cài đặt → Quyền vị trí cho RMMS. Accuracy phải ≤ 30 m khi nhận diện. Sao chép hướng dẫnĐể sau",
-        "href": "http://localhost:9301/web-rmms-photo-geo?deny=1",
+        "text": "Chụp ảnh kèm tọa độ Cần xác nhận map và ảnh đã tải trước khi dùng. × 11 m · 21.0286, 105.8542 Mã — Vị trí đã chốt ±12 m Từ ống kính 11 m Khoảng cách ước lượng 11 m Tọa độ vật thể 21.0286, 105.8542 Dùng ảnh Hủy Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/anh-vi-tri",
         "guestGate": false,
         "titleOk": true,
-        "shutterDisabled": true,
-        "useDisabled": true,
-        "detectDisabled": null
+        "shutterDisabled": false,
+        "useDisabled": false,
+        "detectDisabled": null,
+        "patternB": false,
+        "routeOk": true
       }
     },
     {
-      "id": "MODE-compass",
+      "id": "MODE-deny",
       "result": "PASS",
-      "screenshot": "MODE-compass.png",
-      "href": "http://localhost:9301/web-rmms-photo-geo?compass=1",
+      "screenshot": "MODE-deny.png",
+      "href": "http://localhost:9301/m/anh-vi-tri?deny=1",
       "dump": {
         "feature": "web-rmms-photo-geo",
         "zones": [
-          "PGC"
+          "UA-00",
+          "PGC",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-PGC"
@@ -155,24 +165,67 @@
           "btn-use",
           "btn-cancel"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chụp ảnh kèm tọa độ Deny GPS HITL map Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chụp ảnh kèm tọa độ QL.1-LANGSON · Tuần kiểm Đứng lệch xe · kéo pin trên bản đồ Key — Vị trí đã chốt ±12 m · 21.02850, 105.85420 Khoảng cách ước lượng — Tọa độ vật thể — Dùng ảnh Hủy",
-        "href": "http://localhost:9301/web-rmms-photo-geo?compass=1",
+        "text": "Chụp ảnh kèm tọa độ Mã — Vị trí đã chốt — Từ ống kính — Khoảng cách ước lượng — Tọa độ vật thể — Dùng ảnh Hủy Làm mới GPS Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/anh-vi-tri?deny=1",
         "guestGate": false,
         "titleOk": true,
-        "shutterDisabled": true,
-        "useDisabled": true,
-        "detectDisabled": null
+        "shutterDisabled": false,
+        "useDisabled": false,
+        "detectDisabled": null,
+        "patternB": false,
+        "routeOk": true
+      }
+    },
+    {
+      "id": "MODE-compass",
+      "result": "PASS",
+      "screenshot": "MODE-compass.png",
+      "href": "http://localhost:9301/m/anh-vi-tri?compass=1",
+      "dump": {
+        "feature": "web-rmms-photo-geo",
+        "zones": [
+          "UA-00",
+          "PGC",
+          "DES-MOB-TABBAR"
+        ],
+        "des": [
+          "DES-MOB-PGC"
+        ],
+        "ids": [
+          "PGC",
+          "sheet-pgc",
+          "capture-preview",
+          "btn-shutter",
+          "shutter-wrap",
+          "meta-card",
+          "row-photog",
+          "row-distance",
+          "row-object",
+          "btn-use",
+          "btn-cancel"
+        ],
+        "text": "Chụp ảnh kèm tọa độ Đứng lệch xe. Kéo ghim trên bản đồ. 11 m · 21.0286, 105.8542 Mã — Vị trí đã chốt ±12 m Từ ống kính 11 m Khoảng cách ước lượng 11 m Tọa độ vật thể 21.0286, 105.8542 Dùng ảnh Hủy Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/anh-vi-tri?compass=1",
+        "guestGate": false,
+        "titleOk": true,
+        "shutterDisabled": false,
+        "useDisabled": false,
+        "detectDisabled": null,
+        "patternB": false,
+        "routeOk": true
       }
     },
     {
       "id": "MODE-step-map",
       "result": "PASS",
       "screenshot": "MODE-step-map.png",
-      "href": "http://localhost:9301/web-rmms-photo-geo?step=map",
+      "href": "http://localhost:9301/m/anh-vi-tri?step=map",
       "dump": {
         "feature": "web-rmms-photo-geo",
         "zones": [
-          "PGC"
+          "UA-00",
+          "PGC",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-PGC",
@@ -188,29 +241,32 @@
           "row-distance",
           "row-object",
           "map-confirm",
-          "map-pin",
           "btn-confirm-map",
           "btn-use",
           "btn-cancel"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chụp ảnh kèm tọa độ Deny GPS HITL map Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chụp ảnh kèm tọa độ QL.1-LANGSON · Tuần kiểm Key — Vị trí đã chốt ±12 m · 21.02850, 105.85420 Khoảng cách ước lượng 24.9 m Tọa độ vật thể Đề xuất · chờ xác nhận Kéo pin để xác nhận vị trí vật thể Xác nhận vị trí Dùng ảnh Hủy",
-        "href": "http://localhost:9301/web-rmms-photo-geo?step=map",
+        "text": "Chụp ảnh kèm tọa độ Mã — Vị trí đã chốt ±12 m Từ ống kính 120 m Khoảng cách ước lượng 120 m Tọa độ vật thể 21.0296, 105.8543 RMMS.vn Kéo pin để xác nhận vị trí vật thể Xác nhận vị trí Dùng ảnh Hủy Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/anh-vi-tri?step=map",
         "guestGate": false,
         "titleOk": true,
         "shutterDisabled": null,
-        "useDisabled": true,
-        "detectDisabled": null
+        "useDisabled": false,
+        "detectDisabled": null,
+        "patternB": false,
+        "routeOk": true
       }
     },
     {
       "id": "MODE-fail",
       "result": "PASS",
       "screenshot": "MODE-fail.png",
-      "href": "http://localhost:9301/web-rmms-photo-geo?fail=1",
+      "href": "http://localhost:9301/m/anh-vi-tri?fail=1",
       "dump": {
         "feature": "web-rmms-photo-geo",
         "zones": [
-          "PGC"
+          "UA-00",
+          "PGC",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-PGC"
@@ -228,17 +284,19 @@
           "btn-use",
           "btn-cancel"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident Work (công việc) Work progress (WORK-P) Work log (WORK-G) Work chat (WORK-C) VIS capture Photo geo (PGC) Chụp ảnh kèm tọa độ Deny GPS HITL map Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Chụp ảnh kèm tọa độ QL.1-LANGSON · Tuần kiểm Key — Vị trí đã chốt ±12 m · 21.02850, 105.85420 Khoảng cách ước lượng — Tọa độ vật thể — Dùng ảnh Hủy",
-        "href": "http://localhost:9301/web-rmms-photo-geo?fail=1",
+        "text": "Chụp ảnh kèm tọa độ 11 m · 21.0286, 105.8542 Mã — Vị trí đã chốt ±12 m Từ ống kính 11 m Khoảng cách ước lượng 11 m Tọa độ vật thể 21.0286, 105.8542 Dùng ảnh Hủy Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/anh-vi-tri?fail=1",
         "guestGate": false,
         "titleOk": true,
-        "shutterDisabled": true,
-        "useDisabled": true,
-        "detectDisabled": null
+        "shutterDisabled": false,
+        "useDisabled": false,
+        "detectDisabled": null,
+        "patternB": false,
+        "routeOk": true
       }
     }
   ],
   "corePass": true,
   "pass": true,
-  "at": "2026-09-26T00:16:05.005Z"
+  "at": "2026-09-27T13:24:53.834Z"
 }

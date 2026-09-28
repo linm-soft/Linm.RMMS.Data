@@ -6,56 +6,52 @@ packKind: list
 role: review
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T05:51:19.743Z
-taskId: task_95a5dbdb
-contentHash: sha256:a7e3c91b4d2f6801e5a9b0c3d8f1472e6b5a0d9c4e1f2837a6b5c4d3e2f1098a
+writtenAt: 2026-09-27T14:12:00.000Z
+taskId: task_eaab5968
+contentHash: sha256:544d007b5b40b3f3b71bb94aa78e804b2342af0c6eb7ec1edcea4b76b1b28080
 review_confirm: approve
 autoApprove: ON
+changeScope: edit_page
+e2eQa: ON · QA artifact PASS · review cấm re-run e2e
 verdict: PASS
-hashGate: skip (unchanged)
+p0: 0
 
 ## Decisions
-- changeScope: new_page · formPattern: Mobile full/sheet WORK-P · phone ≤430 · N/A ERP Modal · DES-GRID N/A
-- mfe: Linm.Web.RMMS.Mobile · mfeStdRoute=/web-rmms-mnt-progress · mfeStdUrl http://localhost:9301/web-rmms-mnt-progress · product /work/progress?id=
-- be: Mobile.Bff :5202 mobile-bff/api/v1 · Maintenance work-orders · cấm ERP.* · invent Progress · Step 4b N/A
-- GPS: both CTAs · deny disable · cấm fake · GPS→Note only · cấm lat/MediaUrl body
-- MEDIA P1 local · GAP-MEDIA Signed defer P2 · LABEL chrome + useFormOptions · cấm Me*/web-bff
-- QUERY/SEC/UI-FN/BE-FN: PASS · P0 none · review_confirm approve
-- QA evidence accepted (S0/S1/QA-20) · **cấm** re-run e2e/build at Review
-- next: roleOnly stop (GAP-PKT-ROLE-01) · task completed
+- changeScope: edit_page · Pattern B · cite SUBMIT-VALIDATE
+- formPattern: Mobile full/sheet WORK-P · phone ≤430 · #sc-mnt-progress · N/A ERP Modal · N/A DES-GRID
+- mfe: Linm.Web.RMMS.Mobile · mfeStdRoute=/cong-viec/tien-do · url http://localhost:9301/m/cong-viec/tien-do · product /work/progress?id=
+- be: Mobile.Bff :5202 · GET {id}/init-data · POST progress/complete · cấm ERP.* · T-BE N/A
+- Pattern B VERIFY: disabled={saving} only · GPS deny→banner on click · capture=environment · GPS→Note · 0 lat/MediaUrl body
+- hashGate: skip (hash match chain) · findings re-written SUPERSEDE Pattern A
+- review_confirm: approve · no fix_gaps · **cấm** phase=done
+- next: chain roleOnly complete · soft debt GAP-MEDIA P2 · e2e stock port
 
 ## Inventory (slim)
 | id | controlHint | review |
 |----|-------------|---------|
-| woCode/title/status/route/workType | Text/Badge RO | PASS Live GET |
-| progressPercent | Number/Slider | PASS POST progress |
-| note / lat/lng/accuracyM | Text / GPS | PASS GPS→Note · gate |
-| photoLocalIds | FileMulti | PASS local P1 |
-| submitProgress / submitComplete | Button | PASS both GPS* |
+| woCode/title/status/route/workType | Text/Badge RO | PASS |
+| progressPercent | Number/Slider | PASS |
+| note / lat/lng/accuracyM | Text / GPS | PASS · Note only |
+| validationBanner | Banner | PASS · on click |
+| photoLocalIds | FileMulti | PASS · capture |
+| submitProgress / submitComplete | Button | PASS · saving only |
 
 ## Screens / zones (ids only)
-- WORK-P · WORK-P-GPS · #sc-mnt-progress
-- mfeStdUrl= http://localhost:9301/web-rmms-mnt-progress
+- WORK-P · WORK-P-GPS · #sc-mnt-progress · LG-00
+- mfeStdUrl= http://localhost:9301/m/cong-viec/tien-do
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mnt-progress/ui/prototype/index.html
-- qaScreens= specs/web-rmms-mnt-progress/qa/screens/{S0,S1,QA-20}.png
-- DES-GRID / LinErpListFilterBar: N/A WAIVE
+- screens= specs/web-rmms-mnt-progress/qa/screens/{S0,S1,QA-20}.png
 
 ## API / tasks (ids only)
-- FormMode↔API: GET {id} · POST progress/complete · GET init-data
-- Body: Progress {progressPercent,note?} · Complete {note?} · GPS→Note
-- T-01…T-05 done · T-BE N/A · T-QA done · review PASS
+- Live: GET/POST maintenance/work-orders/{id}[/progress|/complete]
+- T-EDIT-01..03 done · T-QA PASS · T-REV done · T-BE N/A
+- entity/migration: none
 
 ## Debt
 - GAP-MEDIA Signed defer P2
 - GAP-QA-E2E-STOCK-PORT soft
-- FIND-LABEL-LIVE soft (init-data vs chrome fallback)
-- FIND-SEC-PERM-TODO info (pre-existing)
+- FIND-SEC-PERM-TODO info pre-existing
 
-## UNCLEAR
-- (none blocking)
-
-## Full paths (Read only if needed)
+## Full paths
 - findings: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mnt-progress/review/findings.md
-- qa: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mnt-progress/qa/scenarios.md
-- implement: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mnt-progress/implement/web-rmms-mnt-progress.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mnt-progress/STATUS.md

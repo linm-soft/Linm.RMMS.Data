@@ -4,60 +4,58 @@ schemaVersion: 1
 feature: web-rmms-cam-patrol
 packKind: list
 role: po
-status: done
+status: confirmed
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T18:20:00.000Z
-contentHash: sha256:cd46c9486c0a3fe71165c27906508a1608ba46cca1351fe9df832ab7b2efa68c
+writtenAt: 2026-09-27T10:40:00.000Z
+contentHash: sha256:c46ae5660ccba1b8e64ce8e5294acef77ceb4e0a75474372f2a3d3901efb5796
+taskId: task_20b3107a
+autoApprove: ON
+changeScope: edit_page
 
 ## Decisions
-- changeScope: new_page
-- packKind: list (PO confirm) · Grid AC Kind B N/A · Report AC N/A
-- formPattern: Mobile full phone 430 · Android 1-1 · N/A ERP Modal
-- mfe: Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/web-rmms-cam-patrol · productRoute /field/cam
-- be: Linm.RMMS.WebService · Patrol+AiVision+Incident · cấm ERP.*
-- bff: Mobile.Bff · VITE_MOBILE_API_URL :5202/mobile-bff/api/v1 · cấm web-bff
+- packKind: list · phone Field · Grid/Report AC N/A
+- changeScope: edit_page · cấm new_page CRUD
+- DEC-PATTERN-B: detect chỉ disabled={detecting} · confirm chỉ confirming · banner string[] on click · lookupStatic keys
+- keep: DEC-FRAME · DEC-SCORE · DEC-ENTRY · DEC-DETECT-DTO · Design reviewUrl · SA Live cite
+- mfeStdUrl: http://localhost:9301/camera-tuan · productRoute /field/cam · cấm /web-rmms-cam-patrol
+- be: Linm.RMMS.WebService Patrol+AiVision+Incident · cấm ERP.*
+- bff: Mobile.Bff :5202 · cấm web-bff
 - demo: N/A · hash skip · cấm re-scan
-- CP-01: finder + GPS stamp + detect + confirm/skip
-- HARD: GPS deny|accuracy>30 → block · ImageBase64 required · cấm fake coords/class · ẩn score %
-- labels: useFormOptions() · cấm hardcode VN
-- DEC-FRAME: frame thật DoD · fail toast
-- DEC-SCORE: ẩn % ship
-- DEC-ENTRY: 1 route CP-01 · PatrolType stamp từ ca
-- DEC-DETECT-DTO: SA cite AiVisionOpsController · PO fields ImageBase64/Lat/Lng/AccuracyM/Engine=P1/DetectionId/HasGps
-- OUT: Me/cam-view/feedback · journal B–E · invent cam-patrol path
-- autoApprove: ON · e2eQa queued QA
+- align end: /align-mobile-to-mfe · CamPatrolPage SSOT · 430 · no tab/route/icon
+- OUT: Excel · Me/cam-view · SearchInput user/route CP-01 · invent cam-patrol
 
 ## Inventory (slim)
-| id | label | controlHint | notes |
-|----|-------|-------------|-------|
-| finder | camera | CameraViewfinder | DES-MOB-CAM-FINDER |
-| stamp.route/km/type | ca stamp | Text RO | GET patrol/sessions Đang tuần |
-| lat/lng/accuracyM | GPS | GPS | HARD ≤30m |
-| imageBase64 | frame | CameraCapture | required detect |
-| detect | nhận diện | Button | POST ai-vision/detect Engine=P1 |
-| detection.* | kết quả | Text/Chip | no score % |
-| confirm | tạo sự cố | Button | POST incident DetectionId HasGps |
-| skip | bỏ qua | Button | dismiss only |
+| id | controlHint | notes |
+|----|-------------|-------|
+| finder | CameraViewfinder | DES-MOB-CAM-FINDER |
+| stamp.* | Text RO | GET patrol/sessions |
+| lat/lng/accuracyM | GPS | ≤30m · báo khi bấm |
+| imageBase64 | CameraCapture | capture=environment |
+| detect | Button | Pattern B · lock detecting |
+| detection.* | Text/Chip | no score % |
+| confirm | Button | lock confirming only |
+| skip | Button | dismiss |
+| validationBanner | Banner string[] | Pattern B · new edit |
 
-## Screens / zones (ids only)
+## Screens / zones
 - CP-01
-- reviewUrl= (Design)
-- peerStdUrl= http://localhost:9301/web-rmms-cam-patrol
-- DES-GRID / LinErpListFilterBar: N/A phone
-- Leave: dirty result card → discard no POST
+- reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-cam-patrol/ui/prototype/index.html (keep)
+- peerStdUrl= http://localhost:9301/camera-tuan
+- DES-GRID / LinErpListFilterBar: N/A
 
-## API / tasks (ids only)
+## API / tasks
 - GET patrol/sessions · POST ai-vision/detect · GET ai-vision/detections/{id} · POST incident/incidents
-- real-data §A+§B: PASS
-- T-*: T-W3-09
+- T-*: edit CamPatrolPage Pattern B (cite SUBMIT-VALIDATE)
+- next: /agent-design (keep zones · optional banner copy)
 
 ## UNCLEAR
-- (resolved PO) DEC-FRAME · DEC-SCORE · DEC-ENTRY · DEC-DETECT-DTO→SA cite
+- UNCLEAR-CAM-FRAME: giữ DEC-FRAME
+- Pattern B banner copy: keys lookupStatic có sẵn
 
-## Full paths (Read only if needed)
+## Full paths
 - requirement: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-cam-patrol/po/requirement.md
 - control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-cam-patrol-control-hint.md
 - real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-cam-patrol-real-data.md
-- prior compact: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-cam-patrol/handoff/data_analy-compact.md
-- context: D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/web-rmms-cam-patrol.md
+- submit-validate: D:/AI-QLBD/Linm.RMMS.Data/docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md
+- code: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile/src/pages/WebRmmsCamPatrol/CamPatrolPage.tsx
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-cam-patrol/STATUS.md

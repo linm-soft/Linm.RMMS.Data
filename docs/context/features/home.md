@@ -32,7 +32,7 @@
 | Section | Nghiệp vụ thường dùng | `LinmSectionLabel` · không route |
 | Grid 6 ô | Giám sát · Tuần đường · Công việc · Vấn đề · Tài sản · Lưu trữ | `LinmHomeGrid` / `LinmHomeTile` |
 | Wallet | HỒ SƠ TÀI SẢN · QL.1 · Khu IV | `LinmWalletCard` → `asset-hub` · copy demo **không** invent wallet API |
-| Foot | Phiên bản Gói 1… | Watermark / process · **cấm** ship · `demo-to-real-mobile.md` |
+| Foot | Phiên bản v1.0.0… | Watermark / process · **cấm** ship · `demo-to-real-mobile.md` |
 | Tab | Trang Chủ | `DES-MOB-TABBAR` chrome · **không** enqueue |
 
 iOS + Android `#sc-home` **parity** (dual copy) — không lệch chrome như `me` settings.

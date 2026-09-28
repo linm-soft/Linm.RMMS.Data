@@ -11,6 +11,7 @@
 | `.livebox` slide | Inspect **không** video | demo mock livebox 16:9; MFE Chi tiết = tabs |
 | `.livebox.fs` | `.fs` + `CameraHlsTile` | fullscreen 16:9 contain |
 | Pool item | `.poolItem` | không pict tài sản — mã text |
+| Load lần đầu | `.skelVal` · `.skelCard` · `.skelTile` | KPI + pool + wall · không có trên demo HTML tĩnh |
 | Map pin CAM | `createAssetLeafletIcon(..., 'CAM')` | SSOT map icon · **cấm** FA |
 
 **Cấm** copy SVG/FA cho pict camera trên map (GAP-WEB-EDIT-04).

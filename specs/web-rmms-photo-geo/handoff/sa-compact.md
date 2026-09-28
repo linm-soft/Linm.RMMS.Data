@@ -6,47 +6,53 @@ packKind: list
 role: sa
 status: confirmed
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T00:10:00.000Z
-taskId: task_8360a321
-contentHash: sha256:2282c3b64ab8701681f5edbc548b5cf1a2221159d9ffb779dfe03d186010f7a4
+writtenAt: 2026-09-27T13:20:00.000Z
+taskId: task_b182eace
+contentHash: sha256:525b8f61bbe397050bb1049e38683d6c333c7283165859967e927c1dc285b9ba
 solution_confirm: approve
 autoApprove: ON
-changeScope: new_page
+changeScope: edit_page
 
 ## Decisions
-- DOMAIN-MAP: `web-rmms-photo-geo` → Incident/`incident` · cite FileService+AiVision+Patrol+Gis HITL · cấm PhotoGeoController
-- formPattern: Mobile sheet `#sheet-pgc` DES-MOB-PGC phone 430 · Android 1-1 · N/A DES-GRID
-- BFF: Mobile.Bff :5202 `mobile-bff/api/v1` · cấm web-bff client
+- changeScope: edit_page · Keep DEC-PGC-BE-01/DEC-FILES/DEC-DETECT/DOMAIN-MAP · Delta Pattern B + route `/anh-vi-tri`
+- DOMAIN-MAP: `web-rmms-photo-geo` → Incident/`incident` · cite File+AiVision+Patrol+Gis · cấm PhotoGeoController
+- Route SSOT: `/anh-vi-tri` · http://localhost:9301/anh-vi-tri · cấm `/web-rmms-photo-geo`
+- Pattern B: bỏ pre-disable canShutter/canDetect/canUse · chỉ disabled uploading/detecting/pending · GPS deny on-click `#modal-gps` · validationAttempted + `#validation-banner` string[]
+- formPattern: Mobile sheet `#sheet-pgc` DES-MOB-PGC phone 430 · N/A DES-GRID/Excel
+- BFF: Mobile.Bff :5202 `mobile-bff/api/v1` · cấm web-bff · users forward nếu thiếu · road-routes/search ok
 - Files Live: init→PUT→commit→GET · purpose=`photo-geo-capture` · product=rmms · JPEG · cấm objectKey/resign URL
-- Detect optional: Lat/Lng=object HITL · Acc≤30 · cấm photographer GPS · Vision via BFF/API
-- DEC-PGC-BE-01: P1 sidecar return attachmentId+object coords · host MediaIds+HasGps · **no** Lat column · migration N/A
-- GPS deny→block shutter/use/detect · cấm fake · MAP-HOST=GIS clip · WEB-CAM=getUserMedia
-- API mới/entity/Step4b: none · align peer photo-geo-capture
+- Detect optional: Lat/Lng=object HITL · Acc≤30 · cấm photographer GPS
+- DEC-PGC-BE-01: P1 sidecar attachmentId+object coords · host MediaIds+HasGps · **no** Lat column · migration/Step4b N/A
+- API mới/entity: none · align `/align-mobile-to-mfe` · cấm tab/route/icon mới
 - next: /agent-team-lead · roleOnly stop (GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
 | id | controlHint | API/device |
 |----|-------------|-----------|
 | capturePreview | CameraStill | getUserMedia |
-| btnShutter | Button | GPS gate |
+| btnShutter | Button | Pattern B · GPS on-click |
 | gimPin | MapPinTap | 1 pin sidecar |
 | rowPhotog/Distance/Object | ListRow RO | device/HITL |
 | mapConfirm | MapHitl | GIS clip |
-| btnUse | Button | commit→return |
-| gpsLock | GPS | deny modal |
+| btnDetect | Button opt | disable only detecting |
+| btnUse | Button | disable only uploading/pending · commit→return |
+| validationBanner | Banner[] | after validationAttempted |
+| gpsLock | GPS | deny-on-click modal |
 | files* | File | init/PUT/commit/GET |
-| detect | Button opt | ai-vision/detect |
 
 ## Screens / zones
 - PGC · peers CAP/INC/VIS/FR
 - reviewUrl=file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-photo-geo/ui/prototype/index.html
-- peerStdUrl=http://localhost:9301/web-rmms-photo-geo
-- zones: #sheet-pgc · #capture-preview · #gim-pin · #map-confirm · #btn-shutter · #btn-use · DES-MOB-PGC
+- peerStdUrl=http://localhost:9301/anh-vi-tri
+- mfeStdRoute=/anh-vi-tri
+- zones: #sheet-pgc · #capture-preview · #gim-pin · #map-confirm · #btn-shutter · #btn-detect · #btn-use · #validation-banner · #modal-gps
+- DES-GRID / Excel: N/A
 
 ## API / tasks
-- FormMode↔API: files/init·PUT·commit·GET · opt detect · opt patrol/sessions · host incident MediaIds+HasGps
-- T-W7-01 · AC-PGC-01..14 · Grid N/A
-- UNCLEAR-DOMAIN-MAP-PGC · UNCLEAR-PGC-BE-01: **resolved SA**
+- FormMode↔API: files/init·PUT·commit·GET · opt detect · opt patrol/sessions · host incident MediaIds+HasGps · opt users forward
+- T-W7-01 · AC-PGC-01..16 Pattern B · Grid N/A
+- UNCLEAR-DOMAIN-MAP-PGC · UNCLEAR-PGC-BE-01: **resolved SA keep**
+- API mới / migration / Step4b: none
 
 ## Full paths
 - solution: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-photo-geo/be/solution-discovery.md

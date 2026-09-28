@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>web-rmms-asset-ai — Camera AI và HITL</title>
+  <title>web-rmms-asset-ai — Camera AI và HITL (edit_page · Pattern B)</title>
   <style>
     :root {
       --primary: #0C84C0;
@@ -91,6 +91,20 @@
       background: #EFEFF4; color: #3A3A3C;
     }
     .control.invalid { border-color: var(--danger); }
+    .search-wrap { position: relative; }
+    .search-wrap .control { padding-right: 36px; }
+    .search-ico {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--muted); font-size: 14px; pointer-events: none;
+    }
+    .search-miss {
+      margin-top: 4px; font-size: 12px; color: var(--muted); display: none;
+    }
+    .search-miss.show { display: block; }
+    .inline-err {
+      margin-top: 4px; font-size: 12px; color: var(--danger); display: none;
+    }
+    .inline-err.show { display: block; }
     .gps-card, .map-card, .nearby-card, .score-pill {
       background: var(--card); border-radius: var(--radius-card);
       border: 1px solid var(--border); padding: 12px;
@@ -151,6 +165,7 @@
     }
     .banner.show { display: block; }
     .banner.danger { background: #FFF5F5; color: #7A1F1A; }
+    .banner ul { margin: 4px 0 0; padding-left: 18px; }
     .nearby-card { display: none; margin-bottom: 12px; border-color: var(--warning); background: #FFF9EE; }
     .nearby-card.show { display: block; }
     .nearby-card strong { display: block; margin-bottom: 4px; font-size: 13px; }
@@ -212,15 +227,15 @@
 <body>
   <div class="board-nav" role="tablist" aria-label="Board states">
     <button type="button" class="active" data-board="detect-ok">Detect GPS OK</button>
-    <button type="button" data-board="gps-deny">GPS deny/poor</button>
-    <button type="button" data-board="missing">Missing required</button>
+    <button type="button" data-board="gps-deny">GPS deny on-click</button>
+    <button type="button" data-board="missing">Missing on-click</button>
     <button type="button" data-board="nearby">Nearby warn</button>
     <button type="button" data-board="hitl">HITL draft</button>
     <button type="button" data-board="confirm">Confirm toast</button>
     <button type="button" data-board="dismiss">Dismiss toast</button>
   </div>
   <div class="meta">
-    zones AA-00…14 · reviewUrl prototype · peerStdUrl http://localhost:9301/web-rmms-asset-ai · score SHOW · DES-GRID N/A
+    edit_page · Pattern B · SearchInput AA-05 · zones AA-00…14 · peerStdUrl http://localhost:9301/tai-san/ai · score SHOW · DES-GRID N/A
   </div>
 
   <!-- DETECT -->
@@ -232,7 +247,10 @@
     </header>
 
     <div class="content">
-      <div class="banner danger" id="gpsBanner">GPS bị từ chối / Acc &gt; 30 m — không thể nhận diện. Bật định vị chính xác.</div>
+      <div class="banner danger" id="validateBanner">
+        <strong>Thiếu thông tin</strong>
+        <ul id="validateList"></ul>
+      </div>
       <div class="section-label zone" id="AA-02" data-zone="AA-02">
         <span class="zone-tag">AA-02</span>
         Nhận diện tài sản từ ảnh hiện trường
@@ -245,6 +263,7 @@
           <div class="photo-thumb" id="photoThumb">IMG · Live</div>
           <div class="photo-add" id="photoAdd" title="uploads init+PUT" role="button" aria-label="Chụp/tải ảnh">+</div>
         </div>
+        <div class="inline-err" id="errPhoto">Cần ảnh hiện trường</div>
         <div class="hint" style="margin-top:6px">uploads init+PUT → ImageUrl · cấm mock://</div>
       </div>
 
@@ -253,22 +272,24 @@
         <label>Vị trí GPS <span class="req">*</span></label>
         <div class="gps-card" id="gpsCard">
           <div class="coords" id="gpsCoords">21.028511 · 105.804817 · Acc 12 m</div>
-          <div class="hint" id="gpsHint">Chỉ đọc · Acc ≤ 30 m · không gõ tay / không fake</div>
+          <div class="hint" id="gpsHint">Chỉ đọc · Acc ≤ 30 m · không khóa CTA trước · báo khi bấm Detect</div>
           <div class="gps-actions">
             <button type="button" class="btn btn-ghost" id="btnGps">Làm mới GPS</button>
           </div>
         </div>
+        <div class="inline-err" id="errGps">Cần GPS Acc ≤ 30 m</div>
       </div>
 
       <div class="field zone" id="AA-05" data-zone="AA-05">
         <span class="zone-tag">AA-05</span>
         <label for="fldRoute">Tuyến đường <span class="req">*</span></label>
-        <select class="control" id="fldRoute">
-          <option value="">— Tìm tuyến —</option>
-          <option value="QL1" selected>QL.1A — Hà Nội → TP.HCM</option>
-          <option value="CT01">CT.01 — Cao tốc Bắc Nam</option>
-        </select>
-        <div class="hint" style="margin-top:4px">Prefill từ phiên tuần tra (sessions) nếu có</div>
+        <div class="search-wrap">
+          <input type="search" class="control" id="fldRoute" placeholder="Tìm tuyến (SearchInput · live)" autocomplete="off" />
+          <span class="search-ico" aria-hidden="true">⌕</span>
+        </div>
+        <div class="search-miss" id="routeMiss">Mã không có → hiển thị -- · cấm seed</div>
+        <div class="inline-err" id="errRoute">Cần chọn tuyến (RouteId)</div>
+        <div class="hint" style="margin-top:4px">GET integration/road-routes/search · no ROAD_ROUTE_SEED · Prefill sessions nếu có</div>
       </div>
 
       <div class="field zone" id="AA-06" data-zone="AA-06">
@@ -276,7 +297,7 @@
         <label for="fldTrip">Chuyến tuần tra</label>
         <select class="control" id="fldTrip">
           <option value="">— Tuỳ chọn —</option>
-          <option value="trip-1" selected>Trip #2026-09-25-A</option>
+          <option value="trip-1" selected>Trip #2026-09-27-A</option>
         </select>
       </div>
 
@@ -351,7 +372,9 @@
       var board = "detect-ok";
       var gpsOk = true;
       var hasPhoto = true;
+      var routeId = "QL1";
       var dirty = true;
+      var detecting = false;
       var detectPhone = document.getElementById("AA-00");
       var hitlPhone = document.getElementById("AA-10");
       var els = {
@@ -359,7 +382,8 @@
         detect: document.getElementById("AA-08"),
         toastD: document.getElementById("toastDetect"),
         toastH: document.getElementById("toastHitl"),
-        banner: document.getElementById("gpsBanner"),
+        banner: document.getElementById("validateBanner"),
+        validateList: document.getElementById("validateList"),
         gpsCard: document.getElementById("gpsCard"),
         gpsCoords: document.getElementById("gpsCoords"),
         gpsHint: document.getElementById("gpsHint"),
@@ -369,7 +393,11 @@
         leave: document.getElementById("leaveModal"),
         pin: document.getElementById("mapPin"),
         pinHint: document.getElementById("pinHint"),
-        score: document.getElementById("hitlScore")
+        score: document.getElementById("hitlScore"),
+        routeMiss: document.getElementById("routeMiss"),
+        errPhoto: document.getElementById("errPhoto"),
+        errGps: document.getElementById("errGps"),
+        errRoute: document.getElementById("errRoute")
       };
 
       function showToast(el, msg, ok) {
@@ -379,12 +407,51 @@
         el._t = setTimeout(function () { el.className = "toast"; }, 2800);
       }
 
-      function requiredOk() {
-        return !!(hasPhoto && els.route.value);
+      /** Pattern B: CTA chỉ disable khi detecting — không khóa vì thiếu field/GPS */
+      function syncDetect() {
+        els.detect.disabled = !!detecting;
       }
 
-      function syncDetect() {
-        els.detect.disabled = !(gpsOk && requiredOk());
+      function clearErrors() {
+        els.banner.classList.remove("show");
+        els.validateList.innerHTML = "";
+        els.route.classList.remove("invalid");
+        els.photoAdd.classList.remove("empty");
+        els.gpsCard.classList.remove("warn");
+        els.errPhoto.classList.remove("show");
+        els.errGps.classList.remove("show");
+        els.errRoute.classList.remove("show");
+      }
+
+      function collectErrors() {
+        var errs = [];
+        if (!hasPhoto) errs.push({ key: "photo", msg: "Cần ảnh hiện trường" });
+        if (!routeId) errs.push({ key: "route", msg: "Cần chọn tuyến (RouteId)" });
+        if (!gpsOk) errs.push({ key: "gps", msg: "Cần GPS Acc ≤ 30 m (deny/poor)" });
+        return errs;
+      }
+
+      function showValidation(errs) {
+        els.validateList.innerHTML = "";
+        errs.forEach(function (e) {
+          var li = document.createElement("li");
+          li.textContent = e.msg;
+          els.validateList.appendChild(li);
+          if (e.key === "photo") {
+            els.photoAdd.classList.add("empty");
+            els.errPhoto.classList.add("show");
+          }
+          if (e.key === "route") {
+            els.route.classList.add("invalid");
+            els.errRoute.classList.add("show");
+          }
+          if (e.key === "gps") {
+            els.gpsCard.classList.add("warn");
+            els.errGps.classList.add("show");
+          }
+        });
+        els.banner.classList.add("show");
+        els.banner.scrollIntoView({ block: "nearest", behavior: "smooth" });
       }
 
       function showDetect() {
@@ -399,46 +466,43 @@
 
       function applyBoard(id) {
         board = id;
+        detecting = false;
         document.querySelectorAll(".board-nav button").forEach(function (b) {
           b.classList.toggle("active", b.getAttribute("data-board") === id);
         });
-        els.route.classList.remove("invalid");
-        els.banner.classList.remove("show");
-        els.gpsCard.classList.remove("warn");
+        clearErrors();
         els.nearby.classList.remove("show");
-        els.photoAdd.classList.remove("empty");
         els.toastD.className = "toast";
         els.toastH.className = "toast";
+        els.routeMiss.classList.remove("show");
         hasPhoto = true;
+        gpsOk = true;
+        routeId = "QL1";
         els.photoThumb.textContent = "IMG · Live";
         els.score.textContent = "91%";
+        els.route.value = "QL.1A — Hà Nội → TP.HCM";
 
         if (id === "detect-ok") {
           showDetect();
-          gpsOk = true;
-          els.route.value = "QL1";
           els.gpsCoords.textContent = "21.028511 · 105.804817 · Acc 12 m";
-          els.gpsHint.textContent = "Chỉ đọc · Acc ≤ 30 m · không gõ tay / không fake";
+          els.gpsHint.textContent = "Chỉ đọc · Acc ≤ 30 m · không khóa CTA trước · báo khi bấm Detect";
         } else if (id === "gps-deny") {
           showDetect();
           gpsOk = false;
           els.gpsCoords.textContent = "— · — · Acc —";
-          els.gpsHint.textContent = "Quyền định vị bị từ chối hoặc Acc > 30 m";
+          els.gpsHint.textContent = "Quyền định vị bị từ chối hoặc Acc > 30 m — CTA vẫn bật (Pattern B)";
           els.gpsCard.classList.add("warn");
-          els.banner.classList.add("show");
+          /* không pre-show banner — chỉ khi bấm Detect */
         } else if (id === "missing") {
           showDetect();
-          gpsOk = true;
           hasPhoto = false;
+          routeId = "";
           els.route.value = "";
-          els.route.classList.add("invalid");
-          els.photoAdd.classList.add("empty");
           els.photoThumb.textContent = "chưa có";
           els.gpsCoords.textContent = "21.028511 · 105.804817 · Acc 12 m";
+          els.routeMiss.classList.add("show");
         } else if (id === "nearby") {
           showDetect();
-          gpsOk = true;
-          els.route.value = "QL1";
           els.nearby.classList.add("show");
           els.gpsCoords.textContent = "21.028511 · 105.804817 · Acc 12 m";
         } else if (id === "hitl") {
@@ -459,7 +523,21 @@
         });
       });
 
-      els.route.addEventListener("change", syncDetect);
+      els.route.addEventListener("input", function () {
+        var v = (els.route.value || "").trim();
+        if (!v) {
+          routeId = "";
+          els.routeMiss.classList.add("show");
+        } else if (v === "--" || v.indexOf("UNKNOWN") === 0) {
+          routeId = "";
+          els.routeMiss.classList.add("show");
+          els.route.value = "--";
+        } else {
+          routeId = "QL1";
+          els.routeMiss.classList.remove("show");
+        }
+        clearErrors();
+      });
 
       document.getElementById("btnGps").addEventListener("click", function () {
         if (board === "gps-deny") {
@@ -469,8 +547,7 @@
         els.gpsCoords.textContent = "21.028" + Math.floor(Math.random() * 900) +
           " · 105.804" + Math.floor(Math.random() * 900) + " · Acc 10 m";
         gpsOk = true;
-        els.banner.classList.remove("show");
-        els.gpsCard.classList.remove("warn");
+        clearErrors();
         syncDetect();
       });
 
@@ -478,17 +555,26 @@
         hasPhoto = true;
         els.photoAdd.classList.remove("empty");
         els.photoThumb.textContent = "IMG · Live";
+        clearErrors();
         syncDetect();
       });
 
       els.detect.addEventListener("click", function () {
-        if (els.detect.disabled) {
-          if (!gpsOk) showToast(els.toastD, "Cần GPS Acc ≤ 30 m để nhận diện", false);
-          else showToast(els.toastD, "Cần ảnh + tuyến bắt buộc", false);
+        if (detecting) return;
+        clearErrors();
+        var errs = collectErrors();
+        if (errs.length) {
+          showValidation(errs);
           return;
         }
+        detecting = true;
+        syncDetect();
         showToast(els.toastD, "POST detect-assets → Draft · mở HITL (cấm auto-confirm)", true);
-        setTimeout(function () { applyBoard("hitl"); }, 600);
+        setTimeout(function () {
+          detecting = false;
+          syncDetect();
+          applyBoard("hitl");
+        }, 600);
       });
 
       document.getElementById("AA-13").addEventListener("click", function () {
@@ -515,7 +601,6 @@
         applyBoard("detect-ok");
       });
 
-      // Pin drag local (AA-12)
       (function () {
         var map = document.getElementById("mapCard");
         var pin = els.pin;

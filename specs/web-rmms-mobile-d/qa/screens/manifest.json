@@ -1,25 +1,25 @@
 {
-  "url": "http://localhost:9301/web-rmms-mobile-d",
-  "capturedAt": "2026-09-25T10:09:23.952Z",
-  "method": "capture_d · MFE /login · phone 430 · geo mock · S1 click→TD-06 · fallback TK-06 · stock e2e playwright junction",
+  "url": "http://localhost:9301/kien-nghi/moi",
+  "capturedAt": "2026-09-27T09:00:46.124Z",
+  "method": "capture_d · MFE /login · phone 430 · geo mock · S0 /dot-tuan · S1 /kien-nghi/moi · QA-20 Pattern B Lưu",
   "steps": [
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "href": "http://localhost:9301/web-rmms-mobile-d"
+      "href": "http://localhost:9301/m/dot-tuan"
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "href": "http://localhost:9301/web-rmms-mobile-a/tuan-duong/44fceb67-b83a-4fb5-b906-18d7e1009eb8"
+      "href": "http://localhost:9301/m/kien-nghi/moi"
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "href": "http://localhost:9301/web-rmms-mobile-d/44fceb67-b83a-4fb5-b906-18d7e1009eb8/ket-ca"
+      "href": "http://localhost:9301/m/kien-nghi/moi"
     }
   ],
   "ok": true

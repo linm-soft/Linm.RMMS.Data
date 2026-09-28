@@ -64,7 +64,7 @@ Prototype zone (Design 1-1): estimate form · reviewUrl — **không** demo SSOT
 | AC-F-01 | Header SC live `GET incident/incidents/{id}` (Title · Code · Severity · Status · Route · Km) | thiếu id → EmptyState · 404 toast · **cấm** fake stub UI |
 | AC-F-02 | `POST ai-vision/estimates/from-incident/{incidentId}` khi chưa có estimate (`action.open`) | 422 → toast · **cấm** invent `ai-estimate/*` |
 | AC-F-03 | Load detail `GET ai-vision/estimates/{id}` + init-data lookups | empty lookups → LOOKUP_STATIC FE · toast fail |
-| AC-F-04 | Edit header overrides + `Lines[]` (Qty · UnitPrice · Item* · Unit · Note) · `PUT …/{id}` | Amount/TotalAmount RO recalculate |
+| AC-F-04 | Edit header overrides + `Lines[]` (Qty · UnitPrice · Item* · Unit · Note) · `PUT …/{id}` | Amount/TotalAmount RO recalculate · Qty=`NumberInput` · UnitPrice/Amount/Total=`MoneyInput`/`LabelMoney` · thêm/xóa dòng · **min 1** |
 | AC-F-05 | `POST …/{id}/draft` · status draft · dirty leave confirm | Dialog leave dirty |
 | AC-F-06 | `POST …/{id}/confirm` · Note optional · **lock edit** sau confirm | **cấm** auto tạo WO |
 | AC-F-07 | `action.wo` `POST maintenance/work-orders` **chỉ khi** status=confirmed | WO trước confirm → fail toast / disable (**UNCLEAR-WO-GATE = YES**) |
@@ -85,7 +85,7 @@ Prototype zone (Design 1-1): estimate form · reviewUrl — **không** demo SSOT
 | header.defectType / severity | Select | init-data |
 | header.defectArea / laborHours / durationDays | NumberInput | write PUT |
 | header.equipment | Text | write PUT |
-| lines.* | InlineList | Qty/UnitPrice edit · Amount RO |
+| lines.* | InlineList | Qty `NumberInput` · UnitPrice `MoneyInput` · Amount `LabelMoney` · add/remove · min 1 |
 | totalAmount | LabelMoney RO | TotalAmount |
 | action.open / save / draft / confirm / wo / assign | Button | FormMode↔API |
 | leaveConfirm / empty / toast | Dialog / Empty / Toast | dirty · missing id |

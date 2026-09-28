@@ -1,63 +1,76 @@
 {
-  "url": "http://localhost:9301/web-rmms-nghiem-thu",
-  "capturedAt": "2026-09-25T15:40:32.901Z",
-  "method": "capture_nghiemthu · MFE /login · phone 430 · S0 list · S1 Field hub NT-00 · QA-20 click→list · geo grant · dismiss overlay · no kill worker",
+  "url": "http://localhost:9301/nghiem-thu/moi",
+  "listUrl": "http://localhost:9301/nghiem-thu",
+  "capturedAt": "2026-09-27T15:32:49.129Z",
+  "changeScope": "edit_page",
+  "method": "capture_nghiemthu · MFE /login · phone 430 · S0 form /nghiem-thu/moi Pattern B+SearchInput · S1 Field hub NT-00 · QA-20 click→list · geo grant · dismiss overlay · no kill worker · docker+start:std already up",
   "steps": [
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "href": "http://localhost:9301/web-rmms-nghiem-thu",
+      "href": "http://localhost:9301/m/nghiem-thu/moi",
       "dump": {
         "feature": "web-rmms-nghiem-thu",
         "zones": [
           "NT-00",
-          "NT-04",
-          "NT-01",
-          "NT-03"
+          "NT-05",
+          "NT-10",
+          "NT-06",
+          "NT-06b",
+          "NT-07",
+          "NT-09",
+          "NT-08"
         ],
         "ids": [
-          "ntSearch"
+          "ntMau",
+          "ntFieldInfo",
+          "ntResult"
         ],
-        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu Danh sách NT Tạo NT Alias field DS Dev Standalone Developer RMMS Mobile Nghiệm thu + Tìm kiếm Tìm kiếm ✓ NT-20260912-0002 · Nháp Cắt cỏ lề / cắt cây · KHAC QA keep row after delete Tạo nghiệm thu",
-        "href": "http://localhost:9301/web-rmms-nghiem-thu"
+        "text": "Tạo nghiệm thu Huỷ Lưu nháp Lưu Mẫu nghiệm thu * Cắt cỏ lề / cắt cây Vệ sinh / vá ổ gà mặt đường Nạo vét rãnh Sơn bổ sung báo hiệu Khơi thông cống / rãnh Sửa chữa lề đường Hót sụt Bảo dưỡng báo hiệu đường bộ Hạng mục công trình khác Bảo dưỡng thiết bị Tuyến * Hiện trường * Khu / Zone Km từ Km đến Người NT * Thời điểm NT * Kết quả — Đạt Không đạt Khấu trừ Ghi chú kết quả Điểm checklist 1.1 · Cắt cỏ lề / cắt cây — đoạn đường · kết quả chủ yếu Đạt Không đạt N/A Ghi chú Định vị Ghim vị trí hiện tại Ảnh hiện trường RMMS.vn Vị trí đã ghim [21.028500, 105.854200] Chụp Tuyến gần vị trí Không có tuyến trong vùng này.",
+        "href": "http://localhost:9301/m/nghiem-thu/moi",
+        "saveDisabled": false,
+        "saveDisabledAttr": null,
+        "hasSearchInput": true
       }
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "href": "http://localhost:9301/web-rmms-mobile-a",
+      "href": "http://localhost:9301/m/tuan-duong",
       "dump": {
         "feature": "web-rmms-mobile-a",
-        "zones": [
-          "TD-00",
-          "D-00",
-          "NT-00"
-        ],
+        "zones": [],
         "ids": [],
-        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Field mobile Field hub Tuần đường Mở ca Lịch sử Tuần kiểm Mở đợt Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Field Tuần đường Mở ca · check-in · lịch sử Đang tuần · QL.1-LANGSON(BOT) · TD-20260925-001 Tuần kiểm Mở đợt · theo dõi đợt đang kiểm Đợt D Kết ca · giao BDTX · sổ kiến nghị Nghiệm thu List · tạo · chi tiết phiếu NT",
-        "href": "http://localhost:9301/web-rmms-mobile-a"
+        "text": "Tuần đường Tuần đường Chấm công Ca đang chạy · Tốt QL.1 TD-20260927-002 · Bùi Thanh Chương Điểm tuần 0/3 · Độ phủ 0% Tiếp tục bản đồ Ghi điểm tuần Ghim vị trí hiện tại 0 Đã ghi điểm tuần 3 Còn lại 0% Độ phủ Hôm nay TD-20260927-002 Tuần đường · QL.1 · 22:25 Đang tuần TD-20260927-001 Tuần đường · QL.1 · Hoàn thành Xong TD-20260926-001 Tuần kiểm · QL.7C · Hoàn thành Xong TK-DEMO-202609-004 Tuần kiểm · QL.46 · Hoàn thành Xong TD-DEMO-202609-001 Tuần đường · QL.1 · Hoàn thành Xong TK-DEMO-202609-002 Tuần kiểm · QL.1 · Hoàn thành Xong TD-DEMO-202609-003 Tuần đường · QL.15 · Hoàn thành Xong TD-20260916-002 Tuần đường · QL.1 · Hoàn thành Xong TK-DEMO-202609-007 Tuần kiểm · QL.46 · Hoàn thành Xong TD-DEMO-202609-006 Tuần đường · QL.1 · Hoàn thành Xong TD-DEMO-202609-005 Tuần đường · QL.15 · Hoàn thành Xong TD-DEMO-202609-008 Tuần đường · QL.1 · Hoàn thành Xong Thao tác nhanh Ghi nhận hư hỏng Chụp · hư / mất / hỏng · nhận diện Thu thập bằng camera Tự nhận diện theo tọa độ · tạo vấn đề Bản đồ ca Ghim điểm tuần · hành trình Lịch sử phiên Lọc tuyến · trạng thái Công tác nghiệm thu Danh sách phiếu NT · tìm mẫu Giám sát Lịch sử điểm tuần · bản đồ · thông báo Lưu trữ Chưa có bản ghi chờ gử",
+        "href": "http://localhost:9301/m/tuan-duong",
+        "saveDisabled": null,
+        "saveDisabledAttr": null,
+        "hasSearchInput": false
       }
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "href": "http://localhost:9301/web-rmms-nghiem-thu",
+      "href": "http://localhost:9301/m/nghiem-thu",
       "dump": {
         "feature": "web-rmms-nghiem-thu",
         "zones": [
           "NT-00",
           "NT-04",
           "NT-01",
-          "NT-03"
+          "NT-02"
         ],
         "ids": [
           "ntSearch"
         ],
-        "text": "RMMS · Mobile Home Shell chrome Ops inbox Asset hub Asset KCHT Asset list Asset collect Field mobile Field hub Tuần đường Mở ca Lịch sử Tuần kiểm Mở đợt Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu Danh sách NT Tạo NT Alias field DS Dev Standalone Developer RMMS Mobile Nghiệm thu + Tìm kiếm Tìm kiếm ✓ NT-20260912-0002 · Nháp Cắt cỏ lề / cắt cây · KHAC QA keep row after delete Tạo nghiệm thu",
-        "href": "http://localhost:9301/web-rmms-nghiem-thu"
+        "text": "Nghiệm thu + Tìm kiếm Tìm kiếm Chưa có phiếu nghiệm thu Tạo phiếu mới từ nút +. Tạo nghiệm thu Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/nghiem-thu",
+        "saveDisabled": null,
+        "saveDisabledAttr": null,
+        "hasSearchInput": false
       }
     }
   ],

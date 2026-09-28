@@ -61,13 +61,15 @@ await page.route(/http:\/\/localhost:9301(\/[^?]*)?(\?.*)?$/, async (route) => {
 });
 
 async function dismissOverlay(p) {
-  await p.evaluate(() => {
-    document
-      .querySelectorAll(
-        "iframe#webpack-dev-server-client-overlay, #webpack-dev-server-client-overlay",
-      )
-      .forEach((el) => el.remove());
-  }).catch(() => {});
+  await p
+    .evaluate(() => {
+      document
+        .querySelectorAll(
+          "iframe#webpack-dev-server-client-overlay, #webpack-dev-server-client-overlay",
+        )
+        .forEach((el) => el.remove());
+    })
+    .catch(() => {});
 }
 
 async function fatalUi(p) {
@@ -77,10 +79,9 @@ async function fatalUi(p) {
   );
   if (await overlay.count()) {
     const vis = await overlay.first().isVisible().catch(() => false);
-    // Feature UI present under stale overlay → treat as soft (GAP-QA-E2E-OVERLAY-STALE)
     const featureOk = await p
       .locator(
-        "#cpGuestGate, #sc-cam-patrol, [data-feature='web-rmms-cam-patrol'], #guestLogin, #loginUser",
+        "#cpGuestGate, #sc-cam-patrol, [data-feature='web-rmms-cam-patrol'], #guestLogin, #f-user, #loginUser",
       )
       .count();
     if (vis && featureOk === 0) return "webpack overlay";
@@ -111,31 +112,25 @@ async function clearSession() {
 
 async function loginViaSheet() {
   await clearSession();
-  await page.goto(base + "/web-rmms-home", {
+  await page.goto(base + "/trang-chu", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
-  await page.waitForSelector("#guestLogin", { timeout: 20000 });
-  await page.locator("#guestLogin").click();
-  await page.waitForSelector("#loginUser, [data-zone='SH-02'] input", {
-    timeout: 15000,
+  await dismissOverlay(page);
+  await page.waitForSelector("#guestLogin, [data-field='guestLoginCta']", {
+    timeout: 30000,
   });
-  const userSel = (await page.locator("#loginUser").count())
-    ? "#loginUser"
-    : '[data-zone="SH-02"] input[type="text"], [data-zone="SH-02"] input:not([type="password"])';
-  const passSel = (await page.locator("#loginPass").count())
-    ? "#loginPass"
-    : '[data-zone="SH-02"] input[type="password"]';
+  await page.locator("#guestLogin, [data-field='guestLoginCta']").first().click({ force: true });
+  await page.waitForSelector("#f-user, #loginUser", { timeout: 20000 });
+  const userSel = (await page.locator("#f-user").count()) ? "#f-user" : "#loginUser";
+  const passSel = (await page.locator("#f-pass").count()) ? "#f-pass" : "#loginPass";
   await page.fill(userSel, user);
   await page.fill(passSel, password);
-  await page
-    .locator("#loginSubmit, [data-zone='SH-02'] button[type='submit']")
-    .first()
-    .click({ force: true });
+  await page.locator("#btn-login, #loginSubmit").first().click({ force: true });
   await page.waitForTimeout(2500);
   await page
     .waitForSelector(
-      '[data-feature="web-rmms-home"][data-mode="staff"] #gridSupervise, [data-mode="staff"] #walletAsset',
+      "#gridSupervise, [data-mode='staff'] #walletAsset, #profileName",
       { timeout: 25000 },
     )
     .catch(() => {});
@@ -144,7 +139,7 @@ async function loginViaSheet() {
 async function dumpZones() {
   return page.evaluate(() => {
     const root = document.querySelector(
-      '[data-feature="web-rmms-cam-patrol"], [data-feature="web-rmms-home"], [data-feature="web-rmms-shell"]',
+      '[data-feature="web-rmms-cam-patrol"], [data-feature="web-rmms-home"], [data-feature="web-rmms-shell"], #meRoot, #f-user',
     );
     const zones = [...document.querySelectorAll("[data-zone]")].map((el) =>
       el.getAttribute("data-zone"),
@@ -164,25 +159,37 @@ async function dumpZones() {
       "detectCard",
       "btnConfirm",
       "btnSkip",
+      "validationBanner",
       "emptyNoSession",
       "modalGps",
       "loginUser",
       "loginPass",
       "loginSubmit",
+      "f-user",
+      "f-pass",
+      "btn-login",
       "guestLogin",
-    ]
-      .filter((id) => document.getElementById(id))
-      .concat();
+    ].filter((id) => document.getElementById(id));
     const text = (document.body?.innerText || "").slice(0, 900).replace(/\s+/g, " ");
-    const scoreLeak = /%|\bscore\b|\bđiểm\b\s*\d/i.test(text) && /nhận diện|phát hiện|detect/i.test(text);
+    const scoreLeak =
+      /%|\bscore\b|\bđiểm\b\s*\d/i.test(text) && /nhận diện|phát hiện|detect/i.test(text);
+    const detectBtn = document.getElementById("btnDetect");
+    const confirmBtn = document.getElementById("btnConfirm");
     return {
-      feature: root?.getAttribute("data-feature") || null,
+      feature: root?.getAttribute?.("data-feature") || null,
       zones: [...new Set(zones)],
       des: [...new Set(des)],
       ids,
       text,
       href: location.href,
       scoreLeak: !!scoreLeak,
+      patternB: {
+        validationBanner:
+          !!document.getElementById("validationBanner") ||
+          !!document.querySelector('[data-des-id="DES-MOB-CAM-VALIDATION"]'),
+        detectDisabledIdle: detectBtn ? !!detectBtn.disabled : null,
+        confirmDisabledIdle: confirmBtn ? !!confirmBtn.disabled : null,
+      },
     };
   });
 }
@@ -224,35 +231,78 @@ async function captureCurrent(id, waitSel) {
 try {
   // S0 — guest CP-01 gate
   pageErrors.length = 0;
-  await clearSession();
-  await page.goto(base + "/web-rmms-cam-patrol", {
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
-  });
-  await captureCurrent("S0", "#cpGuestGate, #CP-01, [data-feature='web-rmms-cam-patrol']");
+  try {
+    await clearSession();
+    await page.goto(base + "/camera-tuan", {
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
+    });
+    await captureCurrent("S0", "#cpGuestGate, #CP-01, [data-feature='web-rmms-cam-patrol']");
+  } catch (err) {
+    results.push({
+      id: "S0",
+      result: "FAIL",
+      error: err instanceof Error ? err.message : String(err),
+    });
+  }
 
-  // QA-20 — LoginSheet SH-02 from Home guest CTA
+  // QA-20 — Login page from Home guest CTA (shell /trang-chu → /dang-nhap)
   pageErrors.length = 0;
-  await clearSession();
-  await page.goto(base + "/web-rmms-home", {
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
-  });
-  await page.waitForSelector("#guestLogin", { timeout: 20000 });
-  await page.locator("#guestLogin").click();
-  await captureCurrent("QA-20", "#loginUser, [data-zone='SH-02']");
+  try {
+    await clearSession();
+    await page.goto(base + "/trang-chu", {
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
+    });
+    await dismissOverlay(page);
+    await page.waitForSelector("#guestLogin, [data-field='guestLoginCta']", {
+      timeout: 30000,
+    });
+    await page.locator("#guestLogin, [data-field='guestLoginCta']").first().click({ force: true });
+    await captureCurrent("QA-20", "#f-user, #loginUser, [data-zone='SH-02']");
+  } catch (err) {
+    const file = shotName("QA-20");
+    try {
+      await page.screenshot({ path: join(outDir, file), fullPage: true });
+    } catch {
+      /* ignore */
+    }
+    results.push({
+      id: "QA-20",
+      result: "FAIL",
+      screenshot: file,
+      error: err instanceof Error ? err.message : String(err),
+      href: page.url(),
+    });
+  }
 
-  // S1 — staff cam after LoginSheet
+  // S1 — staff cam after login
   pageErrors.length = 0;
-  await loginViaSheet();
-  await page.goto(base + "/web-rmms-cam-patrol", {
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
-  });
-  await captureCurrent(
-    "S1",
-    "#sc-cam-patrol, #mainCam, #emptyNoSession, #cpLoading, [data-feature='web-rmms-cam-patrol']",
-  );
+  try {
+    await loginViaSheet();
+    await page.goto(base + "/camera-tuan", {
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
+    });
+    await captureCurrent(
+      "S1",
+      "#sc-cam-patrol, #mainCam, #emptyNoSession, #cpLoading, [data-feature='web-rmms-cam-patrol']",
+    );
+  } catch (err) {
+    const file = shotName("S1");
+    try {
+      await page.screenshot({ path: join(outDir, file), fullPage: true });
+    } catch {
+      /* ignore */
+    }
+    results.push({
+      id: "S1",
+      result: "FAIL",
+      screenshot: file,
+      error: err instanceof Error ? err.message : String(err),
+      href: page.url(),
+    });
+  }
 } finally {
   await browser.close();
 }

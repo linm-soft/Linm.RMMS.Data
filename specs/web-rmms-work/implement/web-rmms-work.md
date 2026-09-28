@@ -60,6 +60,12 @@
 | `dotnet build` RMMS.Service.Api | **PASS** (0 err · no BE code change) |
 | e2e / start:std | **skipped** (role Dev · e2eQa queued) |
 
+## Notes — scope sự cố (2026-09-27)
+
+- Query `incidentId` trên WORK-L: `GET maintenance/work-orders?incidentId=` exact + lọc client
+- Hub «Giao việc xử lý» → `/uoc-luong?incidentId=&entry=work`
+- POST WO từ estimate: `incidentId` giữ · `workType=repair` (API chỉ nhận repair/inspect/emergency)
+
 ## Debt / carry
 
 - GAP-MOB-MNT-PROG-GPS-01 — peer progress Note GPS (không block WORK-L)

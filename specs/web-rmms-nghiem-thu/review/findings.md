@@ -3,82 +3,93 @@
 | Field | Value |
 |-------|-------|
 | feature | `web-rmms-nghiem-thu` |
-| title | Nghiệm thu — list, tạo, chi tiết |
+| title | Nghiệm thu — list, tạo, chi tiết (edit_page Delta) |
 | role | `review` · `/agent-review` |
 | status | **confirmed** |
 | packKind | `list` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | review_confirm | **approve** |
 | autoApprove | ON |
-| contentHash | `sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e` |
+| contentHash | `sha256:b8f3ce70ff3e80073c39d2dac6a01d2fed2e98232877ef6979881eef8e37acb4` |
 | skillVersion | `2026.09.05.03` |
 | schemaVersion | `1` |
-| updatedAt | `2026-09-25T16:50:00.000Z` |
-| taskId | `task_20bb5d15` |
-| hashGate | **skip** · contentHash unchanged vs prior roles |
+| updatedAt | `2026-09-27T15:45:00.000Z` |
+| taskId | `task_fadfb843` |
+| citeDelta | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` |
+| hashGate | **RUN** · contentHash ≠ prior REVIEW-META (`6f74282b…`) · changeScope `edit_page` |
 
 ## Verdict
 
-**PASS** · P0 **0** · `review_confirm=approve` · handoff compact written · **cấm** implement / e2e ở role này.
+**PASS** · P0 **0** · `review_confirm=approve` · handoff compact written · **cấm** implement / e2e / start:std ở role này.
 
 ## Prior chain (compact)
 
 | Role | Status | Align |
 |------|--------|-------|
-| data_analy → po → design → sa → team_lead → dev → qa | all **confirmed** | inventory / API / zones NT-00…11 · formPattern mobile ≤430 · DELETE OUT · FILTER search P1 |
+| data_analy → po → design → sa → team_lead → dev → qa | all **confirmed** | edit_page Delta · Pattern B + SearchInput · zones NT-00…11 · STD-ROUTE `/nghiem-thu/moi` · DELETE OUT · FILTER search P1 |
 
 ## QUERY
 
 | Check | Result | Evidence |
 |-------|--------|----------|
-| Live path reuse | **PASS** | `NGHIEM_THU_BASE=/patrol/nghiem-thu` · getList `?search=` · init-data · GET/POST/PUT/{id} · **no** invent · **no** DELETE method |
-| FILTER P1 | **PASS** | `NghiemThuListQuery` search(+page) only · status/route/date/template OUT |
+| Live path reuse | **PASS** | `NGHIEM_THU_BASE=/patrol/nghiem-thu` · getList `?search=` · init-data · GET/POST/PUT/{id} · files/* · **no** invent · **no** DELETE |
+| Delta lookups | **PASS** | `ROAD_ROUTE_LOOKUP_CONFIG` → road-routes/search · `USER_LOOKUP_CONFIG` → integration/users · **0** `ROAD_ROUTE_SEED` |
 | FormMode↔API | **PASS** | list=GET · create=POST+init · detail=GET+PUT · media=files/* ≤10 |
-| DOMAIN-MAP | **PASS** | row `web-rmms-nghiem-thu` · Patrol · cấm invent NT controller |
-| BFF | **PASS** | Mobile.Bff catch-all · Step 4b skip · **cấm** ERP.* / web-bff base |
+| DOMAIN-MAP | **PASS** | Patrol · cấm invent NT controller · cấm ERP.* |
+| BFF | **PASS** | `UsersMobileController` + road-routes forward · Mobile.Bff · Step 4b skip |
 
 ## SEC
 
 | Check | Result | Evidence |
 |-------|--------|----------|
 | Auth surface | **PASS** | MFE JWT via Mobile BFF · QA QA-20 no login bounce |
-| GPS integrity | **PASS** | `navigator.geolocation` → FieldInfo pin · deny message · ZoneOrgCode **no fake** (`prev.trim() \|\| ''`) |
-| Secrets / ERP.* | **PASS** | no ERP.* import · no hardcoded credentials in feature pages |
-| Destructive | **PASS** | DELETE OUT P1 · endpoint has no delete |
+| GPS integrity | **PASS** | geolocation → FieldInfo · deny message · ZoneOrgCode `prev.trim() \|\| ''` · **no fake** |
+| Secrets / ERP.* | **PASS** | no ERP.* import in feature · no hardcoded credentials |
+| Destructive | **PASS** | DELETE OUT P1 |
 
 ## UI-FN
 
 | Check | Result | Evidence |
 |-------|--------|----------|
-| STD-ROUTE | **PASS** | `/web-rmms-nghiem-thu` + alias `/field/nghiem-thu*` → Navigate |
-| Entry | **PASS** | Field hub door → list · QA S1/QA-20 **PASS** |
-| Labels | **PASS** | `useFormOptions('web-rmms-nghiem-thu')` + LOOKUP_STATIC `nghiemThu.*` |
-| List chrome | **PASS** | search · Check success row · btnCreate · empty/error handling |
-| Form | **PASS** (code) | init-data templates/scores · ResultCode · draft on Lưu nháp · LinImageUpload · LeaveConfirmModal |
-| DES-GRID / filter-bar | **WAIVE** | phone list · N/A |
+| Pattern B CTA | **PASS** | `disabled={saving}` only · **0** `disabled={!canSave}` · **0** `canSave` · **0** `alert.warning` |
+| validationBanner | **PASS** | `bannerErrors: string[]` · NT-10b · scroll-to-first-error |
+| SearchInput | **PASS** | NT-06 route + NT-06b assignee · `data-control="SearchInput"` · QA S0 LKP |
+| media / capture | **PASS** | `RouteCaptureControl` · facingMode ideal `environment` (webDevicePermission) · ≤10 |
+| Leave | **PASS** (code) | `LeaveConfirmModal` · DES-LEAVE · QA WAIVE click |
+| STD-ROUTE | **PASS** | `/nghiem-thu` + `/moi` · alias `/field/nghiem-thu*` → Navigate |
+| Labels / UTF-8 | **PASS** | `useFormOptions('web-rmms-nghiem-thu')` · QA T-QA-VI-ENC PASS |
+| DES-GRID / filter-bar | **WAIVE** | phone list · N/A · packKind list mobile |
+| Kind B LAYOUT-06 | **WAIVE** | phone · not desktop Kind B shell |
 | QA visual | **PASS** | S0/S1/QA-20 Aligned · Must 0 · P0 none |
 
 ## BE-FN
 
 | Check | Result | Evidence |
 |-------|--------|----------|
-| API Mới / entity / migration | **PASS** | none · reuse `rmms_nghiem_thu` / Live NghiemThuController |
-| Dev build | **PASS** | yarn build chunk `web-rmms-nghiem-thu` (prior Dev) |
-| Live list smoke | **PASS** | QA GET 200 · row `NT-20260912-0002` |
+| API Mới / entity / migration | **PASS** | none · reuse Live · Step 4b skip |
+| Dev build | **PASS** | yarn build + Mobile.Bff build (prior Dev) |
+| users BFF forward | **PASS** | `UsersMobileController` present · Dev verified |
 
 ## Soft debt (non-blocking · không block approve)
 
 | ID | Sev | Note |
 |----|-----|------|
 | ZoneOrgCode | soft | no reverse-geocode · FieldInfo only |
-| GAP-QA-E2E-STOCK-PORT | soft | stock e2e probe :5101 vs compose :5111 · capture workaround |
-| T-QA-CREATE/GPS/MEDIA/LEAVE/POST | soft | WAIVE smoke S0/S1/QA-20 · form covered Dev T-02…T-05 |
+| GAP-QA-E2E-STOCK-BLANK | soft | stock e2e BLANK · capture workaround PASS |
+| GAP-QA-CRUD-EMPTY-01 | soft | list empty-state · CRUD write WAIVE smoke suite · FormMode↔API code PASS |
+| T-QA-MEDIA/LEAVE click | soft | WAIVE smoke · Dev covered |
+
+## Findings table
+
+| ID | Class | Severity | Where | Repro | Fix hint |
+|----|-------|----------|-------|-------|----------|
+| — | — | — | — | no P0/P1 | — |
 
 ## review_confirm
 
 - Decision: **approve** (autoApprove=ON)
 - Gaps requiring fix_gaps: **none**
-- Next: feature pipeline complete · **cấm** start other roles in this task (GAP-PKT-ROLE-01)
+- Next: pipeline complete · **cấm** start other roles in this task (GAP-PKT-ROLE-01) · **cấm** phase=`done`
 
 ## Full paths
 

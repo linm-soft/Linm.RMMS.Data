@@ -6,59 +6,60 @@ packKind: list
 role: design
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T01:05:00.000Z
-taskId: task_feb572c6
-contentHash: sha256:cd46c9486c0a3fe71165c27906508a1608ba46cca1351fe9df832ab7b2efa68c
+writtenAt: 2026-09-27T10:45:00.000Z
+taskId: task_9531bc76
+contentHash: sha256:c46ae5660ccba1b8e64ce8e5294acef77ceb4e0a75474372f2a3d3901efb5796
 design_confirm: approve
 autoApprove: ON
+changeScope: edit_page
 real_view_parity: v1
 shared_grid_example: N/A
 
 ## Decisions
-- changeScope: new_page
+- changeScope: edit_page · keep zones/reviewUrl · Pattern B delta
+- DEC-PATTERN-B: detect chỉ disabled={detecting} · confirm chỉ confirming · banner string[] on click · cấm pre-disable GPS/frame/session/online
+- keep: DEC-FRAME · DEC-SCORE · DEC-ENTRY · DEC-DETECT-DTO · kit_missing CameraViewfinder approve
 - formPattern: Mobile full CP-01 · phone 430 · N/A Modal/Slideout
-- Grid AC Kind B / DES-GRID / LinErpListFilterBar: N/A phone
-- Report AC / DES-RPT: N/A
-- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/web-rmms-cam-patrol · productRoute /field/cam
+- Grid AC / DES-GRID / LinErpListFilterBar / DES-RPT: N/A phone
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/camera-tuan · productRoute /field/cam · cấm /web-rmms-cam-patrol
 - be: D:/AI-QLBD/Linm.RMMS.WebService · Patrol+AiVision+Incident · cấm ERP.*
 - bff: Linm.RMMS.Mobile.Bff · cấm web-bff
 - demo: N/A · hash skip · cấm rescan (GAP-DES-DEMO-RESCAN-01)
-- UI 1-1 Android #sc-cam-patrol · DES-MOB-CAM-PATROL/FINDER · bỏ Me tabs
-- DEC-FRAME: frame thật DoD · fail toast · cấm fake class
-- DEC-SCORE: ẩn % ship (?ship=1)
-- DEC-ENTRY: 1 route CP-01 · PatrolType stamp từ ca
-- DEC-DETECT-DTO→SA cite AiVisionOpsController
-- HARD: GPS deny|accuracy>30 → block detect/confirm · ImageBase64 required
-- labels: useFormOptions() / cam.*
-- kit_missing_confirm CameraViewfinder: approve
+- UI 1-1 Android #sc-cam-patrol · DES-MOB-CAM-PATROL/FINDER · ẩn score % ship
+- labels: useFormOptions() / cam.* · lookupStatic banner keys
+- align end: /align-mobile-to-mfe · CamPatrolPage SSOT · no tab/route/icon
 - next: /agent-sa · roleOnly stop (GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
-| id | label | controlHint | notes |
-|----|-------|-------------|-------|
-| finder | camera | CameraViewfinder | DES-MOB-CAM-FINDER |
-| stamp.route/km/type | ca stamp | Text RO | GET patrol/sessions |
-| lat/lng/accuracyM | GPS | GPS | HARD ≤30m |
-| imageBase64 | frame | CameraCapture | required detect |
-| detect | nhận diện | Button | POST ai-vision/detect Engine=P1 |
-| detection.* | kết quả | Text/Chip | no score % ship |
-| confirm | tạo sự cố | Button | POST incident DetectionId HasGps |
-| skip | bỏ qua | Button | dismiss only |
+| id | controlHint | notes |
+|----|-------------|-------|
+| finder | CameraViewfinder | DES-MOB-CAM-FINDER |
+| stamp.* | Text RO | GET patrol/sessions · no SearchInput |
+| lat/lng/accuracyM | GPS | ≤30m · báo khi bấm |
+| imageBase64 | CameraCapture | capture=environment |
+| detect | Button | Pattern B · lock detecting |
+| detection.* | Text/Chip | no score % |
+| confirm | Button | lock confirming only |
+| skip | Button | dismiss · lock khi confirming |
+| validationBanner | Banner string[] | Pattern B · new edit |
 
 ## Screens / zones (ids only)
-- CP-01 · DES-MOB-CAM-PATROL · DES-MOB-CAM-FINDER · DES-MOB-CAM-RESULT · DES-MOB-GPS-DENY · empty · offline · toast
+- CP-01 · DES-MOB-CAM-PATROL · DES-MOB-CAM-FINDER · DES-MOB-CAM-RESULT · DES-MOB-CAM-VALIDATION · DES-MOB-GPS-DENY · empty · offline · toast
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-cam-patrol/ui/prototype/index.html
-- reviewUrl ship= …/index.html?ship=1 · deny=?deny=1 · nosession=?nosession=1 · fail=?fail=1
-- peerStdUrl= http://localhost:9301/web-rmms-cam-patrol
+- reviewUrl ship=?ship=1 · deny=?deny=1 · nosession=?nosession=1 · fail=?fail=1 · offline=?offline=1
+- peerStdUrl= http://localhost:9301/camera-tuan
 - real_view_parity= v1
 - DES-GRID / LinErpListFilterBar: N/A
 
 ## API / tasks (ids only)
 - FormMode↔API: GET patrol/sessions · POST ai-vision/detect · GET ai-vision/detections/{id} · POST incident/incidents
-- real-data §A+§B: PASS · T-*: T-W3-09 · devSlash=/agent-dev
+- real-data §A+§B: PASS
+- T-*: edit CamPatrolPage Pattern B (cite SUBMIT-VALIDATE)
+- next: /agent-sa
 
 ## UNCLEAR
-- DEC-DETECT-DTO→SA cite AiVisionOpsController (PO fields fixed)
+- UNCLEAR-CAM-FRAME: giữ DEC-FRAME
+- Pattern B banner copy: keys lookupStatic có sẵn
 
 ## Full paths (Read only if needed)
 - design: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-cam-patrol/ui/design.md

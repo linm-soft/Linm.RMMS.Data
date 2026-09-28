@@ -203,22 +203,38 @@
       margin: 14px; padding: 12px; background: #E8F6FC; border-radius: 12px;
       font-size: 13px; color: #086A9A;
     }
+    .validation-banner {
+      display: none; margin: 0 0 14px; padding: 10px 12px;
+      background: #FFF5F5; border: 1px solid var(--danger); border-radius: var(--radius-control);
+      color: #8B1A12; font-size: 13px;
+    }
+    .validation-banner.show { display: block; }
+    .validation-banner ul { margin: 6px 0 0; padding-left: 18px; }
+    .search-input-wrap { position: relative; }
+    .search-input-wrap .si-hint {
+      font-size: 11px; color: var(--muted); margin-top: 4px;
+    }
+    .search-input-wrap .si-miss { color: var(--muted); font-style: italic; }
+    .control.inline-err { border-color: var(--danger); }
+    .photo-add input[type=file] { display: none; }
   </style>
 </head>
 <body>
-  <!-- NT-00 phone frame · zones NT-01…11 -->
+  <!-- NT-00 phone frame · zones NT-01…11 · edit_page Delta Pattern B + SearchInput -->
   <div class="board-nav" id="board-nav" data-zone="NT-00">
     <button type="button" class="active" data-board="list">List</button>
     <button type="button" data-board="empty">Empty</button>
     <button type="button" data-board="create-ok">Create GPS OK</button>
     <button type="button" data-board="create-deny">Create GPS deny</button>
+    <button type="button" data-board="create-invalid">Create invalid (Pattern B)</button>
     <button type="button" data-board="detail">Detail</button>
     <button type="button" data-board="leave">Leave dirty</button>
   </div>
   <div class="meta">
-    feature=<code>web-rmms-nghiem-thu</code> · zones NT-00…11 · phone 430 · Android 1-1 Check<br />
-    reviewUrl=this file · peerStdUrl=<code>http://localhost:9301/web-rmms-nghiem-thu</code><br />
-    FILTER P1=search only · DELETE OUT · Entry=Field hub (NT-11) · cấm ERP.* / fake GPS / «Mẫu nghiệm thu NN»
+    feature=<code>web-rmms-nghiem-thu</code> · changeScope=edit_page · zones NT-00…11 · phone 430<br />
+    reviewUrl=this file · peerStdUrl=<code>http://localhost:9301/nghiem-thu/moi</code><br />
+    Delta: Pattern B banner · SearchInput route/users · capture=environment · CTA always-on<br />
+    FILTER P1=search only · DELETE OUT · Entry=Field hub (NT-11) · cấm ERP.* / fake GPS / disabled=!canSave
   </div>
 
   <div class="phone" id="phone" data-zone="NT-00">
@@ -286,9 +302,14 @@
         <div class="title">Tạo nghiệm thu</div>
       </div>
       <div class="content pad">
+        <div class="validation-banner" id="validation-banner" data-zone="NT-06" role="alert">
+          <strong>Thiếu thông tin bắt buộc</strong>
+          <ul id="validation-list"></ul>
+        </div>
         <div class="field" data-zone="NT-06">
           <label>Mẫu nghiệm thu <span class="req">*</span></label>
           <select class="control" id="mau">
+            <option value="">— chọn mẫu —</option>
             <option value="mau-01">Kiểm tra mặt đường</option>
             <option value="mau-02">Cầu cống</option>
             <option value="mau-03">An toàn giao thông</option>
@@ -296,22 +317,32 @@
         </div>
         <div class="field">
           <label>Tuyến <span class="req">*</span></label>
-          <input class="control" id="route" type="text" value="QL1" />
+          <div class="search-input-wrap" data-control="SearchInput">
+            <input class="control" id="route" type="search" placeholder="SearchInput · road-routes/search" value="QL1" autocomplete="off" />
+            <div class="si-hint">GET …/integration/road-routes/search · no seed · miss=<span class="si-miss">--</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Người thực hiện <span class="req">*</span></label>
+          <div class="search-input-wrap" data-control="SearchInput">
+            <input class="control" id="assignee" type="search" placeholder="SearchInput · integration/users" value="NV001 — Nguyễn A" autocomplete="off" />
+            <div class="si-hint">GET …/integration/users?search= · miss=<span class="si-miss">--</span> · cấm ERP UserSearchInput</div>
+          </div>
         </div>
         <div class="row-2">
           <div class="field">
             <label>Km từ</label>
-            <input class="control" type="number" value="12" />
+            <input class="control" type="number" id="km-from" value="12" />
           </div>
           <div class="field">
             <label>Km đến</label>
-            <input class="control" type="number" value="14" />
+            <input class="control" type="number" id="km-to" value="14" />
           </div>
         </div>
         <div class="gps-card" id="gps-card" data-zone="NT-08">
           <strong>GPS → FieldInfo / ZoneOrgCode</strong>
           <div class="coords" id="gps-coords">FieldInfo: QL1 Km12+000 · Zone: Z-01</div>
-          <div class="hint" id="gps-hint">navigator.geolocation · deny = không bịa tọa độ</div>
+          <div class="hint" id="gps-hint">navigator.geolocation · deny = không bịa · cấm lock CTA</div>
           <div class="gps-actions">
             <button type="button" class="btn btn-ghost" id="gps-refresh">Làm mới GPS</button>
           </div>
@@ -334,11 +365,13 @@
           </div>
         </div>
         <div class="field" data-zone="NT-09">
-          <label>Ảnh (MediaIds ≤10)</label>
+          <label>Ảnh (MediaIds ≤10 · capture=environment)</label>
           <div class="photo-row">
             <div class="photo-thumb">1</div>
             <div class="photo-thumb">2</div>
-            <div class="photo-add" title="files/*">+</div>
+            <label class="photo-add" title="files/* capture=environment">+
+              <input type="file" accept="image/*" capture="environment" id="media-capture" />
+            </label>
           </div>
         </div>
         <div class="field">
@@ -367,15 +400,25 @@
         </div>
         <div class="field">
           <label>Tuyến</label>
-          <input class="control" type="text" value="DT747" />
+          <div class="search-input-wrap" data-control="SearchInput">
+            <input class="control" id="detail-route" type="search" value="DT747" autocomplete="off" />
+            <div class="si-hint">SearchInput · road-routes/search · no seed</div>
+          </div>
         </div>
         <div class="field">
           <label>Trạng thái</label>
           <input class="control" readonly value="Nháp (draft)" />
         </div>
         <div class="field">
-          <label>Người thực hiện</label>
-          <input class="control" readonly value="NV001" />
+          <label>Người thực hiện <span class="req">*</span></label>
+          <div class="search-input-wrap" data-control="SearchInput">
+            <input class="control" id="detail-assignee" type="search" value="NV001 — Nguyễn A" autocomplete="off" />
+            <div class="si-hint">SearchInput · integration/users · không RO profile-only</div>
+          </div>
+        </div>
+        <div class="validation-banner" id="detail-validation-banner" role="alert">
+          <strong>Thiếu thông tin bắt buộc</strong>
+          <ul id="detail-validation-list"></ul>
         </div>
         <div class="gps-card">
           <strong>GPS</strong>
@@ -425,6 +468,13 @@
       var leaveModal = document.getElementById("leave-modal");
       var dirty = false;
       var pendingLeave = null;
+      var validationAttempted = false;
+      var gpsOk = true;
+      var banner = document.getElementById("validation-banner");
+      var bannerList = document.getElementById("validation-list");
+      var mauEl = document.getElementById("mau");
+      var routeEl = document.getElementById("route");
+      var assigneeEl = document.getElementById("assignee");
 
       function showToast(msg, ok) {
         toast.textContent = msg;
@@ -439,9 +489,54 @@
         emptyEl.classList.toggle("show", name === "empty");
         listEl.style.display = name === "empty" ? "none" : "";
         leaveModal.classList.remove("show");
+        if (name !== "create") hideBanner();
+      }
+
+      function hideBanner() {
+        banner.classList.remove("show");
+        bannerList.innerHTML = "";
+        mauEl.classList.remove("inline-err");
+        routeEl.classList.remove("inline-err");
+        assigneeEl.classList.remove("inline-err");
+      }
+
+      function collectErrors() {
+        var errs = [];
+        if (!mauEl.value) errs.push("Thiếu mẫu nghiệm thu");
+        if (!(routeEl.value || "").trim() || routeEl.value === "--") errs.push("Thiếu tuyến");
+        if (!gpsOk) errs.push("Thiếu hiện trường (GPS deny · không bịa)");
+        if (!(assigneeEl.value || "").trim() || assigneeEl.value === "--") errs.push("Thiếu người thực hiện");
+        return errs;
+      }
+
+      function showBanner(errs) {
+        bannerList.innerHTML = errs.map(function (e) { return "<li>" + e + "</li>"; }).join("");
+        banner.classList.add("show");
+        mauEl.classList.toggle("inline-err", !mauEl.value);
+        routeEl.classList.toggle("inline-err", !(routeEl.value || "").trim() || routeEl.value === "--");
+        assigneeEl.classList.toggle("inline-err", !(assigneeEl.value || "").trim() || assigneeEl.value === "--");
+      }
+
+      function setFormValid(valid) {
+        validationAttempted = false;
+        hideBanner();
+        if (valid) {
+          mauEl.value = "mau-01";
+          routeEl.value = "QL1";
+          assigneeEl.value = "NV001 — Nguyễn A";
+          document.getElementById("km-from").value = "12";
+          document.getElementById("km-to").value = "14";
+        } else {
+          mauEl.value = "";
+          routeEl.value = "";
+          assigneeEl.value = "";
+          document.getElementById("km-from").value = "";
+          document.getElementById("km-to").value = "";
+        }
       }
 
       function setGps(ok) {
+        gpsOk = ok;
         if (ok) {
           gpsCard.classList.remove("warn");
           gpsCoords.textContent = "FieldInfo: QL1 Km12+000 · Zone: Z-01";
@@ -449,7 +544,7 @@
         } else {
           gpsCard.classList.add("warn");
           gpsCoords.textContent = "FieldInfo: — · Zone: —";
-          gpsHint.textContent = "GPS deny · không bịa tọa độ · Lưu nháp vẫn OK";
+          gpsHint.textContent = "GPS deny · không bịa tọa độ · CTA vẫn bật · báo khi submit (Pattern B)";
         }
       }
 
@@ -477,14 +572,18 @@
         dirty = false;
         if (board === "list") setScreen("list");
         else if (board === "empty") setScreen("empty");
-        else if (board === "create-ok") { setScreen("create"); setGps(true); dirty = true; }
-        else if (board === "create-deny") { setScreen("create"); setGps(false); dirty = true; }
+        else if (board === "create-ok") { setScreen("create"); setFormValid(true); setGps(true); dirty = true; }
+        else if (board === "create-deny") { setScreen("create"); setFormValid(true); setGps(false); dirty = true; }
+        else if (board === "create-invalid") {
+          setScreen("create"); setFormValid(false); setGps(false); dirty = true;
+          validationAttempted = true; showBanner(collectErrors());
+        }
         else if (board === "detail") { setScreen("detail"); dirty = true; }
-        else if (board === "leave") { setScreen("create"); setGps(true); dirty = true; leaveModal.classList.add("show"); pendingLeave = goList; }
+        else if (board === "leave") { setScreen("create"); setFormValid(true); setGps(true); dirty = true; leaveModal.classList.add("show"); pendingLeave = goList; }
       });
 
       document.getElementById("btn-create").addEventListener("click", function () {
-        setScreen("create"); setGps(true); dirty = true;
+        setScreen("create"); setFormValid(true); setGps(true); dirty = true;
       });
       document.getElementById("create-back").addEventListener("click", function () {
         requestLeave(goList);
@@ -506,18 +605,45 @@
         var fn = pendingLeave; pendingLeave = null; dirty = false;
         if (fn) fn();
       });
+      // Pattern B: CTA always-on (chỉ khóa khi saving — prototype không simulate saving)
       document.getElementById("btn-save-draft").addEventListener("click", function () {
+        validationAttempted = true;
+        var errs = collectErrors();
+        if (errs.length) {
+          showBanner(errs);
+          showToast("Pattern B · banner string[] · CTA không disabled", false);
+          return;
+        }
+        hideBanner();
         dirty = false;
         showToast("Đã lưu nháp · POST patrol/nghiem-thu Status=draft", true);
         setTimeout(goList, 900);
       });
       document.getElementById("btn-save-edit").addEventListener("click", function () {
+        var a = document.getElementById("detail-assignee");
+        var r = document.getElementById("detail-route");
+        var dBanner = document.getElementById("detail-validation-banner");
+        var dList = document.getElementById("detail-validation-list");
+        var errs = [];
+        if (!(r.value || "").trim()) errs.push("Thiếu tuyến");
+        if (!(a.value || "").trim()) errs.push("Thiếu người thực hiện");
+        if (errs.length) {
+          dList.innerHTML = errs.map(function (e) { return "<li>" + e + "</li>"; }).join("");
+          dBanner.classList.add("show");
+          showToast("Pattern B · PUT blocked · banner", false);
+          return;
+        }
+        dBanner.classList.remove("show");
         dirty = false;
         showToast("Đã lưu · PUT patrol/nghiem-thu/{id}", true);
         setTimeout(goList, 900);
       });
       document.getElementById("gps-refresh").addEventListener("click", function () {
-        setGps(!gpsCard.classList.contains("warn"));
+        setGps(!gpsOk);
+        if (validationAttempted) {
+          var errs = collectErrors();
+          if (errs.length) showBanner(errs); else hideBanner();
+        }
       });
       listEl.addEventListener("click", function (e) {
         var row = e.target.closest(".list-row");
@@ -538,9 +664,11 @@
         emptyEl.classList.toggle("show", visible === 0);
         listEl.style.display = visible === 0 ? "none" : "";
       });
-      ["mau", "route", "result"].forEach(function (id) {
+      ["mau", "route", "assignee", "result"].forEach(function (id) {
         var el = document.getElementById(id);
-        if (el) el.addEventListener("change", function () { dirty = true; });
+        if (!el) return;
+        el.addEventListener("change", function () { dirty = true; if (validationAttempted) { var errs = collectErrors(); if (errs.length) showBanner(errs); else hideBanner(); } });
+        el.addEventListener("input", function () { dirty = true; if (validationAttempted) { var errs = collectErrors(); if (errs.length) showBanner(errs); else hideBanner(); } });
       });
     })();
   </script>

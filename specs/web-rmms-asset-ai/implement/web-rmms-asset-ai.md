@@ -1,41 +1,41 @@
 # Implement — web-rmms-asset-ai
 
-> Status: **done** · writtenAt `2026-09-25T16:15:00.000Z` · task `task_e57c44e0`  
+> Status: **done** · writtenAt `2026-09-27T17:20:00.000Z` · task `task_9f56dd9a`  
 > skillVersion: `2026.09.05.03` · packKind: `list` · autoApprove: ON  
-> mfeStdUrl: `http://localhost:9301/web-rmms-asset-ai`
+> contentHash: `sha256:e223304b3658e8067766aed729e36988d54f1df8ad38ca953b2e176e63c9594c`  
+> mfeStdUrl: `http://localhost:9301/tai-san/ai`
 
 | | |
 |--|--|
 | Feature | `web-rmms-asset-ai` |
-| Title | Camera AI và HITL |
+| Title | Camera AI + HITL — Pattern B detect + SearchInput route |
 | Role | `dev` · `/agent-dev` |
-| changeScope | `new_page` |
+| changeScope | `edit_page` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdRoute | `/web-rmms-asset-ai` · HITL `/web-rmms-asset-ai/hitl/:id` |
-| nativeAlias | `/asset/ai` · `/asset/ai/hitl/:id` |
-| be | Mobile.Bff `:5202` `mobile-bff/api/v1/ai-vision/**` · **Step 4b skip** · no new API |
+| mfeStdRoute | `/tai-san/ai` · HITL `/tai-san/ai/hitl/:id` |
+| nativeAlias | `/asset/ai` · `/asset/ai/hitl/:id` (redirect only · **cấm** native edit) |
+| be | Mobile.Bff `:5202` `mobile-bff/api/v1` · domain **AiVision** · **Step 4b skip** · T-BE **N/A** |
 | DES-GRID | N/A phone |
-| build | `yarn build` **PASS** (webpack 5.111.1 · chunk `web-rmms-asset-ai`) |
+| build | MFE `yarn build` **PASS** · BE `dotnet build` WebService.sln **PASS** |
 
 ## Done (T-*)
 
 | id | Result |
 |----|--------|
-| T-01 | Route + layout AA-00 · navBack Hub · aliases · Hub tile → STD |
-| T-02 | Detect AA-01…05 · photo upload Live · GPS Acc≤30 gate · RouteId* · trip opt · useFormOptions |
-| T-03 | Nearby AA-07 · Detect/Cancel AA-08/09 · POST detect-assets → Draft → HITL · **no** auto-confirm |
-| T-04 | HITL AA-10…14 · GET candidate · score SHOW % · pin local drag · confirm/dismiss · DES-LEAVE |
-| T-05 | BFF clients `assetAiEndpoint` · toast · Android 1-1 zones · labels `assetAi.*` |
-| T-BE | **N/A** — Mobile.Bff `AiVisionCandidatesMobileController` already Live |
+| T-01…T-05 | Prior ship keep — route `/tai-san/ai` · Live BFF · zones AA-* · HITL busy-only · score SHOW % · no auto-confirm |
+| T-EDIT | Pattern B: drop `disabled={!canDetect}` → `disabled={detecting}` only · validationAttempted banner photo+route+GPS Acc≤30 · GPS deny **không** khóa CTA trước · SearchInput `ROAD_ROUTE_LOOKUP_CONFIG` Live · **cấm** seed / select search · miss=`--` · sessions prefill keep · useFormOptions · DES-LEAVE |
+| T-BE | **N/A** — no new API / entity / migration (SA) · verify-only `dotnet build` PASS |
+| T-QA | pending — queued `/agent-qa*` · **cấm** e2e ở Dev |
+| T-REV | pending — after QA |
 
-## Files (MFE)
+## Files (MFE · T-EDIT)
 
-- `src/pages/WebRmmsAssetAi/*` — layout · Detect · HITL · paths · lookupStatic · styles · aliases
-- `src/services/assetAi/{types,endpoint}.ts`
-- `src/index.tsx` · `src/dev/devRoutes.ts`
-- Hub: `paths.ai` → `/web-rmms-asset-ai` · pending → `hitl/:id`
+- `src/pages/WebRmmsAssetAi/AssetAiDetectPage.tsx` — Pattern B + SearchInput
+- `src/pages/WebRmmsAssetAi/lookupStatic.ts` — error.photoRequired / routeRequired / bannerDismiss
+- `src/pages/WebRmmsAssetAi/styles.module.css` — bannerList / fieldError
+- HITL `AssetAiHitlPage.tsx` — keep busy-only · score SHOW % (no change required)
 
-## APIs (Mobile.Bff)
+## APIs (Mobile.Bff · reuse)
 
 - `POST ai-vision/uploads/init` + PUT + `complete`
 - `GET integration/road-routes/search` · `GET patrol/sessions`
@@ -45,15 +45,15 @@
 
 ## Gates
 
-- List/grid Kind B: **N/A** phone (DES-GRID)
-- Form: Mobile full ≤430 · LeaveConfirmModal · cấm native confirm · cấm ERP.*
-- Build HARD: **PASS**
+- List/grid Kind B: **N/A** phone (DES-GRID / filterBar)
+- Form: Mobile full ≤430 · Pattern B · SearchInput · LeaveConfirmModal · cấm native confirm · cấm ERP.*
+- Build HARD: MFE **PASS** · BE **PASS** (no BE write)
 
 ## Debt / notes
 
 - Pin lat/lng local-only (note on confirm/dismiss) — no PUT candidate GPS
-- Score SHOW không gate CTA (Design SCORE-01)
-- E2E: queued `/agent-qa*` — **cấm** e2e ở Dev
+- Score SHOW không gate Confirm/Dismiss
+- E2E Pattern B + SearchInput: queued `/agent-qa*`
 
 ## nextSlash
 

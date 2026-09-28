@@ -86,7 +86,7 @@ Canonical: `api/v1/ai-vision/estimates` — **cấm** invent paths.
 | T-FE-02 | FE | Peer work nest EST-W | T-FE-01 | `/agent-dev` | `/work/estimate/:id` cùng form · entry Work hub · no invent controller | pending |
 | T-FE-03 | FE | Header incident live | T-FE-01 | `/agent-dev` | GET incident/{id} · Text RO header · **cấm** HostIncidentsStub | pending |
 | T-FE-04 | FE | Open estimate from-incident | T-FE-03 | `/agent-dev` | POST from-incident · EST-OPEN · AC-F open | pending |
-| T-FE-05 | FE | Lines edit + total | T-FE-04 | `/agent-dev` | Qty/UnitPrice editable · PUT Lines[] · totalAmount RO LabelMoney · EST-EDIT | pending |
+| T-FE-05 | FE | Lines edit + total | T-FE-04 | `/agent-dev` | Qty `NumberInput` · UnitPrice `MoneyInput` · total `LabelMoney` · add/remove min 1 · PUT upsert (không mass-delete) · footer in flow | pending |
 | T-FE-06 | FE | Draft + Confirm lock | T-FE-05 | `/agent-dev` | draft · confirm · EST-LOCK · confirm xong lines RO | pending |
 | T-FE-07 | FE | WO-GATE create work order | T-FE-06 | `/agent-dev` | WO disable until confirm · POST work-orders · EST-WO · **cấm** auto WO · TOAST | pending |
 | T-FE-08 | FE | LeaveConfirmModal + labels | T-FE-05 | `/agent-dev` | DES-LEAVE · no `alert()` · useFormOptions · no GPS | pending |

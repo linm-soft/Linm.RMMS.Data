@@ -81,7 +81,7 @@ async function fatalUi(p) {
     const vis = await overlay.first().isVisible().catch(() => false);
     const featureOk = await p
       .locator(
-        "[data-feature='web-rmms-attendance'], #att-hero, #btn-checkin, #guestLogin, #loginUser",
+        "[data-feature='web-rmms-attendance'], [data-feature='login'], #att-hero, #btn-checkin, #guestLogin, #f-user, #loginUser",
       )
       .count();
     if (vis && featureOk === 0) return "webpack overlay";
@@ -110,33 +110,25 @@ async function clearSession() {
   });
 }
 
-async function loginViaSheet() {
+async function loginViaPage() {
   await clearSession();
-  await page.goto(base + "/web-rmms-home", {
+  await page.goto(base + "/dang-nhap", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
-  await page.waitForSelector("#guestLogin", { timeout: 20000 });
-  await page.locator("#guestLogin").click();
-  await page.waitForSelector("#loginUser, [data-zone='SH-02'] input", {
-    timeout: 15000,
-  });
-  const userSel = (await page.locator("#loginUser").count())
-    ? "#loginUser"
-    : '[data-zone="SH-02"] input[type="text"], [data-zone="SH-02"] input:not([type="password"])';
-  const passSel = (await page.locator("#loginPass").count())
-    ? "#loginPass"
-    : '[data-zone="SH-02"] input[type="password"]';
+  await page.waitForSelector("#f-user, #loginUser", { timeout: 20000 });
+  const userSel = (await page.locator("#f-user").count()) ? "#f-user" : "#loginUser";
+  const passSel = (await page.locator("#f-pass").count()) ? "#f-pass" : "#loginPass";
+  const submitSel = (await page.locator("#btn-login").count())
+    ? "#btn-login"
+    : "#loginSubmit";
   await page.fill(userSel, user);
   await page.fill(passSel, password);
-  await page
-    .locator("#loginSubmit, [data-zone='SH-02'] button[type='submit']")
-    .first()
-    .click({ force: true });
-  await page.waitForTimeout(2500);
+  await page.locator(submitSel).first().click({ force: true });
+  await page.waitForTimeout(2800);
   await page
     .waitForSelector(
-      '[data-feature="web-rmms-home"][data-mode="staff"] #gridSupervise, [data-mode="staff"] #walletAsset',
+      '[data-feature="web-rmms-home"][data-mode="staff"], [data-mode="staff"] #walletAsset, #gridSupervise',
       { timeout: 25000 },
     )
     .catch(() => {});
@@ -145,7 +137,7 @@ async function loginViaSheet() {
 async function dumpZones() {
   return page.evaluate(() => {
     const root = document.querySelector(
-      '[data-feature="web-rmms-attendance"], [data-feature="web-rmms-home"], [data-feature="web-rmms-shell"]',
+      '[data-feature="web-rmms-attendance"], [data-feature="web-rmms-home"], [data-feature="web-rmms-shell"], [data-feature="login"]',
     );
     const zones = [...document.querySelectorAll("[data-zone]")].map((el) =>
       el.getAttribute("data-zone"),
@@ -164,9 +156,17 @@ async function dumpZones() {
       "loginPass",
       "loginSubmit",
       "guestLogin",
+      "f-user",
+      "f-pass",
+      "btn-login",
+      "validationBanner",
     ].filter((id) => document.getElementById(id));
     const text = (document.body?.innerText || "").slice(0, 900).replace(/\s+/g, " ");
     const guestGate = !!document.querySelector(".guestGate, [data-zone='ATT-08']");
+    const btn = document.getElementById("btn-checkin");
+    const patternB = btn
+      ? { disabled: btn.hasAttribute("disabled") || btn.disabled === true }
+      : null;
     return {
       feature: root?.getAttribute("data-feature") || null,
       zones: [...new Set(zones)],
@@ -175,6 +175,7 @@ async function dumpZones() {
       text,
       href: location.href,
       guestGate,
+      patternB,
     };
   });
 }
@@ -214,10 +215,10 @@ async function captureCurrent(id, waitSel) {
 }
 
 try {
-  // S0 — guest ATT hub gate
+  // S0 — guest ATT hub gate · Pattern B CTA
   pageErrors.length = 0;
   await clearSession();
-  await page.goto(base + "/web-rmms-attendance", {
+  await page.goto(base + "/cham-cong", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
@@ -226,21 +227,21 @@ try {
     "[data-feature='web-rmms-attendance'] .guestGate, [data-feature='web-rmms-attendance'][data-zone='ATT-00']",
   );
 
-  // QA-20 — LoginSheet SH-02 from Home guest CTA
+  // QA-20 — Login page LG-00 (was LoginSheet SH-02)
   pageErrors.length = 0;
   await clearSession();
-  await page.goto(base + "/web-rmms-home", {
+  await page.goto(base + "/trang-chu", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
   await page.waitForSelector("#guestLogin", { timeout: 20000 });
   await page.locator("#guestLogin").click();
-  await captureCurrent("QA-20", "#loginUser, [data-zone='SH-02']");
+  await captureCurrent("QA-20", "#f-user, #loginUser, [data-feature='login']");
 
-  // S1 — staff hub after LoginSheet · geo mock Acc=12
+  // S1 — staff hub after login · geo mock Acc=12 · Pattern B btn
   pageErrors.length = 0;
-  await loginViaSheet();
-  await page.goto(base + "/web-rmms-attendance", {
+  await loginViaPage();
+  await page.goto(base + "/cham-cong", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
@@ -248,6 +249,12 @@ try {
     "S1",
     "#att-hero, #btn-checkin, [data-feature='web-rmms-attendance'] #hero-status",
   );
+} catch (err) {
+  results.push({
+    id: "runtime",
+    result: "FAIL",
+    error: err instanceof Error ? err.message : String(err),
+  });
 } finally {
   await browser.close();
 }
@@ -255,7 +262,7 @@ try {
 const summary = {
   feature: "web-rmms-attendance",
   cases: results,
-  pass: results.every((r) => r.result === "PASS"),
+  pass: results.length > 0 && results.every((r) => r.result === "PASS"),
   at: new Date().toISOString(),
 };
 writeFileSync(join(outDir, "_capture_att.result.json"), JSON.stringify(summary, null, 2));

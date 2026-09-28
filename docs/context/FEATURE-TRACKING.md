@@ -3,7 +3,9 @@
 > **SSOT theo dõi.** Backlog mô tả: [`features/README.md`](features/README.md). Pipeline scan: [`implement-status.json`](implement-status.json) (có thể lệch — **ưu tiên** `specs/{slug}/STATUS.md`).  
 > **HĐ:** `37001-08/2026-LIC/LINM-JNET` · PL01 P1 CAPEX 900tr (A 450 + B 300 + C 150). Spec: [`Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md`](../../../Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md).  
 > **Demo hub:** `Linm.RMMS.Demo` · `npm run start:std` → http://localhost:5180 · catalog [`demoCatalog.ts`](../../../Linm.RMMS.Demo/src/demoCatalog.ts).  
-> **Cập nhật:** 2026-09-22 · `/hey-linm` `feature_context` camera ingest: SSOT đếm = `CameraDeviceId` (BE gắn · **cấm** trên firmware URL) · alias DDNS/IP · Auth 403 `AUTH_SOURCE_IP_DENIED` khi WAN đổi (lab `14.224.100.170`) · allowlist IP **hoặc** DDNS — [camera-connect](features/camera-connect.md) · [23](23-CAMERA-HOST-NOTIFY-CONFIG.md) · [gis-camera-map](features/gis-camera-map.md)  
+> **Cập nhật:** 2026-09-28 · `/hey-linm` `feature_context` `rmms-phan-quyen`: LEAD catalog thấy TECH/PATROL cùng phòng ban · bản ghi `UserId` + mã nhân viên · không khớp họ tên · import chức danh + Auth `JobTitleCode` — [ctx](features/rmms-phan-quyen.md)  
+> **Prior:** 2026-09-27 · `/hey-linm` `feature_context` `rmms-phan-quyen`: menu package ≠ data tier tuần đường · checker `phan-quyen/index.html` — [ctx](features/rmms-phan-quyen.md)  
+> **Prior:** 2026-09-22 · `/hey-linm` `feature_context` camera ingest: SSOT đếm = `CameraDeviceId` (BE gắn · **cấm** trên firmware URL) · alias DDNS/IP · Auth 403 `AUTH_SOURCE_IP_DENIED` khi WAN đổi (lab `14.224.100.170`) · allowlist IP **hoặc** DDNS — [camera-connect](features/camera-connect.md) · [23](23-CAMERA-HOST-NOTIFY-CONFIG.md) · [gis-camera-map](features/gis-camera-map.md)  
 > **Prior:** 2026-09-20 · `/add-task` plan `nghiem-thu-mau` TT 41 10 công việc BDTX + chỉ số · lane mobile+BFF+API · web later  
 > **Prior:** 2026-09-19 · `/scan-mobile-feature` `run_selected` Công tác nghiệm thu · `nghiem-thu` + `nghiem-thu-create` + `nghiem-thu-detail` · queue `qlbd-mobile` `pending_confirm`  
 > **Prior:** 2026-09-19 · GIS `/gis/camera` KPI đếm xe/event BE (1 GET events hôm nay) · poll 15s · **DEFER** SignalR/MQTT `GAP-CAM-MAP-PUSH-01` · GPS `Latitude`/`Longitude` — [gis-camera-map](features/gis-camera-map.md) · [camera-connect](features/camera-connect.md)  
@@ -121,7 +123,7 @@
 | `tuan-duong-mobile` | TT 04 mobile demo | 04 | P1-900 | (gắn mobile-p1) | catalog | [24](24-TUAN-DUONG-DUONG-BO.md) | [mobile-p1](../../specs/mobile-p1/STATUS.md) |
 | `platform-task` | Platform QLCV | — | support P1 | `done` / `done` | catalog | [ctx](features/platform-task.md) | [ST](../../specs/platform-task/STATUS.md) |
 | `platform-message` | Chat parcel | — | support P1 | `dev` / `await_confirm` | none | [ctx](features/platform-message.md) | [ST](../../specs/platform-message/STATUS.md) |
-| `rmms-task-integrate` | Task × tuần đường | — | P2 later | `design` / `done` | none | [plan](../plan/platform-task/RMMS-TUAN-DUONG.md) | [ST](../../specs/rmms-task-integrate/STATUS.md) |
+| `rmms-task-integrate` | Task × tuần đường | — | P2 later | `done` / `done` | none | [plan](../plan/platform-task/RMMS-TUAN-DUONG.md) | [ST](../../specs/rmms-task-integrate/STATUS.md) |
 | `attendance` | Chấm công GPS | 05 | P1-900 | done | catalog | [ctx](features/attendance.md) | [ST](../../specs/attendance/STATUS.md) |
 | `incident` | Quản lý sự cố | 06 | P1-900 | `done` / `done` | catalog | [ctx](features/incident.md) | [ST](../../specs/incident/STATUS.md) |
 | `maintenance` | Bảo trì khung + WO P2 | 07 / 07-P2 | P1-900 khung · P2-CR full | done | catalog | [ctx](features/maintenance.md) | [ST](../../specs/maintenance/STATUS.md) |
@@ -267,7 +269,9 @@
 | `web-rmms-mnt-chat` | Chat công việc | — | support | `done` / `done` | none | [ctx](features/web-rmms-mnt-chat.md) | [ST](../../specs/web-rmms-mnt-chat/STATUS.md) |
 | `web-rmms-photo-geo` | Overlay chụp ảnh có tọa độ | — | support | `done` / `done` | none | [ctx](features/web-rmms-photo-geo.md) | [ST](../../specs/web-rmms-photo-geo/STATUS.md) |
 | `web-rmms-bien-ban` | Đề nghị lập biên bản | — | support | `done` / `done` | none | [ctx](features/web-rmms-bien-ban.md) | [ST](../../specs/web-rmms-bien-ban/STATUS.md) |
-| `web-rmms-ui-align` | Align UI Home · tab · Field theo prototype iOS | — | support | `po` / `in_progress` | none | [ctx](features/web-rmms-ui-align.md) | [ST](../../specs/web-rmms-ui-align/STATUS.md) |
+| `web-rmms-ui-align` | Align UI Home · tab · Field theo prototype iOS | — | support | `done` / `done` | none | [ctx](features/web-rmms-ui-align.md) | [ST](../../specs/web-rmms-ui-align/STATUS.md) |
+| `rmms-phan-quyen` | Phân quyền data tuần đường | — | support | `dev` / `done` | none | [ctx](features/rmms-phan-quyen.md) | — |
+| `gps-route-capture` | Fill tuyến theo GPS | — | P1 | `context` / `draft` | none | [ctx](features/gps-route-capture.md) | — |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).
 
 **Draft mobile (CTX/analy):** `incident-list` — [STATUS](../../specs/). `cam-view` data_analy **PASS** → PO pending. `incident-create` · `field-reflect` · `cam-patrol` · `mnt-list` đã có CTX + data_analy (hoặc done).
@@ -857,7 +861,25 @@ Blocked / later — [STATUS](../../specs/rmms-task-integrate/STATUS.md) · [RMMS
 
 `home` · `me` · `login` · `login-forgot` · `supervise` · `asset-hub` · `attendance` (mobile lane) — STATUS **done**.
 
+#### `rmms-phan-quyen`
+
+| | |
+|--|--|
+| Release / implement | support · data scope LEAD + phòng ban · khóa `UserId` / mã nhân viên |
+| Demo | none · checker [`phan-quyen/index.html`](../../../phan-quyen/index.html) |
+| Pipeline | `dev` / `done` |
+| Next | Apply `Schema_PatrolActorLink` + Auth `Schema_UserJobTitleCode`, restart import v6 / v4 |
+
 ---
+
+#### `gps-route-capture`
+
+| | |
+|--|--|
+| Release / implement | P1 phone web · capture + check-in + sự cố |
+| Demo | none |
+| Pipeline | `context` / `draft` |
+| Next | Cột tuyến trên phiếu phát hiện và nhật ký — GAP-GPS-ROUTE-01 |
 
 ## Demo catalog vs hub
 

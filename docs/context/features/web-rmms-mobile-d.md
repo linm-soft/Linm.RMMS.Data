@@ -1,11 +1,12 @@
 # Feature context — web-rmms-mobile-d
 
 > **Slug:** `web-rmms-mobile-d` · **Wave:** D (Kết ca / bàn giao / tạm dừng · giao việc BDTX · sổ kiến nghị)  
-> **Status:** po done → design pending · **packKind:** `list` · **changeScope:** `edit_page`  
+> **Status:** data_analy delta **done** → po pending · **packKind:** `list` · **changeScope:** `edit_page` · task `task_b83eb3a7`  
 > **Demo:** N/A (field master-adjacent · **cấm** demo HTML / tọa độ mẫu SSOT)  
 > **MFE:** `Linm.Web.RMMS.Mobile` · khung phone `max-width` 430px · **cấm** nhét màn vào MFE desktop Asset/Field  
-> **BE:** `Linm.RMMS.WebService` · domain **Patrol** (+ **Maintenance** WO Live · Auth · Files · peer A–C) · **cấm ERP.*** / Domains/Master  
-> **mfeStdRoute:** `/web-rmms-mobile-d` · **mfeStdUrl:** `http://localhost:9301/web-rmms-mobile-d`  
+> **BE:** `Linm.RMMS.WebService` · domain **Patrol** (+ **Maintenance** WO Live · Auth · Files · Integration · peer A–C) · **cấm ERP.*** / Domains/Master  
+> **mfeStdRoute:** `/kien-nghi/moi` · **mfeStdUrl:** `http://localhost:9301/kien-nghi/moi`  
+> **Delta:** `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · Pattern B · SearchInput users/tuyến · Mobile.Bff users forward  
 > **Queue:** `/agent-qldb-workflow` · alias `web-rmms-mobile-d` · **cấm** iOS/Android native
 
 ## 1. Mục tiêu
@@ -83,11 +84,12 @@ Khép kín đợt D: **TD-06 kết ca / bàn giao / tạm dừng** · **TK-03 n�
 - [x] CTX slug D + control-hint + real-data  
 - [x] Screens TD-06 · TK-03 assign · TK-05 feedback · TK-06 bound  
 - [x] Live vs Mới tách rõ · Schema-before-form  
-- [x] Handoff compact → PO
+- [x] Handoff compact → PO  
+- [x] **Delta** SUBMIT-VALIDATE · § Delta Current vs New · Pattern B · SearchInput users/routes · BFF users · mfeStd `/kien-nghi/moi` · handoff `task_b83eb3a7`
 
 ## Implement tracking
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `done` | `done` | `2026-09-25T10:16:09.978Z` |
+| web | `done` | `done` | `2026-09-27T09:05:56.898Z` |
 | mobile | — | — | — |

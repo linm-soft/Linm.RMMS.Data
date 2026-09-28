@@ -5,53 +5,52 @@ feature: web-rmms-vis-capture
 packKind: list
 role: dev
 status: done
+changeScope: edit_page
+taskId: task_46a9e73a
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T21:42:44.973Z
-taskId: task_781a1036
-contentHash: sha256:96ffc2878a4c6ad0367088c699203864c2e711b055ca68da8a59d696c8d4de97
-dev_confirm: approve
+writtenAt: 2026-09-27T18:25:00.000Z
+contentHash: sha256:f749bc65f84b7bde51beeebaa85e5db22dacc8e8a040a53de30af834fa55c8cd
 autoApprove: ON
-changeScope: new_page
-build: PASS
+e2eQa: ON queued
 
 ## Decisions
-- formPattern: Mobile full VIS · phone ≤430 · Android 1-1 #sc-vis-capture · N/A ERP Modal · useFormOptions / vis.*
-- TITLE-01: «Nhận diện sự cố» · DUAL-01 section+Skip · PACK-01 list+full
-- mfe: Linm.Web.RMMS.Mobile · mfeStdRoute=/web-rmms-vis-capture · alias /incident/vis
-- mfeStdUrl: http://localhost:9301/web-rmms-vis-capture
-- be: Mobile.Bff :5202 · AiVision+Incident(+Patrol) Live · Step 4b N/A · cấm invent VisCapture · cấm ERP.* · cấm on-device
-- HARD: GPS deny|Acc>30 block · uploads→detect Engine=P1 · Attach HasGps+DetectionId no Lat · Skip=dismiss · empty session GPS-only toast
-- yarn build PASS · chunk web-rmms-vis-capture · BE RMMS.Service.Api PASS
-- next: /agent-qa · roleOnly stop · e2eQa ON (QA only)
+- changeScope: edit_page · Pattern B Detect/Attach idle-on · disabled chỉ detecting/attaching
+- #validationBanner string[] on click · Acc>30 no POST handler · ?banner=1
+- ROUTE-01: /chup-hien-truong · cấm /web-rmms-vis-capture
+- Align: SCREENS SSOT=VisCapturePage · cấm tab/route/icon mới · cấm android/ios edit
+- BFF: users forward cite (UsersMobileController) · T-BE=N/A invent · Step 4b skip
+- Build: MFE yarn build PASS · WebService + Mobile.Bff PASS
+- next: /agent-qa · roleOnly stop · e2eQa queued
 
 ## Inventory (slim)
-| id | controlHint | API |
-|----|-------------|-----|
-| photos | PhotoRow | uploads init/PUT/complete |
-| rowLoc | ListRow RO | GPS + optional sessions |
-| rowAcc | ListRow RO | AccuracyM ≤30 |
-| detect | Button | POST ai-vision/detect |
-| rowClass | ListRow RO | DefectClass |
-| rowSev | ListRow+Badge | Severity |
-| btnAttach | Button | POST incident/incidents |
-| btnSkip | Button | dismiss only |
-| gpsLock | GPS | deny→block |
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| photos | ảnh | PhotoRow | uploads* |
+| rowLoc | vị trí | ListRow RO | GPS + optional sessions |
+| rowAcc | sai số | ListRow RO | Acc>30 handler |
+| detect | nhận diện | Button | disabled={detecting} |
+| rowClass | phân loại | ListRow RO | DefectClass |
+| rowSev | mức | ListRow+Badge | Severity |
+| btnAttach | gắn sự cố | Button | disabled={attaching} |
+| btnSkip | bỏ qua | Button | disabled={attaching} |
+| gpsLock | GPS | GPS | deny→banner/modal on click |
+| validationBanner | lỗi client | Banner | Pattern B string[] |
 
-## Screens / zones
-- VIS · #sc-vis-capture · DES-MOB-VIS-CAPTURE · GPS-DENY · peer INC-L banner
-- reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/ui/prototype/index.html
-- peerStdUrl= http://localhost:9301/web-rmms-vis-capture
-- modes: ?gps=deny · ?acc=45 · ?nophoto=1 · ?nosession=1 · ?error=1
+## Screens / zones (ids only)
+- VIS · #sc-vis-capture · DES-MOB-VIS-CAPTURE · #validationBanner
+- mfeStdUrl= http://localhost:9301/chup-hien-truong
+- peerStdUrl= http://localhost:9301/chup-hien-truong
+- DES-GRID: N/A
 
-## API / tasks
-- FormMode↔API: uploads* · sessions · detect · detections/{id} · incidents
-- T-01…T-06 done · T-BE N/A
-- debt: session empty=GPS-only toast · capture=file+uploads
+## API / tasks (ids only)
+- uploads* · detect · detections/{id} · sessions · incidents · users forward
+- T-01…T-06 PASS · T-BE=N/A · T-QA queued
+- debt: UNCLEAR-SESS → QA
 
 ## UNCLEAR
-- (none blocking · SESS handled Dev toast · QA verify)
+- UNCLEAR-SESS → QA GPS-only empty sessions toast
+- (closed Dev) UNCLEAR-VALIDATE-B · UNCLEAR-ALIGN-01
 
-## Full paths
+## Full paths (Read only if needed)
 - implement: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/implement/web-rmms-vis-capture.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/STATUS.md
-- task: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-vis-capture/task/web-rmms-vis-capture.md

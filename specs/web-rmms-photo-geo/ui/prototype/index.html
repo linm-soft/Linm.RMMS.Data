@@ -110,6 +110,9 @@
       background: rgba(255,149,0,.16); color: #9a4d00; font-size: 13px; display: none;
     }
     .banner.show { display: block; }
+    .banner.err {
+      background: rgba(255,59,48,.12); color: #c41e16; white-space: pre-line;
+    }
     .map {
       margin: 0 16px 8px; height: 200px; border-radius: 16px; position: relative;
       background:
@@ -212,6 +215,7 @@
           </button>
         </div>
         <div class="banner" id="banner" role="status"></div>
+        <div class="banner err" id="validation-banner" role="alert" aria-live="polite"></div>
         <div class="card-group" id="meta-card">
           <div class="row">
             <div class="row-sub">Key</div>
@@ -236,7 +240,8 @@
         </div>
         <div class="cta-col">
           <button type="button" class="btn btn-primary hidden" id="btn-confirm-map" onclick="onConfirmMap()">Xác nhận vị trí</button>
-          <button type="button" class="btn btn-primary" id="btn-use" onclick="onUse()" disabled>Dùng ảnh</button>
+          <button type="button" class="btn btn-secondary" id="btn-detect" onclick="onDetect()">Nhận diện</button>
+          <button type="button" class="btn btn-primary" id="btn-use" onclick="onUse()">Dùng ảnh</button>
           <button type="button" class="btn btn-secondary" id="btn-cancel" onclick="closeSheet()">Hủy</button>
         </div>
       </div>
@@ -274,7 +279,7 @@
   </svg>
 
   <script>
-    /** Android dual · cùng flow VN · Material sheet/dialog · ?deny=1 · ?conf=45 · ?compass=1 · ?step=map · ?fail=1 */
+    /** Pattern B · sheet always open · CTA on-click validate · ?deny=1 · ?conf=45 · ?compass=1 · ?step=map · ?fail=1 */
     const params = new URLSearchParams(location.search);
     const gpsOk = !params.has('deny');
     const confM = params.has('conf') ? Number(params.get('conf')) : 12;
@@ -284,6 +289,9 @@
     let gimmed = false;
     let mapConfirmed = false;
     let attachmentId = null;
+    let validationAttempted = false;
+    let detecting = false;
+    let uploading = false;
 
     const el = (id) => document.getElementById(id);
 
@@ -294,17 +302,28 @@
       setTimeout(() => t.classList.remove('show'), 2200);
     }
 
+    function showValidation(msgs) {
+      validationAttempted = true;
+      const vb = el('validation-banner');
+      vb.textContent = msgs.join('\n');
+      vb.classList.add('show');
+    }
+
+    function clearValidation() {
+      const vb = el('validation-banner');
+      vb.textContent = '';
+      vb.classList.remove('show');
+    }
+
     function openCapture(mode) {
       if (mode !== 'photo-geo') return;
-      if (!gpsOk) {
-        el('modal-gps').classList.add('open');
-        return;
-      }
+      // Pattern B: open sheet even when GPS deny — CTA click shows modal
       el('sc-field-reflect').classList.add('host-dim');
       el('sheet-backdrop').classList.add('open');
       el('sheet-pgc').classList.add('open');
+      clearValidation();
       refreshBanners();
-      if (params.get('step') === 'map') {
+      if (params.get('step') === 'map' && gpsOk) {
         onShutter();
         onGim(58, 42);
         showMap();
@@ -317,6 +336,8 @@
       el('sc-field-reflect').classList.remove('host-dim');
       attachmentId = null;
       mapConfirmed = false;
+      validationAttempted = false;
+      clearValidation();
     }
 
     function closeModal() { el('modal-gps').classList.remove('open'); }
@@ -337,6 +358,7 @@
 
     function onShutter() {
       if (!gpsOk) { el('modal-gps').classList.add('open'); return; }
+      clearValidation();
       captured = true;
       el('shutter-wrap').classList.add('hidden');
       el('gim-pin').classList.add('show');
@@ -359,23 +381,60 @@
     function showMap() {
       el('map-confirm').classList.add('show');
       el('btn-confirm-map').classList.remove('hidden');
-      el('btn-use').disabled = true;
+      // Pattern B: do not disable #btn-use for missing mapConfirmed
     }
 
     function onConfirmMap() {
+      if (uploading) return;
+      if (!gpsOk) { el('modal-gps').classList.add('open'); return; }
+      if (!gimmed) {
+        showValidation(['Chưa chấm gim trên ảnh']);
+        return;
+      }
+      clearValidation();
       mapConfirmed = true;
       el('row-object').textContent = '10.7769, 106.7009';
       attachmentId = 'a1b2c3d4';
       el('row-key').textContent = attachmentId;
-      el('btn-use').disabled = false;
       toast('Đã gắn tọa độ vật thể');
     }
 
+    function onDetect() {
+      if (detecting) return;
+      if (!gpsOk) { el('modal-gps').classList.add('open'); return; }
+      if (!mapConfirmed || !attachmentId) {
+        showValidation(['Cần xác nhận vị trí vật thể trước khi nhận diện']);
+        return;
+      }
+      if (confM > 30) {
+        showValidation(['Sai số > 30 m · không tự nhận diện']);
+        return;
+      }
+      clearValidation();
+      detecting = true;
+      el('btn-detect').disabled = true;
+      setTimeout(() => {
+        detecting = false;
+        el('btn-detect').disabled = false;
+        toast('Đã nhận diện tọa độ vật thể');
+      }, 600);
+    }
+
     function onUse() {
-      if (!mapConfirmed || !attachmentId) return;
+      if (uploading) return;
+      if (!gpsOk) { el('modal-gps').classList.add('open'); return; }
+      if (!mapConfirmed || !attachmentId) {
+        showValidation(['Cần xác nhận vị trí và có key ảnh trước khi dùng']);
+        return;
+      }
+      clearValidation();
       if (forceFail) { toast('Không tải được ảnh'); return; }
+      uploading = true;
+      el('btn-use').disabled = true;
       el('host-slot').classList.add('filled');
       el('host-slot').textContent = 'Ảnh';
+      uploading = false;
+      el('btn-use').disabled = false;
       closeSheet();
       toast('Đã gắn tọa độ vật thể');
     }
@@ -415,8 +474,7 @@
       });
     })();
 
-    if (gpsOk) openCapture('photo-geo');
-    else el('modal-gps').classList.add('open');
+    openCapture('photo-geo');
   </script>
 </body>
 </html>

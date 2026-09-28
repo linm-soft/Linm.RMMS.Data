@@ -122,6 +122,7 @@
     .btn-ghost { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
     .btn-block { width: 100%; margin-top: 8px; }
     .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .hint { margin: 4px 0 0; font-size: 12px; color: var(--muted); }
     .card {
       background: var(--card);
       border-radius: var(--radius-card);
@@ -321,8 +322,9 @@
         <div class="field">
           <label data-copy-key="route">Tuyến</label>
           <div class="search-wrap">
-            <input type="search" placeholder="Tìm tuyến…" data-control="SearchInput" data-field="route" />
+            <input type="search" placeholder="Tìm tuyến… (no seed)" data-control="SearchInput" data-field="route" data-catalog="road-route" data-no-seed="1" />
           </div>
+          <p class="hint">API rỗng/lỗi → list rỗng · mã lạ → --</p>
         </div>
         <div class="field">
           <label data-copy-key="direction">Chiều</label>
@@ -334,7 +336,10 @@
         </div>
         <div class="field">
           <label data-copy-key="userName">Người</label>
-          <input class="ro" readonly value="Nguyễn Văn A" data-control="Text" data-field="userName" />
+          <div class="search-wrap">
+            <input type="search" placeholder="Tìm người…" data-control="SearchInput" data-field="userName" data-catalog="patrol-actors" data-default="caller" />
+          </div>
+          <p class="hint">GET patrol/actors · theo quyền tuần · mặc định nhân viên đang đăng nhập</p>
         </div>
         <div class="field">
           <label data-copy-key="plannedDate">Ngày</label>
@@ -404,8 +409,9 @@
         <div class="field">
           <label data-copy-key="route">Tuyến</label>
           <div class="search-wrap">
-            <input type="search" placeholder="Tìm tuyến…" data-control="SearchInput" data-field="route" />
+            <input type="search" placeholder="Tìm tuyến… (no seed)" data-control="SearchInput" data-field="route" data-catalog="road-route" data-no-seed="1" />
           </div>
+          <p class="hint">API rỗng/lỗi → list rỗng · mã lạ → --</p>
         </div>
         <div class="field">
           <label data-copy-key="kmFrom">Từ km</label>
@@ -428,7 +434,10 @@
         </div>
         <div class="field">
           <label data-copy-key="userName">Người</label>
-          <input class="ro" readonly value="Trần Thị B" data-control="Text" data-field="userName" />
+          <div class="search-wrap">
+            <input type="search" placeholder="Tìm người…" data-control="SearchInput" data-field="userName" data-catalog="patrol-actors" data-default="caller" />
+          </div>
+          <p class="hint">GET patrol/actors · theo quyền tuần · mặc định nhân viên đang đăng nhập</p>
         </div>
         <div class="field">
           <label data-copy-key="plannedDate">Ngày</label>
@@ -441,13 +450,13 @@
       </div>
     </section>
 
-    <!-- TD-03 Sheet -->
-    <div class="sheet-scrim" id="sheet-TD-03" data-des-id="TD-03" data-route="/field/tuan-duong/check-in" data-form-surface="sheet">
+    <!-- TD-03 Sheet — Pattern B: Lưu always-on except saving -->
+    <div class="sheet-scrim" id="sheet-TD-03" data-des-id="TD-03" data-route="/field/tuan-duong/check-in" data-form-surface="sheet" data-pattern="B">
       <div class="sheet" role="dialog" aria-label="Check-in">
         <div class="sheet-handle"></div>
         <div class="toolbar-form">
           <button type="button" class="btn btn-secondary" data-action="close-sheet">Đóng</button>
-          <button type="button" class="btn btn-primary" id="btnSaveCi" disabled data-action="save-ci">Lưu</button>
+          <button type="button" class="btn btn-primary" id="btnSaveCi" data-action="save-ci" data-pattern-b="1">Lưu</button>
         </div>
         <div class="field">
           <label data-copy-key="planPointLabel">Điểm kế hoạch</label>
@@ -455,11 +464,12 @@
         </div>
         <div class="field">
           <label data-copy-key="checkInRoute">Tuyến</label>
-          <input class="ro" readonly value="QL.1" data-control="Text" data-field="checkInRoute" />
+          <input class="ro" readonly value="--" data-control="Text" data-field="checkInRoute" data-miss="1" title="catalog miss → --" />
         </div>
         <div class="field">
           <label data-copy-key="gps">Định vị</label>
-          <p class="gps-deny" id="gpsStatus">GPS bị từ chối — không thể Lưu</p>
+          <p class="gps-deny" id="gpsStatus">Chưa ghim vị trí — bấm Lưu sẽ báo nếu GPS từ chối</p>
+          <p class="gps-deny" id="gpsBanner" hidden role="alert">GPS bị từ chối — không thể lưu (Pattern B: báo khi bấm)</p>
           <button type="button" class="btn btn-ghost btn-block" id="btnRetryGps">Ghim vị trí hiện tại</button>
         </div>
         <div class="field">
@@ -549,18 +559,29 @@
       function setGps(ok) {
         gpsOk = ok;
         var st = document.getElementById('gpsStatus');
-        var btn = document.getElementById('btnSaveCi');
+        var banner = document.getElementById('gpsBanner');
+        if (banner) banner.hidden = true;
         if (ok) {
           st.className = 'gps-ok';
           st.textContent = '21.0285, 105.8542 · ±12 m';
-          btn.disabled = false;
         } else {
           st.className = 'gps-deny';
-          st.textContent = 'GPS bị từ chối — không thể Lưu';
-          btn.disabled = true;
+          st.textContent = 'Chưa ghim vị trí — bấm Lưu sẽ báo nếu GPS từ chối';
         }
+        // Pattern B: Lưu never disabled by GPS — only saving (not simulated here)
       }
       document.getElementById('btnRetryGps').onclick = function () { setGps(true); };
+      document.getElementById('btnSaveCi').onclick = function () {
+        var banner = document.getElementById('gpsBanner');
+        if (!gpsOk) {
+          if (banner) banner.hidden = false;
+          return;
+        }
+        if (banner) banner.hidden = true;
+        var st = document.getElementById('gpsStatus');
+        st.className = 'gps-ok';
+        st.textContent = 'Đã lưu check-in (prototype)';
+      };
       setGps(false);
 
       var hash = (location.hash || '#TD-00').slice(1);

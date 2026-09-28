@@ -6,44 +6,51 @@ packKind: list
 role: review
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T07:40:30.000Z
-taskId: task_097b89fa
-contentHash: sha256:c5b21efdd411635233b56b13ee0b1a318c182c0a488f10d8290481a3dbbd3c2e
-reviewHash: sha256:8dfb19e3d9b2bc0b81efe259195a396d271f497d9ca6549ed332f0d00c36e8ee
-autoApprove: ON
+rulesVersion: 2026.09.27.1
+writtenAt: 2026-09-27T14:55:00.000Z
+taskId: task_f6c7f236
+contentHash: sha256:110e845481b0f27091c0f5ca856fef74524bc1634ab8e3785a5d7755730eea45
+reviewHash: sha256:bcb0f2081f3cdf4d6b0b55d11457b46ce1bcaf2e72459300bcdb32c738071cc1
 review_confirm: accept
+autoApprove: ON
+e2eQa: ON
 mfeStdUrl: http://localhost:9301/web-rmms-mobile-a
+liveUrl: http://localhost:9301/m/tuan-duong
 
 ## Decisions
-- changeScope: new_page
-- formPattern: Full (TD-00/01/02/07·TK) · Sheet (TD-03) · phone 430
-- findings: **P0=0** · soft P2/P3 only (PERM TODO · date locale · LOOKUP_STATIC)
-- Kind B / filter / form-grid-05: **WAIVE**
-- query/SEC/UI/BE: PASS vs SA + QA evidence
-- next: pipeline complete · roleOnly stop
+- changeScope: edit_page · editTask=1 · T-REV-EDIT-01
+- formPattern: Full · Sheet TD-03 Pattern B · phone 430
+- verdict: **accept** · P0 Must=0 · QA PASS Aligned
+- QUERY: paged whitelist · no ROAD_ROUTE_SEED · **PASS**
+- SEC: JWT Bff · tenant/IDOR · no ERP.* · mobileApiBase only · **PASS**
+- UI-FN: Pattern B Lưu/GPS banner · route miss `--` · resolveCurrentUser · LeaveConfirm · **PASS**
+- BE-FN: sessions/check-ins/users/files · migration none · Note-encode SA CLOSED · **PASS**
+- soft: STD-URL alias 404 (REV-UI-STD-URL-01) · perm attr · date locale · LOOKUP_STATIC
+- next: pipeline complete · roleOnly stop (GAP-PKT-ROLE-01) · **cấm** e2e ở review
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| route | tuyến | SearchInput | QA-20 |
-| direction | chiều | Dropdown | LOOKUP_STATIC |
-| historyCards | lịch sử | List | S1 |
+| route | tuyến | SearchInput | no-seed · miss `--` |
+| userName | người | Text RO+resolve | users Bff |
+| submitCheckIn | Lưu | Button | Pattern B |
+| lat/lng/accuracyM | GPS | GPS | banner on-click |
 
 ## Screens / zones (ids only)
-- TD-00 · TD-01 · TD-02 · TD-03 · TD-07 · TK-00 · TK-01 · DES-LEAVE
+- TD-00 · TD-01 · TD-02 · TD-03(Pattern B) · TD-07 · TK-00 · TK-01 · DES-LEAVE
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-a/ui/prototype/index.html
-- peerStdUrl= http://localhost:9301/web-rmms-mobile-a
-- PNG: qa/screens/{S0,S1,QA-20}.png (QA Aligned)
+- peerStdUrl= http://localhost:9301/m/tuan-duong
+- PNG: qa/screens/{S0,S1,QA-20}.png
 
 ## API / tasks (ids only)
-- findings counts: P0=0 · soft=3
-- review_confirm=accept
-- T-* Dev/QA = done · WAIVE KindB/FILTER
+- T-REV-EDIT-01 = **done** · prior T-QA-EDIT + T-UI edit = done
+- Grid/FILTER/CFG: WAIVE giữ
+- entity/migration: Live · none
 
 ## UNCLEAR
 - none
 
 ## Full paths (Read only if needed)
 - findings: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-a/review/findings.md
-- qa: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-a/qa/scenarios.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-a/STATUS.md
+- prior: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-a/handoff/qa-compact.md

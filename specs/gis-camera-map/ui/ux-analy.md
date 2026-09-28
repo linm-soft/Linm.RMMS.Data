@@ -4,13 +4,13 @@
 |-------|-------|
 | feature | `gis-camera-map` |
 | route | `/gis/camera` |
-| updatedAt | `2026-09-21T10:48:00.000Z` |
+| updatedAt | `2026-09-26T10:10:00.000Z` |
 
 ## Zones
 
 | Zone | Copy / hành vi |
 |------|----------------|
-| Toolbar | KPI online · đếm xe · vượt tốc · mất tín hiệu · Select bố cục · Select bản đồ |
+| Toolbar | KPI online · đếm xe · vượt tốc · mất tín hiệu · Select bố cục · Select bản đồ · **skeleton giá trị** khi tải lần đầu |
 | Status | `{n} camera ITS · {pin} pin · HLS · refresh 15s · kéo pool vào wall` |
 | Pool | Kéo vào wall / click thêm · drop-zone «Kéo tile wall về đây để gỡ» |
 | Wall | Ô live = **khung 16:9** giữa HUD và footer · letterbox đen nếu ô cao hơn 16:9 |
@@ -23,6 +23,7 @@
 
 | ID | Note |
 |----|------|
+| GAP-CAM-MAP-LOAD-01 | Lần đầu skeleton KPI/pool/wall · đếm = `GET /cameras/events/totals` một lần · **cấm** walk `events?page=` trên poll · tab Tốc độ một GET `minSpeedKmh` |
 | GAP-CAM-MAP-ASPECT-16-9 | Live wall + fullscreen + offline + demo livebox = **16:9 contain** · **cấm** `object-fit: cover` fill cột |
 | GAP-WEB-EDIT-01 | Context lock 2026-09-21 — **cấm** worker revert cover / bỏ `.videoFrame` |
 | GAP-CAM-MAP-WALL-01 | Pool/wall HLS — **closed** |

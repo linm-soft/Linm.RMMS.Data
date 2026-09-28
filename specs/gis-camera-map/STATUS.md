@@ -12,7 +12,7 @@
 | backend | peer `api/v1/cameras` + events + live HLS |
 | mfeStdRoute | `/gis/camera` |
 | mfeStdUrl | `http://localhost:9302/gis/camera` |
-| updatedAt | `2026-09-21T10:48:00.000Z` |
+| updatedAt | `2026-09-26T10:10:00.000Z` |
 
 ## Lock
 
@@ -38,7 +38,7 @@ Reuse Wave 4 web clip (`attachVnClipBasemap`) — **không** đánh `map-service
 
 ## Notes
 
-Wall tile auto `POST …/live/start` `mode=hls`. KPI/inspect = event ISAPI hôm nay. Pin = mã lớp GIS cameras hoặc nội suy Km. Live **16:9 contain** (GAP-CAM-MAP-ASPECT-16-9) — **cấm** `object-fit: cover`.
+Wall tile auto `POST …/live/start` `mode=hls`. KPI = `GET /cameras/events/totals` (một request). Tab Tốc độ mới gọi `events?minSpeedKmh`. Skeleton lần tải đầu. **Cấm** walk trang event trên poll. Live **16:9 contain**.
 
 ## Blockers
 

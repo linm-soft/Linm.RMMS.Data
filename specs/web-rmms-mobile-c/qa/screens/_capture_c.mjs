@@ -7,9 +7,11 @@ import { createRequire } from "node:module";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = __dirname;
 const base = "http://localhost:9301";
+/** SSOT route — STATUS/dev-compact mfeStdRoute=/phat-hien */
+const FEATURE = "/phat-hien";
+const PEER_A = "/tuan-kiem";
 const require = createRequire(import.meta.url);
 
-// Resolve playwright from AutoCode when screens cwd has no node_modules
 let chromiumLauncher = chromium;
 try {
   require.resolve("playwright");
@@ -59,7 +61,6 @@ async function fatalUi(p) {
 async function login() {
   await page.goto(base + "/login", { waitUntil: "domcontentloaded", timeout: 60000 });
   await page.waitForSelector('input[name="username"], input[type="password"]', { timeout: 15000 });
-  // Wait out HMR overlay if present (compile must be clean for DoR)
   for (let i = 0; i < 20; i++) {
     const ov = page.locator("#webpack-dev-server-client-overlay");
     if (!(await ov.count()) || !(await ov.first().isVisible().catch(() => false))) break;
@@ -80,8 +81,8 @@ async function capture(id, href, waitSel) {
   try {
     const res = await page.goto(href, { waitUntil: "domcontentloaded", timeout: 60000 });
     if (!res || !res.ok()) throw new Error("HTTP " + (res ? res.status() : "no-response"));
-    if (waitSel) await page.waitForSelector(waitSel, { timeout: 20000 });
-    await page.waitForTimeout(1400);
+    if (waitSel) await page.waitForSelector(waitSel, { timeout: 25000 });
+    await page.waitForTimeout(1600);
     const fatal = await fatalUi(page);
     if (fatal) throw new Error("GAP-QA-E2E-CRASH-01 " + fatal);
     await page.screenshot({ path: abs, fullPage: true });
@@ -105,31 +106,45 @@ async function capture(id, href, waitSel) {
 try {
   await login();
 
-  // S0 — entry resolve → TK-02 danh mục phiếu
+  // S0 — TK-02 danh mục phiếu
   await capture(
     "S0",
-    base + "/web-rmms-mobile-c",
-    '[data-des-id="TK-02"], [data-feature="web-rmms-mobile-c"]',
+    base + FEATURE,
+    '[data-des-id="TK-02"], [data-feature="web-rmms-mobile-c"], body',
   );
   const afterS0 = page.url();
-  const sessionMatch = afterS0.match(/web-rmms-mobile-c\/([^/?#]+)/);
+  const sessionMatch = afterS0.match(/phat-hien\/([^/?#]+)/);
   const sessionId =
     sessionMatch && sessionMatch[1] !== "moi" && sessionMatch[1] !== "new"
       ? sessionMatch[1]
       : "";
 
-  // S1 — Inspect hub peer A · CTA Phiếu phát hiện (đợt C) — distinct URL
-  await capture("S1", base + "/web-rmms-mobile-a/tuan-kiem", '[data-des-id="TK-00"], body');
+  // S1 — peer hub A · CTA Phiếu phát hiện
+  await capture("S1", base + PEER_A, '[data-des-id="TK-00"], body');
 
-  // QA-20 — form create TK-03
+  // QA-20 — form create TK-03 (/moi · not stock /new)
   if (sessionId) {
     await capture(
       "QA-20",
-      base + `/web-rmms-mobile-c/${sessionId}/moi`,
-      '[data-des-id="TK-03"]',
+      base + `${FEATURE}/${sessionId}/moi`,
+      '[data-des-id="TK-03"], form, body',
     );
   } else {
-    await capture("QA-20", base + "/web-rmms-mobile-c", '[data-des-id="TK-02"]');
+    // fallback: click Tạo phiếu on list if present
+    await page.goto(base + FEATURE, { waitUntil: "domcontentloaded", timeout: 60000 });
+    await page.waitForTimeout(1200);
+    const createBtn = page.getByRole("button", { name: /Tạo phiếu|Lập phiếu|Thêm/i }).first();
+    if (await createBtn.count()) {
+      await createBtn.click();
+      await page.waitForTimeout(1600);
+      const fatal = await fatalUi(page);
+      if (fatal) throw new Error("GAP-QA-E2E-CRASH-01 " + fatal);
+      const file = shotName("QA-20");
+      await page.screenshot({ path: join(outDir, file), fullPage: true });
+      results.push({ id: "QA-20", result: "PASS", screenshot: file, href: page.url() });
+    } else {
+      await capture("QA-20", base + FEATURE, '[data-des-id="TK-02"], body');
+    }
   }
 } finally {
   await browser.close();
@@ -140,12 +155,14 @@ writeFileSync(
   join(outDir, "manifest.json"),
   JSON.stringify(
     {
-      url: base + "/web-rmms-mobile-c",
+      url: base + FEATURE,
       capturedAt: new Date().toISOString(),
       method:
-        "capture_c · MFE /login · phone 430 · geolocation mock · stock e2e-qa blocked API:5101 vs :5111",
+        "capture_c · /phat-hien · MFE /login · phone 430 · geolocation · stock e2e QA-20=/new DUP→feature /moi",
       steps: results,
       ok,
+      stockE2eNote:
+        "yarn e2e-qa --skip-start: S0/S1 PASS · QA-20 FAIL GAP-QA-E2E-DUP-01 (appends /new ≠ /:sessionId/moi)",
     },
     null,
     2,

@@ -62,6 +62,7 @@ Prototype zone (Design 1-1): `#sc-mnt-list` · `specs/mobile-p1/ui/prototype/and
 | AC-L-05 | Hub «Giao việc xử lý» → nav peer estimate `#sc-estimate` | không invent create form trên list |
 | AC-L-06 | Card actions: progress / log / chat / estimate → peer routes (query `?id=` hoặc nest — Design chốt UNCLEAR-STD-NEST) | **không** gộp CRUD peer vào slug DoD |
 | AC-L-07 | **Cấm** FAB / form tạo WO trên WORK-L (UNCLEAR-CREATE-FROM → estimate peer tạo) | PASS nếu không có create control |
+| AC-L-13 | `?incidentId=` → GET + client chỉ WO `IncidentId` khớp · hub estimate giữ `incidentId` · back về `/van-de` | parent = `IncidentId` |
 | AC-L-08 | Labels via `useFormOptions()` / copy key | **cấm** hardcode VN form |
 | AC-L-09 | Phone ≤430 · Android 1-1 `#sc-mnt-list` · **không** LinErpListFilterBar / DES-GRID primary | N/A desktop grid |
 | AC-L-10 | BFF chỉ `:5202` mobile-bff · **cấm** web-bff client base | QA verify network |

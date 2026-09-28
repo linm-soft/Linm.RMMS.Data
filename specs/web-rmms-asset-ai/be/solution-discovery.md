@@ -1,7 +1,7 @@
 # SA — Solution — web-rmms-asset-ai
 
-> Status: **confirmed** · autoApprove ON · task `task_38806eff` · 2026-09-25T16:20:00.000Z  
-> **Cấm** ERP.* · **cấm** invent AssetAiController · **cấm** auto-confirm trên detect · **cấm** fake GPS · **cấm** Step 4b / migration ở role SA · **cấm** Write MFE/native · **cấm** Web BFF base từ Mobile MFE.
+> Status: **confirmed** · autoApprove ON · task `task_a31635c7` · 2026-09-27T10:30:00.000Z  
+> **Cấm** ERP.* · **cấm** invent AssetAiController · **cấm** auto-confirm · **cấm** fake GPS · **cấm** Step 4b / migration ở role SA · **cấm** Write MFE/native · **cấm** Web BFF base từ Mobile MFE · **cấm** ROAD_ROUTE_SEED · **cấm** `disabled={!canDetect}`.
 
 | | |
 |--|--|
@@ -9,129 +9,138 @@
 | Title | Camera AI và HITL |
 | Role | `sa` |
 | packKind | `list` |
-| changeScope | `new_page` |
-| formPattern | Mobile full ≤430 · detect + HITL · N/A ERP Modal/Slideout · Android 1-1 · useFormOptions / `assetAi.*` |
-| domain | **AiVision** (`ai-vision`) · cite **Asset** (confirm side-effect) · **Integration** (routes) · **Patrol** (sessions prefill) |
-| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` · route `/web-rmms-asset-ai` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-asset-ai` |
-| nativeRouteCite | SCREENS `/asset/ai` + `/asset/ai/hitl/{id}` (alias · STATUS URL canonical) |
+| changeScope | **edit_page** |
+| formPattern | Mobile full ≤430 · Pattern B detect · SearchInput route · HITL busy-only · N/A ERP Modal · useFormOptions / `assetAi.*` |
+| domain | **AiVision** (`ai-vision`) · cite **Asset** (confirm) · **Integration** (routes) · **Patrol** (sessions) |
+| mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` · `mfeStdRoute=/tai-san/ai` |
+| mfeStdUrl | `http://localhost:9301/tai-san/ai` |
+| nativeRouteCite | SCREENS `/asset/ai` + `/asset/ai/hitl/{id}` |
 | be | `D:/AI-QLBD/Linm.RMMS.WebService` |
 | BFF | Mobile.Bff `http://localhost:5202` · prefix `mobile-bff/api/v1` |
-| contentHash | `sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e` |
+| contentHash | `sha256:e223304b3658e8067766aed729e36988d54f1df8ad38ca953b2e176e63c9594c` |
 | skillVersion | `2026.09.05.03` |
 | solution_confirm | **approve** (autoApprove) |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-ai/ui/prototype/index.html` |
+| deltaCite | `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` |
 
 ## 1. Domain / ownership
 
 | Item | Decision |
 |------|----------|
-| DOMAIN-MAP slug | `web-rmms-asset-ai` → **AiVision** / `ai-vision` |
-| Rationale | Detect + uploads + candidates + HITL confirm/dismiss thuộc AiVision · confirm side-effect tạo Asset `source=ai` · lookups cite Integration · optional session prefill cite Patrol — **không** domain AssetAi mới |
-| Cite peers | Hub back (`web-rmms-asset-hub`) · peer web `ai-asset-detect` · Integration `road-routes/search` · Patrol `sessions` · Asset on confirm only |
-| API folder | **reuse** AiVision `uploads` · `detect-assets` · `asset-candidates` · Integration · Patrol — **no new** AssetAi controller |
-| **Cấm** | invent `asset-ai/*` · invent controller · auto-confirm trên detect · ERP.* · Web BFF base · gộp collect/adjust/list · `mock://` ImageUrl · fake GPS |
+| DOMAIN-MAP slug | `web-rmms-asset-ai` → **AiVision** / `ai-vision` (**row exists** — DOMAIN-MAP.md) |
+| Rationale | Detect + uploads + candidates + HITL confirm/dismiss = AiVision · confirm → Asset `source=ai` · route search = Integration · sessions = Patrol — **không** domain AssetAi mới |
+| Cite peers | Hub `/asset` · peer `ai-asset-detect` · Integration `road-routes/search` · Patrol `sessions` |
+| API folder | **reuse** Live AiVision / Integration / Patrol — **no new** controller |
+| **Cấm** | invent `asset-ai/*` · AssetAiController · auto-confirm · ERP.* · Web BFF base · seed routes · `mock://` · fake GPS |
 
-**DOMAIN-MAP row (applied):**
+**DOMAIN-MAP row (confirmed):**
 
-| Feature slug | Domain Pascal | kebab |
-|--------------|---------------|-------|
-| `web-rmms-asset-ai` | AiVision | `ai-vision` · Live uploads+detect-assets+candidates nearby/confirm/dismiss · cite Asset/Integration/Patrol · MFE `Linm.Web.RMMS.Mobile` `/web-rmms-asset-ai` · **cấm** invent AssetAiController · **cấm** auto-confirm |
+| Feature slug | Domain | kebab |
+|--------------|--------|-------|
+| `web-rmms-asset-ai` | AiVision | `ai-vision` · Live uploads+detect-assets+candidates nearby/confirm/dismiss · cite Asset/Integration/Patrol · MFE `/web-rmms-asset-ai` · **cấm** invent AssetAiController · **cấm** auto-confirm |
 
-→ resolves **UNCLEAR-DOMAIN-MAP-AAI**.
+→ **UNCLEAR-DOMAIN-MAP-AAI** resolved (row present · no DOMAIN-MAP edit required this run).
 
-## 2. FormMode ↔ API
+## 2. FormMode ↔ API (edit_page Delta)
 
-Two surfaces (same slug · Design HITL in-scope): **Detect** (Create Draft) · **HITL** (Confirm|Dismiss). Session required. GPS Acc≤30 gates detect.
+Surfaces (same slug · HITL in-scope Design): **Detect** (Draft) · **HITL** (Confirm|Dismiss). Session staff required.
 
 | Mode / zone | UI | API | Write | Notes |
 |-------------|----|-----|-------|-------|
 | AA-00 chrome | page shell | — | — | phone ≤430 |
-| AA-01 navBack | Button/Nav | — | nav Hub `/asset` | peer hub · DES-LEAVE if dirty |
-| AA-02 title | Text RO | — | — | `assetAi.title` / useFormOptions |
-| AA-03 photo | PhotoRow* | `POST ai-vision/uploads/init` + PUT | `ImageUrl` | Live FileService · **cấm** mock:// |
-| AA-04 gps | Text RO* | `navigator.geolocation` | `Lat`/`Lng`/`AccuracyM` | Acc≤30 · deny/poor blocks detect · **cấm** fake/type-in/0,0 |
-| AA-05 route | Select/Search* | `GET integration/road-routes/search` | `RouteId` | catalog road-route |
+| AA-01 navBack | Button/Nav | — | Hub `/asset` | DES-LEAVE if dirty |
+| AA-02 title | Text RO | — | — | `assetAi.*` / useFormOptions |
+| AA-03 photo | PhotoRow* | `POST ai-vision/uploads/init` + PUT | `ImageUrl` | Live · **cấm** mock:// |
+| AA-04 gps | Text RO* | `navigator.geolocation` | Lat/Lng/AccuracyM | **Pattern B:** deny/poor **không** khóa CTA trước · validate Acc≤30 **on click** · **cấm** fake |
+| AA-05 route | **SearchInput*** | `GET integration/road-routes/search` | `RouteId` | **cấm** ROAD_ROUTE_SEED · miss → `--` |
 | AA-05b prefill | Hidden | `GET patrol/sessions` | RouteId opt | cite Patrol |
 | AA-06 trip | Select opt | `GET patrol/sessions` | `PatrolTripId` | optional |
-| AA-07 nearby | Alert | `GET ai-vision/asset-candidates/nearby` | — | optional warn |
-| AA-08 detect | Button* | `POST ai-vision/detect-assets` | DetectAssetsRequest | → Draft · **cấm** auto-confirm · nav HITL |
+| AA-07 nearby | Alert | `GET ai-vision/asset-candidates/nearby` | — | optional |
+| AA-08 detect | Button* | `POST ai-vision/detect-assets` | DetectAssetsRequest | **Pattern B:** disable chỉ `detecting`/`pending` · banner photo+route+GPS on click · **cấm** `!canDetect` · **cấm** auto-confirm → HITL |
 | AA-09 cancel | Button/Nav | — | `/asset` | DES-LEAVE discard in-app |
-| AA-10…11 hitl fields | Text/Select RO | candidate GetById | bind Draft | score SHOW RO `%` · no gate (Design) |
-| AA-12 pin | MapPin | local drag | Lat/Lng object | **no** new map endpoint |
-| AA-13 confirm | Button | `POST ai-vision/asset-candidates/{id}/confirm` | → Asset source=ai | toast · back Hub |
-| AA-14 dismiss | Button | `POST ai-vision/asset-candidates/{id}/dismiss` | false positive | toast · back Hub |
-| Auth gate | staff only | session / JWT (shell) | guest → login peer | shell owns login |
+| AA-10…11 hitl | Text/Select RO | candidate GetById | Draft bind | score SHOW RO `%` · no gate |
+| AA-12 pin | MapPin | local drag | Lat/Lng | **no** new map API |
+| AA-13 confirm | Button | `POST …/asset-candidates/{id}/confirm` | → Asset source=ai | busy-only |
+| AA-14 dismiss | Button | `POST …/asset-candidates/{id}/dismiss` | false positive | busy-only |
+| Auth | staff | session JWT | guest → login | shell |
 
-### Live endpoints (HARD — from real-data §B + context)
+### Live endpoints (HARD — real-data §B)
 
-| Method | BFF path (client) | Downstream | Response bind | Status |
-|--------|-------------------|------------|----------------|--------|
-| POST | `mobile-bff/api/v1/ai-vision/uploads/init` (+ PUT object) | AiVision / FileService | `ImageUrl` → AA-03 | **Live** |
-| GET | `mobile-bff/api/v1/integration/road-routes/search` | Integration | Route → AA-05 | **Live** |
-| GET | `mobile-bff/api/v1/patrol/sessions` | Patrol | prefill Route / trip AA-05b·06 | **Live** cite |
-| GET | `mobile-bff/api/v1/ai-vision/asset-candidates/nearby` | AiVision | warn → AA-07 | **Live** opt |
-| POST | `mobile-bff/api/v1/ai-vision/detect-assets` | AiVision | Draft candidates → HITL | **Live** |
-| GET | `mobile-bff/api/v1/ai-vision/asset-candidates/{id}` | AiVision | HITL bind AA-10…12 | **Live** cite |
+| Method | BFF path (client) | Downstream | Bind | Status |
+|--------|-------------------|------------|------|--------|
+| POST | `mobile-bff/api/v1/ai-vision/uploads/init` (+ PUT) | AiVision / FileService | ImageUrl AA-03 | **Live** |
+| GET | `mobile-bff/api/v1/integration/road-routes/search` | Integration | Route AA-05 SearchInput | **Live** |
+| GET | `mobile-bff/api/v1/patrol/sessions` | Patrol | prefill / trip | **Live** |
+| GET | `mobile-bff/api/v1/ai-vision/asset-candidates/nearby` | AiVision | AA-07 | **Live** opt |
+| POST | `mobile-bff/api/v1/ai-vision/detect-assets` | AiVision | Draft → HITL | **Live** |
+| GET | `mobile-bff/api/v1/ai-vision/asset-candidates/{id}` | AiVision | HITL AA-10…12 | **Live** |
 | POST | `mobile-bff/api/v1/ai-vision/asset-candidates/{id}/confirm` | AiVision→Asset | toast · Hub | **Live** |
 | POST | `mobile-bff/api/v1/ai-vision/asset-candidates/{id}/dismiss` | AiVision | toast · Hub | **Live** |
 
-- Client base: `http://localhost:5202` + `mobile-bff/api/v1` — **không** gọi `web-bff` từ Mobile MFE.
+- Client: `http://localhost:5202` + `mobile-bff/api/v1` — **không** `web-bff`.
 - Detect body: `ImageUrl*` · `Lat*`/`Lng*` · `AccuracyM` · `RouteId*` · `PatrolTripId?` — server rejects 0,0.
-- **API Mới:** none · **migration:** none · **entity mới:** none.
-- Labels: `useFormOptions()` / LinmCopy `assetAi.*` · **cấm** hardcode VN.
-- Score: SHOW RO `%` · **no** confirm gate (Design UNCLEAR-SCORE-01).
+- **API Mới:** none · **migration:** none · **entity mới:** none · **T-BE:** N/A.
+- Labels: `useFormOptions()` / `assetAi.*` · **cấm** hardcode VN.
+
+### Delta vs prior solution (new_page → edit_page)
+
+| Bind | Prior SA | This SA |
+|------|----------|---------|
+| changeScope | new_page | **edit_page** · patch `AssetAiDetectPage` / Hitl |
+| action.detect disable | Acc≤30 + required gate CTA | chỉ `detecting` · Pattern B on click |
+| field.route | Select/Search + seed risk | **SearchInput** Live · no seed · miss `--` |
+| field.gps | khóa CTA trước Acc≤30 | báo khi bấm · **cấm** khóa trước |
+| mfeStdRoute | `/web-rmms-asset-ai` | **`/tai-san/ai`** (STATUS / Design) |
+| BE work | Live already | **no** new API / Step 4b |
 
 ## 3. BFF vs API
 
-| Layer | Role for Asset AI |
-|-------|-------------------|
-| Mobile.Bff `:5202` | sole FE entry · proxy ai-vision / integration / patrol · auth + files rewrite |
-| RMMS.Service.Api | AiVision uploads/detect/candidates · Integration routes · Patrol sessions — **no new** AssetAi controller |
+| Layer | Role |
+|-------|------|
+| Mobile.Bff `:5202` | sole FE entry · proxy ai-vision / integration / patrol · auth + files |
+| RMMS.Service.Api | AiVision + Integration + Patrol — **no** AssetAiController |
 | web-bff | cite only · **not** Mobile client base |
-| Asset domain | side-effect on **confirm** only (`source=ai`) — **not** FE Asset CRUD on this slug |
+| Asset | confirm side-effect only |
 
-Fail: 503/network → toast + retry · validation → field errors — **cấm** mock SSOT · **cấm** `window.alert`.
+Fail: 503 → toast + retry · validation → banner/inline — **cấm** mock SSOT · **cấm** `window.alert`.
 
 ## 4. Entity / migration
 
 | Item | Decision |
 |------|----------|
-| Tables | none (reuse AiVision candidates + Asset on confirm) |
-| EF migration | **skip** (no schema) |
-| Step 4b | **skip** at SA · Dev only if Live gap (not expected) |
-| Upload | Live init+PUT via Mobile.Bff FileService — **cấm** invent media controller |
+| Tables / EF | **none** — reuse AiVision candidates + Asset on confirm |
+| Step 4b | **skip** (SA + this feature — Live already) |
+| Upload | Live init+PUT Mobile.Bff FileService |
 
-## 5. FE surface (SA contract — Dev implements)
+## 5. FE surface (SA contract — Dev implements T-EDIT)
 
 | Zone | Contract |
 |------|----------|
-| AA-00…09 | Detect page · phone 430 · Android 1-1 |
-| AA-10…14 | HITL page · same slug · score SHOW RO `%` · pin local |
-| Required detect | photo* · GPS Acc≤30 · RouteId* · trip opt · nearby opt |
-| HITL | confirm + dismiss · **cấm** auto-confirm on detect |
-| REMOVED | `me*` · feedback · cam-view · collect/adjust/list · Field a…e |
-| DES-GRID / LinErpListFilterBar | **N/A** phone |
-| DES-LEAVE | in-app discard · **cấm** native `confirm` |
-| Route | `mfeStdRoute=/web-rmms-asset-ai` · native cite `/asset/ai` + `/asset/ai/hitl/{id}` |
+| AA-00…09 | Detect · phone 430 · Pattern B + SearchInput |
+| AA-10…14 | HITL · score SHOW RO `%` · pin local · busy-only CTA |
+| REMOVED | `me*` · feedback · cam-view · collect/adjust · `disabled={!canDetect}` · ROAD_ROUTE_SEED |
+| DES-GRID / filterBar | **N/A** phone |
+| DES-LEAVE | in-app discard · **cấm** native confirm |
+| Route | `mfeStdRoute=/tai-san/ai` · native `/asset/ai` + HITL |
+| align | cuối `/align-mobile-to-mfe` · no new tab/route/icon |
 
 ## 6. Risks / open
 
 | ID | Status |
 |----|--------|
-| UNCLEAR-DOMAIN-MAP-AAI | **resolved** — DOMAIN-MAP row added |
-| UNCLEAR-HITL-SPLIT | **resolved Design** — HITL in-scope this slug |
+| UNCLEAR-DOMAIN-MAP-AAI | **resolved** — DOMAIN-MAP row AiVision present |
+| UNCLEAR-HITL-SPLIT | **resolved Design** — HITL in-scope |
 | UNCLEAR-SCORE-01 | **resolved Design** — SHOW score RO `%` · no gate |
-| UNCLEAR-STD-ROUTE | **resolved Design** — `/web-rmms-asset-ai` · alias `/asset/ai` (+ HITL) if shell |
+| UNCLEAR-STD-ROUTE | **resolved** — `/tai-san/ai` |
 
 ## 7. Handoff
 
 | Next | Need |
 |------|------|
-| team-lead | Tasks Detect page + HITL page wire · Live endpoints above · no invent |
-| Dev | Mobile MFE only · `/agent-dev` · **cấm** native iOS/Android copy edit |
-| QA | GPS deny/poor · upload · detect · confirm · dismiss · phone 430 · no me · no Web BFF · no auto-confirm |
+| team-lead | T-EDIT: Pattern B detect validate + SearchInput route · no seed · no BE |
+| Dev | patch `AssetAiDetectPage` + lookups · Mobile.Bff only · **cấm** native copy |
+| QA | Pattern B CTA enabled · banner missing · SearchInput no seed · GPS deny on click · phone 430 · no Web BFF · no auto-confirm · queued `/agent-qa*` |
 
 ## Version meta
 
-`skillVersion=2026.09.05.03` · `contentHash=sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e` · `solution_confirm=approve` · `writtenAt=2026-09-25T16:20:00.000Z`
+`skillVersion=2026.09.05.03` · `contentHash=sha256:e223304b3658e8067766aed729e36988d54f1df8ad38ca953b2e176e63c9594c` · `solution_confirm=approve` · `writtenAt=2026-09-27T10:30:00.000Z` · `taskId=task_a31635c7`

@@ -1,9 +1,9 @@
 # Overlay chụp ảnh có tọa độ — Feature Context (Web Mobile)
 
 > **Slug:** `web-rmms-photo-geo` · **Module:** File + AiVision (+ Incident/Patrol consumers) · **Phase:** Web P1  
-> **Status:** Context · **packKind:** `list` · **changeScope:** `new_page`  
+> **Status:** Context · **packKind:** `list` · **changeScope:** `edit_page` · cite `SUBMIT-VALIDATE.md` Pattern B  
 > **Entry:** overlay / sheet từ `incident-create` · `vis-capture` · `field-reflect` (`openCapture('photo-geo')`) — **không** row hub Field riêng  
-> **MFE:** `Linm.Web.RMMS.Mobile` · phone `max-width: 430px` · std `/web-rmms-photo-geo` · `http://localhost:9301/web-rmms-photo-geo`  
+> **MFE:** `Linm.Web.RMMS.Mobile` · phone `max-width: 430px` · std `/anh-vi-tri` · `http://localhost:9301/anh-vi-tri`  
 > **BE:** `Linm.RMMS.WebService` · FileService `api/v1/files/*` · detect `api/v1/ai-vision/detect` · **cấm ERP.***  
 > **BFF:** `Linm.RMMS.Mobile.Bff` · `VITE_MOBILE_API_URL=http://localhost:5202/mobile-bff/api/v1` · **cấm** web-bff client · **cấm** Route `mobile-bff` trên controller web-bff  
 > **Peer native:** `photo-geo-capture.md` (mobile done) · Android proto `#sheet-pgc` · `DES-MOB-PGC`  
@@ -79,9 +79,20 @@ Object key SSOT: `{tmp\|data}/{appId}/{yyyy}/{companyId}/{featureId}/{uploadId}.
 | web | `dev` | `confirmed` | `2026-09-26T00:45:00.000Z` |
 | mobile | peer `photo-geo-capture` | `done` | `2026-09-13T03:20:00.000Z` |
 
+## § Delta Current vs New (edit_page)
+
+Cite: `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · `PhotoGeoPage.tsx`.
+
+| | Current | New |
+|--|---------|-----|
+| CTA | `disabled={!canShutter\|!canDetect\|!canUse}` | Pattern B: chỉ disable lúc uploading/detecting/pending · thiếu GPS/cam → bấm mới báo |
+| Route | `/anh-vi-tri` (live) | giữ · **cấm** dùng path `/web-rmms-photo-geo` làm std |
+| Export | — | **cấm** Excel · **cấm** new_page typed CRUD |
+| Align | — | `/align-mobile-to-mfe` · 430px · Mobile.Bff only |
+
 ## Implement tracking
 
 | lane | phase | status | updatedAt |
 |------|-------|--------|-----------|
-| web | `done` | `done` | `2026-09-26T00:20:11.754Z` |
+| web | `done` | `done` | `2026-09-27T13:29:25.081Z` |
 | mobile | — | — | — |

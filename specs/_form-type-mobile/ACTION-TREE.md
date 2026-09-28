@@ -162,7 +162,7 @@ Họp 04/09 seed [`MEETING-1-5.md`](MEETING-1-5.md) — **enqueue_later** (chưa
 | Home notify + badge | `LinmNotifyButton` · `LinmNotifyCountBadge` · nav `ops` |
 | Tín hiệu / cột sóng | `LinmStatusCapsule` · `LinmNetSignalMark` · **cấm** wifi glyph · **cấm** «Có mạng» |
 | `.section-label` Nghiệp vụ thường dùng | `LinmSectionLabel` · không route |
-| `.home-foot` «Phiên bản Gói 1» | Watermark / process · **cấm** implement · không clickable |
+| `.home-foot` «Phiên bản v1.0.0» | Watermark / process · **cấm** implement · không clickable |
 | Back / Close / chevron Up | Chrome |
 | Submit trên `#sc-inc-form` | Thuộc slug `incident-create` |
 

@@ -4,59 +4,63 @@ schemaVersion: 1
 feature: web-rmms-attendance
 packKind: list
 role: sa
-status: confirmed
+status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T01:40:00.000Z
-taskId: task_5dd47158
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
+writtenAt: 2026-09-27T17:15:00.000Z
+contentHash: sha256:0275fe24159e04a2d1a70682880e26b3456de61e7cf74b9c3d9ac707cae30d7a
+taskId: task_8c3ee347
 solution_confirm: approve
 autoApprove: ON
 
 ## Decisions
-- changeScope: new_page · formPattern: Mobile hub + RO report/day/log · phone ≤430 · N/A ERP Modal · DES-GRID N/A
-- domain: Patrol (`patrol`) · Live attendance-logs · DOMAIN-MAP row `web-rmms-attendance` applied
-- mfeStdRoute: /web-rmms-attendance · mfeStdUrl http://localhost:9301/web-rmms-attendance
-- productRoute: /field/attendance* · nativeCite: #sc-attendance* · DES-MOB-ATT · DES-MOB-GPS-DENY
-- BFF: Mobile.Bff :5202 · mobile-bff/api/v1 · **cấm** web-bff · **cấm** ERP.* · **cấm** invent /attendance/*
-- FormMode↔API: GET list · POST create · GET/{id} · report/day=client aggregate
-- Body POST: userName·route·checkInAt·kmPoint?·lat·lng·inZone·status·note?
-- GPS: navigator.geolocation bắt buộc Chấm vào · deny=no POST · **cấm** fake
-- API Mới / entity / migration / Step 4b: **none** at SA
-- labels: useFormOptions attendance.* · demo N/A · **cấm** demoDays
-- Out: Face/NFC DEFER · report API invent · supervise/zone · native edits · desktop Field
+- changeScope: edit_page · keep Live API/entity · cấm typed CRUD new_page · cấm invent /attendance/*
+- formPattern: Mobile hub Pattern B · phone 430 · N/A Modal/Slideout/DES-GRID/Excel
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/cham-cong · route `/cham-cong`
+- be: D:/AI-QLBD/Linm.RMMS.WebService · Patrol attendance-logs · cấm ERP.*
+- bff: Mobile.Bff :5202 mobile-bff/api/v1 · mobileApiBase only · cấm web-bff client
+- API reuse: GET/POST/GET{id} patrol/attendance-logs · report/day client aggregate · API Mới=none · migration=none · Step 4b=skip
+- Delta Pattern B cite SUBMIT-VALIDATE: CTA luôn bật · disabled=saving only · thiếu auth/GPS/mạng/route → bấm mới banner · GPS on-submit · cấm fake · cấm Excel
+- Guest CLOSED Pattern B · STD-ROUTE CLOSED `/cham-cong` · REPORT-API CLOSED client aggregate
+- labels: useFormOptions() / attendance.*
+- demo: N/A · cấm Write MFE/native ở SA
 - next: /agent-team-lead · roleOnly stop (GAP-PKT-ROLE-01)
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
 | heroStatus/gpsMeta | hero | Text RO | state + fix |
-| btnCheckIn | hero | Button | POST + GPS |
+| btnCheckIn * | hero | Button | Pattern B · POST+GPS · disabled=saving only |
 | btnReport | hero | Button/Nav | → report |
+| validationBanner * | hero | Banner | client string[] on submit |
 | dayRows | history | ListRow+Badge | GET aggregate |
 | report/day/log | chain | List/Detail RO | GET · GET/{id} |
-| post.route/lat/lng | form | Text/Hidden | POST body |
-| gpsCapture | GPS | Action | deny = disable |
+| post.route/lat/lng | form | Text/Hidden | POST · route RO ca |
+| gpsCapture * | GPS | Action | deny on submit · cấm fake |
 | empty | empty | Empty | [] / hero — |
 
 ## Screens / zones (ids only)
 - ATT-00 · ATT-01 · ATT-02 · ATT-03 · ATT-04 · ATT-05 · ATT-06 · ATT-07 · ATT-08 · ATT-09
 - DES-MOB-ATT · DES-MOB-GPS-DENY
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-attendance/ui/prototype/index.html
-- peerStdUrl= http://localhost:9301/web-rmms-attendance
-- DES-GRID / LinErpListFilterBar: N/A
+- peerStdUrl= http://localhost:9301/cham-cong
+- DES-GRID / LinErpListFilterBar / Excel: N/A phone · cấm
 
-## API / tasks (ids only)
-- FormMode↔API: GET/POST/GET{id} patrol/attendance-logs · client report/day
-- UNCLEAR-DOMAIN-MAP-ATT: resolved · UNCLEAR-REPORT-API: P1 client aggregate
-- T-*: (team_lead) · W3 Field attendance · devSlash=/agent-dev
+## FormMode↔API
+| Mode | API | Notes |
+|------|-----|-------|
+| hub browse | GET list | hero · dayRows · report/day aggregate |
+| check-in write | POST create | GPS+auth+route on submit · Pattern B |
+| log RO | GET/{id} | detail |
+| auth | GET auth/profile | userName → POST · guest click login |
 
 ## UNCLEAR
-- UNCLEAR-STD-ROUTE: follow STATUS mfeStdRoute · product /field/attendance*
-- UNCLEAR-EMPTY-COPY: live empty/[] · cấm demoDays
+- OPEN→Dev: UNCLEAR-BANNER-VS-TOAST
+- CLOSED: GUEST-SURFACE · STD-ROUTE · REPORT-API · DOMAIN-MAP-ATT
+- DEFER: Face/NFC · report API
 
-## Full paths (Read only if needed)
+## Full paths
 - solution: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-attendance/be/solution-discovery.md
-- design compact: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-attendance/handoff/design-compact.md
+- design: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-attendance/ui/design.md
 - real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-attendance-real-data.md
-- DOMAIN-MAP: D:/AI-QLBD/Linm.RMMS.WebService/docs/DOMAIN-MAP.md
+- deltaCite: D:/AI-QLBD/Linm.RMMS.Data/docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-attendance/STATUS.md

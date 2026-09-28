@@ -5,56 +5,57 @@ feature: web-rmms-asset-ai
 packKind: list
 role: data_analy
 status: done
+changeScope: edit_page
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-25T15:55:00.000Z
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
+writtenAt: 2026-09-27T09:45:09.284Z
+contentHash: sha256:e223304b3658e8067766aed729e36988d54f1df8ad38ca953b2e176e63c9594c
+taskId: task_38801b3b
 
 ## Decisions
-- changeScope: new_page
-- formPattern: Mobile full (phone max-width 430) · detect + HITL · N/A ERP Modal/Slideout · master no demo · /erp-form-context labels
-- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/web-rmms-asset-ai
-- nativeRouteCite: SCREENS /asset/ai + /asset/ai/hitl/{id} · delta T18 Camera AI và HITL
-- be: D:/AI-QLBD/Linm.RMMS.WebService · Mobile.Bff :5202 mobile-bff/api/v1 · AiVision (+cite Asset/Integration/Patrol) · cấm ERP.*
+- changeScope: edit_page · NEW task · cấm typed CRUD new_page · cấm Excel/export
+- deltaCite: docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md · AssetAiDetectPage
+- formPattern: Mobile full 430 · Pattern B validate · SearchInput route · no ERP Modal · no demo · /erp-form-context
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/tai-san/ai · route /tai-san/ai
+- nativeRouteCite: SCREENS /asset/ai + /asset/ai/hitl/{id}
+- be: Linm.RMMS.WebService · Mobile.Bff :5202 · AiVision (+Asset/Integration/Patrol) · cấm ERP.* · cấm web-bff client
 - demo: N/A
-- Detect: photo* GPS* RouteId* · PatrolTripId opt · nearby warn · POST detect-assets → Draft · nav HITL
-- HITL: confirm + dismiss · pin drag local · cấm auto-confirm trên detect
-- REMOVED: me / me-profile / me-settings / feedback / cam-view
-- Field doors + journal/kết ca/tồn tại/tần suất → shell / web-rmms-mobile-a…e (out)
-- labels: useFormOptions() · cấm hardcode VN form
-- GPS: navigator.geolocation · Acc≤30 · deny/poor blocks detect · cấm fake / type-in / 0,0
-- copy: Android icon/layout 1-1 · cấm sửa iOS/Android
-- open questions: UNCLEAR-DOMAIN-MAP-AAI · UNCLEAR-HITL-SPLIT · UNCLEAR-SCORE-01 · UNCLEAR-STD-ROUTE
+- Current→New: drop disabled={!canDetect} · banner on click (photo+route+GPS) · route SearchInput no seed miss=-- · GPS deny không khóa CTA trước · keep capture + AA-* APIs
+- HITL: confirm/dismiss busy-only · pin local · cấm auto-confirm
+- REMOVED: me* · feedback · cam-view · collect/adjust in slug
+- labels: useFormOptions() · cấm hardcode VN
+- align cuối: /align-mobile-to-mfe · no new tab/route/icon · mobileApiBase only
+- keep PO/Design artifacts · roles sau re-confirm Delta
+- open: UNCLEAR-DOMAIN-MAP-AAI · UNCLEAR-HITL-SPLIT · UNCLEAR-SCORE-01 · UNCLEAR-STD-ROUTE=resolved
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
 | navBack | back | Button/Nav | → Hub /asset |
-| photo/gps/route/trip | fields | Photo/Text/Select | DetectAssetsRequest |
-| nearbyWarn | warn | Alert | optional GET nearby |
-| detect/cancel | CTA | Button | POST detect · back Hub |
-| hitl fields/pin | HITL | Text/MapPin | Draft bind · local drag |
-| confirm/dismiss | CTA | Button | POST confirm|dismiss |
+| photo/gps/route/trip | fields | Photo/Text/SearchInput/Select | DetectAssetsRequest · Pattern B |
+| nearbyWarn | warn | Alert | optional nearby |
+| detect/cancel | CTA | Button | POST detect Pattern B · Hub |
+| hitl fields/pin | HITL | Text/MapPin | Draft · local drag |
+| confirm/dismiss | CTA | Button | POST confirm|dismiss · busy |
 
 ## Screens / zones (ids only)
-- AA-00 · AA-01 · AA-02 · AA-03 · AA-04 · AA-05 · AA-06 · AA-07 · AA-08 · AA-09 · AA-10 · AA-11 · AA-12 · AA-13 · AA-14
-- reviewUrl= (Design)
-- peerStdUrl= http://localhost:9301/web-rmms-asset-ai
-- DES-GRID / LinErpListFilterBar: N/A phone
+- AA-00…AA-14
+- reviewUrl= specs/web-rmms-asset-ai/ui/prototype/index.html (Design keep)
+- peerStdUrl= http://localhost:9301/tai-san/ai
+- DES-GRID / filterBar / Excel: N/A phone
 
 ## API / tasks (ids only)
-- FormMode↔API: uploads init+PUT · detect-assets · nearby · sessions · road-routes/search · confirm · dismiss
-- real-data §A+§B: PASS
-- T-*: (team_lead)
+- FormMode↔API: uploads · detect-assets · nearby · sessions · road-routes/search · confirm · dismiss
+- real-data §A+§B: PASS · § Delta PASS
+- T-*: (team_lead) patch detect validate + SearchInput
 
 ## UNCLEAR
-- UNCLEAR-DOMAIN-MAP-AAI: add DOMAIN-MAP row web-rmms-asset-ai (SA) · AiVision
-- UNCLEAR-HITL-SPLIT: peer asset-ai split det-hitl — SCREENS+packet gộp HITL vào slug này
-- UNCLEAR-SCORE-01: GAP-MOB-ASSET-AI-SCORE-01 · Design chốt % ship
-- UNCLEAR-STD-ROUTE: SCREENS /asset/ai vs mfeStdRoute /web-rmms-asset-ai — follow STATUS URL
+- UNCLEAR-DOMAIN-MAP-AAI: SA row web-rmms-asset-ai · AiVision
+- UNCLEAR-HITL-SPLIT: peer split — packet gộp HITL
+- UNCLEAR-SCORE-01: Design chốt % ship
 
 ## Full paths (Read only if needed)
 - control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-asset-ai-control-hint.md
 - real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-asset-ai-real-data.md
 - context: D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/web-rmms-asset-ai.md
-- screens: D:/AI-QLBD/Linm.RMMS.Data/docs/plan/web-rmms-mobile/SCREENS.md
+- delta: D:/AI-QLBD/Linm.RMMS.Data/docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-asset-ai/STATUS.md

@@ -10,12 +10,14 @@
 | demo | **N/A** |
 | context | `D:/AI-QLBD/Linm.RMMS.Data/docs/context/features/web-rmms-mobile-c.md` |
 | mfe | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile` |
-| mfeStdRoute | `/web-rmms-mobile-c` |
-| mfeStdUrl | `http://localhost:9301/web-rmms-mobile-c` |
+| mfeStdRoute | `/phat-hien` |
+| mfeStdUrl | `http://localhost:9301/phat-hien` |
 | backend | `D:/AI-QLBD/Linm.RMMS.WebService` · DOMAIN-MAP — **cấm ERP.*** |
-| contentHash | `sha256:0654e7b6359dfa34767872c7ea3a74f94605bd1b73fd125e241d6c95592133a4` |
+| contentHash | `sha256:4a38b53861c732cbbde7208c21d766f1b8b2c8decc007d2dc24ea34a4793339c` |
+| contentHashSource | CTX + `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-c/ui/prototype/index.html` |
-| updatedAt | `2026-09-25T09:27:10.383Z` |
+| taskId | `task_11518e01` |
+| updatedAt | `2026-09-27T08:32:18.063Z` |
 ## Lock
 
 | agent | scope | id | at |
@@ -38,25 +40,39 @@
 
 | id | page | role | deps | status | notes |
 |----|------|------|------|--------|-------|
-| — | TK-02…05 | data_analy | — | done | changeScope=edit_page · Schema_PatrolFinding before form · GPS HARD · out D |
-| — | TK-02…05 | po | data_analy | done | packKind=list · hangMuc closed · AC L/F/R/K · handoff Design |
-| — | TK-02…05 | design | po | done | phone 430 · zones TK-02…05 · reviewUrl · autoApprove · handoff SA |
-| — | TK-02…05 | sa | design | done | findings+review · code TK-yyyyMMdd-seq · DOMAIN-MAP · autoApprove · handoff TL |
-| T-BE-* · T-UI-* · T-QA-* | TK-02…05 | team_lead | sa | done | route_confirm=approve · FormType phone WAIVE KindB · handoff Dev |
-| T-BE-SCHEMA-01…T-UI-RESP-01 | TK-02…05 | dev | team_lead | done | schema+CRUD+FE TK-02…05 · build PASS · handoff QA |
-| T-QA-CRUD-01 · T-QA-FORM-01 | TK-02…05 | qa | dev | done | e2e PASS · S0/S1/QA-20 Aligned · handoff Review |
-| review | TK-02…05 | review | qa | done | review_confirm=done · Must 0 · QUERY/SEC/UI-FN/BE-FN PASS |
+| task_fce3705f | TK-03/04/05 | data_analy | — | **PASS** | changeScope=edit_page · NEW · § Delta SUBMIT-VALIDATE Pattern B · capture · mfeStd=/phat-hien |
+| task_1ea5ccc8 | TK-02…05 | po | data_analy | **PASS** | AC Pattern B PB-01..10 · keep L/F/R/K · supersede F-01/K-01 gate · soft CAPTURE/FEEDBACK |
+| task_957b179c | TK-02…05 | design | po | **PASS** | keep prototype · Delta CTA/banner + capture · reviewUrl · design_confirm=approve · autoApprove ON |
+| task_8e6ea5bb | TK-02…05 | sa | design | **PASS** | no schema · KEEP API-01…05 · BFF users forward · Pattern B FE · solution_confirm=approve · autoApprove ON |
+| task_da228f5b | TK-02…05 | team_lead | sa | **PASS** | T-DELTA PATTERN-B/CAPTURE/BFF/ALIGN · prior T-* done · route=/phat-hien · route_confirm=approve · autoApprove ON |
+| task_3bc498b6 | TK-02…05 | dev | team_lead | **PASS** | Pattern B 3 pages + capture local input · BFF users KEEP · align 430 · yarn/dotnet build PASS · e2e queued QA |
+| task_23b7939d | TK-02…05 | qa | dev | **PASS** | S0/S1/QA-20 capture_c /phat-hien · visual Aligned · stock /new soft · **cấm** phase=done · next review |
+| task_11518e01 | TK-02…05 | review | qa | **PASS** | Pattern B delta · Must 0 · review_confirm=done · soft PERM/STOCK-NEW/CAPTURE-PROP · autoApprove ON |
+
+### Prior wave (archive — CRUD PASS)
+
+| id | page | role | deps | status | notes |
+|----|------|------|------|--------|-------|
+| — | TK-02…05 | data_analy…review | — | done | Schema_PatrolFinding · CRUD · e2e · review_confirm=done |
 
 ## Blockers / open questions
 
-- (none) · review PASS · soft: PERM TODO · stock e2e :5101 · PUT findings edit N/A
+- (none) · review DoR PASS · Must 0 · soft GAP-REV-PERM-TODO / GAP-QA-E2E-STOCK-NEW / GAP-REV-CAPTURE-PROP
 
 ## Links
 
-- data-analy → po → ui → be → task → implement → qa → review **PASS**
-- mfeStdUrl: `http://localhost:9301/web-rmms-mobile-c`
-- mfeStdRoute: `/web-rmms-mobile-c`
-- reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-c/ui/prototype/index.html`
-- handoff: `specs/web-rmms-mobile-c/handoff/review-compact.md`
+- review **PASS** → lifecycle done
 - findings: `specs/web-rmms-mobile-c/review/findings.md`
-- review_confirm=done · pipeline complete
+- handoff: `specs/web-rmms-mobile-c/handoff/review-compact.md`
+- scenarios: `specs/web-rmms-mobile-c/qa/scenarios.md`
+- screens: `specs/web-rmms-mobile-c/qa/screens/{S0,S1,QA-20}.png`
+- implement: `specs/web-rmms-mobile-c/implement/web-rmms-mobile-c.md`
+- task: `specs/web-rmms-mobile-c/task/web-rmms-mobile-c.md`
+- solution: `specs/web-rmms-mobile-c/be/solution-discovery.md`
+- delta: `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md`
+- mfeStdUrl: `http://localhost:9301/phat-hien`
+- mfeStdRoute: `/phat-hien`
+- reviewUrl: `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-mobile-c/ui/prototype/index.html`
+- design: `specs/web-rmms-mobile-c/ui/design.md`
+- control-hint: `specs/_data-analy/features/web-rmms-mobile-c-control-hint.md`
+- real-data: `specs/_data-analy/features/web-rmms-mobile-c-real-data.md`

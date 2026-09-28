@@ -5,11 +5,13 @@
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "href": "http://localhost:9301/web-rmms-vis-capture",
+      "href": "http://localhost:9301/m/chup-hien-truong",
       "dump": {
         "feature": "web-rmms-vis-capture",
         "zones": [
-          "VIS"
+          "UA-00",
+          "VIS",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-VIS-CAPTURE"
@@ -19,51 +21,51 @@
           "visGuestGate",
           "visGuestLogin"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident VIS capture Nhận diện sự cố Alias /incident/vis Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Nhận diện sự cố Đăng nhập để dùng Nhận diện sự cố. Đăng nhập",
-        "href": "http://localhost:9301/web-rmms-vis-capture",
+        "text": "Nhận diện sự cố Đăng nhập để dùng Nhận diện sự cố. Đăng nhập Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/chup-hien-truong",
         "guestGate": true,
         "titleOk": true,
-        "detectDisabled": null
+        "detectDisabled": null,
+        "attachDisabled": null,
+        "hasValidationBanner": false
       }
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "href": "http://localhost:9301/web-rmms-home",
+      "href": "http://localhost:9301/m/dang-nhap",
       "dump": {
-        "feature": "web-rmms-home",
+        "feature": null,
         "zones": [
-          "SH-00",
-          "HM-00",
-          "HM-01",
-          "HM-02",
-          "SH-01",
-          "SH-02"
+          "LG-00"
         ],
         "des": [],
         "ids": [
-          "loginUser",
-          "loginPass",
-          "loginSubmit",
-          "guestLogin"
+          "f-user",
+          "f-pass",
+          "btn-login"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident VIS capture Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ FAQ Hướng dẫn dùng app tuần đường / sự cố / công việc trên thiết bị di động. Quyền riêng tư Dữ liệu phiên và vị trí chỉ dùng khi bạn đăng nhập và vào màn nghiệp vụ cần GPS. Đăng nhập 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc Đăng nhập Hủy Tài khoản Mật khẩu Đăng nhập",
-        "href": "http://localhost:9301/web-rmms-home",
+        "text": "AI-RMMS HỆ THỐNG BẢO TRÌ KẾT CẤU HẠ TẦNG ĐƯỜNG BỘ Đăng nhập Tín hiệu Tốt · đồng bộ hệ thống Quên mật khẩu?",
+        "href": "http://localhost:9301/m/dang-nhap",
         "guestGate": false,
         "titleOk": false,
-        "detectDisabled": null
+        "detectDisabled": null,
+        "attachDisabled": null,
+        "hasValidationBanner": false
       }
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "href": "http://localhost:9301/web-rmms-vis-capture",
+      "href": "http://localhost:9301/m/chup-hien-truong",
       "dump": {
         "feature": "web-rmms-vis-capture",
         "zones": [
-          "VIS"
+          "UA-00",
+          "VIS",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-VIS-CAPTURE"
@@ -83,22 +85,67 @@
           "btnAttach",
           "btnSkip"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident VIS capture Nhận diện sự cố Alias /incident/vis Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Nhận diện sự cố ẢNH HIỆN TRƯỜNG Vị trí đã chốt QL.1-LANGSON · Tuần kiểm Sai số định vị ±12 m Phân loại — Mức — Nhận diện Gắn sự cố Bỏ qua",
-        "href": "http://localhost:9301/web-rmms-vis-capture",
+        "text": "Nhận diện sự cố ẢNH HIỆN TRƯỜNG Vị trí đã chốt GPS · chưa có ca Sai số định vị ±12 m Phân loại — Mức — Nhận diện Gắn sự cố Bỏ qua Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/chup-hien-truong",
         "guestGate": false,
         "titleOk": true,
-        "detectDisabled": true
+        "detectDisabled": false,
+        "attachDisabled": false,
+        "hasValidationBanner": false
+      }
+    },
+    {
+      "id": "MODE-banner",
+      "result": "PASS",
+      "screenshot": "MODE-banner.png",
+      "href": "http://localhost:9301/m/chup-hien-truong?banner=1",
+      "dump": {
+        "feature": "web-rmms-vis-capture",
+        "zones": [
+          "UA-00",
+          "VIS",
+          "DES-MOB-TABBAR"
+        ],
+        "des": [
+          "DES-MOB-VIS-CAPTURE",
+          "DES-MOB-VIS-VALIDATION"
+        ],
+        "ids": [
+          "VIS",
+          "sc-vis-capture",
+          "screenTitle",
+          "sectionPhoto",
+          "photos",
+          "slot-camera",
+          "rowLoc",
+          "rowAcc",
+          "rowClass",
+          "rowSev",
+          "detect",
+          "btnAttach",
+          "btnSkip",
+          "validationBanner"
+        ],
+        "text": "Nhận diện sự cố Cần ảnh hiện trường trước khi nhận diện. × ẢNH HIỆN TRƯỜNG Vị trí đã chốt GPS · chưa có ca Sai số định vị ±12 m Phân loại — Mức — Nhận diện Gắn sự cố Bỏ qua Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/chup-hien-truong?banner=1",
+        "guestGate": false,
+        "titleOk": true,
+        "detectDisabled": false,
+        "attachDisabled": false,
+        "hasValidationBanner": true
       }
     },
     {
       "id": "MODE-gps-deny",
       "result": "PASS",
       "screenshot": "MODE-gps-deny.png",
-      "href": "http://localhost:9301/web-rmms-vis-capture?gps=deny",
+      "href": "http://localhost:9301/m/chup-hien-truong?gps=deny",
       "dump": {
         "feature": "web-rmms-vis-capture",
         "zones": [
-          "VIS"
+          "UA-00",
+          "VIS",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-VIS-CAPTURE",
@@ -121,26 +168,29 @@
           "gpsBanner",
           "modalGps"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident VIS capture Nhận diện sự cố Alias /incident/vis Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Nhận diện sự cố ẢNH HIỆN TRƯỜNG Cần vị trí để nhận diện và gắn sự cố. Mở Cài đặt → Quyền vị trí cho RMMS. Accuracy phải ≤ 30 m. Làm mới GPS Vị trí đã chốt — · chưa chốt Sai số định vị ±— m Phân loại — Mức — Nhận diện Gắn sự cố Bỏ qua Định vị bị tắt Cần vị trí để nhận diện và gắn sự cố. Mở Cài đặt → Quyền vị trí cho RMMS. Accuracy phải ≤ 30 m. Mở Cài đặt Để sau",
-        "href": "http://localhost:9301/web-rmms-vis-capture?gps=deny",
+        "text": "Nhận diện sự cố ẢNH HIỆN TRƯỜNG Trình duyệt chưa cho phép vị trí của trang này. Cho phép Vị trí, rồi bấm Làm mới GPS. Làm mới GPS Vị trí đã chốt — · chưa chốt Sai số định vị ±— m Phân loại — Mức — Nhận diện Gắn sự cố Bỏ qua Chưa cấp quyền vị trí Trình duyệt chưa cho phép vị trí của trang này. Cho phép Vị trí, rồi bấm Làm mới GPS. Làm mới GPS Để sau Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/chup-hien-truong?gps=deny",
         "guestGate": false,
         "titleOk": true,
-        "detectDisabled": true
+        "detectDisabled": false,
+        "attachDisabled": false,
+        "hasValidationBanner": false
       }
     },
     {
       "id": "MODE-acc-45",
       "result": "PASS",
       "screenshot": "MODE-acc-45.png",
-      "href": "http://localhost:9301/web-rmms-vis-capture?acc=45",
+      "href": "http://localhost:9301/m/chup-hien-truong?acc=45",
       "dump": {
         "feature": "web-rmms-vis-capture",
         "zones": [
-          "VIS"
+          "UA-00",
+          "VIS",
+          "DES-MOB-TABBAR"
         ],
         "des": [
-          "DES-MOB-VIS-CAPTURE",
-          "DES-MOB-GPS-DENY"
+          "DES-MOB-VIS-CAPTURE"
         ],
         "ids": [
           "VIS",
@@ -156,25 +206,28 @@
           "detect",
           "btnAttach",
           "btnSkip",
-          "gpsBanner",
-          "modalGps"
+          "gpsBanner"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident VIS capture Nhận diện sự cố Alias /incident/vis Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Nhận diện sự cố ẢNH HIỆN TRƯỜNG Acc > 30 m Làm mới GPS Vị trí đã chốt QL.1-LANGSON · Tuần kiểm Sai số định vị ±45 m Phân loại — Mức — Nhận diện Gắn sự cố Bỏ qua Định vị bị tắt Cần vị trí để nhận diện và gắn sự cố. Mở Cài đặt → Quyền vị trí cho RMMS. Accuracy phải ≤ 30 m. Mở Cài đặt Để sau",
-        "href": "http://localhost:9301/web-rmms-vis-capture?acc=45",
+        "text": "Nhận diện sự cố ẢNH HIỆN TRƯỜNG Sai số > 30 m Làm mới GPS Vị trí đã chốt GPS · chưa có ca Sai số định vị ±45 m Phân loại — Mức — Nhận diện Gắn sự cố Bỏ qua Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/chup-hien-truong?acc=45",
         "guestGate": false,
         "titleOk": true,
-        "detectDisabled": true
+        "detectDisabled": false,
+        "attachDisabled": false,
+        "hasValidationBanner": false
       }
     },
     {
       "id": "MODE-nophoto",
       "result": "PASS",
       "screenshot": "MODE-nophoto.png",
-      "href": "http://localhost:9301/web-rmms-vis-capture?nophoto=1",
+      "href": "http://localhost:9301/m/chup-hien-truong?nophoto=1",
       "dump": {
         "feature": "web-rmms-vis-capture",
         "zones": [
-          "VIS"
+          "UA-00",
+          "VIS",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-VIS-CAPTURE"
@@ -194,22 +247,26 @@
           "btnAttach",
           "btnSkip"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident VIS capture Nhận diện sự cố Alias /incident/vis Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Nhận diện sự cố ẢNH HIỆN TRƯỜNG Vị trí đã chốt QL.1-LANGSON · Tuần kiểm Sai số định vị ±12 m Phân loại — Mức — Nhận diện Gắn sự cố Bỏ qua",
-        "href": "http://localhost:9301/web-rmms-vis-capture?nophoto=1",
+        "text": "Nhận diện sự cố ẢNH HIỆN TRƯỜNG Vị trí đã chốt GPS · chưa có ca Sai số định vị ±12 m Phân loại — Mức — Nhận diện Gắn sự cố Bỏ qua Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/chup-hien-truong?nophoto=1",
         "guestGate": false,
         "titleOk": true,
-        "detectDisabled": true
+        "detectDisabled": false,
+        "attachDisabled": false,
+        "hasValidationBanner": false
       }
     },
     {
       "id": "MODE-nosession",
       "result": "PASS",
       "screenshot": "MODE-nosession.png",
-      "href": "http://localhost:9301/web-rmms-vis-capture?nosession=1",
+      "href": "http://localhost:9301/m/chup-hien-truong?nosession=1",
       "dump": {
         "feature": "web-rmms-vis-capture",
         "zones": [
-          "VIS"
+          "UA-00",
+          "VIS",
+          "DES-MOB-TABBAR"
         ],
         "des": [
           "DES-MOB-VIS-CAPTURE"
@@ -229,15 +286,17 @@
           "btnAttach",
           "btnSkip"
         ],
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Incident VIS capture Nhận diện sự cố Alias /incident/vis Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Nhận diện sự cố ẢNH HIỆN TRƯỜNG Vị trí đã chốt GPS · chưa có ca Sai số định vị ±12 m Phân loại — Mức — Nhận diện Gắn sự cố Bỏ qua",
-        "href": "http://localhost:9301/web-rmms-vis-capture?nosession=1",
+        "text": "Nhận diện sự cố ẢNH HIỆN TRƯỜNG Vị trí đã chốt GPS · chưa có ca Sai số định vị ±12 m Phân loại — Mức — Nhận diện Gắn sự cố Bỏ qua Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/chup-hien-truong?nosession=1",
         "guestGate": false,
         "titleOk": true,
-        "detectDisabled": true
+        "detectDisabled": false,
+        "attachDisabled": false,
+        "hasValidationBanner": false
       }
     }
   ],
   "corePass": true,
   "pass": true,
-  "at": "2026-09-25T21:48:18.844Z"
+  "at": "2026-09-27T11:35:34.921Z"
 }

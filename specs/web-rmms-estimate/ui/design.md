@@ -60,7 +60,7 @@
 |--|--|
 | Frame | Phone **430px** · content-only · tokens primary `#0C84C0` · label **13** · field **≥16** · control **44** |
 | Shell | App topbar (back · title «Ước lượng» key) · **không** ERP `LinPageLayout` · **không** me tab |
-| Form | EST-F — header SC RO → meta editable → lines InlineList → sticky footer Draft / Confirm / WO |
+| Form | EST-F — header SC RO → meta editable → lines InlineList → footer Draft / Confirm / WO **in flow** (content scrolls above footer, không overlay) |
 | Leave | **LeaveConfirmModal** (`DES-LEAVE`) · dirty PUT/draft · **cấm** native dialog |
 | GPS | **N/A** toàn EST-* |
 | Out | Kind B list · history DoD · UnitPriceCatalog · from-defects · auto WO — **hide** |
@@ -133,10 +133,12 @@
 | lines | EST-F | InlineList | * | Lines[] mobile rows |
 | line.itemCode | EST-F | Text | — | ItemCode |
 | line.itemName | EST-F | Text | — | ItemName |
-| line.qty | EST-F | NumberInput | * | Qty |
+| line.qty | EST-F | NumberInput | * | Qty · common `NumberInput` |
 | line.unit | EST-F | Text | — | Unit |
-| line.unitPrice | EST-F | MoneyInput | * | UnitPrice |
-| line.amount | EST-F | LabelMoney RO | — | qty×unitPrice |
+| line.unitPrice | EST-F | MoneyInput | * | UnitPrice · common `MoneyInput` |
+| line.amount | EST-F | LabelMoney RO | — | qty×unitPrice · common `LabelMoney` |
+| line.add | EST-F | Button | — | Thêm dòng · draft only |
+| line.remove | EST-F | Button | — | Xóa dòng · **min 1** (disable khi còn 1) |
 | line.note | EST-F | Text | — | optional |
 | totalAmount | EST-F | LabelMoney RO | — | TotalAmount |
 | action.open | EST-OPEN | Button | — | POST from-incident |
@@ -174,7 +176,7 @@ App base `{BffBase}/mobile-bff/api/v1`. **Cấm** invent path theo slug.
 | Modes | `?screen=empty\|open\|edit\|confirmed\|work` · `?leave=1` · `?woBlocked=1` |
 | reviewUrl | `file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-estimate/ui/prototype/index.html` |
 | Peer std | `http://localhost:9301/web-rmms-estimate` |
-| Parity | **v1** phone form · footer sticky · lock after confirm · WO gate |
+| Parity | **v1** phone form · footer in flow (scroll hết content phía trên) · lock after confirm · WO gate · line add/remove min 1 |
 
 ## 5. A–D / DES-RPT
 
