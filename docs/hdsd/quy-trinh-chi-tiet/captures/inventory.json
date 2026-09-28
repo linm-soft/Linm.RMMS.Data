@@ -1,0 +1,78 @@
+[
+  {
+    "name": "01-chi-tiet-ca",
+    "url": "https://rmms.vn/m/ban-do-tuan",
+    "buttons": [
+      "Ghi điểm tuần",
+      "Vị trí của tôi",
+      "Ghi điểm tuần",
+      "Ghim vị trí hiện tại",
+      "Tiêu chuẩn",
+      "Vệ tinh",
+      "Toàn tuyến",
+      "Tất cả",
+      "Hành trình",
+      "Đã ghi điểm tuần",
+      "Điểm kế tiếp"
+    ],
+    "text": "Ca đang chạy\nGhi điểm tuần\nRMMS.vn\nVị trí của tôi\nĐiểm tiếp theo\nQL.1\nGhi điểm tuần\nGhim vị trí hiện tại\nTiêu chuẩn\nVệ tinh\nToàn tuyến\nTất cả\nHành trình\nĐã ghi điểm tuần\nĐiểm kế tiếp\nTrang Chủ\nTuần đường\nVấn đề\nCông việc\nTôi\nĐang tải hệ thống…",
+    "notes": "no-row"
+  },
+  {
+    "name": "02-chi-tiet-ca-cuoi",
+    "url": "https://rmms.vn/m/ban-do-tuan",
+    "buttons": [
+      "Ghi điểm tuần",
+      "Vị trí của tôi",
+      "Ghi điểm tuần",
+      "Ghim vị trí hiện tại",
+      "Tiêu chuẩn",
+      "Vệ tinh",
+      "Toàn tuyến",
+      "Tất cả",
+      "Hành trình",
+      "Đã ghi điểm tuần",
+      "Điểm kế tiếp"
+    ],
+    "text": "Ca đang chạy\nGhi điểm tuần\nRMMS.vn\nVị trí của tôi\nĐiểm tiếp theo\nQL.1\nGhi điểm tuần\nGhim vị trí hiện tại\nTiêu chuẩn\nVệ tinh\nToàn tuyến\nTất cả\nHành trình\nĐã ghi điểm tuần\nĐiểm kế tiếp\nTrang Chủ\nTuần đường\nVấn đề\nCông việc\nTôi\nĐang tải hệ thống…",
+    "notes": "scroll-end"
+  },
+  {
+    "name": "03-ghi-diem-tuan",
+    "url": "https://rmms.vn/m/tuan-duong/4f5a2ca5-bfe2-46a8-b7d7-1e9995495a85/diem-tuan",
+    "buttons": [
+      "Hủy",
+      "Lưu",
+      "Vị trí của tôi",
+      "Chụp",
+      "Ghi nhận điểm tuần",
+      "Hủy"
+    ],
+    "text": "Hủy\nLưu\nChưa có điểm kế hoạch BE\nĐiểm kế hoạch\nQL.1\nTuyến / lý trình\nQL.1\nĐịnh vị ghim tự động\n21.0278, 105.8342 · ±0 m\nCách điểm KH\n—\nNội dung\nẢnh\nRMMS.vn\nVị trí của tôi\nVị trí đã ghim [21.027800, 105.834200]\nChụp\nTuyến gần vị trí\nKhông có tuyến trong vùng này.\nGhi nhận điểm tuầnHủy\nĐang tải hệ thống…",
+    "notes": "Ghi điểm tuần"
+  },
+  {
+    "name": "04-van-de",
+    "url": "https://rmms.vn/m/van-de",
+    "buttons": [
+      "Danh sách",
+      "Bản đồ sự cố",
+      "Tất cả TT",
+      "Mới",
+      "Cao",
+      "Trung bình",
+      "Nhận diện sự cố Chụp ảnh và định vị để gắn sự cố"
+    ],
+    "text": "Quản lý vấn đề\nDanh sách\nBản đồ sự cố\nTất cả TT\nMới\nCao\nTrung bình\nNhận diện sự cố\nChụp ảnh và định vị để gắn sự cố\nHầm · Hư\n— · VD-20260928-0011\n—\n28/09/2026 23:29\nCó định vị\nTrạng thái: Đợi phân công giám sát\nMặt đường · Hỏng\n— · VD-20260928-0010\n—\n28/09/2026 23:20\nCó định vị\nTrạng thái: Đợi phân công giám sát\nMặt đường · Hư\n— · VD-20260928-0009\n—\n28/09/2026 23:13\nCó định vị\nTrạng thái: Đợi phân công giám sát\nMặt đường · Hỏng\n— · VD-20260928-0008\n—\n28/09/2026 16:15\nCó định vị\n+2\nTrạng thái: Đã đóng\nMặt đường · Hư\n— · VD-20260928-0007\n--\n28/09/2026 15:29\nCó định vị\nChưa có ảnh\nTrạng thái: Đợi phân công giám sát\nBiển báo · Hỏng\nbien-bao · VD-20260928-0006\n--\n28/09/2026 15:25\nCó định vị\n+1\nTrạng thái: Đợi phân công giám sát\nCầu · Hỏng\n— · VD-20260928-0005\nQL.1 · Km QL.1\n28/09/2026 14:56\nCó định vị\n+1\nTrạng thái: Đợi phân công giám sát\nChưa xác định · Hư\n— · VD-20260928-0004\nQL.1 · Km QL.1\n28/09/2026 14:39\nCó định vị\nTrạng thái: Đợi phân công giám sát\nMặt đường · Hư\n— · VD-20260928-0003\nQL.1 · Km QL.1\n28/09/2026 14:25\nCó định vị\nTrạng thái: Đợi phân công giám sát\nMặt đường · Hư\n— · VD-20260928-0002\nQL.1 · Km QL.1\n28/09/2026 14:10\nCó định vị\nTrạng thái: Đợi phân công giám sát\nMặt đường · Hư\n— · VD-20260928-0001\nQL.1 · Km QL.1\n28/09/2026 13:59\nCó định vị\nTrạng thái: Đợi phân công giám sát\nMặt đường · Mất\n— · VD-20260927-0003\nQL.1 · Km Km 0+000 · Nghi Lộc QL.1\n27/09/2026 23:29\nCó định vị\nChưa có ảnh\nTrạng thái: Đợi phân công giám sát\nChưa xác định · Hư\n— · VD-20260927-0002\nQL.1 · Km Km 0+000 · Nghi Lộc QL.1\n27/09/2026 23:29\nCó định vị\nChưa có ảnh\nTrạng thái: Đợi phân công giám sát\nỔ gà\no-ga · VD-20260927-0001\nQL.7C\n27/09/2026 08:42\nCó định vị\nTrạng thái: Đã đóng\nỔ gà\nkhac · VD-20260926-0002\nQL.7C\n26/09/2026 17:38\nCó định vị\nTrạng thái: Đã đóng\nỔ gà\nkhac · VD-20260926-0001\nQL",
+    "notes": "list"
+  },
+  {
+    "name": "07-cong-viec",
+    "url": "https://rmms.vn/m/cong-viec",
+    "buttons": [
+      "Giao việc xử lý Khối lượng · thời hạn · giao việc"
+    ],
+    "text": "Danh sách công việc\nGiao việc xử lý\nKhối lượng · thời hạn · giao việc\nCông việc · EST-20260927-0008\n2026-09-28 01:58 — 2026-09-30 01:58\nTừ sự cố 4bf9d85f-ac75-4e68-89d0-02c0f6497d4c · QL.1 · Km 0+000 · Nghi Lộc QL.1\nTình trạng xử lý: Đang xử lý\nCông việc · EST-20260927-0007\n2026-09-28 01:27 — 2026-09-30 01:27\nTừ sự cố 83a12a90-2692-4cac-a6b8-0f7989bd2480 · QL.1 · Km 0+000 · Nghi Lộc QL.1\nTình trạng xử lý: Chờ xử lý\npothole\nGiao việc cho test\n2026-09-25 23:25 — 2026-09-26 23:25\nTừ sự cố 57b7b5dc-f5a5-4ebb-a6d4-1969c4fe37d2 · QL1A · Km12+100\nTình trạng xử lý: Đã hoàn thành\nThay biển báo Km8+200\nĐội QL.15 giao việc cho Trần Thị B\n2026-09-23 14:00 — 2026-09-25 14:00\nTuyến QL.15\nTình trạng xử lý: Chờ xử lý\nVá ổ gà Km12+500 — chờ nhận việc\nĐội QL.1 giao việc cho Nguyễn Văn A\n2026-09-22 14:00 — 2026-09-24 02:00\nTuyến QL.1\nTình trạng xử lý: Chờ xử lý\npothole\nGiao việc cho linh\n2026-09-22 15:28 — 2026-09-23 15:28\nTừ sự cố 57b7b5dc-f5a5-4ebb-a6d4-1969c4fe37d2 · QL1A · Km12+100\nTình trạng xử lý: Chờ xử lý\nXử lý sạt lở Km3+400\nĐội QL.15 giao việc cho Trần Thị B\n2026-09-20 14:00 — 2026-09-21 02:00\nTuyến QL.46\nTình trạng xử lý: Đang xử lý\npothole\nGiao việc cho linh\n2026-09-17 23:57 — 2026-09-18 23:57\nTừ sự cố c45b386a-b48c-400c-8966-533659b79148 · QL1A · Km12+100\nTình trạng xử lý: Chờ xử lý\nKiểm tra cống Km4+100\nĐội QL.217 giao việc cho Lê Văn C\n2026-09-15 14:00 — 2026-09-18 14:00\nTuyến QL.217\nTình trạng xử lý: Đang xử lý\npothole\nGiao việc cho test\n2026-09-16 22:26 — 2026-09-17 22:26\nTừ sự cố f32670b3-bfe6-4f1b-9002-b310b73b9b63 · QL1A · Km12+100\nTình trạng xử lý: Chờ xử lý\nCắt cỏ taluy Km8\nĐội QL.15 giao việc cho Trần Thị B\n2026-09-09 14:00 — 2026-09-11 14:00\nTuyến QL.15\nTình trạng xử lý: Đã hoàn thành\nVá ổ gà Km12+200\nĐội QL.1 giao việc cho Nguyễn Văn A\n2026-09-04 14:00 — 2026-09-0",
+    "notes": "list"
+  }
+]

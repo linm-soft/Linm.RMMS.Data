@@ -10,7 +10,12 @@
     "options": [],
     "text": "RMMS\nTốt\nQuản trị RMMS\nĐiểm tuần\nGhim định vị · lý trình\nGhi sự cố\nChọn tài sản · mẫu sự cố\nNGHIỆP VỤ THƯỜNG DÙNG\nGiám sát\nTuần đường\nCông việc\nVấn đề\nTài sản\nLưu trữ\nCông tác nghiệm thu\nHỒ SƠ TÀI SẢN\n- — -\n45 loại KCHT · thông số và hạng mục kiểm tra sự cố\nPhiên bản v1.0.0 · hiện trường đường bộ\nCục Đường bộ VN · RMMS\nTrang Chủ\nTuần đường\nVấn đề\nCông việc\nTôi\nĐang tải hệ thống…",
     "file": "01-trang-chu.png",
-    "path": "/trang-chu"
+    "path": "/trang-chu",
+    "device": "iPhone 15",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    }
   },
   {
     "url": "https://rmms.vn/m/tuan-duong",
@@ -52,7 +57,12 @@
     "options": [],
     "text": "Tuần đường\nTuần đường\nChấm công\nCa đang chạy · Tốt\nQL.1\nTD-20260928-001 · Nguyễn T Thu Phương\nĐiểm tuần 6/3 · Độ phủ 0%\nTiếp tục bản đồ\nGhi điểm tuần\nGhim vị trí hiện tại\n6\nĐã ghi điểm tuần\n0\nCòn lại\n0%\nĐộ phủ\nHôm nay\nTD-20260928-001\nTuần đường · QL.1 · 09:03\nĐang tuần\nTD-20260927-004\nTuần đường · QL.1 · 01:13\nĐang tuần\nTD-20260927-003\nTuần đường · QL.1 · Hoàn thành\nXong\nTD-20260927-002\nTuần đường · QL.1 · Hoàn thành\nXong\nTD-20260927-001\nTuần đường · QL.1 · Hoàn thành\nXong\nTD-20260926-001\nTuần kiểm · QL.7C · Hoàn thành\nXong\nTK-DEMO-202609-004\nTuần kiểm · QL.46 · Hoàn thành\nXong\nTD-DEMO-202609-001\nTuần đường · QL.1 · Hoàn thành\nXong\nTK-DEMO-202609-002\nTuần kiểm · QL.1 · Hoàn thành\nXong\nTD-DEMO-202609-003\nTuần đường · QL.15 · Hoàn thành\nXong\nTD-20260916-002\nTuần đường · QL.1 · Hoàn thành\nXong\nTK-DEMO-202609-007\nTuần kiểm · QL.46 · Hoàn thành\nXong\nTD-DEMO-202609-006\nTuần đường · QL.1 · Hoàn thành\nXong\nTD-DEMO-202609-005\nTuần đường · QL.15 · Hoàn thành\nXong\nTD-DEMO-202609-008\nTuần đường · QL.1 · Hoàn thành\nXong\nThao tác nhanh\nGhi nhận hư hỏng\nChụp · hư / mất / hỏng · nhận diện\nThu thập bằng camera\nTự nhận diện theo tọa độ · tạo vấn đề\nBản đồ ca\nGhim điểm tuần · hành trình\nLịch sử phiên\nLọc tuyến · trạng thái\nCông tác nghiệm thu\nDanh sách phiếu NT · tìm mẫu\nGiám sát\nLịch sử điểm tuần · bản đồ · thông báo\nLưu trữ\nChưa có bản ghi chờ gửi\nTrang Chủ\nTuần đường\nVấn đề\nCông việc\nTôi\nĐang tải hệ thống…",
     "file": "02-tuan-duong.png",
-    "path": "/tuan-duong"
+    "path": "/tuan-duong",
+    "device": "iPhone 15",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    }
   },
   {
     "url": "https://rmms.vn/m/tuan-duong/mo-ca",
@@ -78,7 +88,12 @@
     ],
     "text": "Mở ca\nHủy\nMở ca\nTuyến\nChiều\nChiều đi\nChiều về\nHai chiều\nNgười\nNgày\nLoại / trạng thái\nĐang tải hệ thống…",
     "file": "03-tuan-duong-mo-ca.png",
-    "path": "/tuan-duong/mo-ca"
+    "path": "/tuan-duong/mo-ca",
+    "device": "iPhone 15",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    }
   },
   {
     "url": "https://rmms.vn/m/tuan-duong/lich-su",
@@ -108,7 +123,12 @@
     "options": [],
     "text": "Lọc\nLịch sử ca\nTD-20260928-001\nQL.1 · Tuần đường · 6/3 điểm\nĐang tuần\nTD-20260927-004\nQL.1 · Tuần đường · 5/3 điểm\nĐang tuần\nTD-20260927-003\nQL.1 · Tuần đường · 0%\nHoàn thành\nTD-20260927-002\nQL.1 · Tuần đường · 0%\nHoàn thành\nTD-20260927-001\nQL.1 · Tuần đường · 0%\nHoàn thành\nTD-20260926-001\nQL.7C · Tuần kiểm · 0%\nHoàn thành\nTK-DEMO-202609-004\nQL.46 · Tuần kiểm · 80%\nHoàn thành\nTD-DEMO-202609-001\nQL.1 · Tuần đường · 67%\nHoàn thành\nTK-DEMO-202609-002\nQL.1 · Tuần kiểm · 100%\nHoàn thành\nTD-DEMO-202609-003\nQL.15 · Tuần đường · 100%\nHoàn thành\nTD-20260916-002\nQL.1 · Tuần đường · 0%\nHoàn thành\nTK-DEMO-202609-007\nQL.46 · Tuần kiểm · 100%\nHoàn thành\nTD-DEMO-202609-006\nQL.1 · Tuần đường · 100%\nHoàn thành\nTD-DEMO-202609-005\nQL.15 · Tuần đường · 100%\nHoàn thành\nTD-DEMO-202609-008\nQL.1 · Tuần đường · 50%\nHoàn thành\nTrang Chủ\nTuần đường\nVấn đề\nCông việc\nTôi\nĐang tải hệ thống…",
     "file": "04-tuan-duong-lich-su.png",
-    "path": "/tuan-duong/lich-su"
+    "path": "/tuan-duong/lich-su",
+    "device": "iPhone 15",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    }
   },
   {
     "url": "https://rmms.vn/m/tuan-kiem",
@@ -124,7 +144,12 @@
     "options": [],
     "text": "Tuần kiểm\nMở đợtKế hoạch tần suất\nĐợt đang kiểm\nChưa có đợt\nMở đợt tuần kiểm trên tuyến.\nTrang Chủ\nTuần đường\nVấn đề\nCông việc\nTôi\nĐang tải hệ thống…",
     "file": "05-tuan-kiem.png",
-    "path": "/tuan-kiem"
+    "path": "/tuan-kiem",
+    "device": "iPhone 15",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    }
   },
   {
     "url": "https://rmms.vn/m/tuan-kiem/mo-dot",
@@ -151,7 +176,12 @@
     ],
     "text": "Mở đợt\nHủy\nMở đợt\nTuyến\nTừ km\nĐến km\nHình thức\nĐịnh kỳ\nĐột xuất\nNgười\nNgày\nLoại / trạng thái\nĐang tải hệ thống…",
     "file": "06-tuan-kiem-mo-dot.png",
-    "path": "/tuan-kiem/mo-dot"
+    "path": "/tuan-kiem/mo-dot",
+    "device": "iPhone 15",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    }
   },
   {
     "url": "https://rmms.vn/m/nghiem-thu",
@@ -171,7 +201,12 @@
     "options": [],
     "text": "Nghiệm thu\n+\nTìm kiếm\nTìm kiếm\n✓\nNT-20260928-0001 · Đang nghiệm thu\nCắt cỏ lề / cắt cây · QL.1D\nTest\nTạo nghiệm thu\nTrang Chủ\nTuần đường\nVấn đề\nCông việc\nTôi\nĐang tải hệ thống…",
     "file": "07-nghiem-thu.png",
-    "path": "/nghiem-thu"
+    "path": "/nghiem-thu",
+    "device": "iPhone 15",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    }
   },
   {
     "url": "https://rmms.vn/m/nghiem-thu/moi",
@@ -222,8 +257,13 @@
       "Không đạt",
       "Không áp dụng"
     ],
-    "text": "Tạo nghiệm thu\nHuỷ\nLưu nháp\nLưu\nMẫu nghiệm thu *\nCắt cỏ lề / cắt cây\nVệ sinh / vá ổ gà mặt đường\nNạo vét rãnh\nSơn bổ sung báo hiệu\nKhơi thông cống / rãnh\nSửa chữa lề đường\nHót sụt\nBảo dưỡng báo hiệu đường bộ\nHạng mục công trình khác\nBảo dưỡng thiết bị\nTuyến *\nHiện trường *\nKhu vực\nKm từ\nKm đến\nNgười NT *\nThời điểm NT *\nKết quả\n—\nĐạt\nKhông đạt\nKhấu trừ\nGhi chú kết quả\nHạng mục kiểm tra\n1.1 · Cắt cỏ lề / cắt cây — đoạn đường · kết quả chủ yếu\nĐạt\nKhông đạt\nKhông áp dụng\nGhi chú\nĐịnh vị\nGhim vị trí hiện tại\nẢnh hiện trường\nRMMS.vn\nVị trí của tôi\nVị trí đã ghim [21.027800, 105.834200]\nChụp\nĐang tìm tuyến…\nĐang tải hệ thống…",
+    "text": "Tạo nghiệm thu\nHuỷ\nLưu nháp\nLưu\nMẫu nghiệm thu *\nCắt cỏ lề / cắt cây\nVệ sinh / vá ổ gà mặt đường\nNạo vét rãnh\nSơn bổ sung báo hiệu\nKhơi thông cống / rãnh\nSửa chữa lề đường\nHót sụt\nBảo dưỡng báo hiệu đường bộ\nHạng mục công trình khác\nBảo dưỡng thiết bị\nTuyến *\nHiện trường *\nKhu vực\nKm từ\nKm đến\nNgười NT *\nThời điểm NT *\nKết quả\n—\nĐạt\nKhông đạt\nKhấu trừ\nGhi chú kết quả\nHạng mục kiểm tra\n1.1 · Cắt cỏ lề / cắt cây — đoạn đường · kết quả chủ yếu\nĐạt\nKhông đạt\nKhông áp dụng\nGhi chú\nĐịnh vị\nGhim vị trí hiện tại\nẢnh hiện trường\nRMMS.vn\nVị trí của tôi\nVị trí đã ghim [21.027800, 105.834200]\nChụp\nTuyến gần vị trí\nKhông có tuyến trong vùng này.\nĐang tải hệ thống…",
     "file": "08-nghiem-thu-moi.png",
-    "path": "/nghiem-thu/moi"
+    "path": "/nghiem-thu/moi",
+    "device": "iPhone 15",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    }
   }
 ]

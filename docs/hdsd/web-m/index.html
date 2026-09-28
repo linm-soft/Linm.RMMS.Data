@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hướng dẫn sử dụng RMMS</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: #1c1c1e; background: #f2f2f7; line-height: 1.45; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+    header.top, table, .step { background: #fff; border: 1px solid #e5e5ea; border-radius: 16px; }
+    header.top { padding: 20px 22px; display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; }
+    header.top .intro { min-width: 0; }
+    .qr-btn { flex: 0 0 auto; border: 1px solid #e5e5ea; background: #fff; border-radius: 12px; padding: 8px; cursor: pointer; text-align: center; }
+    .qr-btn img { width: 88px; height: 88px; display: block; }
+    .qr-btn span { display: block; margin-top: 4px; font-size: 0.75rem; color: #086a9a; }
+    #qr-dialog { border: 0; padding: 0; width: 100vw; height: 100vh; max-width: 100vw; max-height: 100vh; margin: 0; background: #fff; }
+    #qr-dialog::backdrop { background: #fff; }
+    #qr-dialog .qr-full { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 24px; }
+    #qr-dialog img { width: min(78vw, 78vh); height: auto; }
+    #qr-dialog p { margin: 0; font-size: 1.05rem; }
+    #qr-dialog button { border: 0; background: #086a9a; color: #fff; border-radius: 999px; padding: 10px 18px; font-size: 1rem; cursor: pointer; }
+    h1 { font-size: 1.45rem; margin: 0 0 8px; }
+    h2 { font-size: 1.2rem; margin: 28px 0 8px; }
+    h3 { font-size: 1.02rem; margin: 0 0 8px; }
+    p { margin: 0 0 8px; }
+    a { color: #086a9a; }
+    nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    nav.toc a { background: #f2f2f7; border-radius: 999px; padding: 6px 12px; text-decoration: none; font-size: 0.92rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    th, td { border: 1px solid #d8d8dc; padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #f4f4f6; }
+    td:first-child { width: 28%; }
+    .step {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+      padding: 16px;
+      margin: 12px 0;
+    }
+    .step ol { margin: 8px 0 0; padding-left: 1.2rem; }
+    .step li { margin: 4px 0; }
+    figure { margin: 0; }
+    figure img { width: 100%; height: auto; border: 1px solid #e5e5ea; border-radius: 12px; display: block; }
+    figcaption { font-size: 0.82rem; color: #636366; margin-top: 6px; }
+    .tag, .n { display: inline-block; background: #e8f4fb; color: #086a9a; border-radius: 999px; padding: 2px 8px; font-size: 0.78rem; font-weight: 600; }
+    @page { size: A4 portrait; margin: 12mm 12mm 14mm; }
+    @media print {
+      body { background: #fff; }
+      .wrap { max-width: none; margin: 0; padding: 0; }
+      header.top, table { border: 0; border-radius: 0; break-inside: avoid; }
+      nav.toc, #qr-dialog { display: none; }
+      .qr-btn { cursor: default; border: 0; padding: 0; }
+      .qr-btn span { display: none; }
+      h2, h3 { break-after: avoid; }
+      p, li, td, th { hyphens: none; word-break: normal; overflow-wrap: break-word; }
+      .step {
+        display: grid;
+        grid-template-columns: 58mm minmax(0, 1fr);
+        gap: 6mm;
+        border: 0;
+        border-radius: 0;
+        padding: 0 0 6mm;
+        margin: 0 0 4mm;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      figure img { width: 58mm; max-height: 145mm; object-fit: contain; object-position: top center; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="intro">
+      <h1>Hướng dẫn sử dụng phần mềm RMMS</h1>
+      <p>Tài liệu hướng dẫn cán bộ, nhân viên cài đặt phần mềm trên điện thoại và thực hiện tuần đường, tuần kiểm, nghiệm thu bảo dưỡng thường xuyên.</p>
+      <nav class="toc">
+        <a href="#cai-dat">Cài đặt</a>
+        <a href="#chuc-vu">Chức vụ</a>
+        <a href="#tuan-duong">Tuần đường</a>
+        <a href="#tuan-kiem">Tuần kiểm</a>
+        <a href="#nghiem-thu">Nghiệm thu</a>
+        <a href="#chi-tiet">Chi tiết và trạng thái</a>
+      </nav>
+      </div>
+      <button type="button" class="qr-btn" id="qr-open" aria-label="Phóng to mã QR truy cập phần mềm">
+        <img src="img/qr-rmms.svg" alt="Mã QR mở https://rmms.vn/m" />
+        <span>Phóng to mã QR</span>
+      </button>
+    </header>
+    <dialog id="qr-dialog">
+      <div class="qr-full">
+        <img src="img/qr-rmms.svg" alt="Mã QR mở https://rmms.vn/m" />
+        <p>https://rmms.vn/m</p>
+        <button type="button" id="qr-close">Đóng</button>
+      </div>
+    </dialog>
+
+    <h2 id="cai-dat">Cài đặt</h2>
+    <p>Mở trình duyệt, truy cập <strong>https://rmms.vn/m</strong>, sau đó đưa biểu tượng ra màn hình chính. Đăng nhập bằng tài khoản được cấp.</p>
+
+    <article class="step">
+      <figure>
+        <img src="img/ios-1.jpg" alt="Safari, nút Chia sẻ" />
+        <figcaption>Hình 1. Nút Chia sẻ trên iPhone.</figcaption>
+      </figure>
+      <div>
+        <h3>iPhone</h3>
+        <ol>
+          <li>Mở <strong>Safari</strong>, vào https://rmms.vn/m.</li>
+          <li>Nhấn nút <strong>Chia sẻ</strong> (hình vuông, mũi tên lên).</li>
+          <li>Chọn <strong>Thêm vào Màn hình chính</strong>.</li>
+          <li>Giữ tên AI-RMMS, nhấn <strong>Thêm</strong>.</li>
+        </ol>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="img/ios-2.jpg" alt="Thêm vào Màn hình chính" />
+        <figcaption>Hình 2. Thêm vào Màn hình chính.</figcaption>
+      </figure>
+      <div>
+        <p>Trong danh sách chia sẻ, chọn <strong>Thêm vào Màn hình chính</strong>. Các lần sau, mở phần mềm từ biểu tượng AI-RMMS trên màn hình chính.</p>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="img/android-1.jpg" alt="Menu Chrome" />
+        <figcaption>Hình 3. Menu ba chấm trên Android.</figcaption>
+      </figure>
+      <div>
+        <h3>Android</h3>
+        <ol>
+          <li>Mở <strong>Chrome</strong>, vào https://rmms.vn/m.</li>
+          <li>Nhấn nút <strong>ba chấm</strong> góc trên bên phải.</li>
+        </ol>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="img/android-2.jpg" alt="Install and create shortcut" />
+        <figcaption>Hình 4. Install and create shortcut.</figcaption>
+      </figure>
+      <div>
+        <p>Chọn <strong>Install and create shortcut</strong> (Cài đặt và tạo lối tắt).</p>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="img/android-3.jpg" alt="Chọn Install" />
+        <figcaption>Hình 5. Chọn Install.</figcaption>
+      </figure>
+      <div>
+        <p>Chọn <strong>Install</strong>. Biểu tượng AI-RMMS xuất hiện trên màn hình chính. Mở biểu tượng này để đăng nhập.</p>
+      </div>
+    </article>
+
+    <h2 id="chuc-vu">Chức vụ</h2>
+    <table>
+      <thead><tr><th>Chức vụ</th><th>Nhiệm vụ</th><th>Thao tác trên phần mềm</th></tr></thead>
+      <tbody>
+        <tr><td>Nhân viên tuần đường</td><td>Tuần tra tuyến được giao, phát hiện hư hỏng, xử lý ban đầu và ghi nhật ký ca.</td><td>Mục Tuần đường: Mở ca, Ghi điểm tuần, Ghi nhận hư hỏng.</td></tr>
+        <tr><td>Cán bộ tuần kiểm</td><td>Kiểm tra công tác tuần đường và bảo dưỡng của nhà thầu trên đoạn tuyến được giao.</td><td>Mục Tuần kiểm: Mở đợt, theo dõi đợt đang kiểm.</td></tr>
+        <tr><td>Cán bộ nghiệm thu</td><td>Nghiệm thu khối lượng bảo dưỡng thường xuyên. Nghiệm thu không thay thế tuần kiểm.</td><td>Mục Công tác nghiệm thu: tra cứu phiếu, lập phiếu theo mẫu.</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="tuan-duong">1. Tuần đường</h2>
+    <article class="step">
+      <figure>
+        <img src="img/02-tuan-duong.png" alt="Màn Tuần đường" />
+        <figcaption>Hình 6. Ca đang chạy.</figcaption>
+      </figure>
+      <div>
+        <span class="tag">Bước 1</span>
+        <h3>Vào ca tuần đường</h3>
+        <ol>
+          <li>Chọn mục <strong>Tuần đường</strong>.</li>
+          <li>Theo dõi tuyến, mã ca, nhân viên tuần đường, số điểm tuần và độ phủ.</li>
+          <li>Khi đến điểm tuần, nhấn <strong>Ghi điểm tuần</strong>. Nhấn <strong>Ghim vị trí hiện tại</strong> để ghi nhận vị trí.</li>
+          <li>Nhấn <strong>Tiếp tục bản đồ</strong> để xem hành trình.</li>
+          <li>Trong mục <strong>Hôm nay</strong>, chọn ca cần xem. <strong>Đang tuần</strong> là ca chưa kết thúc. <strong>Xong</strong> là ca đã kết thúc.</li>
+          <li>Khi hoàn thành tuần tra, mở chi tiết ca và nhấn <strong>Kết thúc ca</strong>.</li>
+        </ol>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="img/03-tuan-duong-mo-ca.png" alt="Mở ca" />
+        <figcaption>Hình 7. Mở ca.</figcaption>
+      </figure>
+      <div>
+        <span class="tag">Bước 2</span>
+        <h3>Mở ca mới</h3>
+        <p>Nút <strong>Mở ca</strong> chỉ hiện khi nhân viên chưa có ca đang tuần.</p>
+        <ol>
+          <li>Chọn <strong>Tuyến</strong> và <strong>Người</strong> thực hiện.</li>
+          <li>Chọn <strong>Chiều</strong>: Chiều đi, Chiều về hoặc Hai chiều.</li>
+          <li>Kiểm tra <strong>Ngày</strong>. Phần mềm ghi sẵn loại Tuần đường, trạng thái Đang tuần.</li>
+          <li>Nhấn <strong>Mở ca</strong> để bắt đầu. Nhấn <strong>Hủy</strong> nếu chưa mở ca.</li>
+        </ol>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="img/04-tuan-duong-lich-su.png" alt="Lịch sử ca" />
+        <figcaption>Hình 8. Lịch sử ca.</figcaption>
+      </figure>
+      <div>
+        <span class="tag">Bước 3</span>
+        <h3>Ghi nhận và lịch sử</h3>
+        <ol>
+          <li>Nhấn <strong>Ghi nhận hư hỏng</strong> khi phát hiện hư hỏng, mất mát hoặc xuống cấp trên tuyến.</li>
+          <li>Nhấn <strong>Lịch sử phiên</strong> để tra cứu các ca đã thực hiện. Nhấn <strong>Lọc</strong> khi cần thu hẹp danh sách.</li>
+          <li>Chọn một dòng để xem chi tiết ca.</li>
+        </ol>
+      </div>
+    </article>
+
+    <h2 id="tuan-kiem">2. Tuần kiểm</h2>
+    <article class="step">
+      <figure>
+        <img src="img/05-tuan-kiem.png" alt="Tuần kiểm" />
+        <figcaption>Hình 9. Tuần kiểm.</figcaption>
+      </figure>
+      <div>
+        <span class="tag">Bước 1</span>
+        <h3>Đợt đang kiểm</h3>
+        <ol>
+          <li>Mở mục <strong>Tuần kiểm</strong>.</li>
+          <li>Mục <strong>Đợt đang kiểm</strong> chỉ liệt kê đợt chưa kết thúc.</li>
+          <li>Nhấn <strong>Kế hoạch tần suất</strong> để đối chiếu kế hoạch kiểm tra.</li>
+        </ol>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="img/06-tuan-kiem-mo-dot.png" alt="Mở đợt" />
+        <figcaption>Hình 10. Mở đợt.</figcaption>
+      </figure>
+      <div>
+        <span class="tag">Bước 2</span>
+        <h3>Mở đợt</h3>
+        <ol>
+          <li>Nhấn <strong>Mở đợt</strong>.</li>
+          <li>Chọn <strong>Tuyến</strong>. Nhập <strong>Từ km</strong> và <strong>Đến km</strong> của đoạn kiểm tra.</li>
+          <li>Chọn <strong>Hình thức</strong>: Định kỳ hoặc Đột xuất. Trường hợp đột xuất, nhập lý do đột xuất.</li>
+          <li>Chọn <strong>Người</strong> thực hiện, sau đó nhấn <strong>Mở đợt</strong>.</li>
+        </ol>
+      </div>
+    </article>
+
+    <h2 id="nghiem-thu">3. Công tác nghiệm thu</h2>
+    <article class="step">
+      <figure>
+        <img src="img/07-nghiem-thu.png" alt="Danh sách nghiệm thu" />
+        <figcaption>Hình 11. Danh sách nghiệm thu.</figcaption>
+      </figure>
+      <div>
+        <span class="tag">Bước 1</span>
+        <h3>Tìm phiếu</h3>
+        <ol>
+          <li>Chọn <strong>Công tác nghiệm thu</strong> tại trang chủ hoặc trong Thao tác nhanh.</li>
+          <li>Nhập mã phiếu, tuyến hoặc hiện trường, sau đó nhấn <strong>Tìm kiếm</strong>.</li>
+          <li>Chọn một phiếu để xem trạng thái, mẫu nghiệm thu và tuyến.</li>
+        </ol>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="img/08-nghiem-thu-moi.png" alt="Tạo nghiệm thu" />
+        <figcaption>Hình 12. Tạo phiếu nghiệm thu.</figcaption>
+      </figure>
+      <div>
+        <span class="tag">Bước 2</span>
+        <h3>Lập phiếu</h3>
+        <ol>
+          <li>Nhấn <strong>Tạo nghiệm thu</strong>.</li>
+          <li>Chọn mẫu nghiệm thu, tuyến, người nghiệm thu và thời điểm nghiệm thu.</li>
+          <li>Nhập hiện trường hoặc nhấn <strong>Ghim vị trí hiện tại</strong>.</li>
+          <li>Với từng hạng mục, chọn <strong>Đạt</strong>, <strong>Không đạt</strong> hoặc <strong>Không áp dụng</strong>.</li>
+          <li>Chọn kết quả phiếu và nhấn <strong>Lưu</strong>. Nhấn <strong>Lưu nháp</strong> khi phiếu chưa hoàn tất.</li>
+        </ol>
+      </div>
+    </article>
+
+    <h2 id="chi-tiet">4. Chi tiết, chụp ảnh, trạng thái</h2>
+    <article class="step">
+      <figure>
+        <img src="img/03-ghi-diem-tuan.png" alt="Ghi điểm tuần" />
+        <figcaption>Hình 13. Ghi điểm tuần.</figcaption>
+      </figure>
+      <div>
+        <h3>Ghi điểm tuần và chụp</h3>
+        <ol>
+          <li>Trong ca đang tuần, nhấn <strong>Ghi điểm tuần</strong>.</li>
+          <li>Kiểm tra <strong>Điểm kế hoạch</strong>, <strong>Tuyến / lý trình</strong> và <strong>Định vị ghim tự động</strong>.</li>
+          <li>Nhập <strong>Nội dung</strong>. Nhấn <strong>Chụp</strong> khi cần ảnh hiện trường.</li>
+          <li>Nhấn <strong>Ghi nhận điểm tuần</strong> để ghi nhận. Nhấn <strong>Hủy</strong> nếu không lưu.</li>
+        </ol>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="img/04-van-de.png" alt="Danh sách vấn đề và trạng thái" />
+        <figcaption>Hình 14. Vấn đề, trạng thái trên từng dòng.</figcaption>
+      </figure>
+      <div>
+        <h3>Theo dõi trạng thái vấn đề</h3>
+        <ol>
+          <li>Chọn mục <strong>Vấn đề</strong>.</li>
+          <li>Mỗi dòng thể hiện loại hư hỏng, mã vấn đề, thời gian và trạng thái.</li>
+          <li>Trạng thái gồm <strong>Đợi phân công giám sát</strong> và <strong>Đã đóng</strong>.</li>
+          <li>Chọn một dòng để mở chi tiết. Nhấn <strong>Trao đổi</strong> để trao đổi nội dung xử lý. Nhấn <strong>Đóng sự cố</strong> khi đã xử lý xong.</li>
+        </ol>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="img/07-cong-viec.png" alt="Danh sách công việc và tình trạng" />
+        <figcaption>Hình 15. Công việc, tình trạng xử lý.</figcaption>
+      </figure>
+      <div>
+        <h3>Theo dõi và cập nhật tình trạng công việc</h3>
+        <ol>
+          <li>Chọn mục <strong>Công việc</strong>.</li>
+          <li>Mỗi dòng ghi <strong>Tình trạng xử lý</strong>: Chờ xử lý, Đang xử lý hoặc Đã hoàn thành.</li>
+          <li>Chọn một dòng để mở chi tiết. Nhấn <strong>Trao đổi</strong> để trao đổi về công việc.</li>
+          <li>Nhấn <strong>Cập nhật trạng thái</strong> để ghi tiến độ. Nhấn <strong>Hoàn thành</strong> khi công việc đã hoàn thành.</li>
+        </ol>
+      </div>
+    </article>
+  </div>
+  <script>
+    (function () {
+      var dialog = document.getElementById("qr-dialog");
+      var open = document.getElementById("qr-open");
+      var close = document.getElementById("qr-close");
+      if (!dialog || !open || !close) return;
+      open.addEventListener("click", function () { dialog.showModal(); });
+      close.addEventListener("click", function () { dialog.close(); });
+    })();
+  </script>
+</body>
+</html>

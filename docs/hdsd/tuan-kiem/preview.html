@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <title>Hướng dẫn sử dụng — Tuần kiểm</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "strict" });
+  </script>
+  <style>
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: #1a1a1a; background: #fafafa; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 24px; background: #fff; }
+    h1 { font-size: 1.35rem; } h2 { font-size: 1.15rem; }
+    table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+    th, td { border: 1px solid #d0d0d0; padding: 0.4rem 0.55rem; text-align: left; }
+    th { background: #f4f4f4; }
+    figure img { width: 393px; max-width: 100%; height: auto; border: 1px solid #ddd; }
+    figcaption { font-size: 0.85rem; color: #444; }
+    @media print { .no-print { display: none; } .has-fig { break-before: page; } figure img { max-height: 145mm; object-fit: contain; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Hướng dẫn sử dụng — Tuần kiểm</h1>
+    <p class="no-print">Ảnh khung iPhone 15, 393 x 852. <a href="huong-dan-su-dung.md">Bản markdown</a>.</p>
+    <section>
+      <h2>Phạm vi</h2>
+      <p>Tuần kiểm là việc của người quản lý, sử dụng đường bộ: mở đợt kiểm tra trên một đoạn tuyến và theo dõi đợt đang kiểm.</p>
+      <p>Đăng nhập: <a href="../dang-nhap/huong-dan-su-dung.md">Hướng dẫn đăng nhập</a>.</p>
+    </section>
+    <section>
+      <h2>Luồng xử lý</h2>
+      <pre class="mermaid">
+graph TD
+  A[Đăng nhập] --> B[Tuần kiểm]
+  B --> C[Mở đợt]
+  C --> D[Đợt đang kiểm]
+      </pre>
+    </section>
+    <section class="has-fig" id="form-list">
+      <h2>Tuần kiểm</h2>
+      <p><strong>Mục đích:</strong> xem đợt tuần kiểm đang mở và vào lập đợt mới.</p>
+      <figure>
+        <img src="captures/05-tuan-kiem.png" alt="Tuần kiểm" />
+        <figcaption>Hình 1. Tuần kiểm</figcaption>
+      </figure>
+    </section>
+    <section class="has-fig" id="form-create">
+      <h2>Mở đợt</h2>
+      <p><strong>Mục đích:</strong> lập đợt tuần kiểm trên một tuyến, từ km đến km.</p>
+      <figure>
+        <img src="captures/06-tuan-kiem-mo-dot.png" alt="Mở đợt" />
+        <figcaption>Hình 2. Mở đợt</figcaption>
+      </figure>
+      <p>* = bắt buộc khi Mở đợt. Ô trống = không bắt buộc.</p>
+      <table>
+        <thead><tr><th>Nhãn trên màn</th><th>*</th><th>Cách điền</th></tr></thead>
+        <tbody>
+          <tr><td>Tuyến</td><td>*</td><td>Chọn tuyến trong danh mục.</td></tr>
+          <tr><td>Từ km</td><td></td><td>Km đầu đoạn kiểm.</td></tr>
+          <tr><td>Đến km</td><td></td><td>Km cuối đoạn kiểm.</td></tr>
+          <tr><td>Hình thức</td><td></td><td>Định kỳ hoặc Đột xuất.</td></tr>
+          <tr><td>Lý do đột xuất</td><td>*</td><td>Chỉ hiện khi Hình thức là Đột xuất.</td></tr>
+          <tr><td>Người</td><td>*</td><td>Chọn người kiểm trong danh mục.</td></tr>
+          <tr><td>Ngày</td><td></td><td>Ngày kế hoạch. Mặc định hôm nay.</td></tr>
+          <tr><td>Loại / trạng thái</td><td></td><td>Chỉ đọc: Tuần kiểm, Đang tuần.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</body>
+</html>

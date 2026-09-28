@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <title>Hướng dẫn sử dụng — Công tác nghiệm thu</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "strict" });
+  </script>
+  <style>
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: #1a1a1a; background: #fafafa; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 24px; background: #fff; }
+    h1 { font-size: 1.35rem; } h2 { font-size: 1.15rem; }
+    table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+    th, td { border: 1px solid #d0d0d0; padding: 0.4rem 0.55rem; text-align: left; }
+    th { background: #f4f4f4; }
+    figure img { width: 393px; max-width: 100%; height: auto; border: 1px solid #ddd; }
+    figcaption { font-size: 0.85rem; color: #444; }
+    @media print { .no-print { display: none; } .has-fig { break-before: page; } figure img { max-height: 145mm; object-fit: contain; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Hướng dẫn sử dụng — Công tác nghiệm thu</h1>
+    <p class="no-print">Ảnh khung iPhone 15, 393 x 852. <a href="huong-dan-su-dung.md">Bản markdown</a>.</p>
+    <section>
+      <h2>Phạm vi</h2>
+      <p>Công tác nghiệm thu ghi nhận kết quả nghiệm thu bảo dưỡng thường xuyên. Nghiệm thu không thay tuần kiểm.</p>
+      <p>Đăng nhập: <a href="../dang-nhap/huong-dan-su-dung.md">Hướng dẫn đăng nhập</a>.</p>
+    </section>
+    <section>
+      <h2>Luồng xử lý</h2>
+      <pre class="mermaid">
+graph TD
+  A[Đăng nhập] --> B[Nghiệm thu]
+  B --> C[Tạo nghiệm thu]
+  C --> D[Lưu phiếu]
+      </pre>
+    </section>
+    <section class="has-fig" id="form-list">
+      <h2>Nghiệm thu</h2>
+      <p><strong>Mục đích:</strong> tìm và mở phiếu nghiệm thu đã lập.</p>
+      <figure>
+        <img src="captures/07-nghiem-thu.png" alt="Nghiệm thu" />
+        <figcaption>Hình 1. Nghiệm thu</figcaption>
+      </figure>
+    </section>
+    <section class="has-fig" id="form-create">
+      <h2>Tạo nghiệm thu</h2>
+      <p><strong>Mục đích:</strong> lập phiếu nghiệm thu cho một mẫu công việc trên tuyến.</p>
+      <figure>
+        <img src="captures/08-nghiem-thu-moi.png" alt="Tạo nghiệm thu" />
+        <figcaption>Hình 2. Tạo nghiệm thu</figcaption>
+      </figure>
+      <p>* = bắt buộc khi Lưu. Ô trống = không bắt buộc.</p>
+      <table>
+        <thead><tr><th>Nhãn trên màn</th><th>*</th><th>Cách điền</th></tr></thead>
+        <tbody>
+          <tr><td>Mẫu nghiệm thu</td><td>*</td><td>Chọn một mẫu công việc.</td></tr>
+          <tr><td>Tuyến</td><td>*</td><td>Chọn tuyến trong danh mục.</td></tr>
+          <tr><td>Hiện trường</td><td>*</td><td>Nhập mô tả hoặc ghim định vị.</td></tr>
+          <tr><td>Người NT</td><td>*</td><td>Chọn người nghiệm thu.</td></tr>
+          <tr><td>Thời điểm NT</td><td>*</td><td>Ngày giờ nghiệm thu.</td></tr>
+          <tr><td>Kết quả</td><td></td><td>Đạt, Không đạt hoặc Khấu trừ.</td></tr>
+          <tr><td>Hạng mục kiểm tra</td><td></td><td>Đạt, Không đạt hoặc Không áp dụng.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</body>
+</html>

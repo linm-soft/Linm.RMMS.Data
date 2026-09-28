@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hướng dẫn thao tác — Tuần đường, tuần kiểm, nghiệm thu</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: #1c1c1e; background: #f2f2f7; line-height: 1.5; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 24px 16px 48px; }
+    header.top { background: #fff; border: 1px solid #e5e5ea; border-radius: 16px; padding: 20px 22px; }
+    h1 { font-size: 1.45rem; margin: 0 0 8px; }
+    h2 { font-size: 1.2rem; margin: 28px 0 8px; }
+    h3 { font-size: 1.02rem; margin: 0 0 8px; }
+    p { margin: 0 0 10px; }
+    a { color: #086a9a; }
+    nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    nav.toc a { background: #f2f2f7; border-radius: 999px; padding: 6px 12px; text-decoration: none; font-size: 0.92rem; }
+    table { width: 100%; border-collapse: collapse; background: #fff; font-size: 0.92rem; }
+    th, td { border: 1px solid #d8d8dc; padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #f4f4f6; }
+    .step { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 18px; align-items: start; background: #fff; border: 1px solid #e5e5ea; border-radius: 16px; padding: 16px; margin: 12px 0; }
+    .step ol { margin: 8px 0 0; padding-left: 1.2rem; }
+    .step li { margin: 4px 0; }
+    figure { margin: 0; }
+    figure img { width: 100%; height: auto; border: 1px solid #e5e5ea; border-radius: 12px; display: block; }
+    figcaption { font-size: 0.82rem; color: #636366; margin-top: 6px; }
+    .tag { display: inline-block; background: #e8f4fb; color: #086a9a; border-radius: 999px; padding: 2px 8px; font-size: 0.78rem; font-weight: 600; }
+    @media (max-width: 720px) { .step { grid-template-columns: 1fr; } figure img { max-width: 320px; } }
+    @page { size: A4 portrait; margin: 14mm 14mm 16mm; }
+    @media print {
+      html, body { width: auto; background: #fff; }
+      .wrap { max-width: none; width: auto; margin: 0; padding: 0; }
+      header.top { border: 0; border-radius: 0; padding: 0 0 4mm; break-inside: avoid; }
+      nav.toc { display: none; }
+      h2 { break-after: avoid; page-break-after: avoid; }
+      h3 { break-after: avoid; }
+      p, li, td, th {
+        hyphens: none;
+        word-break: keep-all;
+        overflow-wrap: normal;
+        line-break: strict;
+      }
+      table { font-size: 10.5pt; page-break-inside: avoid; }
+      th, td { padding: 2mm 2.5mm; }
+      td:first-child, th:first-child { width: 28mm; white-space: nowrap; }
+      .step {
+        display: block;
+        grid-template-columns: none;
+        border: 0;
+        border-radius: 0;
+        padding: 0 0 6mm;
+        margin: 0 0 4mm;
+        background: transparent;
+        break-inside: auto;
+      }
+      .step > div { break-inside: avoid; }
+      figure {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        break-before: auto;
+        width: 70mm;
+        margin: 4mm 0 0;
+      }
+      figure img {
+        width: 70mm;
+        max-width: 70mm;
+        max-height: 125mm;
+        height: auto;
+        object-fit: contain;
+        object-position: top center;
+      }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <h1>Hướng dẫn thao tác trên app</h1>
+      <p>Tuần đường, tuần kiểm và công tác nghiệm thu bảo dưỡng thường xuyên. Mỗi việc dưới đây là một bước trên app, đúng thứ tự làm ngoài hiện trường.</p>
+      <p>Chưa có biểu tượng trên điện thoại: <a href="cai-dat/index.html">Hướng dẫn cài đặt iOS và Android</a>. Đăng nhập: <a href="dang-nhap/huong-dan-su-dung.md">Hướng dẫn đăng nhập</a>.</p>
+      <nav class="toc">
+        <a href="#phan-vai">Phân vai</a>
+        <a href="#tuan-duong">Tuần đường</a>
+        <a href="#tuan-kiem">Tuần kiểm</a>
+        <a href="#nghiem-thu">Nghiệm thu</a>
+      </nav>
+    </header>
+
+    <h2 id="phan-vai">Phân vai</h2>
+    <table>
+      <thead>
+        <tr><th>Việc</th><th>Ai làm</th><th>Trên app</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tuần đường</td>
+          <td>Đơn vị bảo dưỡng thường xuyên. Đi tuyến, phát hiện, xử lý ban đầu, ghi nhận trên ca.</td>
+          <td>Tab Tuần đường: mở ca, ghi điểm tuần, ghi nhận hư hỏng.</td>
+        </tr>
+        <tr>
+          <td>Tuần kiểm</td>
+          <td>Người quản lý, sử dụng đường bộ. Kiểm tra nhà thầu và việc tuần đường trên đoạn được giao.</td>
+          <td>Màn Tuần kiểm: mở đợt theo km, theo dõi đợt đang kiểm.</td>
+        </tr>
+        <tr>
+          <td>Nghiệm thu</td>
+          <td>Nghiệm thu khối lượng bảo dưỡng thường xuyên. Dùng kết quả hiện trường, không thay tuần kiểm.</td>
+          <td>Công tác nghiệm thu: tìm phiếu, tạo phiếu theo mẫu.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Tần suất tham chiếu: tuần đường trên cao tốc ít nhất một lần mỗi ngày mỗi chiều; đường cấp I đến III ít nhất một lần mỗi ngày. Tuần kiểm ít nhất một lần mỗi tuần trên tuyến được giao, tăng khi có hư hỏng, sạt, ngập hoặc cầu yếu.</p>
+
+    <h2 id="tuan-duong">1. Tuần đường</h2>
+
+    <article class="step">
+      <div>
+        <span class="tag">Bước 1</span>
+        <h3>Vào ca tuần đường</h3>
+        <ol>
+          <li>Mở app, vào tab <strong>Tuần đường</strong>.</li>
+          <li>Nếu có ca đang chạy, xem tuyến, mã ca, người tuần, điểm tuần và độ phủ.</li>
+          <li>Nhấn <strong>Ghi điểm tuần</strong> khi tới điểm trên tuyến. Nhấn <strong>Ghim vị trí hiện tại</strong> để lấy định vị.</li>
+          <li>Nhấn <strong>Tiếp tục bản đồ</strong> để xem hành trình.</li>
+          <li>Trong <strong>Hôm nay</strong>, kích dòng ca để xem chi tiết. <strong>Đang tuần</strong> là ca còn mở. <strong>Xong</strong> là ca đã kết thúc.</li>
+          <li>Khi xong việc trên tuyến, mở chi tiết ca và nhấn <strong>Kết thúc ca</strong>.</li>
+        </ol>
+      </div>
+      <figure>
+        <img src="tuan-duong/captures/02-tuan-duong.png" alt="Màn Tuần đường" />
+        <figcaption>Hình 1. Tuần đường, ca đang chạy.</figcaption>
+      </figure>
+    </article>
+
+    <article class="step">
+      <div>
+        <span class="tag">Bước 2</span>
+        <h3>Mở ca mới</h3>
+        <p>Nút <strong>Mở ca</strong> hiện khi chưa có ca đang tuần. Mỗi người, mỗi tuyến chỉ một ca đang mở.</p>
+        <ol>
+          <li>Nhấn <strong>Mở ca</strong>.</li>
+          <li>Chọn <strong>Tuyến</strong>. Gõ để tìm trong danh mục.</li>
+          <li>Chọn <strong>Chiều</strong>: Chiều đi, Chiều về hoặc Hai chiều.</li>
+          <li>Chọn <strong>Người</strong> tuần.</li>
+          <li>Kiểm tra <strong>Ngày</strong>. Mặc định là hôm nay.</li>
+          <li><strong>Loại / trạng thái</strong> cố định: Tuần đường, Đang tuần.</li>
+          <li>Nhấn <strong>Mở ca</strong> để bắt đầu. Nhấn <strong>Hủy</strong> nếu chưa lập ca.</li>
+        </ol>
+        <p>Thiếu tuyến hoặc người thì ca không mở. Nếu đã có ca cùng người và cùng tuyến, app chuyển tới ca đó.</p>
+      </div>
+      <figure>
+        <img src="tuan-duong/captures/03-tuan-duong-mo-ca.png" alt="Màn Mở ca" />
+        <figcaption>Hình 2. Mở ca tuần đường.</figcaption>
+      </figure>
+    </article>
+
+    <article class="step">
+      <div>
+        <span class="tag">Bước 3</span>
+        <h3>Ghi việc phát hiện và xem lịch sử</h3>
+        <ol>
+          <li>Trên màn Tuần đường, mục <strong>Thao tác nhanh</strong>, nhấn <strong>Ghi nhận hư hỏng</strong> khi thấy hư, mất hoặc hỏng trên tuyến.</li>
+          <li>Nhấn <strong>Thu thập bằng camera</strong> khi cần nhận diện theo tọa độ.</li>
+          <li>Nhấn <strong>Lịch sử phiên</strong> để tra cứu ca đã ghi. Dùng <strong>Lọc</strong> khi danh sách dài.</li>
+          <li>Kích một dòng để mở chi tiết. Ca tuần kiểm đã hoàn thành cũng nằm trong lịch sử này.</li>
+        </ol>
+      </div>
+      <figure>
+        <img src="tuan-duong/captures/04-tuan-duong-lich-su.png" alt="Lịch sử ca" />
+        <figcaption>Hình 3. Lịch sử ca.</figcaption>
+      </figure>
+    </article>
+
+    <h2 id="tuan-kiem">2. Tuần kiểm</h2>
+
+    <article class="step">
+      <div>
+        <span class="tag">Bước 1</span>
+        <h3>Xem đợt đang kiểm</h3>
+        <ol>
+          <li>Vào màn <strong>Tuần kiểm</strong>.</li>
+          <li>Khối <strong>Đợt đang kiểm</strong> chỉ hiện đợt còn mở. Chưa có đợt thì màn ghi <strong>Chưa có đợt</strong>.</li>
+          <li>Nhấn <strong>Kế hoạch tần suất</strong> khi cần đối chiếu kế hoạch kiểm tra.</li>
+        </ol>
+      </div>
+      <figure>
+        <img src="tuan-kiem/captures/05-tuan-kiem.png" alt="Màn Tuần kiểm" />
+        <figcaption>Hình 4. Tuần kiểm, chưa có đợt đang mở.</figcaption>
+      </figure>
+    </article>
+
+    <article class="step">
+      <div>
+        <span class="tag">Bước 2</span>
+        <h3>Mở đợt kiểm tra</h3>
+        <p>Một đợt gắn với một tuyến và một đoạn km. Định kỳ là đợt theo kế hoạch. Đột xuất là đợt khi có việc phát sinh.</p>
+        <ol>
+          <li>Nhấn <strong>Mở đợt</strong>.</li>
+          <li>Chọn <strong>Tuyến</strong>.</li>
+          <li>Nhập <strong>Từ km</strong> và <strong>Đến km</strong> của đoạn kiểm.</li>
+          <li>Chọn <strong>Hình thức</strong>: Định kỳ hoặc Đột xuất. Đột xuất thì điền <strong>Lý do đột xuất</strong>.</li>
+          <li>Chọn <strong>Người</strong> kiểm và kiểm tra <strong>Ngày</strong>.</li>
+          <li><strong>Loại / trạng thái</strong> cố định: Tuần kiểm, Đang tuần.</li>
+          <li>Nhấn <strong>Mở đợt</strong>. Nhấn <strong>Hủy</strong> nếu chưa lập.</li>
+        </ol>
+        <p>Thiếu tuyến, thiếu người, hoặc đột xuất mà không có lý do thì đợt không mở. Đã có đợt cùng người và cùng tuyến thì app giữ đợt đó.</p>
+      </div>
+      <figure>
+        <img src="tuan-kiem/captures/06-tuan-kiem-mo-dot.png" alt="Màn Mở đợt" />
+        <figcaption>Hình 5. Mở đợt tuần kiểm.</figcaption>
+      </figure>
+    </article>
+
+    <h2 id="nghiem-thu">3. Công tác nghiệm thu</h2>
+
+    <article class="step">
+      <div>
+        <span class="tag">Bước 1</span>
+        <h3>Tìm phiếu</h3>
+        <ol>
+          <li>Từ trang chủ hoặc từ <strong>Thao tác nhanh</strong> trên màn Tuần đường, chọn <strong>Công tác nghiệm thu</strong>.</li>
+          <li>Gõ mã, tuyến hoặc hiện trường vào <strong>Tìm kiếm</strong>, rồi nhấn <strong>Tìm kiếm</strong>.</li>
+          <li>Kích một phiếu để xem. Dòng phiếu có mã, trạng thái, mẫu và tuyến.</li>
+        </ol>
+      </div>
+      <figure>
+        <img src="nghiem-thu/captures/07-nghiem-thu.png" alt="Danh sách nghiệm thu" />
+        <figcaption>Hình 6. Danh sách nghiệm thu.</figcaption>
+      </figure>
+    </article>
+
+    <article class="step">
+      <div>
+        <span class="tag">Bước 2</span>
+        <h3>Lập phiếu nghiệm thu</h3>
+        <ol>
+          <li>Nhấn <strong>+</strong> hoặc <strong>Tạo nghiệm thu</strong>.</li>
+          <li>Chọn <strong>Mẫu nghiệm thu</strong>: cắt cỏ, vá ổ gà, nạo vét, sơn báo hiệu, khơi thông, sửa lề, hót sụt, bảo dưỡng báo hiệu, hạng mục khác hoặc bảo dưỡng thiết bị.</li>
+          <li>Chọn <strong>Tuyến</strong>, <strong>Người NT</strong> và <strong>Thời điểm NT</strong>.</li>
+          <li>Nhập <strong>Hiện trường</strong>, hoặc nhấn <strong>Ghim vị trí hiện tại</strong>.</li>
+          <li>Điền km, khu vực và ghi chú nếu có.</li>
+          <li>Với từng dòng <strong>Hạng mục kiểm tra</strong>, chọn <strong>Đạt</strong>, <strong>Không đạt</strong> hoặc <strong>Không áp dụng</strong>.</li>
+          <li>Chọn <strong>Kết quả</strong> của phiếu: Đạt, Không đạt hoặc Khấu trừ.</li>
+          <li>Nhấn <strong>Lưu</strong> để ghi phiếu. <strong>Lưu nháp</strong> để giữ bản chưa xong. <strong>Huỷ</strong> để thoát, không ghi.</li>
+          <li>Cần ảnh thì nhấn <strong>Chụp</strong> ở mục Ảnh hiện trường.</li>
+        </ol>
+      </div>
+      <figure>
+        <img src="nghiem-thu/captures/08-nghiem-thu-moi.png" alt="Tạo nghiệm thu" />
+        <figcaption>Hình 7. Tạo phiếu nghiệm thu.</figcaption>
+      </figure>
+    </article>
+  </div>
+</body>
+</html>
