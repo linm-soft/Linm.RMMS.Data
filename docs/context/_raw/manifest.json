@@ -2,9 +2,9 @@
   "schema": "docs-scan-cache-v1",
   "docsRoot": "D:\\AI-QLBD\\Linm.RMMS.Data\\docs",
   "createdAt": "2026-08-01T09:05:15.384Z",
-  "updatedAt": "2026-08-02T11:30:29.998Z",
-  "lastConsumeAt": null,
-  "lastConsumeSkill": null,
+  "updatedAt": "2026-10-04T22:44:15.029Z",
+  "lastConsumeAt": "2026-10-04T22:44:15.029Z",
+  "lastConsumeSkill": "docs-scan-cache",
   "files": {
     "context/01-PLATFORM-OVERVIEW.md": {
       "sha256": "147bf65cb07ca1fe0f71aa5c74494c716ff9a763501aacb2510e9f35cff2d5e2",
@@ -536,6 +536,16 @@
       "scannedAt": "2026-08-02T11:09:50.953Z",
       "rawPath": "context/_raw/files/context__features__csdl-so-sach.md.v1.20260802T110950Z.txt",
       "status": "active"
+    },
+    "tinh-nang/tuan-duong-tuan-kiem/Bao_cao_chuc_nang_nhiem_vu_cong_tac_tuan_kiem.docx": {
+      "sha256": "8947d181fb3b728a2edef66b7298241e2fd64fb12e383b5511c428502888b6de",
+      "mtimeMs": 1790310647680,
+      "size": 41710,
+      "version": 1,
+      "scannedAt": "2026-10-04T22:44:15.029Z",
+      "rawPath": "context/_raw/files/tinh-nang__tuan-duong-tuan-kiem__Bao_cao_chuc_nang_nhiem_vu_cong_tac_tuan_kiem.docx.v1.20261004T224415Z.txt",
+      "status": "active",
+      "hashMode": "sha256"
     }
   }
 }

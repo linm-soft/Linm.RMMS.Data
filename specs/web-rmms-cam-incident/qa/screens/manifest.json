@@ -1,0 +1,129 @@
+{
+  "url": "http://localhost:9301/van-de",
+  "aliasUrl": "http://localhost:9301/web-rmms-cam-incident",
+  "method": "_capture_cam_incident.mjs",
+  "capturedAt": "2026-09-30T19:04:54.197Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/van-de",
+      "sha": "4dcf3eb37473"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/van-de/moi",
+      "sha": "459c94c56d68"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/m/van-de/af7becda-1c87-456f-9e7e-15789b2517d3",
+      "sha": "3dc16575c351"
+    }
+  ],
+  "dumps": [
+    {
+      "id": "S0",
+      "dump": {
+        "feature": "web-rmms-incident",
+        "zones": [
+          "UA-00",
+          "INC-L",
+          "roleGateBanner",
+          "CH-04",
+          "DES-MOB-TABBAR"
+        ],
+        "fields": [
+          "segment",
+          "roleCaps",
+          "search",
+          "filters",
+          "filter.status",
+          "filter.severity",
+          "list.card",
+          "card.title",
+          "card.type",
+          "card.code",
+          "card.route",
+          "card.requestedAt",
+          "card.hasGps",
+          "card.status",
+          "entry.chatIcon",
+          "entry.detailIcon",
+          "entry.mapIcon",
+          "card.person"
+        ],
+        "testids": [
+          "roleGateBanner"
+        ],
+        "hasFab": false,
+        "hasAssign": false,
+        "hasClose": false,
+        "text": "Quản lý vấn đề Danh sách Bản đồ sự cố Chế độ xem — chỉ tuần đường được ghi sự cố / chụp ảnh / đóng. Tất cả TT Mới Cao Trung bình Mặt đường · Hư — · VD-20260930-0002 — 01/10/2026 01:06 Có định vị Chưa có ảnh Trạng thái: Đợi phân công giám sát Mặt đường · Hư — · VD-20260930-0001 QL.48E 30/09/2026 14:21 Có định vị +1 Trạng thái: Đợi phân công giám sát Mặt đường · Hư o-ga · VD-20260929-0008 — 29/09/2026 23:24 Có định vị +2 Trạng thái: Đã đóng Mặt đường · Hư — · VD-20260929-0007 — 29/09/2026 14:16 Có định vị Trạng thái: Đợi phân công giám sát Mặt đường · Hỏng — · VD-20260929-0006 — 29/09/2026 10:56 Có định vị Trạng thái: Đợi phân công giám sát Mặt đường · Hư o-ga · VD-20260929-0005 — 29/09/2026 10:55 Có định vị Trạng thái: Đợi phân công giám sát Biển báo · Mất bien-bao · VD-20260929-0004 — 29/09/2026 10:54 Có định vị +1 Trạng thái: Đợi phân công giám sát Biển báo · Mất — · VD-20260929-0003 — 29/09/2026 10:50 Có định vị Trạng thái: Đợi phân công giám sát Cọc tiêu / cọc H · Hư — · VD-20260929-0002 — 29/09/2026 10:49 Có định vị Chưa có ảnh Trạng thái: Đợi phân công giám sát Mặt đường · Hư o-ga · VD-20260929-0001 — 29/09/2026 09:45 Có định vị Trạng thái: Đợi phân công giám sát Hầm · Hư — · ",
+        "href": "http://localhost:9301/van-de"
+      }
+    },
+    {
+      "id": "S1",
+      "dump": {
+        "feature": "web-rmms-incident",
+        "zones": [
+          "UA-00",
+          "INC-L",
+          "INC-N",
+          "roleGateBanner"
+        ],
+        "fields": [
+          "roleCaps"
+        ],
+        "testids": [
+          "roleGateBanner"
+        ],
+        "hasFab": false,
+        "hasAssign": false,
+        "hasClose": false,
+        "text": "Ghi sự cố Không có quyền ghi sự cố. Chỉ tuần đường được tạo. Về danh sách",
+        "href": "http://localhost:9301/van-de/moi"
+      }
+    },
+    {
+      "id": "QA-20",
+      "dump": {
+        "feature": "web-rmms-incident",
+        "zones": [
+          "UA-00",
+          "INC-L",
+          "INC-D",
+          "roleGateBanner",
+          "CH-04",
+          "DES-MOB-TABBAR"
+        ],
+        "fields": [
+          "roleCaps",
+          "detail.code",
+          "detail.status",
+          "detail.gps",
+          "detail.photos",
+          "entry.chatIcon",
+          "peer.estimate"
+        ],
+        "testids": [
+          "roleGateBanner",
+          "inc-photos"
+        ],
+        "hasFab": false,
+        "hasAssign": false,
+        "hasClose": false,
+        "text": "Chi tiết sự cố Chế độ xem — chỉ tuần đường được ghi sự cố / chụp ảnh / đóng. VD-20260930-0002 Đợi phân công giám sát Loại Mặt đường · Hư Tuyến -- Km -- Mức Trung bình Định vị Có định vị [18.992032, 105.572366] Người báo — Thời gian 01/10/2026 01:06 Ảnh Chưa có ảnh Thao tác Trao đổi Ước lượng Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/van-de/af7becda-1c87-456f-9e7e-15789b2517d3"
+      }
+    }
+  ],
+  "dup": null,
+  "ok": true
+}

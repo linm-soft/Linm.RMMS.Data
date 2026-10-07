@@ -62,6 +62,58 @@
 - **Cấm** pin / cache khớp phiên tuần đường — sự cố không có `photoPins`
 - DTO không đổi · `MediaIds` đã có trên GET list và GET `{id}`
 
+## Notes — spinner bản đồ sự cố (2026-10-05)
+
+- Tab Bản đồ sự cố: `overlayLoading` trong lúc `GET` GeoJSON `incidents` · sheet hiện spinner (`sheet.loading`)
+- `sheet.emptyList` và hint lớp trống chỉ sau khi request xong · request cũ không ghi đè request mới
+- Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`
+
+## Notes — nhân viên theo tài khoản (2026-10-06)
+
+- Ô Nhân viên trên form tạo: readonly, giá trị `caller` của `GET patrol/actors` (mã + họ tên). Không mở danh sách.
+- `rmms_users.HideFromSearch`: search (`GET integration/users`, `GET patrol/actors` items) bỏ dòng đã đánh dấu. `GET {id}` và `GET integration/users/me` vẫn trả hồ sơ. `caller` vẫn là tài khoản đang đăng nhập.
+- Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile` · `dotnet build` API.
+
+## Notes — tên tuyến + field có cấu trúc (2026-10-06)
+
+- Chỗ hiện tuyến dùng tên danh mục (`Đường Hồ Chí Minh (Phú Thọ)`), không hiện mã `QL.HOCHIMINH-PHUTHO`. Mã giữ ở `RouteCode`.
+- Loại lưu cột `Kind`. Hạng mục ở `rmms_incident_checks`. Pin ảnh ở `rmms_incident_pins`. Mô tả chỉ còn ghi chú. Lý trình giữ `KmStart` / `KmEnd` dạng `numeric(12,3)` (100.250 = Km 100 + 250m). Chữ lý trình cũ được đổi sang số khi chạy migration.
+- `Seed_IncidentRawSplit` tách mọi dòng checklist và `@@pins` đang nằm trong `Description` sang bảng con, rồi ghi lại mô tả chỉ còn ghi chú.
+- Verify: `yarn typecheck` · `dotnet build` API · migration `Schema_IncidentStructured`.
+
+## Notes — nhận diện + bộ lọc list/bản đồ (2026-10-06)
+
+- Banner «Nhận diện sự cố» mở `/van-de/moi`, cùng đích với nút +.
+- Bộ lọc sheet: tuyến, loại (Hư/Hỏng gộp Damage + Broken, và Mất), trạng thái, từ ngày–đến ngày (ngày ICT trên `RequestedAt`, để trống = không giới hạn). Session `rmms.incident.listFilter`. Mặc định tất cả. Áp dụng gửi `routeName`, `incidentType`, `status`, `fromDate`, `toDate` cho list và GeoJSON `incidents` (kèm severity của chip). Không lọc trên client.
+- Tuyến khớp mã hoặc tên catalog. Loại khớp `IncidentType` hoặc tiêu đề chứa nhãn loại.
+
+## Notes — mã kèm mô tả (2026-10-06)
+
+- Thẻ danh sách: sau mã sự cố hiện ghi chú người dùng. Checklist và `@@pins` không hiện trên dòng mã.
+- Tạo sự cố: ô mô tả bắt buộc, nhãn có dấu *. API từ chối khi description không còn dòng ghi chú sau khi bỏ checklist và pin.
+- Form tạo không còn nút «Lưu nháp mất sóng». Khi `navigator` báo offline và đang ở form, bản ghi được đưa vào hàng đợi offline (một lần cho mỗi lần mất sóng, cập nhật nếu vẫn offline). Tạo thành công thì xóa mục vừa xếp hàng.
+
+## Notes — tab active + người phát hiện (2026-10-06)
+
+- Segment Danh sách / Bản đồ sự cố: class active thắng `.seg > button` — chữ và gạch chân primary.
+- Thẻ list, chi tiết, sheet bản đồ: **Người phát hiện sự cố** (`reporterName`) và **Số điện thoại** (`reporterPhone`) · icon phone mở `tel:` để gọi xác nhận.
+- GET `incidents/{id}` hiện không có `reporterName` / `phone`. Tên trên payload là `assigneeName`. Phone là `rmms_users.Phone`, trả về `reporterPhone` khi khớp `userId` hoặc `employeeCode` / `assigneeCode`. UI tên: `reporterName` hoặc `assigneeName`.
+- Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile` · `dotnet build` API.
+
+## Notes — chi tiết lý trình (2026-10-07)
+
+- Chi tiết bind `chainageSpanText(kmStart, kmEnd)` rồi `chainageKmOnly`, cùng list. Số `numeric(12,3)` không bị `isChainage` loại thành `—`.
+- Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
+
+## Notes — lọc mặc định hôm nay (2026-10-07)
+
+- List và bản đồ: `from`/`to` mặc định là ngày ICT (`ictDayKey`). Session thiếu ngày thì điền hôm nay. Nút Hôm nay ghi cả hai ngày rồi gửi `fromDate`/`toDate`. Tuyến, loại, trạng thái trong sheet giữ nguyên.
+- Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
+
+## Notes — vị trí 2 dòng + icon ngày (2026-10-06)
+
+- Thẻ list: dòng 1 tên tuyến (`routeName`), dòng 2 lý trình Km (bỏ lặp tên tuyến). Icon lịch cạnh `requestedAt`.
+
 ## Debt / note
 
 - GAP-PGC-BE-01 Lat MIG deferred · HasGps only

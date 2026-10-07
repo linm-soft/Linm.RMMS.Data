@@ -8,5 +8,7 @@
 | liveRoute | `/gis/tuan-duong` |
 | packKind | `map` |
 | design_confirm | `approve` (autoApprove ON) |
+| taskId | `task_7fb86e87` |
+| Delta | REAL/SCOPE/LAYER/FIT/PIN-02/KMPOST/BASE/CHAIN/KM-EMPTY · keep PHOTO |
 
-Zones: NAV-GIS · TAB-* · LIST-PERSON · MAP-HOST · MAP-BAR · MAP-POPUP-INSPECT · GALLERY-PATROL.
+Zones: NAV-GIS · FILTER-BAR · TAB-* · LIST-PERSON · MAP-HOST · LAYER-ASSIGNED · LAYER-KMPOST · MAP-BAR · MAP-POPUP-INSPECT · GALLERY-PATROL.

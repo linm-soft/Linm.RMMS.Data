@@ -180,3 +180,5 @@ RO: không input · không GPS · không Leave dirty
 | SA | Schema frequency · roadClass · DOMAIN slug E · count source · **cấm** ERP.* |
 | TL/Dev | Wire `Linm.Web.RMMS.Mobile` · empty until API · `useFormOptions` · no fake counts |
 | QA | empty 404 · filled cards · AC-LIST-01..08 · no GPS · no desktop |
+
+Tuần đường chỉ thấy tuyến trong phân đoạn của mình. List bind `items` từ API.

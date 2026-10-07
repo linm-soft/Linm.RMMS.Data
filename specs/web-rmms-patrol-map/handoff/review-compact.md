@@ -2,55 +2,47 @@
 
 schemaVersion: 1
 feature: web-rmms-patrol-map
-packKind: list
+packKind: map
 role: review
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T04:00:00.000Z
-taskId: task_2a03f319
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
-review_confirm: approve
+writtenAt: 2026-09-30T15:20:00.000Z
+contentHash: sha256:52bd4a74401781b03b20ace930fd7d47d9e5ca2c5714b39fc6927f0d4fd6bcaf
+taskId: task_94dfd264
 autoApprove: ON
-changeScope: new_page
+changeScope: edit_page
+review_confirm: approve
 
 ## Decisions
-- Verdict: **PASS** · QUERY/SEC/UI-FN/BE-FN all PASS · Must/P0=0 · no fix_gaps
-- formPattern: Mobile Map / full · phone ≤430 · Android 1-1 · N/A ERP Modal · no POST check-in/tracks P1
-- mfe: Linm.Web.RMMS.Mobile · mfeStdRoute=/web-rmms-patrol-map · mfeStdUrl http://localhost:9301/web-rmms-patrol-map
-- be: Mobile.Bff Live GET patrol/sessions + gis/tiles · cấm ERP.* · T-BE N/A · no invent PatrolMapController
-- Overlay P1: empty tracks · no next-pin · next-card Route text · legend isolate only
-- GPS: geolocation me-dot · deny hide · cấm fake · check-in toast only
-- QA prior: PASS · DOM Aligned · Live Route QL.1-LANGSON · S0/S1/QA-20
-- hash: unchanged · skip rescan
-- Soft carry: GAP-QA-E2E-STOCK-PORT · P2 tracks/check-in POST peer OUT
-- next: none · roleOnly stop · pipeline review **done** · **cấm** phase=done product flag misuse
+- changeScope: edit_page · keep PM-00…08 · delta PM-09/10 chainage + sheet reviewed
+- formPattern: Mobile Map / full ≤430 · peer sheet CheckInSheet · LeaveConfirmModal · DES-GRID N/A
+- hash gate: RUN (52bd4a74 ≠ baseline 6f74282b) · map R1–R11 PASS · Kind B list gates N/A
+- QUERY/SEC/UI-FN/BE-FN: PASS · Must/P0=0 · review_confirm=approve · **không** fix_gaps
+- mfeStdUrl live: http://localhost:9301/m/ban-do-tuan · **cấm** ERP.* · **cấm** Map.Api · **cấm** PatrolMapController
+- prior QA PASS · Dev build PASS · autoApprove ON · pipeline complete · roleOnly stop
+- **cấm** e2e / start:std / implement ở Review
 
 ## Inventory (slim)
-| id | controlHint | notes |
-|----|-------------|-------|
-| navBack+title | Button/Text | PM-01 |
-| trailingCheckin | Button toast | PM-08 · no POST |
-| mapHost | Map | PM-02 · gis/tiles |
-| basemap×2+locate | Chip/Button | PM-03 |
-| legend×4 | Chip isolate | PM-04 |
-| nextCard | Card RO Route | PM-05 · GET sessions |
-| gpsMe+popup | Marker/Popup | PM-06/07 |
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| findings | QUERY/SEC/UI/BE | — | all PASS · Must 0 |
+| map+chainage | ghim/sheet | Map/Form | PM-09/10 |
+| soft | debt | — | e2e DUP · mig deploy · bake tighten |
 
-## Screens / zones
-- PM-00 · PM-01 · PM-02 · PM-03 · PM-04 · PM-05 · PM-06 · PM-07 · PM-08
-- mfeStdUrl= http://localhost:9301/web-rmms-patrol-map
+## Screens / zones (ids only)
+- PM-00…PM-10 · QA screens S0/S1/QA-20
+- peerStdUrl= http://localhost:9301/m/ban-do-tuan
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/ui/prototype/index.html
-- DES-GRID: N/A phone Map
 
-## API / tasks
-- FormMode↔API: GET patrol/sessions · GET gis/tiles · nav/toast writes only
-- T-01…T-05 done · T-BE N/A · T-QA PASS · Review PASS
-- Gates: QUERY/SEC/UI-FN/BE-FN = PASS
+## API / tasks (ids only)
+- findings counts: Must=0 · soft=5 · gates 4/4 PASS
+- review_confirm: approve
+- T-* cite Dev/QA done · no fix_gaps
 
 ## UNCLEAR
-- none
+- (none)
 
-## Full paths
+## Full paths (Read only if needed)
 - findings: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/review/findings.md
+- qa compact: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/handoff/qa-compact.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/STATUS.md
-- prior: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/handoff/qa-compact.md

@@ -6,41 +6,46 @@ packKind: map
 role: dev
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-12T06:25:00.000Z
-taskId: task_a6435708
-contentHash: sha256:e1d043dbf402977a2d0e888df1d32d0e542b2792b22076e2dc5fc482e8a7c287
+writtenAt: 2026-09-30T15:40:00.000Z
+taskId: task_3b6b95df
+contentHash: sha256:ca2b1f0e2bf0bd97e92b99936fde30e4e92f1db00023191cf55297415b8d8247
 changeScope: edit_page
 formPattern: Full page + MapPopup Modal
 formType: map
+autoApprove: ON
 
 ## Decisions
 - changeScope: edit_page
 - mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Gis · `/gis/tuan-duong`
 - be: D:/AI-QLBD/Linm.RMMS.WebService · Patrol · migration=none
-- GALLERY-PATROL: FileService resign · PhotoLocalIds=guid · popup+Chi tiết
+- Delta PASS: REAL/SCOPE/LAYER/FIT/PIN-02/KMPOST/BASE/CHAIN/KM-EMPTY · keep PHOTO
 - build: MFE yarn build PASS · BE Api PASS
 - open questions: none
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| list.personName | Họ tên | Text | API-01 |
-| list.status | Trạng thái | Badge | API-01 |
-| detail.history | Lịch sử | Timeline | → gallery |
+| filter.* | VP/Tuyến | Select | FILTER-BAR |
+| list.personName | Họ tên | Text | FIT fitBounds |
+| list.employeeCode | Mã NV | Text | |
+| list.kmFromTo | Km đoạn | Text | empty-ok |
+| map.assignedSeg | Nét giao | MapPolyline | LAYER-ASSIGNED |
+| map.kmPost | KM_POST | MapLayer | clamp |
 | map.track | Nét tuần | MapPolyline | OSRM |
-| map.pin | Pin | MapPin | onSelect inspect |
+| map.pin | Pin | MapPin | xanh/đỏ |
+| inspect.* | PIN-02 | Text | HARD 6dp |
 | inspect.photoIds | Ảnh | ImageGallery | resign |
 
 ## Screens / zones (ids only)
 - SCR-MAP / SCR-INSPECT / SCR-DETAIL
-- NAV-GIS · TAB-* · LIST-PERSON · MAP-HOST · MAP-BAR · MAP-POPUP-INSPECT · GALLERY-PATROL
+- NAV-GIS · FILTER-BAR · TAB-* · LIST-PERSON · MAP-HOST · LAYER-ASSIGNED · LAYER-KMPOST · MAP-BAR · MAP-POPUP-INSPECT · GALLERY-PATROL
 - mfeStdUrl=`http://localhost:9301/gis-patrol-map` · live=`/gis/tuan-duong`
 - reviewUrl=`file:///D:/AI-QLBD/Linm.RMMS.Data/specs/gis-patrol-map/ui/prototype/gis-patrol-map-prototype.html`
 
 ## API / tasks (ids only)
-- FormMode↔API: View→sessions · check-ins · files/{id}/object · no PATCH P1
+- FormMode↔API: View→sessions(scoped+AssignedSegments) · check-ins(+chainage) · gis/chainage cite · files resign · no PATCH P1
 - T-*: T-BE-GIS-01 · T-PERM-01 · T-UI-MAP-01 · T-UI-MAP-FORM-01 · T-UI-UX-01 · T-UI-RESP-01 PASS
-- debt: FileService seed blobs may 404 · RequirePermission stub Auth
+- debt: bake miss → empty assigned · RequirePermission stub Auth · FileService 404 seed
 
 ## UNCLEAR
 - none
@@ -54,9 +59,9 @@ formType: map
 ## Handoff next
 | Role | Do |
 |------|----|
-| QA | T-QA-MAP-01 · e2e queued · live mfeStdUrl · gallery resign |
+| QA | T-QA-MAP-01 · e2e queued · live mfeStdUrl · REAL…KM-EMPTY · PHOTO · OMS |
 
 ## Cấm
 - ERP.* · e2e/start:std ở Dev · invent FilesController · start role khác
 
-<!-- compact schemaVersion=1 role=dev feature=gis-patrol-map taskId=task_a6435708 -->
+<!-- compact schemaVersion=1 role=dev feature=gis-patrol-map taskId=task_3b6b95df -->

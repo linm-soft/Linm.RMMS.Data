@@ -1,0 +1,125 @@
+{
+  "url": "http://localhost:9301/m/phat-hien",
+  "aliasUrl": "http://localhost:9301/web-rmms-cam-finding",
+  "method": "_capture_cam_finding.mjs",
+  "capturedAt": "2026-10-01T00:53:06.068Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/m/phat-hien/9354c721-71da-479d-b513-8d0da1440009",
+      "sha": "6a0e45749156"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/m/phat-hien/9354c721-71da-479d-b513-8d0da1440009/moi",
+      "sha": "84f84ecf6708"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/m/phat-hien/9354c721-71da-479d-b513-8d0da1440009/moi",
+      "sha": "be49bc8afe18"
+    }
+  ],
+  "dumps": [
+    {
+      "id": "S0",
+      "dump": {
+        "feature": "web-rmms-cam-finding",
+        "des": [
+          "FIND-L",
+          "roleGate"
+        ],
+        "fields": [
+          "roleCaps",
+          "shell.tab.home",
+          "shell.tab.field",
+          "shell.tab.incident",
+          "shell.tab.work",
+          "shell.tab.me"
+        ],
+        "testids": [
+          "roleGateBanner"
+        ],
+        "hasFab": false,
+        "hasAssign": false,
+        "hasSla": false,
+        "hasDue": false,
+        "text": "Danh mục phiếu Chế độ xem — chỉ tuần kiểm được lập phiếu và kiểm tra lại. TD-20261001-001 · QL.1 Trạng thái Tất cả Phát hiện Đã giao Chờ kiểm tra Xong Tuyến Chưa có phiếu Chưa có phiếu trên đợt này. Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/phat-hien/9354c721-71da-479d-b513-8d0da1440009",
+        "path": "/m/phat-hien/9354c721-71da-479d-b513-8d0da1440009"
+      }
+    },
+    {
+      "id": "S1",
+      "dump": {
+        "feature": "web-rmms-cam-finding",
+        "des": [
+          "FIND-F",
+          "roleGate"
+        ],
+        "fields": [
+          "roleCaps",
+          "kmFrom",
+          "kmTo",
+          "hangMuc",
+          "description",
+          "dueAt",
+          "gps",
+          "mediaIds",
+          "captureFacts"
+        ],
+        "testids": [
+          "roleGateBanner"
+        ],
+        "hasFab": false,
+        "hasAssign": false,
+        "hasSla": false,
+        "hasDue": true,
+        "text": "Lập phiếu Chế độ xem — chỉ tuần kiểm được lập phiếu và kiểm tra lại. Nguồn Tuần kiểm Tuần đường Phản ánh Camera giám sát Khác Loại phiếu Hư hỏng Xuống cấp Mất an toàn Vi phạm Thi công Ngập lụt Khác Km từ * Km đến * Vị trí Trái Phải Giữa Hai bên Khác Hạng mục Nền đường Mặt đường Cầu Cống Hầm Thoát nước ATGT Hộ lan Biển báo Dải phân cách Thiết bị Thi công Mô tả * Phạm vi BDTX Vượt BDTX Hạn * Gợi ý TT41 theo hạng mục — có thể sửa trước khi lưu. Định vị * [21.028500, 105.854200] Ghim vị trí hiện tại Ảnh hiện trường Định vị người chụp -- Vị trí vật thể Chưa ghim vật thể trên ảnh Tuyến -- RMMS.vn Chưa có ảnh --",
+        "href": "http://localhost:9301/m/phat-hien/9354c721-71da-479d-b513-8d0da1440009/moi",
+        "path": "/m/phat-hien/9354c721-71da-479d-b513-8d0da1440009/moi"
+      }
+    },
+    {
+      "id": "QA-20",
+      "dump": {
+        "feature": "web-rmms-cam-finding",
+        "des": [
+          "FIND-F",
+          "roleGate"
+        ],
+        "fields": [
+          "roleCaps",
+          "journalLineId",
+          "kmFrom",
+          "kmTo",
+          "hangMuc",
+          "description",
+          "dueAt",
+          "gps",
+          "mediaIds",
+          "captureFacts"
+        ],
+        "testids": [
+          "roleGateBanner"
+        ],
+        "hasFab": false,
+        "hasAssign": false,
+        "hasSla": false,
+        "hasDue": true,
+        "text": "Lập phiếu Chế độ xem — chỉ tuần kiểm được lập phiếu và kiểm tra lại. Nguồn Tuần kiểm Tuần đường Phản ánh Camera giám sát Khác Journal line Id * Loại phiếu Hư hỏng Xuống cấp Mất an toàn Vi phạm Thi công Ngập lụt Khác Km từ * Km đến * Vị trí Trái Phải Giữa Hai bên Khác Hạng mục Nền đường Mặt đường Cầu Cống Hầm Thoát nước ATGT Hộ lan Biển báo Dải phân cách Thiết bị Thi công Mô tả * Phạm vi BDTX Vượt BDTX Hạn * Gợi ý TT41 theo hạng mục — có thể sửa trước khi lưu. Định vị * [21.028500, 105.854200] Ghim vị trí hiện tại Ảnh hiện trường Định vị người chụp -- Vị trí vật thể Chưa ghim vật thể trên ảnh Tuyến -- RMMS.vn Chưa có ảnh --",
+        "href": "http://localhost:9301/m/phat-hien/9354c721-71da-479d-b513-8d0da1440009/moi",
+        "path": "/m/phat-hien/9354c721-71da-479d-b513-8d0da1440009/moi"
+      }
+    }
+  ],
+  "dup": null,
+  "ok": true,
+  "stockE2eNote": "yarn e2e-qa stock: S0 GAP-QA-E2E-BLANK-01 · custom bootstrap mo-dot + product /m/phat-hien"
+}

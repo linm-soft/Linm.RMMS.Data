@@ -119,6 +119,7 @@ Không `/wf-anim` trên pack. Toast fade ~2.4s · modal backdrop fade · sheet s
 | AC-OFF-01 | offline ghim + queue | toast queue · sync sibling / offline pack |
 | AC-PERSIST-01 | handoff real · POST sibling | pin **không** auto-POST |
 | AC-SIB-01 | không form check-in | sheet payload only |
+| GAP-WEB-PIN-KM-01 | Sheet ghim web không hiện cột km | 5 cột gần nhất · haversine tới lat/lng cột như `/gis/kh-td-tk` · kèm mã tuyến · đổi tuyến thì tải lại cột của tuyến đó · trang chụp ảnh: Ghim vị trí → Chọn / Hủy / Xem khoảng cách |
 | AC-TYP-01 | label 13 · btn ≥16 · title 17 | giữ |
 | GAP-TAB-01 | tabs none | shell Tab 5 giữ |
 | GAP-DES-DEMO-RESCAN-01 | hash skip | **không** re-scan · dùng control-hint+real-data |

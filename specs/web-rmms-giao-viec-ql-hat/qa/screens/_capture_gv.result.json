@@ -1,0 +1,125 @@
+{
+  "feature": "web-rmms-giao-viec-ql-hat",
+  "cases": [
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/dang-nhap",
+      "dump": {
+        "feature": "login",
+        "zones": [
+          "LG-00"
+        ],
+        "des": [],
+        "fields": [],
+        "caps": [],
+        "text": "AI-RMMS HỆ THỐNG BẢO TRÌ KẾT CẤU HẠ TẦNG ĐƯỜNG BỘ Đăng nhập Tín hiệu Tốt · đồng bộ hệ thống Quên mật khẩu?",
+        "href": "http://localhost:9301/dang-nhap",
+        "path": "/dang-nhap",
+        "hasAssignCta": false,
+        "hasGvF": false,
+        "cardCount": 0
+      }
+    },
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/m/cong-viec",
+      "dump": {
+        "feature": "web-rmms-work",
+        "zones": [
+          "UA-00",
+          "WORK-L",
+          "GV-W",
+          "DES-MOB-TABBAR"
+        ],
+        "des": [
+          "sc-mnt-list"
+        ],
+        "fields": [
+          "roleCaps",
+          "search",
+          "list.card",
+          "card.title",
+          "card.assignee",
+          "card.range",
+          "card.meta",
+          "card.status",
+          "action.chat",
+          "action.progress",
+          "action.estimate",
+          "action.log",
+          "shell.tab.home",
+          "shell.tab.field",
+          "shell.tab.incident",
+          "shell.tab.work",
+          "shell.tab.me"
+        ],
+        "caps": [
+          "other"
+        ],
+        "text": "Danh sách công việc Công việc · EST-20260929-0008 2026-09-29 14:17 — 2026-10-01 14:17 Từ sự cố 963fb825-13c5-482e-a4ce-a67b70d6a45a · — Tình trạng xử lý: Chờ xử lý Công việc · EST-20260929-0007 2026-09-29 11:08 — 2026-10-01 11:08 Từ sự cố e79599bb-6fc5-4214-8bcc-c1a8e739e24a · — Tình trạng xử lý: Chờ xử lý Công việc · EST-20260929-0005 2026-09-29 10:57 — 2026-10-01 10:57 Từ sự cố 57393e83-50c1-439a-9326-218902407127 · — Tình trạng xử lý: Chờ xử lý Công việc · EST-20260928-0008 2026-09-29 01:16 — 2026-10-01 01:16 Từ sự cố 33c10a9a-c833-4b05-bfbb-07f6f7b96288 · — Tình trạng xử lý: Đã hoàn thành Công việc · EST-20260929-0001 2026-09-29 09:46 — 2026-09-30 09:46 Từ sự cố 51b19b27-4bec-44fe-9e94-0ab783720e35 · — Tình trạng xử lý: Chờ xử lý Công việc · EST-20260927-0008 2026-09-28 01:58 — 2026-09-30 01:58 Từ sự cố 4bf9d85f-ac75-4e68-89d0-02c0f6497d4c · QL.1 · Km 0+000 · Nghi Lộc QL.1 Tình trạng xử lý: Đang xử lý Công việc · EST-20260927-0007 2026-09-28 01:27 — 2026-09-30 01:27 Từ sự cố 83a12a90-2692-4cac-a6b8-0f7989bd2480 · QL.1 · Km 0+000 · Nghi Lộc QL.1 Tình trạng xử lý: Chờ xử lý pothole Giao việc cho test 2026-09-25 23:25 — 2026-09-26 23:25 Từ sự cố 57b7b5dc-f5a5-4ebb-a6d4-1969c4fe37d2 · QL1A · Km12+100 Tình trạng xử lý: Đã hoàn thành Thay biển báo Km8+200 Đội QL.15 giao việc cho Trần Thị B 2026-09-23 14:00 — 2026-09-25 14:00 Tuyến QL.15 Tình trạng xử lý: Chờ xử lý Vá ổ gà Km12+500 — chờ nhận việc Đội QL.1 giao việc cho Nguyễn Văn A 2026-09-22 14:00 — 2026-09-24 02:00 Tuyến QL.1 Tình trạng xử lý: Chờ xử lý pothole Giao việc cho linh 2026-09-22 15:28 — 2026-09-23 15:28 Từ sự cố",
+        "href": "http://localhost:9301/m/cong-viec",
+        "path": "/m/cong-viec",
+        "hasAssignCta": false,
+        "hasGvF": false,
+        "cardCount": 17
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/m/cong-viec",
+      "dump": {
+        "feature": "web-rmms-work",
+        "zones": [
+          "UA-00",
+          "WORK-L",
+          "GV-W",
+          "DES-MOB-TABBAR"
+        ],
+        "des": [
+          "sc-mnt-list"
+        ],
+        "fields": [
+          "roleCaps",
+          "search",
+          "list.card",
+          "card.title",
+          "card.assignee",
+          "card.range",
+          "card.meta",
+          "card.status",
+          "action.chat",
+          "action.progress",
+          "action.estimate",
+          "shell.tab.home",
+          "shell.tab.field",
+          "shell.tab.incident",
+          "shell.tab.work",
+          "shell.tab.me"
+        ],
+        "caps": [
+          "other"
+        ],
+        "text": "Danh sách công việc Công việc · EST-20260929-0008 2026-09-29 14:17 — 2026-10-01 14:17 Từ sự cố 963fb825-13c5-482e-a4ce-a67b70d6a45a · — Tình trạng xử lý: Chờ xử lý Trang Chủ Tuần đường Vấn đề Công việc Tôi Không tải được nguồn. Chỉ QL_HAT (HAT-TRUONG/HAT-PHO) được giao việc.",
+        "href": "http://localhost:9301/m/cong-viec",
+        "path": "/m/cong-viec",
+        "hasAssignCta": false,
+        "hasGvF": false,
+        "cardCount": 1
+      }
+    }
+  ],
+  "hashes": {
+    "S0": "354990cf7850e3a2",
+    "S1": "edce90065f0269e8",
+    "QA-20": "b8b0e1461439bbfe"
+  },
+  "pass": true,
+  "dup": null,
+  "at": "2026-09-30T20:50:05.443Z"
+}

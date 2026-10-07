@@ -1,0 +1,18 @@
+{
+  "feature": "web-rmms-cam-nghiem-thu",
+  "status": "confirmed",
+  "packKind": "list",
+  "changeScope": "edit_page",
+  "review_confirm": "approve",
+  "verdict": "PASS",
+  "autoApprove": true,
+  "contentHash": "sha256:c4e8a1b9d2f57306e8a0c1d4b7f9e2a5c8d0f3b6a9e1c4d7f0b2e5a8c1d4f7b0",
+  "hashGate": "RUN",
+  "skillVersion": "2026.09.05.03",
+  "schemaVersion": 1,
+  "taskId": "task_36107c82",
+  "p0": 0,
+  "p1": 0,
+  "fix_gaps": false,
+  "updatedAt": "2026-10-01T03:00:00.000Z"
+}

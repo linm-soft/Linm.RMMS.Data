@@ -55,6 +55,10 @@
 | Confirm | POST `ai-vision/estimates/{id}/confirm` |
 | WO | POST `maintenance/work-orders` (after confirm only) |
 
+## Notes (edit-web-mobile 2026-10-05)
+
+- Label form EST-F viết đủ: Giờ nhân công · Ngày thi công · Mã / Tên hạng mục · Khối lượng · Đơn vị tính (`lookupStatic` + fallback). Verify: mở `/web-rmms-estimate` có incident, đối chiếu 5 nhãn trên form.
+
 ## Notes (edit-web-feature 2026-09-27)
 
 - Footer không `position: absolute` — nằm trong cột flex, content scroll hết phía trên (Tổng / dòng cuối không bị che).

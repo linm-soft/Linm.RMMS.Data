@@ -1,0 +1,26 @@
+{
+  "feature": "web-rmms-cam-finding",
+  "status": "PASS",
+  "review_confirm": "approve",
+  "autoApprove": true,
+  "changeScope": "edit_page",
+  "packKind": "list",
+  "contentHash": "sha256:a7c3e91f0b4d62e8c5f1a9d0e3b7c4f6a2d8e1b5c9f0a4d7e6b3c1f8a5d2e0b9",
+  "hashSkip": true,
+  "taskId": "task_ef16308b",
+  "skillVersion": "2026.09.05.03",
+  "schemaVersion": 1,
+  "writtenAt": "2026-10-01T01:00:00.000Z",
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  },
+  "softDebt": [
+    "FIND-D/slaBadge runtime needs finding + tuanKiem",
+    "write/leaveConfirm soft — TUAN-DUONG",
+    "stock e2e alias BLANK-01 — custom capture PASS"
+  ],
+  "cấm": ["ERP.*", "web-bff", "phase=done", "implement", "e2e-this-role"]
+}

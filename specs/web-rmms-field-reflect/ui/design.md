@@ -119,7 +119,7 @@ No session → banner on Create · Draft OK
 | assetCard | FR-01 | Text RO / Card | * | thiếu → banner on Create |
 | back | FR-01 | Button/Nav | * | → FR-00 hoặc Field hub |
 | screenTitle | FR-01 | Text | * | copy key |
-| kind | FR-01 | Segment/Pill 3 | * | → `IncidentType` |
+| kind | FR-01 | Segment/Pill 3 | * | → `IncidentType` `Damage`/`Lost`/`Broken` · BE catalog cho phép cùng mã |
 | checklist | FR-01 | CheckboxGroup | — | local · → `Description` |
 | photos | FR-01 | PhotoRow | — | FR-02 · thiếu → banner on Detect |
 | detect | FR-01 | Button | — | Pattern B · `disabled` chỉ `detecting` |

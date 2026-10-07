@@ -21,7 +21,7 @@ Camera làm nhận dạng tại hiện trường. RMMS không học lại loại
 | Điểm đặc biệt | Nội dung |
 |---------------|----------|
 | Nhận dạng tại vạch | Camera phân loại theo hình dáng đúng lúc xe vào vạch đếm, rồi gửi một lượt về trung tâm |
-| Chín loại xe của hãng | Xe con, van, xe khách, xe tải, xe tải nhẹ, SUV/MPV, bán tải, xe máy, xe ba bánh. Kèm biển số, hướng, màu xe ban ngày |
+| Chín loại xe của hãng | Xe con, van, xe khách, xe tải, xe tải nhẹ, SUV/MPV, bán tải, xe máy, xe ba bánh. Kèm biển số và màu xe ban ngày. Không có event hướng |
 | Biển số tự động (ANPR) | Đọc biển ô tô, biển xe máy và trường hợp không có biển. Việt Nam thuộc vùng biển Asia-Pacific của hãng |
 | Hai kênh độc lập | Hình trực tiếp luôn nối. Lượt đếm chỉ phát sinh khi xe vào vạch |
 | Gắn với tài sản đường | Mỗi lượt gắn mã camera, tuyến, lý trình, tọa độ trong cơ sở dữ liệu đường bộ |
@@ -29,7 +29,7 @@ Camera làm nhận dạng tại hiện trường. RMMS không học lại loại
 | Quy đổi khi cần | Số gốc giữ 9 loại. Xe con quy đổi là bước tính sau, qua 19 loại TCVN 14182:2024, dùng bảng đối chiếu và số liệu Cục Đường bộ |
 | Phục vụ hiện trường | Báo cáo lưu lượng thời gian thực dùng cho tuần đường, tuần kiểm và bảo dưỡng thường xuyên |
 
-Chỉ số hãng, khi lắp đặt và chiếu sáng đúng khuyến nghị: nhận diện xe trên 99%, đọc biển trên 98%, nhận hướng trên 98,5%, nhận diện nhầm dưới 2%. Dải tốc độ nhận diện 5–120 km/h. Tốc độ chỉ lưu khi sự kiện có trường tốc độ. Một camera phủ tối đa 3 làn.
+Chỉ số hãng, khi lắp đặt và chiếu sáng đúng khuyến nghị: bắt xe trên 99%, đọc biển trên 98%, bắt nhầm dưới 2%. Dải bắt 5–120 km/h, tối đa 3 làn, không radar. Event xe là ANPR. Không có event hướng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp, ùn, dừng, mũ bảo hiểm. Tốc độ chỉ lưu khi payload có số.
 
 ## 3. Kết nối và đồng bộ thời gian thực
 
@@ -43,7 +43,7 @@ Mỗi trạm một mã. Camera, làn, tuyến, lý trình và tọa độ dùng 
 |-----------|-------------------|
 | Trạm đếm | Mã trạm, tuyến, lý trình, tọa độ, khu quản lý, địa hình đoạn (đồng bằng và đồi, hoặc miền núi) |
 | Camera | Mã thiết bị, model, làn, trạng thái đường truyền |
-| Lượt xe | Thời điểm, làn, loại xe theo camera, biển số, hướng |
+| Lượt xe | Thời điểm, làn, loại xe theo camera, biển số, màu ban ngày |
 | Hình trực tiếp | Cùng mã camera. Xem hình không tạo lượt đếm |
 | Lớp quy đổi | Cơ cấu 19 loại và xe con quy đổi, tính riêng, không sửa lượt gốc |
 | Báo cáo | Lưu lượng theo trạm, tuyến, làn và khoảng thời gian |
@@ -53,7 +53,7 @@ Mỗi trạm một mã. Camera, làn, tuyến, lý trình và tọa độ dùng 
 | Kênh | Cách nối | Trung tâm nhận được |
 |------|----------|---------------------|
 | Camera Live | Luôn kết nối (HLS), 24/7, không chờ có xe | Tường hình và bản đồ |
-| Đếm xe | Camera gửi một lần khi xe vào vạch đếm | Một bản ghi: thời điểm, loại xe, biển số, hướng |
+| Đếm xe | Camera gửi một lần khi xe vào vạch đếm | Một bản ghi ANPR: thời điểm, loại xe, biển số, màu ban ngày |
 
 Đồng bộ lượt đếm: sự kiện ghi vào cơ sở dữ liệu ngay khi đường truyền thông. Màn hình bản đồ và báo cáo làm mới theo chu kỳ ngắn, khoảng 15 giây, trong suốt ca trực. Mất liên lạc thì sự kiện lưu tại trạm và gửi bù khi có sóng trở lại; nhật ký ghi nhận khoảng thời gian mất đồng bộ.
 
@@ -162,23 +162,26 @@ iDS-TCM403-BI, biến thể iDS-TCM403-BI(G)/G. Bản có LTE và định vị v
 
 | Hạng mục | Thông số |
 |----------|----------|
-| Công dụng | Nhận biển số và đếm xe tại trạm |
-| Độ phân giải | 4 MP (2688 × 1520), cảm biến 1/1.8 inch |
+| Công dụng | Nhận biển số (event ANPR) và đếm xe tại trạm |
+| Cảm biến, độ phân giải | 1/1.8 inch CMOS, 4 MP (2688 × 1520) |
 | Chống ngược sáng | 140 dB |
-| Đèn hồng ngoại | 850 nm, tới 50 m |
-| Nhận diện được xe | Trên 99% |
+| Đèn hồng ngoại | 3 đèn IR, 850 nm, tới 50 m |
+| Bắt xe | Trên 99% |
 | Đọc biển số | Trên 98% |
-| Nhận hướng | Trên 98,5% |
-| Nhận diện nhầm | Dưới 2% |
+| Bắt nhầm | Dưới 2% |
+| Event hướng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp, ùn, dừng, mũ bảo hiểm | Không có |
 | Số làn | Tối đa 3 làn |
-| Tốc độ xe khi nhận diện | 5–120 km/h |
-| Loại xe | 9 loại nêu tại mục 4 |
-| Biển số | Ô tô, xe máy, xe không biển |
-| Màu xe | Ban ngày |
-| Thẻ nhớ tại trạm | Tới 512 GB |
-| Nguồn | 12–24 V hoặc PoE+, tối đa 15 W |
-| Kích thước, khối lượng | 428,5 × 120 × 132,8 mm; khoảng 2,98 kg |
-| Vỏ, môi trường | IP67, IK10; −30 °C đến 70 °C; độ ẩm đến 95% |
+| Dải bắt xe | 5–120 km/h. Không radar 77 GHz |
+| Loại xe | 9 loại nêu tại mục 4. Không có % phân loại |
+| Biển số | Ô tô, xe máy, xe không biển. Việt Nam thuộc Asia-Pacific |
+| Màu xe | 11 sắc, chỉ ban ngày |
+| Hãng xe | 212 hãng trên trang SKU. RMMS chưa tách hãng trên sự kiện |
+| Event | ANPR. Basic Event: HDD Error, Network Disconnected, IP Address Conflicted, Vehicle Detector Exception, Traffic Light Detector Exception |
+| Bản `/G` | LTE + GPS, khe Micro SIM |
+| Thẻ nhớ tại trạm | microSD tới 512 GB |
+| Nguồn | 12–24 V, tối đa 15 W, hoặc PoE 802.3at Class 4, tối đa 15 W |
+| Kích thước, khối lượng | 428,5 × 120 × 132,8 mm; khoảng 2,975 kg |
+| Vỏ, môi trường | Nhôm, IP67, IK10; −30 °C đến 70 °C; độ ẩm đến 95% không đọng |
 
 Trang hãng: https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/
 

@@ -111,10 +111,10 @@
 | openSession / checkInNav / historyNav | TD-01 | Button | * | journal/book/end out A |
 | route | TD-02 · TK-01 · TD-07 | **SearchInput** | * (open) | `GET integration/road-routes/search` · **no seed** · miss → **`--`** |
 | direction | TD-02 | **Dropdown** | * | LOOKUP `chieu-*` · Note `chieu=` |
-| userName | TD-02 · TK-01 | **SearchInput** | * | `GET patrol/actors` · scope: admin / VP / tổ trưởng / chính mình · default caller · `userName`=username · `assigneeCode`=mã emp |
+| userName | TD-02 · TK-01 | **Text readonly** | * | `GET patrol/actors` `caller` · khóa sửa · danh sách bỏ tài khoản store |
 | plannedDate | TD-02 · TK-01 | **Date** | * | default hôm nay |
 | patrolType / status | TD-02 · TK-01 | hidden | * | khóa loại + `Đang tuần` |
-| kmFrom / kmTo | TK-01 | **Number** | * | Note encode |
+| kmFrom / kmTo | TK-01 | **Cột KM + Khoảng cách (m)** | * cột KM | Note `kmFrom`/`kmTo` lý trình · stamp «Tên - Lý trình» |
 | inspectMode | TK-01 | **Dropdown** | * | `dinh-ky` / `dot-xuat` |
 | inspectReason | TK-01 | **Text** | if đột xuất | Note · Pattern B: không khóa submit trước bấm |
 | planPointLabel | TD-03 | Text | — | empty OK · **cấm** fake match |
@@ -152,7 +152,7 @@ TD-02: [Hủy|Mở ca] · SearchInput (no seed) · Dropdown chiều · Date · S
 TD-03 sheet: planPoint · route RO (miss → --) · GPS · Lưu always-on except saving · banner on deny-click · content · FileMulti
 TD-07: SearchInput route optional · cards history
 TK-00: Mở đợt · empty active list
-TK-01: [Hủy|Mở đợt] · route · km · mode · reason? · SearchInput người (quyền tuần · default caller) · Date
+TK-01: [Hủy|Mở đợt] · route · từ/đến km (cột KM + m · stamp Tên - Lý trình) · mode · reason? · SearchInput người (quyền tuần · default caller) · Date
 Leave: Modal Ở lại / Rời
 ```
 
@@ -160,7 +160,7 @@ Leave: Modal Ở lại / Rời
 
 | Action | API |
 |--------|-----|
-| List / active ca | `GET …/patrol/sessions?status=Đang tuần` · filter `PatrolType` client |
+| List / active ca | `GET …/patrol/sessions` · UI hiển thị đúng response · lọc user ở BE |
 | Open session | `POST …/patrol/sessions` |
 | Check-in | `POST …/sessions/{id}/check-ins` |
 | Plan points | `GET …/sessions/{id}/plan-points` (empty OK) |
@@ -185,6 +185,18 @@ Leave: Modal Ở lại / Rời
 | autoApprove | ON → **approve** |
 | reviewUrl opened | prototype path above |
 | handoff | SA · zone ids · control-map · Pattern B · `--` miss · real_view_parity v1 |
+
+## Notes — Chi tiết ca scrollbar
+
+Khung tuần đường trên desktop không dùng `min-height: 100vh`: nằm trong shell nên mép cột không cuộn. Nội dung ca cuộn trong `.content`, không hiện thanh cuộn mép ngoài.
+
+## Notes — ghim mở ca
+
+Ghim vị trí: ô Tuyến bắt buộc. Tiếp tục mở ca tuần đường theo tuyến đã chọn khi chưa có ca, rồi vào ghi điểm tuần. Không toast «Chưa có ca đang chạy». Không có tuyến gần vị trí: dòng «Không tìm thấy tuyến gần bạn». Ô bắt buộc nhãn «Chọn tuyến». «Ca đang tuần» liệt kê mọi ca đang chạy của chính user (kể cả admin/quản lý); bấm một ca thì điền tuyến ca đó vào «Chọn tuyến». Header và Hôm nay cũng chỉ ca của caller. Tuần đường / tuần kiểm chỉ có mục Hôm nay. Admin/quản lý thêm «Ca nhân sự quản lý»: lọc danh sách theo ngày hiện tại (`fromDate`/`toDate`), tổng, trạng thái, card có tên nhân sự, khung cao tối đa có thanh cuộn và phân trang. Hôm nay hiện tuyến của ca. Chi tiết ca hiện `routeCode` đã chọn lúc mở ca.
+
+## Notes — menu hub tuần kiểm
+
+Hub tuần kiểm luôn hiện menu: Mở đợt, Sự cố của đợt, Phiếu phát hiện, Sổ nhật ký. Một đợt đang mở thì menu vào thẳng màn đó. Nhiều đợt thì chọn card. Trang chủ và cửa tuần đường có cùng ba mục, dẫn `/tuan-kiem?open=`.
 
 ## Version meta
 

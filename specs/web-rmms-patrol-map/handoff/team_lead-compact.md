@@ -2,54 +2,54 @@
 
 schemaVersion: 1
 feature: web-rmms-patrol-map
-packKind: list
+packKind: map
 role: team_lead
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T04:00:00.000Z
-taskId: task_c952b382
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
-team_lead_confirm: approve
+writtenAt: 2026-09-30T14:30:00.000Z
+contentHash: sha256:52bd4a74401781b03b20ace930fd7d47d9e5ca2c5714b39fc6927f0d4fd6bcaf
+taskId: task_a073cb2b
 autoApprove: ON
-changeScope: new_page
+changeScope: edit_page
 route_confirm: confirm
 
 ## Decisions
-- formPattern: Mobile Map / full · phone ≤430 · Android 1-1 · N/A ERP Modal · no POST check-in/tracks P1
-- mfe: Linm.Web.RMMS.Mobile · mfeStdRoute=/web-rmms-patrol-map · mfeStdUrl http://localhost:9301/web-rmms-patrol-map · product /patrol-map · alias /field/map
-- be: Mobile.Bff :5202 mobile-bff/api/v1 · Patrol + Gis tiles · cấm ERP.* · cấm invent PatrolMapController · Step 4b skip
-- Overlay P1: empty tracks · no next-pin · next-card Route text · cấm OMS
-- T-01 route+chrome · T-02 tiles/basemap · T-03 locate/GPS · T-04 legend/next-card · T-05 toast+BFF+parity · T-BE N/A · T-QA queued
-- HARD: GPS deny hide me · toast check-in only · useFormOptions patrolMap.* · no Fit/Đường/Phố
-- DES-GRID: N/A phone Map · demo N/A
-- next: /agent-dev · roleOnly stop (GAP-PKT-ROLE-01) · e2eQa queued QA
+- changeScope: edit_page · keep PM-00…08 · delta PM-09/10 chainage + check-in sheet
+- formPattern: Mobile Map / full ≤430 · peer sheet PM-10 · N/A ERP Modal · DES-GRID N/A
+- formType/packKind: map · **cấm** Kind B list template
+- route: keep `/web-rmms-patrol-map` · mfeStdUrl http://localhost:9301/web-rmms-patrol-map
+- mfe: Linm.Web.RMMS.Mobile · be: Linm.RMMS.WebService Patrol+Gis · BFF :5202 · cấm ERP.* · cấm Map.Api · cấm PatrolMapController
+- Track `#0A84FF` · bake OSRM BE local · Ghim→GET gis/chainage · POST+chainage* · Schema_PatrolCheckInChainage Step 4b Dev
+- mapGate `/agent-dev-oms-map` R1–R11 · LeaveConfirmModal on sheet · next=/agent-dev-oms-map · roleOnly stop
+- demo N/A · cấm Nghi Lộc · cấm e2e ở TL
 
 ## Inventory (slim)
-| id | controlHint | T-* |
-|----|-------------|-----|
-| navBack+title | Button/Text | T-01 |
-| trailingCheckin | Button toast | T-05 |
-| mapHost | Map | T-02 |
-| basemap×2 | Chip | T-02 |
-| locate | Button | T-03 |
-| legend×4 | Chip isolate | T-04 |
-| nextCard | Card RO Route | T-04 |
-| gpsMe+popup | Marker/Popup | T-03 |
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| map+tiles+bake | map | Map/MapLine | #0A84FF |
+| pinHere | ghim | Button | → GET chainage |
+| chainageKm/Label | lý trình | Number/Text | editable |
+| planPointLabel | điểm KH | Text | ≠ km |
+| gpsRaw | GPS thô | Number RO | persist |
+| checkin.sheet | PM-10 | Form | LeaveModal |
 
-## Screens / zones
-- PM-00 · PM-01 · PM-02 · PM-03 · PM-04 · PM-05 · PM-06 · PM-07 · PM-08
+## Screens / zones (ids only)
+- PM-00…PM-10
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/ui/prototype/index.html
 - peerStdUrl= http://localhost:9301/web-rmms-patrol-map
+- real_view_parity= v1
 
-## API / tasks
-- FormMode↔API: GET patrol/sessions · GET gis/tiles · nav/toast writes only
-- T-01…T-05 pending · T-BE N/A · T-QA queued · devSlash=/agent-dev
+## API / tasks (ids only)
+- FormMode↔API: API-01…07 · chainage NEW · check-in enhance · bake reuse
+- T-BE-GIS-01 (deps:—) · T-PERM-01 · T-UI-MAP-01 · T-UI-MAP-FORM-01 · T-UI-UX-01 · T-UI-RESP-01 · T-QA-MAP-01
+- devSlash: T-UI-MAP-*=`/agent-dev-oms-map` · T-BE-GIS-01=`/agent-dev` · QA=`/agent-qa*`
+- deps: T-BE-GIS-01 → T-UI-MAP-* · Step 4b Dev only
 
 ## UNCLEAR
-- (none blocking)
+- (none)
 
-## Full paths
+## Full paths (Read only if needed)
 - task: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/task/web-rmms-patrol-map.md
-- sa: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/be/solution-discovery.md
-- design: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/ui/design.md
+- sa compact: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/handoff/sa-compact.md
+- solution: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/be/solution-discovery.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/STATUS.md

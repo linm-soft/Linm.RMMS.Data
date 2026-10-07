@@ -1,0 +1,19 @@
+{
+  "feature": "web-rmms-cam-home",
+  "status": "done",
+  "review_confirm": "done",
+  "autoApprove": true,
+  "changeScope": "edit_page",
+  "packKind": "list",
+  "contentHash": "sha256:4bca94712257e93fa88e3cec4f6bb851b3aa00d7a28508932d46aef12b73441a",
+  "hashSkip": true,
+  "verdict": "PASS",
+  "must": 0,
+  "p0": 0,
+  "skillId": "agent-review",
+  "skillVersion": "2026.09.05.03",
+  "schemaVersion": 1,
+  "taskId": "task_000fa349",
+  "writtenAt": "2026-10-01T03:20:00.000Z",
+  "versionGate": "ok"
+}

@@ -173,6 +173,10 @@ Prior surface (route filter · routesCsv/managed SearchInput · CRUD) = **PASS /
 | GAP-JOB-06 | boundary | Profile out P1 |
 | GAP-F-USR-01 | P2 | no block |
 
+## UI lock — đăng ký công khai
+
+`/integration/users/register`: tách **Lý trình** thành cột riêng, cạnh **Đoạn tuyến**. Không gộp header «Đoạn tuyến / lý trình». Không thêm cột DB cho chuỗi km.
+
 ## Handoff → Dev
 
 1. **Không** rewrite list shell A–D / grid / pagination / tree / route filter đã DONE.

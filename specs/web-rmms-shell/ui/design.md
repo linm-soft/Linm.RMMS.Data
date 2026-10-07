@@ -195,6 +195,18 @@ Empty/error/403 → toast in-app · **cấm** `window.alert`.
 | Dev | `/agent-dev` · MFE Mobile only |
 | QA | Tab 4 · no me · login · phone 430 · e2e queued |
 
+## Notes — quyền camera / vị trí (2026-10-06)
+
+Lớp phủ full màn khi tính năng cần camera hoặc vị trí mà người dùng chưa cho phép. Dòng bấm gọi đúng quyền. Hướng dẫn tự đổi: tab trình duyệt hoặc app đã cài. Cho phép rồi thì tải lại trang.
+
+## Notes — Tôi: lý trình, mật khẩu, thông tin (2026-10-07)
+
+`/toi` thêm Xem lý trình của tôi (`/toi/ly-trinh`: đoạn tuyến hiện tại và lịch sử thời gian xác nhận), Đổi mật khẩu (`/toi/doi-mat-khau`), Cập nhật thông tin (`/toi/cap-nhat`: họ tên, điện thoại, email).
+
+## Notes — scrollbar mép cột
+
+Thân shell (`.body`) vẫn cuộn nội dung nhưng không vẽ thanh cuộn ở mép cột 430px. Header và tab giữ chỗ.
+
 ## Version meta
 
 `skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e` · `rulesVersion=2026.09.25.2` · `updatedAt=2026-09-25T11:30:00.000Z` · `design_confirm=approve` · `taskId=task_e5bde5eb`

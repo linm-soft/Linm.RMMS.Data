@@ -47,6 +47,10 @@ Prior A–D (route filter · CRUD · MultiSearchCsv · View `<dl>` · full-page)
 | BE `dotnet build` | **PASS** (0 error) |
 | E2E | **cấm** role Dev · queued `/agent-qa*` |
 
+## Notes — public register cột lý trình
+
+`UsersRegisterPage` list: header **Đoạn tuyến** và **Lý trình** là hai cột. `RouteChainageField` `part="route"` chỉ ô tuyến (effect nhớ km chạy ở part này). `part="chainage"` chỉ Từ km / Đến km. Nhiều đoạn: slot `min-height: 16rem` để hai cột thẳng hàng. Không đổi API segment.
+
 ## Debt / GAP
 
 | ID | Note |

@@ -103,6 +103,9 @@
 | uiField | controlHint | Required | Bind / notes |
 |---------|-------------|----------|--------------|
 | search / filter.status / filter.severity | SearchInput · Chip | — | Live query |
+| filter.sheet | Bottom sheet | — | Tuyến · loại · trạng thái · session · cùng query cho list và bản đồ |
+| banner.vis | Banner | — | Cùng đích FAB → `/van-de/moi` |
+| route | Text | — | Hiện tên tuyến, không hiện mã |
 | list | CardList | * | `GET incident/incidents` · HasGps · **không** Lat/Lng · thumb 72×72 từ `mediaIds[0]` · `+N` · rỗng = «Chưa có ảnh» |
 | card.thumb | Image | — | `GET files/{id}/object` · **cấm** pin (không có tap) · **cấm** cache khớp phiên tuần đường |
 | fab | FAB | * | → `/van-de/moi` |
@@ -127,7 +130,7 @@
 | description | Textarea | — | + checklist fold |
 | validate.banner | Banner | — | `string[]` Pattern B · keys AC-PB-04 · chỉ sau `validationAttempted` |
 | create | Button primary | * | **always enabled** (form ready) · `disabled` **chỉ** `creating` · **cấm** `disabled={!canCreate}` |
-| draftOffline | Button secondary | — | peer offline |
+| draftOffline | — | — | Ẩn nút. Sự kiện `offline` tự đưa form vào hàng đợi peer. |
 | gps.deny.modal | Modal | — | keys `incident.gps.deny.title` / `.body` · on submit khi deny |
 
 **Pattern B rules (Design chốt):**

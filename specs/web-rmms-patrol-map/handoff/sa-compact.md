@@ -2,55 +2,56 @@
 
 schemaVersion: 1
 feature: web-rmms-patrol-map
-packKind: list
+packKind: map
 role: sa
-status: confirmed
+status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T03:50:00.000Z
-taskId: task_fdf2d091
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
-solution_confirm: approve
+writtenAt: 2026-09-30T14:20:00.000Z
+contentHash: sha256:52bd4a74401781b03b20ace930fd7d47d9e5ca2c5714b39fc6927f0d4fd6bcaf
+taskId: task_3fa91036
 autoApprove: ON
+changeScope: edit_page
+solution_confirm: approve
 
 ## Decisions
-- changeScope: new_page · formPattern: Mobile Map / full · phone ≤430 · N/A ERP Modal · no POST check-in/tracks P1
-- domain: Patrol (`patrol`) · cite Gis tiles · DOMAIN-MAP row `web-rmms-patrol-map` applied
-- mfeStdRoute: /web-rmms-patrol-map · mfeStdUrl http://localhost:9301/web-rmms-patrol-map
-- nativeCite: SCREENS /patrol-map · /field/map
-- BFF: Mobile.Bff :5202 · mobile-bff/api/v1 · **cấm** web-bff client · **cấm** ERP.* · **cấm** invent PatrolMapController
-- Live GET patrol/sessions · GET gis/tiles/{layer}/{z}/{x}/{y}.pbf
-- Overlay P1: empty tracks · no next-pin (DTO no lat/lng) · next-card = Route text · **cấm** OMS SSOT
-- GPS: geolocation me-dot RO · deny hide · map mở · **cấm** fake · toast check-in only
-- API Mới / entity / migration / Step 4b: **none** at SA
-- labels: useFormOptions patrolMap.* · DES-GRID N/A
-- Out: Fit/Đường/Phố · me* · check-in sheet · tracks POST · Field deep
-- next: /agent-team-lead · roleOnly stop (GAP-PKT-ROLE-01)
+- changeScope: edit_page · keep PM-00…08 · delta PM-09/10 chainage + check-in sheet
+- formPattern: Mobile Map / full ≤430 · peer sheet PM-10 · N/A ERP Modal · DES-GRID N/A
+- domain: Patrol + cite Gis · DOMAIN-MAP extend chainage/bake/check-in · cấm PatrolMapController · cấm Map.Api · cấm ERP.*
+- BFF: Mobile.Bff :5202 · tiles/streets→MapService · **gis/chainage→RMMS ApiBase** (UNCLEAR-CHAINAGE-BFF resolved)
+- Schema: **Schema_PatrolCheckInChainage** · ChainageKm double? · ChainageLabel varchar(128)? · planPointLabel≠km · cấm *Json (UNCLEAR-SCHEMA-PAIR resolved)
+- Track: bake routeCode cut km · token **#0A84FF** · cấm màu tên · OSRM BE 127.0.0.1:5000 only
+- FormMode↔API: GET sessions/tiles/check-ins · GET gis/chainage · POST check-in+chainage*+GPS raw · streets echo km · bake read
+- entity/migration: Schema_* Dev Step 4b · SA skip run · API mới = GET gis/chainage only
+- gates: TZ=approve · XCO=tenant_keep · SHARE=N/A (autoApprove)
+- mapGate R1–R11 · cấm demo Nghi Lộc · cấm native edit · next=/agent-team-lead · roleOnly stop
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| navBack | back | Button/Nav | → Home/Field/Supervise |
-| title | title | Text RO | patrolMap.title |
-| trailingCheckin | checkin | Button | toast P1 · no POST |
-| mapHost | map | Map | gis/tiles |
-| basemap×2+locate | bar | Chip/Button | no Fit |
-| legend×4 | isolate | Chip | track geom empty |
-| nextCard | Route | Card RO | GET sessions |
-| gpsMe+popup | me | Marker/Popup | Geolocation |
+| map+tiles+bake | map | Map/MapLine | overlay bake |
+| pinHere | ghim | Button | → GET chainage |
+| chainageKm | lý trình số | Number | editable / null>2km |
+| chainageLabel | lý trình nhãn | Text | fetchLatestKm |
+| planPointLabel | điểm KH | Text | ≠ km |
+| gpsRaw | GPS thô | Number RO | persist |
+| trackLine | nét ca | MapLine | #0A84FF |
+| checkin.post | ghi điểm | Button | POST+chainage* |
 
 ## Screens / zones (ids only)
-- PM-00 · PM-01 · PM-02 · PM-03 · PM-04 · PM-05 · PM-06 · PM-07 · PM-08
+- PM-00…PM-10
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/ui/prototype/index.html
 - peerStdUrl= http://localhost:9301/web-rmms-patrol-map
-- DES-GRID / LinErpListFilterBar: N/A phone Map
+- real_view_parity= v1
+- DES-GRID / LinErpListFilterBar: N/A
 
 ## API / tasks (ids only)
-- FormMode↔API: GET sessions + GET tiles · nav/toast writes only
-- DOMAIN-MAP-PATROL-MAP: resolved · OVERLAY-GEOM: empty+Route · STD-PORT: :9301
-- T-*: (team_lead) · devSlash=/agent-dev
+- FormMode↔API: API-01…07 · chainage NEW · check-in enhance · bake reuse
+- entity/migration: Schema_PatrolCheckInChainage · Step 4b Dev
+- TZ/XCO/SHARE: approve / tenant_keep / N/A
+- T-*: (team_lead) · devSlash=/agent-dev · mapGate=/agent-dev-oms-map
 
 ## UNCLEAR
-- (none open) · UNCLEAR-DOMAIN-MAP-PATROL-MAP · OVERLAY-GEOM · STD-PORT resolved SA
+- (none open) · CHAINAGE-BFF · SCHEMA-PAIR · TRACK-STYLE resolved
 
 ## Full paths (Read only if needed)
 - solution: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/be/solution-discovery.md

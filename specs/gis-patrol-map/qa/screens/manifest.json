@@ -1,7 +1,6 @@
 {
-  "url": "http://localhost:9301/gis-patrol-map",
-  "liveUrl": "http://localhost:9301/gis/tuan-duong",
-  "capturedAt": "2026-09-12T06:51:56.997Z",
+  "url": "http://localhost:9302/gis-patrol-map",
+  "capturedAt": "2026-09-30T15:58:31.823Z",
   "steps": [
     {
       "id": "S0",

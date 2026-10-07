@@ -56,6 +56,9 @@ Kind B grid · LinErpListFilterBar · ui-schema editor · write form · Leave ·
 - mobile-bff sibling — catch-all proxy same resource
 - e2e **queued QA** — cấm Dev
 
+## Notes
+Caller scope trên list phone: tần suất và kiến nghị theo tuyến phân đoạn; tài sản theo mã tuyến đó; nghiệm thu theo người được giao; chấm công và ca theo chính user. UI không lọc lại hồ sơ.
+
 ## Verify
 - `yarn build` PASS (chunk `web-rmms-mobile-e`)
 - `dotnet build` RMMS.Service.Api PASS

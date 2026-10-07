@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-27T17:08:51.871Z",
+  "updatedAt": "2026-10-01T00:57:42.946Z",
   "features": {
     "ai-asset-detect": {
       "web": {
@@ -496,7 +496,7 @@
       "web": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-12T07:00:04.393Z",
+        "updatedAt": "2026-09-30T16:03:29.175Z",
         "statusRel": "specs/gis-patrol-map/STATUS.md"
       }
     },
@@ -734,9 +734,9 @@
     },
     "nghiem-thu": {
       "web": {
-        "phase": "done",
+        "phase": "dev",
         "status": "in_progress",
-        "updatedAt": "2026-09-27T07:33:35.814Z",
+        "updatedAt": "2026-09-30T15:59:14.733Z",
         "statusRel": "specs/nghiem-thu/STATUS.md"
       },
       "mobile": {
@@ -1598,7 +1598,7 @@
       "web": {
         "phase": "done",
         "status": "done",
-        "updatedAt": "2026-09-25T20:52:57.660Z",
+        "updatedAt": "2026-09-30T15:12:49.739Z",
         "statusRel": "specs/web-rmms-patrol-map/STATUS.md"
       }
     },
@@ -1688,6 +1688,70 @@
         "status": "done",
         "updatedAt": "2026-09-26T07:26:14.689Z",
         "statusRel": "specs/web-rmms-ui-align/STATUS.md"
+      }
+    },
+    "web-rmms-role-gate": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-30T17:16:34.449Z",
+        "statusRel": "specs/web-rmms-role-gate/STATUS.md"
+      }
+    },
+    "web-rmms-cam-checkin": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-30T18:00:06.951Z",
+        "statusRel": "specs/web-rmms-cam-checkin/STATUS.md"
+      }
+    },
+    "web-rmms-cam-journal": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-30T18:33:58.653Z",
+        "statusRel": "specs/web-rmms-cam-journal/STATUS.md"
+      }
+    },
+    "web-rmms-cam-incident": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-30T19:08:21.952Z",
+        "statusRel": "specs/web-rmms-cam-incident/STATUS.md"
+      }
+    },
+    "web-rmms-cam-finding": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-10-01T00:57:42.946Z",
+        "statusRel": "specs/web-rmms-cam-finding/STATUS.md"
+      }
+    },
+    "web-rmms-cam-nghiem-thu": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-30T19:50:43.445Z",
+        "statusRel": "specs/web-rmms-cam-nghiem-thu/STATUS.md"
+      }
+    },
+    "web-rmms-cam-home": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-30T20:21:14.009Z",
+        "statusRel": "specs/web-rmms-cam-home/STATUS.md"
+      }
+    },
+    "web-rmms-giao-viec-ql-hat": {
+      "web": {
+        "phase": "done",
+        "status": "done",
+        "updatedAt": "2026-09-30T20:54:10.053Z",
+        "statusRel": "specs/web-rmms-giao-viec-ql-hat/STATUS.md"
       }
     }
   }

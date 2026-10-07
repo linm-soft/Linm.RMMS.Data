@@ -136,7 +136,7 @@ Cite: `docs/plan/web-rmms-mobile/SUBMIT-VALIDATE.md` · override: **không** too
 | userSearch | shared (d+) | **SearchInput** | — | Bff forward · **not A picker** |
 | plannedDate | TD-02 · TK-01 | **Date** | * | default hôm nay |
 | patrolType / status | TD-02 · TK-01 | hidden | * | khóa type · `Đang tuần` |
-| kmFrom / kmTo | TK-01 | **Number** | * | Note encode |
+| kmFrom / kmTo | TK-01 | **Cột KM + Khoảng cách (m)** | * cột KM | Note lý trình · stamp «Tên - Lý trình» |
 | inspectMode | TK-01 | **Dropdown** | * | `dinh-ky`/`dot-xuat` |
 | inspectReason | TK-01 | **Text** | if dot-xuat | Pattern B: không pre-disable submit |
 | planPointLabel | TD-03 | Text/Search | — | empty OK |

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-cam-finding — Camera phiếu tuần kiểm và SLA</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --warning: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --field-h: 52px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta-bar {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 11px;
+      margin-bottom: 8px; line-height: 1.4;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .back {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 28px; line-height: 1; cursor: pointer;
+      border-radius: 12px; display: grid; place-items: center;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center;
+    }
+    .topbar .spacer { width: 44px; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 88px; }
+    .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex; }
+    .btn {
+      height: var(--control-h); border-radius: var(--radius-control); border: 0;
+      padding: 0 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); }
+    .btn-secondary { background: #E5E5EA; color: var(--on-surface); }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-block { width: 100%; margin-top: 8px; }
+    .toolbar-form { display: flex; gap: 8px; margin-bottom: 12px; }
+    .toolbar-form .btn { flex: 1; }
+    .card {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 14px; margin-bottom: 10px; cursor: pointer;
+    }
+    .card .meta { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .card .row { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .chip {
+      display: inline-block; font-size: 12px; padding: 3px 8px;
+      border-radius: 6px; background: #E8F6FC; color: var(--primary);
+    }
+    .chip.status-phat-hien { background: #FFF4E0; color: #9A6200; }
+    .chip.status-da-giao { background: #E8F6FC; color: var(--primary); }
+    .chip.status-cho-kiem-tra { background: #F0E8FF; color: #5B3FA8; }
+    .chip.status-xong { background: #E8F8EA; color: #1B7A28; }
+    .chip.sla-ok { background: #E8F8EA; color: #1B7A28; }
+    .chip.sla-late { background: #FDECEA; color: #B71C1C; }
+    .field { margin-bottom: 12px; }
+    .field label {
+      display: block; font-size: var(--label); color: var(--muted); margin-bottom: 4px;
+    }
+    .field input:not([type="radio"]):not([type="checkbox"]),
+    .field select, .field textarea {
+      width: 100%; min-height: var(--field-h); font-size: var(--field);
+      border: 1px solid var(--border); border-radius: var(--radius-control);
+      padding: 10px 12px; background: #fff; color: var(--on-surface);
+    }
+    .field textarea { min-height: 96px; resize: vertical; }
+    .hint {
+      font-size: 12px; color: var(--primary); margin-top: 4px;
+    }
+    .banner {
+      background: #FFF4E0; color: #9A6200; border: 1px solid #F5D9A8;
+      border-radius: 12px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px;
+      display: none;
+    }
+    .banner.show { display: block; }
+    .banner.deny { background: #FDECEA; color: #B71C1C; border-color: #F5C6C2; }
+    .banner.info { background: #E8F6FC; color: #086A9A; border-color: #B8DFF0; }
+    .fab {
+      position: absolute; right: 18px; bottom: 22px;
+      width: 56px; height: 56px; border-radius: 50%; border: 0;
+      background: var(--primary); color: #fff; font-size: 28px;
+      box-shadow: 0 6px 16px rgba(12,132,192,.4); cursor: pointer;
+    }
+    .fab.hidden { display: none; }
+    .capture {
+      border: 2px dashed var(--border); border-radius: 12px;
+      padding: 20px; text-align: center; color: var(--muted); font-size: 14px;
+      background: #fff;
+    }
+    .capture .thumb-row { display: flex; gap: 8px; margin-top: 10px; justify-content: center; }
+    .capture .thumb {
+      width: 64px; height: 64px; border-radius: 8px; background: #DDEAF2;
+      display: grid; place-items: center; font-size: 11px; color: var(--primary);
+    }
+    .ro-block {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 14px; margin-bottom: 12px;
+    }
+    .ro-row { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 8px; font-size: 14px; }
+    .ro-row .k { color: var(--muted); }
+    .ro-row .v { font-weight: 500; text-align: right; }
+    .section-title { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+    .radio-row { display: flex; gap: 16px; align-items: center; min-height: 44px; }
+    .radio-row label { font-size: 15px; display: flex; align-items: center; gap: 6px; }
+    .modal-backdrop {
+      display: none; position: absolute; inset: 0; background: rgba(0,0,0,.45);
+      align-items: flex-end; justify-content: center; z-index: 20;
+    }
+    .modal-backdrop.show { display: flex; }
+    .modal {
+      background: #fff; width: 100%; border-radius: 16px 16px 0 0;
+      padding: 20px 16px 24px;
+    }
+    .modal h3 { margin: 0 0 8px; font-size: 17px; }
+    .modal p { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+    .modal .actions { display: flex; gap: 8px; }
+    .modal .actions .btn { flex: 1; }
+    .toast {
+      display: none; position: absolute; left: 16px; right: 16px; bottom: 24px;
+      background: #1C1C1E; color: #fff; border-radius: 12px; padding: 12px 14px;
+      font-size: 14px; z-index: 30; text-align: center;
+    }
+    .toast.show { display: block; }
+    .removed-note {
+      font-size: 12px; color: var(--muted); font-style: italic; margin-top: 8px;
+      padding: 8px; border: 1px dashed var(--border); border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="meta-bar">
+    feature=<b>web-rmms-cam-finding</b> · changeScope=<b>edit_page</b> · 430px ·
+    productRoute=<code>/phat-hien/:sessionId*</code> · alias mfeStdUrl ·
+    <b>REMOVE</b> assignCta · SLA badge · due TT41 · Pattern B GPS
+  </div>
+  <div class="board-nav" id="roleNav">
+    <button type="button" class="active" data-role="tuanKiem">Role: Tuần kiểm</button>
+    <button type="button" data-role="tuanDuong">Tuần đường (RO)</button>
+    <button type="button" data-role="qlHat">QL_HAT (no giao)</button>
+  </div>
+  <div class="board-nav" id="screenNav">
+    <button type="button" class="active" data-screen="FIND-L">FIND-L</button>
+    <button type="button" data-screen="FIND-F">FIND-F</button>
+    <button type="button" data-screen="FIND-D">FIND-D</button>
+  </div>
+
+  <div class="phone" id="phone">
+    <!-- FIND-L -->
+    <section class="screen active" id="FIND-L" data-zone="FIND-L">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="back">‹</button>
+        <div class="title">Phiếu phát hiện</div>
+        <div class="spacer"></div>
+      </header>
+      <div class="content">
+        <div class="banner info" id="l-role-banner">Vai tuần đường: chỉ xem. Không lập phiếu / FAB ẩn.</div>
+        <article class="card" data-zone="listCards" onclick="go('FIND-D')">
+          <div class="row">
+            <strong>Vá ổ gà · Km 12+350</strong>
+            <span class="chip status-cho-kiem-tra">Chờ kiểm tra</span>
+          </div>
+          <div class="meta">Hạng mục: Vá ổ gà (I–II) · Hạn 04/10/2026</div>
+          <div class="meta"><span class="chip sla-late" data-zone="slaBadge">Quá hạn</span></div>
+        </article>
+        <article class="card" data-zone="listCards" onclick="go('FIND-D')">
+          <div class="row">
+            <strong>Nứt ngang · Km 14+100</strong>
+            <span class="chip status-phat-hien">Phát hiện</span>
+          </div>
+          <div class="meta">Hạng mục: Nứt ngang · Hạn 08/10/2026</div>
+          <div class="meta"><span class="chip sla-ok" data-zone="slaBadge">Trong hạn</span></div>
+        </article>
+      </div>
+      <button type="button" class="fab" id="fabCreate" data-zone="fabCreate" aria-label="Lập phiếu" onclick="go('FIND-F')">+</button>
+    </section>
+
+    <!-- FIND-F -->
+    <section class="screen" id="FIND-F" data-zone="FIND-F">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="back" onclick="tryLeave()">‹</button>
+        <div class="title">Lập phiếu</div>
+        <div class="spacer"></div>
+      </header>
+      <div class="content">
+        <div class="banner deny" id="f-role-banner">Không có quyền lập phiếu (chỉ tuần kiểm).</div>
+        <div class="banner" id="f-gps-banner" data-zone="bannerErrors">Chưa có GPS. Bật định vị rồi thử Lưu lại. (Pattern B — không pre-disable)</div>
+        <div class="toolbar-form">
+          <button type="button" class="btn btn-secondary" data-zone="cancel" onclick="tryLeave()">Huỷ</button>
+          <button type="button" class="btn btn-primary" id="btnSave" data-zone="saveSubmit" onclick="onSave()">Lưu</button>
+        </div>
+        <div class="field" data-zone="source">
+          <label>Nguồn</label>
+          <select id="source"><option>Tuần kiểm</option><option value="tuan-duong">Tuần đường</option></select>
+        </div>
+        <div class="field" data-zone="findingKind">
+          <label>Loại phiếu</label>
+          <select><option>Hư hỏng mặt đường</option></select>
+        </div>
+        <div class="field" data-zone="kmFrom">
+          <label>Km từ</label>
+          <input type="text" value="12+350" />
+        </div>
+        <div class="field" data-zone="kmTo">
+          <label>Km đến</label>
+          <input type="text" value="12+360" />
+        </div>
+        <div class="field" data-zone="side">
+          <label>Vị trí</label>
+          <select><option>Trái</option><option>Phải</option><option>Giữa</option></select>
+        </div>
+        <div class="field" data-zone="hangMuc">
+          <label>Hạng mục</label>
+          <select id="hangMuc" onchange="suggestDue()">
+            <option value="va-og-i">Vá ổ gà (cấp I–II) → +3 ngày</option>
+            <option value="va-og-iii">Vá ổ gà (cấp III–VI) → +5 ngày</option>
+            <option value="nut">Nứt dọc/ngang/mai rùa → +7/+14</option>
+            <option value="nuoc">Nước đọng mặt đường → ≤24 giờ</option>
+            <option value="bien">Biển cấm / hiệu lệnh → +1 ngày</option>
+          </select>
+          <div class="hint" id="dueHint">Gợi ý TT41 Phụ lục IV — sửa được trước Lưu</div>
+        </div>
+        <div class="field" data-zone="scope">
+          <label>Phạm vi</label>
+          <div class="radio-row">
+            <label><input type="radio" name="scope" value="bdtx" checked onchange="toggleDue()" /> BDTX</label>
+            <label><input type="radio" name="scope" value="khac" onchange="toggleDue()" /> Khác</label>
+          </div>
+        </div>
+        <div class="field" id="dueField" data-zone="dueAt">
+          <label>Hạn xử lý (dueAt)</label>
+          <input type="date" id="dueAt" />
+          <div class="hint">Cấm SlaHours=24 làm SLA duy nhất · cấm Mục IV tiền</div>
+        </div>
+        <div class="field" data-zone="description">
+          <label>Mô tả</label>
+          <textarea placeholder="Mô tả hiện trường"></textarea>
+        </div>
+        <div class="field" data-zone="gps">
+          <label>Định vị</label>
+          <button type="button" class="btn btn-secondary btn-block" onclick="toggleGpsSim()">Mô phỏng GPS: <span id="gpsState">chưa có</span></button>
+        </div>
+        <div class="field" data-zone="photos">
+          <label>Ảnh hiện trường</label>
+          <div class="capture">
+            RouteCaptureControl · purpose patrol-finding
+            <div class="thumb-row">
+              <div class="thumb">+ ảnh</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FIND-D -->
+    <section class="screen" id="FIND-D" data-zone="FIND-D">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="back" onclick="go('FIND-L')">‹</button>
+        <div class="title">Chi tiết phiếu</div>
+        <div class="spacer"></div>
+      </header>
+      <div class="content">
+        <div class="banner info" id="d-role-banner">Vai không phải tuần kiểm: không recheck.</div>
+        <div class="banner" id="d-gps-banner" data-zone="bannerErrors">Chưa có GPS. Bật định vị rồi xác nhận lại. (Pattern B)</div>
+        <div class="ro-block" data-zone="stamp">
+          <div class="ro-row"><span class="k">Trạng thái</span><span class="v"><span class="chip status-cho-kiem-tra">Chờ kiểm tra</span></span></div>
+          <div class="ro-row"><span class="k">SLA</span><span class="v"><span class="chip sla-late" data-zone="slaBadge">Quá hạn</span></span></div>
+          <div class="ro-row"><span class="k">Hạng mục</span><span class="v">Vá ổ gà (I–II)</span></div>
+          <div class="ro-row"><span class="k">Km</span><span class="v">12+350 → 12+360</span></div>
+          <div class="ro-row"><span class="k">Hạn (dueAt)</span><span class="v" data-zone="dueAtDisplay">04/10/2026</span></div>
+          <div class="ro-row"><span class="k">Mô tả</span><span class="v">Ổ gà mặt đường trái</span></div>
+        </div>
+        <div class="field" data-zone="detailPhotos">
+          <label>Ảnh hiện trường</label>
+          <div class="capture">
+            RouteCapture view
+            <div class="thumb-row"><div class="thumb">img1</div><div class="thumb">img2</div></div>
+          </div>
+        </div>
+        <div id="recheckBlock">
+          <div class="section-title">Kiểm tra lại (tuần kiểm)</div>
+          <div class="field" data-zone="recheckResult">
+            <label>Kết luận</label>
+            <div class="radio-row">
+              <label><input type="radio" name="recheck" value="dat" checked /> Đạt</label>
+              <label><input type="radio" name="recheck" value="chua-dat" /> Chưa đạt</label>
+            </div>
+          </div>
+          <div class="field" data-zone="recheckNote">
+            <label>Ghi chú</label>
+            <textarea placeholder="Optional"></textarea>
+          </div>
+          <div class="field" data-zone="recheckPhotos">
+            <label>Ảnh kiểm tra</label>
+            <div class="capture">RouteCapture · patrol-finding-recheck</div>
+          </div>
+          <button type="button" class="btn btn-primary btn-block" data-zone="confirmPass" onclick="onRecheck(true)">Xác nhận đạt</button>
+          <button type="button" class="btn btn-danger btn-block" data-zone="confirmFail" onclick="onRecheck(false)">Ghi chưa đạt</button>
+        </div>
+        <div class="removed-note" data-zone="assignCta">
+          CTA «Giao đơn vị BDTX» — <b>REMOVED</b> khỏi slug này · giao = peer <code>web-rmms-giao-viec-ql-hat</code>
+        </div>
+      </div>
+    </section>
+
+    <div class="modal-backdrop" id="leaveModal" data-zone="DES-LEAVE">
+      <div class="modal">
+        <h3>Huỷ thay đổi?</h3>
+        <p>Phiếu chưa lưu. Rời màn sẽ mất dữ liệu đã nhập.</p>
+        <div class="actions">
+          <button type="button" class="btn btn-secondary" onclick="closeLeave(false)">Ở lại</button>
+          <button type="button" class="btn btn-primary" onclick="closeLeave(true)">Huỷ phiếu</button>
+        </div>
+      </div>
+    </div>
+    <div class="toast" id="toast" data-zone="TOAST"></div>
+  </div>
+
+  <script>
+    var role = 'tuanKiem';
+    var gpsOk = false;
+    var dirty = true;
+
+    function go(id) {
+      document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('#screenNav button').forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-screen') === id);
+      });
+      applyRole();
+    }
+
+    function applyRole() {
+      var isTk = role === 'tuanKiem';
+      var fab = document.getElementById('fabCreate');
+      fab.classList.toggle('hidden', !isTk);
+      document.getElementById('l-role-banner').classList.toggle('show', !isTk);
+      document.getElementById('f-role-banner').classList.toggle('show', !isTk);
+      document.getElementById('d-role-banner').classList.toggle('show', !isTk);
+      document.getElementById('btnSave').disabled = !isTk;
+      document.getElementById('recheckBlock').style.display = isTk ? 'block' : 'none';
+    }
+
+    function suggestDue() {
+      var map = { 'va-og-i': 3, 'va-og-iii': 5, 'nut': 7, 'nuoc': 1, 'bien': 1 };
+      var v = document.getElementById('hangMuc').value;
+      var days = map[v] || 3;
+      var d = new Date();
+      d.setDate(d.getDate() + days);
+      document.getElementById('dueAt').value = d.toISOString().slice(0, 10);
+      document.getElementById('dueHint').textContent =
+        'Gợi ý TT41: +' + days + ' ngày từ hôm nay — người lập sửa được';
+      dirty = true;
+    }
+
+    function toggleDue() {
+      var bdtx = document.querySelector('input[name="scope"]:checked').value === 'bdtx';
+      document.getElementById('dueField').style.display = bdtx ? 'block' : 'none';
+    }
+
+    function toggleGpsSim() {
+      gpsOk = !gpsOk;
+      document.getElementById('gpsState').textContent = gpsOk ? 'OK' : 'chưa có';
+      document.getElementById('f-gps-banner').classList.remove('show');
+      document.getElementById('d-gps-banner').classList.remove('show');
+    }
+
+    function onSave() {
+      if (role !== 'tuanKiem') {
+        showToast('Từ chối: chỉ tuần kiểm được Lưu');
+        return;
+      }
+      if (!gpsOk) {
+        document.getElementById('f-gps-banner').classList.add('show');
+        return;
+      }
+      dirty = false;
+      showToast('Đã lưu phiếu (POST patrol/findings)');
+      go('FIND-D');
+    }
+
+    function onRecheck(pass) {
+      if (role !== 'tuanKiem') {
+        showToast('Từ chối: chỉ tuần kiểm recheck');
+        return;
+      }
+      if (!gpsOk) {
+        document.getElementById('d-gps-banner').classList.add('show');
+        return;
+      }
+      showToast(pass ? 'Xác nhận đạt + SLA badge' : 'Ghi chưa đạt + SLA badge');
+    }
+
+    function tryLeave() {
+      if (dirty) {
+        document.getElementById('leaveModal').classList.add('show');
+      } else {
+        go('FIND-L');
+      }
+    }
+
+    function closeLeave(discard) {
+      document.getElementById('leaveModal').classList.remove('show');
+      if (discard) {
+        dirty = false;
+        go('FIND-L');
+      }
+    }
+
+    function showToast(msg) {
+      var t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(function () { t.classList.remove('show'); }, 2200);
+    }
+
+    document.querySelectorAll('#roleNav button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        role = b.getAttribute('data-role');
+        document.querySelectorAll('#roleNav button').forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active');
+        applyRole();
+      });
+    });
+
+    document.querySelectorAll('#screenNav button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        go(b.getAttribute('data-screen'));
+      });
+    });
+
+    suggestDue();
+    applyRole();
+  </script>
+</body>
+</html>

@@ -151,7 +151,7 @@
 | empty | EST-EMPTY | EmptyState | — | thiếu incidentId |
 | toast.ok/fail | TOAST | Toast | — | **cấm** alert |
 
-**Labels:** `useFormOptions()` / `estimate.*` keys — prototype hiện VN để review; Dev wire key.
+**Labels:** `useFormOptions()` / `estimate.*` keys — prototype hiện VN để review; Dev wire key. Copy 2026-10-05: không viết tắt — Giờ nhân công · Ngày thi công · Mã / Tên hạng mục · Khối lượng · Đơn vị tính.
 
 **FormMode↔API**
 

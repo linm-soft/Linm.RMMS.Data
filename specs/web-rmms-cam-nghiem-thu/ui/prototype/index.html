@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-cam-nghiem-thu — NT-L / NT-F role-gate</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --warning: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px;
+      margin-bottom: 8px; line-height: 1.45;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 820px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 4px;
+      padding: 10px 8px 10px 6px;
+    }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 22px; cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .topbar .trail {
+      border: 0; background: transparent; color: inherit;
+      font-size: 15px; font-weight: 600; padding: 8px 12px; cursor: pointer;
+      min-height: var(--control-h);
+    }
+    .content { flex: 1; overflow: auto; padding: 0 0 20px; }
+    .content.pad { padding: 12px 14px 20px; }
+    .search-wrap {
+      margin: 12px 14px; display: flex; align-items: center; gap: 8px;
+      background: var(--card); border-radius: 28px; padding: 10px 14px;
+      border: 1px solid var(--border);
+    }
+    .search-wrap input {
+      flex: 1; border: 0; outline: 0; background: transparent;
+      font-size: var(--field); color: var(--on-surface);
+    }
+    .banner {
+      margin: 10px 14px; padding: 10px 12px; border-radius: 12px;
+      background: #FFF4E5; color: #8A5A00; font-size: 13px; line-height: 1.4;
+      border: 1px solid #F5D9A8;
+    }
+    .banner.danger { background: #FFECEC; color: #8B1A14; border-color: #F5C2BE; }
+    .banner.info { background: #E8F4FB; color: #0A5A82; border-color: #B9DCEF; }
+    .list { margin: 0 14px; background: var(--card); border-radius: var(--radius-card); overflow: hidden; list-style: none; padding: 0; }
+    .list-row {
+      display: flex; align-items: center; gap: 10px; padding: 14px;
+      border-bottom: 1px solid rgba(60,60,67,.18); cursor: pointer; width: 100%;
+      background: none; border-left: 0; border-right: 0; border-top: 0;
+      text-align: left; font-family: inherit; color: inherit;
+    }
+    .list-row:last-child { border-bottom: 0; }
+    .row-ico {
+      width: 40px; height: 40px; border-radius: 12px; background: #E6F6EC;
+      color: var(--success); display: grid; place-items: center; font-weight: 700;
+    }
+    .row-body { flex: 1; min-width: 0; }
+    .row-body .name { font-size: 15px; font-weight: 600; }
+    .row-body .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .badge {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      padding: 2px 8px; border-radius: 999px; background: #E8F4FB; color: var(--primary);
+    }
+    .badge.ok { background: #E6F6EC; color: #1B7A36; }
+    .badge.warn { background: #FFF4E5; color: #8A5A00; }
+    .field { margin-bottom: 12px; }
+    .field label { display: block; font-size: var(--label); color: var(--muted); margin-bottom: 6px; }
+    .field .ctl, .field select, .field textarea, .field input[type="text"], .field input[type="datetime-local"] {
+      width: 100%; min-height: 52px; border: 1px solid var(--border); border-radius: var(--radius-control);
+      padding: 12px 14px; font-size: var(--field); background: var(--card); font-family: inherit;
+    }
+    .field textarea { min-height: 80px; resize: vertical; }
+    .search-input {
+      display: flex; align-items: center; gap: 8px; background: var(--card);
+      border: 1px solid var(--border); border-radius: var(--radius-control);
+      padding: 0 12px; min-height: 52px;
+    }
+    .search-input input { flex: 1; border: 0; outline: 0; font-size: var(--field); background: transparent; }
+    .scores { background: var(--card); border-radius: var(--radius-card); padding: 8px 0; }
+    .score-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 12px; border-bottom: 1px solid rgba(60,60,67,.12); font-size: 14px;
+    }
+    .score-row:last-child { border-bottom: 0; }
+    .score-row .opts { display: flex; gap: 6px; }
+    .chip {
+      border: 1px solid var(--border); background: #fff; border-radius: 8px;
+      padding: 4px 8px; font-size: 11px; cursor: pointer;
+    }
+    .chip.on { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .capture {
+      border: 1px dashed var(--border); border-radius: var(--radius-card);
+      background: var(--card); padding: 14px; text-align: center;
+    }
+    .capture .preview {
+      height: 120px; border-radius: 12px; background: linear-gradient(135deg,#d9eef8,#eef6fb);
+      display: grid; place-items: center; color: var(--muted); margin-bottom: 10px; font-size: 13px;
+    }
+    .capture button {
+      min-height: var(--control-h); border: 0; border-radius: 12px;
+      background: var(--primary); color: #fff; padding: 0 16px; font-weight: 600; cursor: pointer;
+    }
+    .ro-links {
+      background: var(--card); border-radius: var(--radius-card); padding: 4px 0; margin-top: 8px;
+    }
+    .ro-link {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 14px; border-bottom: 1px solid rgba(60,60,67,.12);
+      text-decoration: none; color: var(--on-surface); font-size: 14px;
+    }
+    .ro-link:last-child { border-bottom: 0; }
+    .ro-link span.muted { color: var(--muted); font-size: 12px; }
+    .footer {
+      display: flex; gap: 10px; padding: 12px 14px 18px; background: var(--surface);
+      border-top: 1px solid rgba(60,60,67,.12);
+    }
+    .footer button {
+      flex: 1; min-height: var(--control-h); border-radius: 12px; font-size: 16px;
+      font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--card);
+    }
+    .footer button.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .footer button.primary:disabled { opacity: .55; cursor: not-allowed; }
+    .empty {
+      margin: 40px 24px; text-align: center; color: var(--muted); font-size: 15px; line-height: 1.5;
+    }
+    .modal-mask {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45);
+      display: flex; align-items: flex-end; justify-content: center; padding: 16px;
+    }
+    .modal {
+      width: 100%; background: #fff; border-radius: 16px; padding: 18px 16px 14px;
+    }
+    .modal h3 { margin: 0 0 8px; font-size: 17px; }
+    .modal p { margin: 0 0 14px; color: var(--muted); font-size: 14px; line-height: 1.4; }
+    .modal .row { display: flex; gap: 8px; }
+    .modal .row button {
+      flex: 1; min-height: 44px; border-radius: 12px; border: 1px solid var(--border);
+      background: #fff; font-weight: 600; cursor: pointer;
+    }
+    .modal .row button.danger { background: var(--danger); color: #fff; border-color: var(--danger); }
+    .hidden { display: none !important; }
+    .section-title {
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      margin: 14px 0 8px; text-transform: uppercase; letter-spacing: .02em;
+    }
+  </style>
+</head>
+<body>
+  <div class="meta" id="meta">
+    feature <b>web-rmms-cam-nghiem-thu</b> · edit_page · zones NT-L · NT-F · NT-RO-LINK · NT-leave<br/>
+    reviewUrl = this file · peerStd = /nghiem-thu/moi · DES-GRID N/A · cấm Giao việc / Xác nhận SC
+  </div>
+  <div class="board-nav" id="nav"></div>
+  <div class="phone" id="phone"></div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    let screen = params.get("screen") || "list";
+    let role = params.get("role") || "nt";
+    let gps = params.get("gps") || "ok";
+    let banner = params.get("banner") === "1";
+    let leave = params.get("leave") === "1";
+
+    const roles = [
+      { id: "nt", label: "NT (write)" },
+      { id: "tk", label: "Tuần kiểm RO" },
+      { id: "qlhat", label: "QL_HAT RO" },
+      { id: "tuan", label: "Tuần đường ẩn" },
+    ];
+    const screens = [
+      { id: "list", label: "NT-L" },
+      { id: "form", label: "NT-F" },
+      { id: "leave", label: "NT-leave" },
+    ];
+
+    function setQuery() {
+      const q = new URLSearchParams({ screen, role, gps });
+      if (banner) q.set("banner", "1");
+      if (leave || screen === "leave") q.set("leave", "1");
+      history.replaceState(null, "", "?" + q.toString());
+    }
+
+    function canWrite() { return role === "nt"; }
+    function canSeeList() { return role !== "tuan"; }
+    function canCreate() { return role === "nt"; }
+
+    function renderNav() {
+      const nav = document.getElementById("nav");
+      nav.innerHTML = "";
+      screens.forEach((s) => {
+        const b = document.createElement("button");
+        b.textContent = s.label;
+        b.className = screen === s.id || (s.id === "leave" && leave) ? "active" : "";
+        b.onclick = () => { screen = s.id; leave = s.id === "leave"; banner = false; setQuery(); paint(); };
+        nav.appendChild(b);
+      });
+      roles.forEach((r) => {
+        const b = document.createElement("button");
+        b.textContent = r.label;
+        b.className = role === r.id ? "active" : "";
+        b.onclick = () => { role = r.id; setQuery(); paint(); };
+        nav.appendChild(b);
+      });
+      const g = document.createElement("button");
+      g.textContent = gps === "deny" ? "GPS deny" : "GPS ok";
+      g.className = gps === "deny" ? "active" : "";
+      g.onclick = () => { gps = gps === "deny" ? "ok" : "deny"; banner = gps === "deny"; setQuery(); paint(); };
+      nav.appendChild(g);
+    }
+
+    function listHtml() {
+      if (!canSeeList()) {
+        return `
+          <div class="topbar">
+            <button class="icon-btn" type="button">‹</button>
+            <div class="title">Nghiệm thu</div>
+          </div>
+          <div class="content">
+            <div class="empty">Vai tuần đường — list NT <b>ẩn</b> (LIST-VIS).<br/>Không CTA Tạo · không write.</div>
+          </div>`;
+      }
+      const createBtn = canCreate()
+        ? `<button class="trail" type="button" onclick="goForm()">Tạo</button>`
+        : "";
+      const gate = !canCreate()
+        ? `<div class="banner info" data-zone="roleGateBanner">Chỉ xem (RO) — không lập phiếu / không chụp ảnh trên vai này.</div>`
+        : "";
+      return `
+        <div class="topbar" data-zone="NT-L">
+          <button class="icon-btn" type="button">‹</button>
+          <div class="title">Nghiệm thu</div>
+          ${createBtn}
+        </div>
+        <div class="content">
+          ${gate}
+          <div class="search-wrap"><span>⌕</span><input placeholder="Tìm phiếu / tuyến…" /></div>
+          <ul class="list">
+            <li><button class="list-row" type="button" onclick="goForm()">
+              <div class="row-ico">✓</div>
+              <div class="row-body">
+                <div class="name">NT-2409-014 · QL1 · Km 12–18</div>
+                <div class="sub">Mau-03 · 30/09/2026</div>
+              </div>
+              <span class="badge ok">Đạt</span>
+            </button></li>
+            <li><button class="list-row" type="button" onclick="goForm()">
+              <div class="row-ico">✓</div>
+              <div class="row-body">
+                <div class="name">NT-2409-011 · DT.756</div>
+                <div class="sub">Mau-01 · nháp</div>
+              </div>
+              <span class="badge warn">Nháp</span>
+            </button></li>
+          </ul>
+          <p class="empty" style="margin-top:16px;font-size:12px">CẤM: nút Giao việc · Xác nhận đạt / Hoàn thành SC trên NT-L</p>
+        </div>`;
+    }
+
+    function formHtml() {
+      const write = canWrite();
+      const gpsBanner = (banner || gps === "deny")
+        ? `<div class="banner danger" data-zone="bannerErrors">Thiếu định vị hiện trường — bật GPS rồi thử Lưu. (Pattern B · CTA vẫn bật)</div>`
+        : "";
+      const roleBanner = !write
+        ? `<div class="banner info" data-zone="roleGateBanner">Chế độ chỉ đọc — không Lưu / không capture.</div>`
+        : "";
+      const saveDisabled = ""; // Pattern B: never pre-disable for GPS
+      return `
+        <div class="topbar" data-zone="NT-F">
+          <button class="icon-btn" type="button" onclick="goLeave()">‹</button>
+          <div class="title">${write ? "Lập phiếu NT" : "Phiếu NT (RO)"}</div>
+        </div>
+        <div class="content pad">
+          ${roleBanner}
+          ${gpsBanner}
+          <div class="field">
+            <label>Mẫu</label>
+            <select ${write ? "" : "disabled"}><option>Mau-03 — Hiện trường đường</option></select>
+          </div>
+          <div class="field">
+            <label>Tuyến</label>
+            <div class="search-input"><span>⌕</span><input ${write ? "" : "disabled"} value="QL1 — đoạn Km 12–18" /></div>
+          </div>
+          <div class="field">
+            <label>Hiện trường</label>
+            <input type="text" ${write ? "" : "disabled"} value="Lề phải — sụt lún cục bộ" />
+          </div>
+          <div class="field">
+            <label>Người nghiệm thu</label>
+            <div class="search-input"><span>⌕</span><input ${write ? "" : "disabled"} value="Nguyễn Văn A" /></div>
+          </div>
+          <div class="field">
+            <label>Kết quả</label>
+            <select ${write ? "" : "disabled"}><option>Đạt</option><option>Không đạt</option><option>Trừ điểm</option></select>
+          </div>
+          <div class="section-title">Hạng mục</div>
+          <div class="scores" data-zone="scores">
+            <div class="score-row"><span>Mặt đường</span><div class="opts"><span class="chip on">Đạt</span><span class="chip">KĐạt</span><span class="chip">N/A</span></div></div>
+            <div class="score-row"><span>Lề / taluy</span><div class="opts"><span class="chip">Đạt</span><span class="chip on">KĐạt</span><span class="chip">N/A</span></div></div>
+          </div>
+          <div class="section-title">Ảnh hiện trường</div>
+          <div class="capture" data-zone="photos">
+            <div class="preview">${write ? "RouteCapture · purpose patrol-nghiem-thu" : "View only · không capture"}</div>
+            ${write ? `<button type="button">Chụp ảnh</button>` : `<span class="muted">RO</span>`}
+          </div>
+          <div class="section-title">Đối chiếu (chỉ đọc)</div>
+          <div class="ro-links" data-zone="NT-RO-LINK">
+            <a class="ro-link" href="#ro-ca"><span>Ca tuần đường cùng tuyến</span><span class="muted">RO ›</span></a>
+            <a class="ro-link" href="#ro-finding"><span>Phiếu phát hiện đã Xác nhận đạt</span><span class="muted">RO ›</span></a>
+          </div>
+          <p class="empty" style="margin:12px 0 0;font-size:12px">CẤM zones: assignCta · confirmSc · Mục IV tiền</p>
+        </div>
+        <div class="footer">
+          <button type="button" onclick="goLeave()">Huỷ</button>
+          <button class="primary" type="button" ${write ? "" : "disabled"} ${saveDisabled}
+            onclick="onSave()">Lưu</button>
+        </div>
+        ${leave || screen === "leave" ? leaveModal() : ""}
+      `;
+    }
+
+    function leaveModal() {
+      return `
+        <div class="modal-mask" data-zone="NT-leave">
+          <div class="modal">
+            <h3>Rời trang?</h3>
+            <p>Phiếu chưa lưu. Thay đổi sẽ mất nếu rời đi.</p>
+            <div class="row">
+              <button type="button" onclick="leave=false;screen='form';setQuery();paint()">Ở lại</button>
+              <button class="danger" type="button" onclick="leave=false;screen='list';setQuery();paint()">Rời</button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function goForm() { screen = "form"; leave = false; setQuery(); paint(); }
+    function goLeave() { if (canWrite()) { leave = true; screen = "leave"; } else { screen = "list"; leave = false; } setQuery(); paint(); }
+    function onSave() {
+      if (!canWrite()) return;
+      if (gps === "deny") { banner = true; setQuery(); paint(); return; }
+      banner = false; screen = "list"; setQuery(); paint();
+    }
+    window.goForm = goForm;
+    window.goLeave = goLeave;
+    window.onSave = onSave;
+
+    function paint() {
+      renderNav();
+      const phone = document.getElementById("phone");
+      if (screen === "list") phone.innerHTML = listHtml();
+      else phone.innerHTML = formHtml();
+      document.getElementById("meta").innerHTML =
+        `feature <b>web-rmms-cam-nghiem-thu</b> · role=<b>${role}</b> · screen=<b>${screen}</b> · gps=<b>${gps}</b><br/>` +
+        `zones NT-L · NT-F · NT-RO-LINK · NT-leave · peerStd /nghiem-thu/moi · real_view_parity v1`;
+    }
+    paint();
+  </script>
+</body>
+</html>

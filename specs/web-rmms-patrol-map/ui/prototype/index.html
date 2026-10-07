@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>web-rmms-patrol-map — Bản đồ tuần</title>
+  <title>web-rmms-patrol-map — Bản đồ tuần (chainage delta)</title>
   <style>
     :root {
       --primary: #0C84C0;
@@ -12,9 +12,11 @@
       --success: #3CB448;
       --warning: #FCB43C;
       --next: #E67E00;
-      --track: #0A84FF;
+      /* UNCLEAR-TRACK-STYLE chốt: 1 route token — cấm màu theo tên */
+      --track-route: #0A84FF;
       --done: #1B8A4A;
       --me: #FCB43C;
+      --pin: #0C84C0;
       --surface: #F2F2F7;
       --card: #FFFFFF;
       --on-primary: #FFFFFF;
@@ -99,6 +101,15 @@
       transform: translate(-50%, -50%); z-index: 3;
     }
     .me-dot.hidden { display: none; }
+    .pin-here {
+      position: absolute; width: 26px; height: 26px;
+      border-radius: 50% 50% 50% 0;
+      background: var(--pin); border: 2px solid #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,.25);
+      transform: rotate(-45deg) translate(-50%, -100%);
+      z-index: 3;
+    }
+    .pin-here.hidden { display: none; }
     .pin-next {
       position: absolute; width: 28px; height: 28px;
       border-radius: 50% 50% 50% 0;
@@ -134,7 +145,8 @@
     }
     .next-card.empty .next-title { color: var(--muted); font-weight: 500; }
     .next-eyebrow { font-size: var(--label); color: var(--muted); margin: 0 0 2px; }
-    .next-title { font-size: var(--field); font-weight: 650; margin: 0 0 10px; }
+    .next-title { font-size: var(--field); font-weight: 650; margin: 0 0 4px; }
+    .next-km { font-size: var(--label); color: var(--primary); font-weight: 600; margin: 0 0 10px; }
     .next-cta {
       width: 100%; height: 44px; border: 0; border-radius: var(--radius-control);
       background: var(--primary); color: var(--on-primary);
@@ -159,6 +171,7 @@
     .chip.active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
     .chip:disabled { opacity: .45; cursor: not-allowed; }
     .chip.locate { margin-left: auto; }
+    .chip.pin-btn { background: #e8f4fa; border-color: var(--primary); color: var(--primary); }
     .legend .dot {
       display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px;
     }
@@ -181,20 +194,66 @@
       background: rgba(0,0,0,.35); padding: 2px 5px; border-radius: 4px; z-index: 1;
       pointer-events: none;
     }
+    /* PM-09 chainage suggest strip */
+    .chainage-strip {
+      position: absolute; left: 10px; right: 10px; top: 118px;
+      background: rgba(255,255,255,.97); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 10px 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.1); z-index: 5; display: none;
+    }
+    .chainage-strip.show { display: block; }
+    .chainage-strip .lab { font-size: var(--label); color: var(--muted); margin: 0 0 4px; }
+    .chainage-strip .row { display: flex; gap: 8px; margin-bottom: 8px; }
+    .chainage-strip input {
+      flex: 1; height: 40px; border: 1px solid var(--border); border-radius: 10px;
+      padding: 0 10px; font-size: var(--field); min-width: 0;
+    }
+    .chainage-strip input[readonly] { background: #f5f5f7; color: var(--muted); }
+    .chainage-strip .hint { font-size: 11px; color: var(--muted); margin: 0; }
+    /* PM-10 check-in peer sheet */
+    .sheet {
+      position: absolute; inset: 0; z-index: 20; display: none;
+      background: rgba(0,0,0,.35);
+    }
+    .sheet.show { display: block; }
+    .sheet-panel {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      background: var(--card); border-radius: 20px 20px 0 0;
+      padding: 14px 16px 20px; max-height: 72%;
+      box-shadow: 0 -8px 28px rgba(0,0,0,.2);
+    }
+    .sheet-handle {
+      width: 36px; height: 4px; background: var(--border); border-radius: 2px;
+      margin: 0 auto 12px;
+    }
+    .sheet-title { font-size: 17px; font-weight: 650; margin: 0 0 12px; text-align: center; }
+    .field { margin-bottom: 10px; }
+    .field label { display: block; font-size: var(--label); color: var(--muted); margin-bottom: 4px; }
+    .field input {
+      width: 100%; height: 44px; border: 1px solid var(--border); border-radius: 12px;
+      padding: 0 12px; font-size: var(--field);
+    }
+    .field input[readonly] { background: #f5f5f7; color: var(--muted); }
+    .sheet-actions { display: flex; gap: 8px; margin-top: 14px; }
+    .sheet-actions button {
+      flex: 1; height: 44px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer;
+    }
+    .btn-cancel { border: 1px solid var(--border); background: var(--card); color: var(--on-surface); }
+    .btn-save { border: 0; background: var(--primary); color: var(--on-primary); }
   </style>
 </head>
 <body>
   <div class="meta">
-    <strong>web-rmms-patrol-map</strong> · PM-00…08 · phone ≤430 · Android 1-1 · review prototype<br />
-    peerStdUrl: http://localhost:9301/web-rmms-patrol-map · Mobile.Bff patrol/sessions + gis/tiles · <strong>cấm</strong> ERP.* / invent tracks P1 / Fit
+    <strong>web-rmms-patrol-map</strong> · edit_page delta · PM-00…10 · phone ≤430 · mapGate R1–R11<br />
+    peerStdUrl: http://localhost:9301/web-rmms-patrol-map · track token <code>#0A84FF</code> · <strong>cấm</strong> màu tên / demo Nghi Lộc / ERP.*
   </div>
   <div class="board-nav" id="boardNav">
-    <button type="button" data-board="live" class="active">Live + GPS</button>
+    <button type="button" data-board="live" class="active">Live + bake</button>
+    <button type="button" data-board="ghim">Ghim → chainage</button>
+    <button type="button" data-board="gap">Gap &gt;2km null</button>
+    <button type="button" data-board="checkin">Check-in sheet</button>
     <button type="button" data-board="gpsDeny">GPS deny</button>
     <button type="button" data-board="empty">Empty session</button>
-    <button type="button" data-board="checkin">Check-in toast</button>
-    <button type="button" data-board="tilesErr">Tiles error</button>
-    <button type="button" data-board="sessErr">Sessions error</button>
   </div>
 
   <!-- PM-00 phone frame -->
@@ -219,22 +278,35 @@
         </defs>
         <rect width="430" height="560" fill="#c8dae8"/>
         <rect width="430" height="560" fill="url(#grid)"/>
+        <!-- bake centerline underlay (corridor) -->
         <path d="M40,480 Q120,360 200,300 T380,120" fill="none" stroke="#9bb4c6" stroke-width="16" opacity=".35"/>
-        <!-- P1: no invent track polyline SSOT — track layer empty until P2 -->
-        <polyline id="trackLine" class="track-line hidden"
+        <!-- track = bake routeCode cut km · 1 token --track-route · cấm name color -->
+        <polyline id="trackLine" class="track-line"
           points="60,460 120,380 180,320 240,260 300,200"
           fill="none" stroke="#0A84FF" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
       </svg>
 
-      <!-- PM-05 next card -->
+      <!-- PM-05 next card · planPointLabel ≠ km · fetchLatestKm←chainageLabel -->
       <div class="next-card" id="nextCard" data-zone="PM-05">
-        <p class="next-eyebrow">Điểm tiếp theo</p>
-        <p class="next-title" id="nextTitle">Km 1561+134 · Phước Dinh</p>
+        <p class="next-eyebrow">Điểm kế hoạch</p>
+        <p class="next-title" id="nextTitle">Cầu Phước Dinh · điểm KH-03</p>
+        <p class="next-km" id="latestKm">QL.1 - Km 1561 + 134m</p>
         <button type="button" class="next-cta" id="btnNextCheckin">Ghi điểm tuần</button>
+      </div>
+
+      <!-- PM-09 chainage strip after Ghim -->
+      <div class="chainage-strip" id="chainageStrip" data-zone="PM-09">
+        <p class="lab">Lý trình (GET gis/chainage) · editable</p>
+        <div class="row">
+          <input type="number" id="chainageKm" placeholder="chainageKm" inputmode="decimal" />
+          <input type="text" id="chainageLabel" placeholder="QL.n - Km X + Ym" />
+        </div>
+        <p class="hint" id="chainageHint">Ghim → suggest · gap &gt;2km → null · user nhập · snap ≠ overwrite pin</p>
       </div>
 
       <div class="pin-done hidden" id="pinDone" style="left:36%;top:58%" data-legend="done"></div>
       <div class="pin-next" id="pinNext" style="left:62%;top:38%" data-zone="PM-05" data-legend="next"></div>
+      <div class="pin-here hidden" id="pinHere" style="left:48%;top:52%" data-zone="PM-09"></div>
       <div class="me-dot" id="meDot" style="left:44%;top:66%" data-zone="PM-06"></div>
 
       <div class="empty-hint" id="emptyHint">Chưa có ca Đang tuần · map vẫn mở</div>
@@ -245,18 +317,47 @@
         <p class="meta-line" id="gpsLine">GPS: 11.5678, 108.9912</p>
       </div>
 
-      <!-- PM-03 basemap + locate · PM-04 legend -->
+      <!-- PM-03 basemap + locate + Ghim · PM-04 legend -->
       <div class="overlay-bar">
         <div class="chip-row" data-zone="PM-03">
           <button type="button" class="chip active" data-basemap="std">Tiêu chuẩn</button>
           <button type="button" class="chip" data-basemap="sat">Vệ tinh</button>
+          <button type="button" class="chip pin-btn" id="btnGhim" data-zone="PM-09">Ghim</button>
           <button type="button" class="chip locate" id="btnLocate">Vị trí của tôi</button>
         </div>
         <div class="chip-row legend" data-zone="PM-04">
           <button type="button" class="chip active" data-legend="all">Tất cả</button>
-          <button type="button" class="chip" data-legend="track"><span class="dot" style="background:var(--track)"></span>Hành trình</button>
+          <button type="button" class="chip" data-legend="track"><span class="dot" style="background:var(--track-route)"></span>Hành trình</button>
           <button type="button" class="chip" data-legend="done"><span class="dot" style="background:var(--done)"></span>Đã ghi điểm tuần</button>
           <button type="button" class="chip" data-legend="next"><span class="dot" style="background:var(--next)"></span>Điểm kế tiếp</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PM-10 check-in peer sheet -->
+    <div class="sheet" id="checkinSheet" data-zone="PM-10">
+      <div class="sheet-panel">
+        <div class="sheet-handle"></div>
+        <h2 class="sheet-title">Ghi điểm tuần</h2>
+        <div class="field">
+          <label for="planPoint">Điểm kế hoạch (≠ km)</label>
+          <input type="text" id="planPoint" value="Cầu Phước Dinh · điểm KH-03" />
+        </div>
+        <div class="field">
+          <label for="sheetKm">Lý trình số (chainageKm)</label>
+          <input type="number" id="sheetKm" inputmode="decimal" value="1561.134" />
+        </div>
+        <div class="field">
+          <label for="sheetLabel">Lý trình nhãn (chainageLabel)</label>
+          <input type="text" id="sheetLabel" value="QL.1 - Km 1561 + 134m" />
+        </div>
+        <div class="field">
+          <label for="gpsRaw">GPS thô (RO)</label>
+          <input type="text" id="gpsRaw" readonly value="11.5678, 108.9912" />
+        </div>
+        <div class="sheet-actions">
+          <button type="button" class="btn-cancel" id="btnSheetCancel">Hủy</button>
+          <button type="button" class="btn-save" id="btnSheetSave">Lưu</button>
         </div>
       </div>
     </div>
@@ -272,10 +373,18 @@
       var emptyHint = document.getElementById("emptyHint");
       var nextCard = document.getElementById("nextCard");
       var nextTitle = document.getElementById("nextTitle");
+      var latestKm = document.getElementById("latestKm");
       var pinNext = document.getElementById("pinNext");
       var pinDone = document.getElementById("pinDone");
+      var pinHere = document.getElementById("pinHere");
       var trackLine = document.getElementById("trackLine");
+      var chainageStrip = document.getElementById("chainageStrip");
+      var chainageKm = document.getElementById("chainageKm");
+      var chainageLabel = document.getElementById("chainageLabel");
+      var chainageHint = document.getElementById("chainageHint");
+      var checkinSheet = document.getElementById("checkinSheet");
       var btnLocate = document.getElementById("btnLocate");
+      var btnGhim = document.getElementById("btnGhim");
       var toastTimer;
       var gpsOk = true;
 
@@ -283,49 +392,92 @@
         toastEl.textContent = msg;
         toastEl.classList.add("show");
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2200);
+        toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2400);
       }
 
       function setLegend(mode) {
         var showTrack = mode === "all" || mode === "track";
         var showDone = mode === "all" || mode === "done";
         var showNext = mode === "all" || mode === "next";
-        /* P1: track geom empty — line stays hidden (no invent tracks) */
-        trackLine.classList.add("hidden");
-        void showTrack;
+        trackLine.classList.toggle("hidden", !showTrack || trackLine.dataset.empty === "1");
         pinDone.classList.toggle("hidden", !showDone || pinDone.dataset.absent === "1");
         pinNext.classList.toggle("hidden", !showNext || pinNext.dataset.absent === "1");
       }
 
-      function setLiveSession(on) {
+      function setLiveSession(on, withBake) {
         if (on) {
           nextCard.classList.remove("empty");
-          nextTitle.textContent = "Km 1561+134 · Phước Dinh";
+          nextTitle.textContent = "Cầu Phước Dinh · điểm KH-03";
+          latestKm.textContent = "QL.1 - Km 1561 + 134m";
+          latestKm.style.display = "";
           pinNext.dataset.absent = "0";
           pinNext.classList.remove("hidden");
           pinDone.dataset.absent = "1";
           pinDone.classList.add("hidden");
           emptyHint.classList.remove("show");
+          trackLine.dataset.empty = withBake === false ? "1" : "0";
+          trackLine.classList.toggle("hidden", withBake === false);
         } else {
           nextCard.classList.add("empty");
           nextTitle.textContent = "Chưa có điểm tiếp theo";
+          latestKm.style.display = "none";
           pinNext.dataset.absent = "1";
           pinNext.classList.add("hidden");
           pinDone.dataset.absent = "1";
           pinDone.classList.add("hidden");
           emptyHint.classList.add("show");
+          trackLine.dataset.empty = "1";
+          trackLine.classList.add("hidden");
         }
-        trackLine.classList.add("hidden");
       }
 
       function setGps(ok) {
         gpsOk = ok;
         btnLocate.disabled = !ok;
+        btnGhim.disabled = !ok;
         if (ok) {
           meDot.classList.remove("hidden");
         } else {
           meDot.classList.add("hidden");
           locatePopup.classList.remove("show");
+          pinHere.classList.add("hidden");
+          chainageStrip.classList.remove("show");
+        }
+      }
+
+      function hideChainage() {
+        chainageStrip.classList.remove("show");
+        pinHere.classList.add("hidden");
+      }
+
+      function openSheet() {
+        document.getElementById("sheetKm").value = chainageKm.value || "1561.134";
+        document.getElementById("sheetLabel").value = chainageLabel.value || "QL.1 - Km 1561 + 134m";
+        document.getElementById("gpsRaw").value = "11.5678, 108.9912";
+        checkinSheet.classList.add("show");
+      }
+
+      function closeSheet() {
+        checkinSheet.classList.remove("show");
+      }
+
+      function applyGhim(okSuggest) {
+        if (!gpsOk) {
+          showToast("GPS từ chối · Ghim disabled");
+          return;
+        }
+        pinHere.classList.remove("hidden");
+        chainageStrip.classList.add("show");
+        if (okSuggest) {
+          chainageKm.value = "1561.134";
+          chainageLabel.value = "QL.1 - Km 1561 + 134m";
+          chainageHint.textContent = "GET gis/chainage · editable · snap ≠ overwrite pin · cấm demo Nghi Lộc";
+          showToast("Ghim → chainage fill · user confirm");
+        } else {
+          chainageKm.value = "";
+          chainageLabel.value = "";
+          chainageHint.textContent = "gap >2km → null · user nhập lý trình";
+          showToast("Khoảng cách >2km · chainage null · nhập tay");
         }
       }
 
@@ -334,8 +486,10 @@
           b.classList.toggle("active", b.getAttribute("data-board") === name);
         });
         locatePopup.classList.remove("show");
+        closeSheet();
+        hideChainage();
         document.getElementById("mapHost").style.background = "#d4e4ef";
-        document.querySelectorAll("[data-legend]").forEach(function (c) {
+        document.querySelectorAll(".legend [data-legend]").forEach(function (c) {
           c.classList.toggle("active", c.getAttribute("data-legend") === "all");
         });
         document.querySelectorAll("[data-basemap]").forEach(function (c) {
@@ -344,34 +498,34 @@
 
         if (name === "live") {
           setGps(true);
-          setLiveSession(true);
+          setLiveSession(true, true);
           setLegend("all");
-        } else if (name === "gpsDeny") {
-          setLiveSession(true);
-          setGps(false);
-          setLegend("all");
-          showToast("GPS từ chối · ẩn me · disable locate · map mở");
-        } else if (name === "empty") {
+        } else if (name === "ghim") {
           setGps(true);
-          setLiveSession(false);
+          setLiveSession(true, true);
           setLegend("all");
-          showToast("Sessions trống · next-card empty · map mở");
+          applyGhim(true);
+        } else if (name === "gap") {
+          setGps(true);
+          setLiveSession(true, true);
+          setLegend("all");
+          applyGhim(false);
         } else if (name === "checkin") {
           setGps(true);
-          setLiveSession(true);
+          setLiveSession(true, true);
           setLegend("all");
-          showToast("Ghi điểm tuần · toast P1 · cấm sheet/POST");
-        } else if (name === "tilesErr") {
+          applyGhim(true);
+          openSheet();
+        } else if (name === "gpsDeny") {
+          setLiveSession(true, true);
+          setGps(false);
+          setLegend("all");
+          showToast("GPS từ chối · ẩn me · disable Ghim/locate · map mở");
+        } else if (name === "empty") {
           setGps(true);
-          setLiveSession(true);
+          setLiveSession(false, false);
           setLegend("all");
-          document.getElementById("mapHost").style.background = "#c5c9ce";
-          showToast("Không tải tiles · thử lại · cấm OSM.org / alert");
-        } else if (name === "sessErr") {
-          setGps(true);
-          setLiveSession(false);
-          setLegend("all");
-          showToast("Không tải ca · toast · map vẫn mở");
+          showToast("Sessions trống · next-card empty · map mở");
         }
       }
 
@@ -384,11 +538,22 @@
       document.getElementById("btnBack").addEventListener("click", function () {
         showToast("← Home / Field / Supervise (PM-08 entry)");
       });
-      function toastCheckin() {
-        showToast("Ghi điểm tuần · toast P1 · cấm sheet/POST");
-      }
-      document.getElementById("btnCheckin").addEventListener("click", toastCheckin);
-      document.getElementById("btnNextCheckin").addEventListener("click", toastCheckin);
+      document.getElementById("btnCheckin").addEventListener("click", function () {
+        openSheet();
+      });
+      document.getElementById("btnNextCheckin").addEventListener("click", function () {
+        openSheet();
+      });
+      document.getElementById("btnSheetCancel").addEventListener("click", closeSheet);
+      document.getElementById("btnSheetSave").addEventListener("click", function () {
+        closeSheet();
+        latestKm.textContent = document.getElementById("sheetLabel").value || "—";
+        showToast("POST check-in + chainage* + GPS raw · cấm alert");
+      });
+
+      btnGhim.addEventListener("click", function () {
+        applyGhim(true);
+      });
 
       btnLocate.addEventListener("click", function () {
         if (!gpsOk) {
@@ -407,23 +572,26 @@
           c.classList.add("active");
           var sat = c.getAttribute("data-basemap") === "sat";
           document.getElementById("mapHost").style.background = sat ? "#2a3a2e" : "#d4e4ef";
-          showToast(sat ? "Basemap vệ tinh (local)" : "Basemap tiêu chuẩn (local)");
+          showToast(sat ? "Basemap vệ tinh (local clip)" : "Basemap tiêu chuẩn (local clip)");
         });
       });
 
-      document.querySelectorAll("[data-legend]").forEach(function (c) {
+      document.querySelectorAll(".legend [data-legend]").forEach(function (c) {
         c.addEventListener("click", function () {
-          document.querySelectorAll("[data-legend]").forEach(function (x) { x.classList.remove("active"); });
+          document.querySelectorAll(".legend [data-legend]").forEach(function (x) { x.classList.remove("active"); });
           c.classList.add("active");
           setLegend(c.getAttribute("data-legend"));
         });
       });
 
       document.getElementById("mapHost").addEventListener("click", function (e) {
-        if (e.target.closest("#btnLocate") || e.target.closest(".popup") || e.target.closest(".next-card") || e.target.closest(".chip-row")) return;
+        if (e.target.closest("#btnLocate") || e.target.closest(".popup") || e.target.closest(".next-card") || e.target.closest(".chip-row") || e.target.closest(".chainage-strip") || e.target.closest(".sheet")) return;
         locatePopup.classList.remove("show");
       });
       locatePopup.addEventListener("click", function (e) { e.stopPropagation(); });
+      checkinSheet.addEventListener("click", function (e) {
+        if (e.target === checkinSheet) closeSheet();
+      });
 
       applyBoard("live");
     })();

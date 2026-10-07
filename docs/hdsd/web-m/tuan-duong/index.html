@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hướng dẫn tuần đường</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: #1c1c1e; background: #f2f2f7; line-height: 1.45; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+    header.top, table, .step { background: #fff; border: 1px solid #e5e5ea; border-radius: 16px; }
+    header.top { padding: 20px 22px; }
+    h1 { font-size: 1.45rem; margin: 0 0 8px; }
+    h2 { font-size: 1.2rem; margin: 28px 0 8px; }
+    h3 { font-size: 1.02rem; margin: 0 0 8px; }
+    p { margin: 0 0 8px; }
+    a { color: #086a9a; }
+    .back { font-size: 0.92rem; text-decoration: none; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin-top: 8px; }
+    th, td { border: 1px solid #d8d8dc; padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #f4f4f6; }
+    .step { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 18px; align-items: start; padding: 16px; margin: 12px 0; }
+    .step ol { margin: 8px 0 0; padding-left: 1.2rem; }
+    .step li { margin: 4px 0; }
+    figure { margin: 0; }
+    figure img { width: 100%; height: auto; border: 1px solid #e5e5ea; border-radius: 12px; display: block; }
+    figcaption { font-size: 0.82rem; color: #636366; margin-top: 6px; }
+    .tag { display: inline-block; background: #e8f4fb; color: #086a9a; border-radius: 999px; padding: 2px 8px; font-size: 0.78rem; font-weight: 600; }
+    @page { size: A4 portrait; margin: 12mm; }
+    @media print {
+      body { background: #fff; }
+      .wrap { max-width: none; padding: 0; }
+      header.top, table, .step { border: 0; border-radius: 0; }
+      .back { display: none; }
+      .step { grid-template-columns: 58mm minmax(0, 1fr); gap: 6mm; break-inside: avoid; page-break-inside: avoid; padding: 0 0 6mm; }
+      figure img { width: 58mm; max-height: 145mm; object-fit: contain; object-position: top center; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <a class="back" href="/hdsd/">Về hướng dẫn sử dụng</a>
+      <h1>Tuần đường</h1>
+      <p>Nhân viên tuần đường tuần tra tuyến được giao, phát hiện hư hỏng, xử lý ban đầu và ghi nhật ký ca. Tuần đường không lập biên bản vi phạm. Khi cần, ghi nhận vấn đề và đề nghị người có thẩm quyền lập biên bản.</p>
+    </header>
+
+    <h2>Mở ca</h2>
+    <article class="step">
+      <figure>
+        <img src="/hdsd/img/02-tuan-duong.png" alt="Ca tuần đường đang chạy" />
+        <figcaption>Hình 1. Ca đang tuần.</figcaption>
+      </figure>
+      <div>
+        <ol>
+          <li>Chọn mục <strong>Tuần đường</strong>.</li>
+          <li>Theo dõi tuyến, mã ca, nhân viên, số điểm tuần và độ phủ.</li>
+          <li>Trong mục <strong>Hôm nay</strong>, <strong>Đang tuần</strong> là ca chưa kết thúc. <strong>Xong</strong> là ca đã kết thúc.</li>
+          <li>Nút <strong>Mở ca</strong> chỉ hiện khi chưa có ca đang tuần.</li>
+        </ol>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="/hdsd/img/03-tuan-duong-mo-ca.png" alt="Màn mở ca" />
+        <figcaption>Hình 2. Mở ca.</figcaption>
+      </figure>
+      <div>
+        <ol>
+          <li>Chọn <strong>Tuyến</strong> và <strong>Người</strong>.</li>
+          <li>Chọn <strong>Chiều</strong>: Chiều đi, Chiều về hoặc Hai chiều.</li>
+          <li>Kiểm tra <strong>Ngày</strong>. Loại ghi sẵn Tuần đường, trạng thái Đang tuần.</li>
+          <li>Nhấn <strong>Mở ca</strong>. Nhấn <strong>Hủy</strong> nếu chưa mở.</li>
+        </ol>
+      </div>
+    </article>
+
+    <h2>Ghi điểm tuần</h2>
+    <article class="step">
+      <figure>
+        <img src="/hdsd/img/03-ghi-diem-tuan.png" alt="Ghi điểm tuần" />
+        <figcaption>Hình 3. Ghi điểm tuần.</figcaption>
+      </figure>
+      <div>
+        <ol>
+          <li>Trong ca đang tuần, nhấn <strong>Ghi điểm tuần</strong>. Trên màn Tuần đường hoặc bản đồ, <strong>Ghim vị trí hiện tại</strong> cũng mở phiếu này.</li>
+          <li>Kiểm tra <strong>Điểm kế hoạch</strong> và <strong>Định vị ghim tự động</strong>.</li>
+          <li>Ở mục <strong>Tuyến hiện tại</strong>, chọn <strong>Tuyến</strong> trong ô <strong>Tìm tuyến…</strong>. Đổi hoặc xóa tuyến thì <strong>Cột KM</strong> và <strong>Khoảng cách (m)</strong> bị xóa, phải nhập lại.</li>
+          <li>Nhập <strong>Cột KM</strong>. Ô này bắt buộc, chỉ nhận số nguyên từ 0 trở lên: số ghi trên cột km gần nhất. Ví dụ đang đứng sau cột 12 thì nhập <strong>12</strong>.</li>
+          <li>Nhập <strong>Khoảng cách (m)</strong>: số mét từ cột đó đến chỗ đứng, từ 0 đến 999. Cột 12 và 350 m thì phiếu hiện <strong>Km 12 + 350m</strong>, kèm mã tuyến khi đã chọn tuyến.</li>
+          <li>Cùng một cột với điểm tuần liền trước, định vị đã lệch khỏi điểm đó và cột khác 0: phần mềm có thể tự điền <strong>Cột KM</strong> và <strong>Khoảng cách (m)</strong>. Kiểm tra hai ô trước khi lưu. Cột ra 0, hoặc chưa dịch chuyển, hai ô để trống: nhập tay.</li>
+          <li>Thiếu <strong>Cột KM</strong> thì không lưu được. Phiếu báo <strong>Nhập cột KM trước khi lưu</strong>.</li>
+          <li>Nhập <strong>Nội dung</strong>. Nhấn <strong>Chụp</strong> khi cần ảnh. Trong <strong>Tuyến gần vị trí</strong>, chọn đúng tuyến. Tuyến được giao có nhãn <strong>Tuyến của bạn</strong>.</li>
+          <li>Nhấn <strong>Lưu</strong> trên đầu phiếu hoặc <strong>Ghi nhận điểm tuần</strong> ở cuối phiếu. Nhấn <strong>Hủy</strong> nếu không lưu.</li>
+          <li>Nhấn <strong>Tiếp tục bản đồ</strong> để xem hành trình.</li>
+        </ol>
+      </div>
+    </article>
+
+    <h2>Ghi nhận hư hỏng</h2>
+    <article class="step">
+      <figure>
+        <img src="/hdsd/img/04-van-de.png" alt="Danh sách vấn đề" />
+        <figcaption>Hình 4. Vấn đề sau khi ghi nhận.</figcaption>
+      </figure>
+      <div>
+        <ol>
+          <li>Nhấn <strong>Ghi nhận hư hỏng</strong> khi phát hiện hư hỏng, mất mát hoặc xuống cấp.</li>
+          <li>Mở mục <strong>Vấn đề</strong> để theo dõi. Mỗi dòng có loại, mã, thời gian và trạng thái.</li>
+          <li>Trạng thái gồm <strong>Đợi phân công giám sát</strong> và <strong>Đã đóng</strong>.</li>
+          <li>Chọn dòng để mở chi tiết. Nhấn <strong>Trao đổi</strong> để ghi nội dung xử lý.</li>
+          <li>Hạt trưởng giao việc và ghi thời hạn. Cán bộ tuần kiểm kiểm tra lại, xác nhận hoàn thành, rồi nhấn <strong>Đóng sự cố</strong>.</li>
+        </ol>
+      </div>
+    </article>
+
+    <h2>Lịch sử và kết thúc ca</h2>
+    <article class="step">
+      <figure>
+        <img src="/hdsd/img/04-tuan-duong-lich-su.png" alt="Lịch sử ca tuần đường" />
+        <figcaption>Hình 5. Lịch sử ca.</figcaption>
+      </figure>
+      <div>
+        <ol>
+          <li>Nhấn <strong>Lịch sử phiên</strong>. Nhấn <strong>Lọc</strong> khi cần thu hẹp danh sách.</li>
+          <li>Chọn một dòng để xem chi tiết ca.</li>
+          <li>Khi hoàn thành tuần tra, mở chi tiết ca đang tuần và nhấn <strong>Kết thúc ca</strong>.</li>
+        </ol>
+      </div>
+    </article>
+
+    <h2>Việc ghi trong ca</h2>
+    <table>
+      <thead><tr><th>Việc</th><th>Ghi trên phần mềm</th></tr></thead>
+      <tbody>
+        <tr><td>Có mặt trên tuyến</td><td>Ghi điểm tuần: chọn tuyến, nhập Cột KM và Khoảng cách (m), chụp ảnh.</td></tr>
+        <tr><td>Hư hỏng, mất mát, xuống cấp</td><td>Ghi nhận hư hỏng. Theo dõi ở mục Vấn đề.</td></tr>
+        <tr><td>Xử lý tại chỗ</td><td>Nhập vào Nội dung của điểm tuần hoặc Trao đổi của vấn đề.</td></tr>
+        <tr><td>Vi phạm hành lang</td><td>Ghi nhận vấn đề. Đề nghị người có thẩm quyền lập biên bản. Không tự lập biên bản trên ca tuần đường.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

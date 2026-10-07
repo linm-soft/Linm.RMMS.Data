@@ -153,6 +153,7 @@
 | btnMap | nav map peer · pass Id/Lat/Lng · **cấm** capture GPS |
 | Empty list | EmptyState · live `[]` only (**UNCLEAR-EMPTY-COPY**) |
 | Leave | no dirty · discard none |
+| Map load | one `GET patrol/check-ins` · `search` and `day` on that query |
 
 ### List AC (packKind=list · phone)
 

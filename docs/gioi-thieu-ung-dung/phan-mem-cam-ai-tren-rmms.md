@@ -4,7 +4,7 @@
 |-----|----------|
 | 1 | **Đếm và phân tích lưu lượng AI** (có báo cáo theo thời gian và phương tiện)<br><br>Thị giác AI trên camera ITS (iDS-TCM403-BI, iDS-TCM403-GIR, iDS-2CD7A46G2/LM-IZHS): đếm lưu lượng, phân loại phương tiện, hướng đi, tốc độ trung bình và hàng chờ, theo tài liệu kỹ thuật của hãng.<br>Phần mềm RMMS tiếp nhận kết quả đã xử lý tại camera, lưu trữ và lập báo cáo theo thời gian, theo loại phương tiện. |
 | 2 | **AI nhận diện biển số xe, phương tiện quay đầu xe** (có báo cáo theo thời gian và theo phương tiện)<br><br>Thị giác AI trên camera (iDS-TCM403-GIR, iDS-TCM403-BI, iDS-2CD7A46G2/LM-IZHS): đọc biển số, hướng xe, loại xe, màu xe; phát hiện quay đầu theo vùng giám sát đã thiết lập trên camera.<br>Phần mềm RMMS tiếp nhận sự kiện biển số và quay đầu, lưu ảnh kèm theo, cho phép tra cứu và báo cáo. |
-| 3 | **Giám sát video màn hình tập trung tại Cục ĐBVN**<br><br>Thị giác AI trên camera: sự kiện ùn tắc, dừng đỗ, đổi làn, ngược chiều, vượt tốc, tốc độ thấp trên iDS-TCM403-BI; đọc biển số và đo tốc độ bằng radar trên iDS-TCM403-GIR.<br>Phần mềm RMMS kết nối camera, hiển thị trên trang giám sát tập trung trên tuyến, lưu trữ, phân quyền và quản lý bằng chứng. |
+| 3 | **Giám sát video màn hình tập trung tại Cục ĐBVN**<br><br>Thị giác AI trên camera iDS-TCM403-BI(G)/G: event ANPR (biển, loại xe, ảnh). Model này không có event hướng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp, ùn, dừng. iDS-TCM403-GIR đọc biển số và đo tốc độ bằng radar.<br>Phần mềm RMMS kết nối camera, hiển thị trên trang giám sát tập trung trên tuyến, lưu trữ, phân quyền và quản lý bằng chứng. |
 | 4 | **Kết nối và quản lý camera ITS trên phần mềm RMMS**<br><br>Hạng mục này không nhận diện hình ảnh.<br>Phần mềm RMMS khai báo camera theo model, địa chỉ mạng, tuyến đường và lý trình, thử kết nối, tiếp nhận sự kiện từ camera và phân quyền khai thác. |
 | 5 | **Giám sát tập trung trên tuyến và bản đồ camera trên nền tảng RMMS**<br><br>Hạng mục này không nhận diện hình ảnh. Số liệu đếm xe và vượt tốc tại từng điểm camera lấy từ kết quả thị giác AI trên camera ở mục 1 và mục 2.<br>Phần mềm RMMS hiển thị lưới hình nhiều camera cùng lúc và bản đồ: lớp nền chung của thế giới, lớp bản đồ và tài sản vẽ lại theo chuẩn Việt Nam. Màn hình ghép tại phòng trực là thiết bị tại trung tâm điều hành, có thể nhận nguồn hình từ phần mềm khi đơn vị trang bị. |
 | 6 | **AI nhận diện vi phạm tốc độ, quá tải kết hợp đối chiếu đăng kiểm**<br><br>Thị giác AI trên camera iDS-TCM403-GIR: đọc biển số và đo tốc độ bằng radar (sai số theo tài liệu hãng: cộng trừ 2 km/h, đến 120 km/h). Không dùng phân tích ảnh trên máy chủ để đọc lại biển số.<br>Phần mềm RMMS đối chiếu đăng kiểm, đề xuất nhóm lỗi; người vận hành xác nhận trước khi lập sự cố. |
@@ -23,12 +23,12 @@ Dữ liệu đi từ camera ITS hoặc camera xe tuần về phần mềm RMMS d
 
 Nhận diện hình ảnh trên hệ thống có hai nguồn, không gộp chung một chỉ số độ chính xác.
 
-Nhận diện biển số, hướng xe, loại xe, tốc độ bằng radar, đếm lưu lượng, ùn tắc, dừng đỗ do trí tuệ nhân tạo tích hợp trên camera ITS của hãng. Phần mềm RMMS không huấn luyện lại các thuật toán này. Các chỉ số phần trăm dưới đây lấy từ tài liệu kỹ thuật của hãng Hikvision, trong điều kiện lắp đặt và chiếu sáng theo khuyến nghị. Thực tế trên tuyến có thể khác; số liệu này phục vụ đánh giá kỹ thuật, không thay thế hiệu chuẩn và nghiệm thu trên tuyến khi dùng cho xử lý vi phạm.
+Nhận diện biển số, loại xe và đếm lưu lượng do trí tuệ nhân tạo tích hợp trên camera ITS của hãng, gửi về dưới event ANPR. `iDS-TCM403-BI(G)/G` không có event hướng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp, ùn, dừng. Đo tốc độ bằng radar thuộc `iDS-TCM403-GIR`. Phần mềm RMMS không huấn luyện lại các thuật toán này. Các chỉ số phần trăm dưới đây lấy từ tài liệu kỹ thuật của hãng Hikvision, trong điều kiện lắp đặt và chiếu sáng theo khuyến nghị. Thực tế trên tuyến có thể khác; số liệu này phục vụ đánh giá kỹ thuật, không thay thế hiệu chuẩn và nghiệm thu trên tuyến khi dùng cho xử lý vi phạm.
 
 | Model camera | Việc trên tuyến theo công bố của hãng | Nguồn (trang sản phẩm hãng) |
 |-------|--------------------------------------|--------|
 | iDS-TCM403-GIR (kể cả bản POE/2812) | Đọc biển số và đo tốc độ bằng radar 77 GHz, đến 3 làn | [Trang sản phẩm Hikvision](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/) |
-| iDS-TCM403-BI | Đọc biển số, đếm lưu lượng; sự kiện ùn tắc, dừng đỗ, đổi làn, ngược chiều, vượt tốc, tốc độ thấp | [Trang sản phẩm Hikvision](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/) |
+| iDS-TCM403-BI(G)/G | Đọc biển số, đếm lưu lượng, event ANPR. Không có event hướng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp, ùn, dừng | [Trang sản phẩm Hikvision](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/?subName=iDS-TCM403-BI%28G%29%2FG) |
 | iDS-2CD7A46G2/LM-IZHS | Phát hiện phương tiện và hướng xe; đọc biển số ở kịch bản cổng, trạm | [Trang sản phẩm Hikvision](https://www.hikvision.com/en/products/IP-Products/Network-Cameras/DeepinView-Series/ids-2cd7a46g2-lm-izhs-y-/) |
 
 Kiểm định mặt đường, đề xuất biển báo, cọc tiêu và tài sản mới: phần mềm RMMS gửi ảnh tuần đường lên dịch vụ thị giác AI (ảnh gửi lên cloud), nhận kết quả gợi ý, lưu và gắn vào sổ tài sản hoặc sự cố sau khi người vận hành xác nhận. Hãng camera không công bố nhận diện các hạng mục này. Không lấy chỉ số đọc biển số của camera cố định để đánh giá các việc này.
@@ -62,12 +62,12 @@ Chỉ số kỹ thuật theo tài liệu của hãng:
 | Model | Bắt xe | Hướng xe | Đọc biển số | Bắt nhầm | Lưu lượng và loại xe |
 |-------|------------------|----------|-----------------|----------|---------------------|
 | iDS-TCM403-GIR | trên 99% | trên 98,5% | trên 98% | dưới 2% | Có đếm và phân loại (ô tô con, xe van, xe buýt, xe tải, xe tải nhẹ, SUV, bán tải, xe máy, xe ba bánh). Hãng không công bố phần trăm đếm và phân loại. |
-| iDS-TCM403-BI | trên 99% tại 120 km/h; trên 95% tại 200 km/h | trên 98,5% tại 120 km/h; trên 94% tại 200 km/h | trên 98% tại 120 km/h; trên 90% tại 200 km/h | dưới 2% (bản vùng châu Âu) | Có lưu lượng, tốc độ trung bình, hàng chờ, trạng thái. Hãng không công bố phần trăm đếm. |
+| iDS-TCM403-BI(G)/G | trên 99% | Không có event hướng | trên 98% | dưới 2% | 9 loại, event ANPR, dải bắt 5–120 km/h, không radar. Không lấy bảng 200 km/h của PDF pt-br. Không có event đổi làn, ngược chiều, vượt tốc, tốc độ thấp, ùn, dừng, mũ bảo hiểm |
 | iDS-2CD7A46G2/LM-IZHS | trên 98% | trên 96% | Bản LM không ghi đọc biển từ 98% trở lên (khác bản P chuyên đọc biển) | dưới 2% tại cổng; dưới 5% tại trạm | Có loại xe, màu xe, hãng xe (khuyến nghị đường phố đô thị) |
 
 Việt Nam thuộc vùng nhận diện biển châu Á - Thái Bình Dương trên tài liệu TCM403. Màu xe chỉ nhận ban ngày. Đường truyền 4G phù hợp tải gói sự kiện đã xử lý tại camera, không thay video trực tiếp nhiều camera cùng lúc.
 
-Kết quả trên RMMS là sự kiện lưu lượng (số lượng, loại, hướng), phục vụ báo cáo theo thời gian và phương tiện. Hạng mục này không tạo bản ghi sổ tài sản. Điểm camera gắn với tài sản ITS và tuyến, lý trình khi đã kết nối ở mục 4.
+Kết quả trên RMMS là sự kiện ANPR (số lượng, loại xe, biển). `iDS-TCM403-BI(G)/G` không gửi event hướng. Hạng mục này không tạo bản ghi sổ tài sản. Điểm camera gắn với tài sản ITS và tuyến, lý trình khi đã kết nối ở mục 4.
 
 ---
 
@@ -75,7 +75,9 @@ Kết quả trên RMMS là sự kiện lưu lượng (số lượng, loại, hư
 
 Đặc điểm:
 
-Nhận diện biển số và theo dõi quỹ đạo do trí tuệ nhân tạo trên camera. Phần mềm RMMS tiếp nhận sự kiện biển số và quay đầu, lưu ảnh kèm theo, tra cứu và báo cáo.
+`iDS-TCM403-BI(G)/G` gửi event ANPR (biển, 9 loại xe, màu ban ngày, ảnh). Model này không có event quay đầu, hướng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp, ùn, dừng, mũ bảo hiểm. RMMS lưu ảnh để người xem. Quyết định camera quay đầu chưa chốt: `docs/camera-info/bc-thuyet-minh/camera-quay-dau-hikvision.md`.
+
+Đoạn mô tả phần mềm quay đầu bên dưới là phạm vi mong muốn, không phải event của model đang chọn.
 
 Phần mềm AI nhận diện biển số xe và phát hiện phương tiện quay đầu là giải pháp giám sát giao thông thông minh, ứng dụng công nghệ trí tuệ nhân tạo, thị giác máy tính và xử lý hình ảnh để tự động nhận diện phương tiện, đọc biển số, theo dõi hướng di chuyển và phát hiện hành vi quay đầu xe tại khu vực giám sát.
 
@@ -94,13 +96,12 @@ Giải pháp giúp tự động hóa công tác giám sát phương tiện và p
 Chỉ số kỹ thuật theo tài liệu của hãng:
 
 - iDS-TCM403-GIR: đọc biển trên 98%, bắt xe trên 99%, hướng trên 98,5%, bắt nhầm dưới 2%. Radar 77 GHz, đo tốc độ đến 120 km/h, sai số cộng trừ 2 km/h, khoảng 5 đến 120 km/h, phủ đến 3 làn, cự ly đến 50 m.
-- iDS-TCM403-BI: cùng bộ chỉ số đọc biển, bắt xe, hướng ở 120 km/h; tại 200 km/h đọc biển trên 90%, bắt xe trên 95%, hướng trên 94%. Có bắt xe không biển và đọc biển xe máy.
+- iDS-TCM403-BI(G)/G: bắt xe trên 99%, đọc biển trên 98%, bắt nhầm dưới 2%, dải bắt 5–120 km/h, tới 3 làn, không radar. Event xe là ANPR. Không có event hướng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp, ùn, dừng, mũ bảo hiểm.
 - iDS-2CD7A46G2/LM-IZHS: bắt xe trên 98%, hướng trên 96%. Bản LM không ghi đọc biển từ 98% trở lên như bản P chuyên đọc biển (đọc biển từ 98%, bắt xe từ 99%, hướng từ 98%, lắp phía trước đến 120 km/h, lắp bên đến 80 km/h).
-- Đổi làn, ngược chiều, dừng đỗ, ùn tắc, vượt tốc, tốc độ thấp: có chức năng trên iDS-TCM403-BI. Tài liệu hãng không công bố phần trăm. Quay đầu, vượt đèn, vật rơi cần cấu hình vùng giám sát; các model trên không có phần trăm cho các sự kiện này.
 
 Số đo áp dụng khi lắp đặt và chiếu sáng đúng khuyến nghị của hãng. Biển bẩn, che khuất, mưa, sương mù làm giảm kết quả thực tế. Ảnh biển số, ảnh phương tiện và ảnh toàn cảnh được lưu kèm sự kiện để đối chiếu. Ban đêm cần đủ đèn bổ trợ hồng ngoại hoặc đèn trắng theo từng model.
 
-Mỗi lần đọc biển hoặc phát hiện quay đầu là một sự kiện camera (thời gian, làn, hướng, loại xe, biển số, ảnh). Hạng mục này không ghi sổ tài sản. Khi đơn vị xác nhận xử lý, sự kiện có thể chuyển thành sự cố hoặc vấn đề trên RMMS để giao việc và theo dõi.
+Mỗi lần đọc biển trên `BI(G)/G` là một sự kiện ANPR (thời gian, loại xe, biển số, ảnh). Không có sự kiện quay đầu hay hướng trên model này. Hạng mục này không ghi sổ tài sản. Khi đơn vị xác nhận xử lý, sự kiện có thể chuyển thành sự cố hoặc vấn đề trên RMMS để giao việc và theo dõi.
 
 ---
 
@@ -154,12 +155,12 @@ Chỉ số kỹ thuật theo tài liệu hiện hành của hãng Hikvision:
 
 | Chỉ tiêu | iDS-TCM403-GIR | iDS-TCM403-BI | iDS-2CD7A46G2/LM-IZHS |
 |---------|----------------|---------------|------------------------|
-| Bắt xe | trên 99% | trên 99% tại 120 km/h; trên 95% tại 200 km/h | trên 98% |
-| Đọc biển số | trên 98% | trên 98% tại 120 km/h; trên 90% tại 200 km/h | Bản LM không ghi từ 98% trở lên |
-| Hướng xe | trên 98,5% | trên 98,5% tại 120 km/h; trên 94% tại 200 km/h | trên 96% |
+| Bắt xe | trên 99% | trên 99%. Dải bắt 5–120 km/h. Không lấy bảng 200 km/h | trên 98% |
+| Đọc biển số | trên 98% | trên 98% | Bản LM không ghi từ 98% trở lên |
+| Hướng xe | trên 98,5% | Không có event hướng trên BI(G)/G | trên 96% |
 | Bắt nhầm | dưới 2% | dưới 2% | dưới 2% tại cổng; dưới 5% tại trạm |
-| Tốc độ radar | cộng trừ 2 km/h, đến 120 km/h, 77 GHz | Không có radar tích hợp như GIR; có phát hiện vượt tốc và tốc độ thấp, hãng không công bố phần trăm | Không có radar |
-| Ùn tắc, dừng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp | Không công bố | Có chức năng, hãng không công bố phần trăm | Không công bố |
+| Tốc độ radar | cộng trừ 2 km/h, đến 120 km/h, 77 GHz | Không có radar. Không có event vượt tốc hay tốc độ thấp | Không có radar |
+| Hướng, đổi làn, ngược chiều, ùn, dừng | Không ghi thành event của BI(G)/G | Không có event trên SKU BI(G)/G. Mục Event: HDD Error, Network Disconnected, IP Address Conflicted, Vehicle Detector Exception, Traffic Light Detector Exception | Không công bố |
 | Phân loại loại xe | Có danh mục, hãng không công bố phần trăm | Có danh mục, hãng không công bố phần trăm | Có thuộc tính, hãng không công bố phần trăm |
 | Vượt đèn đỏ, vật rơi | Không công bố trên tài liệu model này | Không công bố phần trăm | Cần cấu hình vùng giám sát |
 

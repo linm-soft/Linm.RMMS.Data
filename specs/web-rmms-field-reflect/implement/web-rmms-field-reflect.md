@@ -49,6 +49,7 @@
 
 ## Debt / notes
 
+- 2026-10-05: kind Hư/Mất/Hỏng (`Damage`/`Lost`/`Broken`) nằm trong `AllowedIncidentTypes` + init-data. Create gửi `status=new`. Verify: POST `/api/v1/incident/incidents` với `incidentType=Damage` không còn 422 danh mục.
 - Capture = PGC overlay + input capture (prior)
 - Prototype: `?form=1` · `?capture=1` · `?deny=1` · `?empty=1` · `?acc=1` · `?miss=1`
 - UNCLEAR-VALIDATE-B / UNCLEAR-ALIGN-01 → closed Dev · QA AC queued

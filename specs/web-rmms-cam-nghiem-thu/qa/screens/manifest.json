@@ -1,0 +1,122 @@
+{
+  "url": "http://localhost:9301/nghiem-thu",
+  "aliasUrl": "http://localhost:9301/web-rmms-cam-nghiem-thu",
+  "method": "_capture_cam_nghiem_thu.mjs",
+  "capturedAt": "2026-09-30T19:42:49.587Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/nghiem-thu",
+      "sha": "76e066129830"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/m/phat-hien?status=xong",
+      "sha": "3fa0a2a1ca5b"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/m/nghiem-thu/84b06899-9693-4bcb-a0c0-2e96c3875363",
+      "sha": "d29f919b9641"
+    }
+  ],
+  "dumps": [
+    {
+      "id": "S0",
+      "dump": {
+        "feature": "web-rmms-cam-nghiem-thu",
+        "zones": [
+          "UA-00",
+          "NT-00",
+          "NT-01",
+          "NT-L-banner",
+          "NT-03",
+          "NT-RO-LINK",
+          "DES-MOB-TABBAR"
+        ],
+        "fields": [
+          "roleCaps"
+        ],
+        "testids": [
+          "roleGateBanner",
+          "nt-ro-sessions",
+          "nt-ro-findings"
+        ],
+        "hasCreate": false,
+        "hasSave": false,
+        "hasRo": true,
+        "text": "Nghiệm thu Chỉ xem (RO) — không lập phiếu / không chụp ảnh trên vai này. Tìm kiếm Tìm kiếm ✓ NT-20260929-0004 · Nháp Đạt Vệ sinh / vá ổ gà mặt đường · QL.1 [21.019764, 105.816971] ✓ NT-20260929-0003 · Đang nghiệm thu Không đạt Nạo vét rãnh · QL.1 test ✓ NT-20260929-0002 · Đang nghiệm thu Cắt cỏ lề / cắt cây · QL.1 test ✓ NT-20260929-0001 · Đang nghiệm thu Đạt Cắt cỏ lề / cắt cây · QL.2 [21.019993, 105.816575] ✓ NT-20260928-0002 · Đang nghiệm thu Cắt cỏ lề / cắt cây · QL.1 ok ✓ NT-20260928-0001 · Đang nghiệm thu Cắt cỏ lề / cắt cây · QL.1D Test Đối chiếu (chỉ đọc) Ca tuần đường cùng tuyếnPhiếu phát hiện đã Xác nhận đạt Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/nghiem-thu",
+        "path": "/nghiem-thu"
+      }
+    },
+    {
+      "id": "S1",
+      "dump": {
+        "feature": null,
+        "zones": [
+          "UA-00",
+          "TK-02",
+          "DES-MOB-TABBAR"
+        ],
+        "fields": [],
+        "testids": [],
+        "hasCreate": false,
+        "hasSave": false,
+        "hasRo": false,
+        "text": "Phiếu phát hiện Chưa có đợt Mở đợt tuần kiểm trước khi lập phiếu.Về tuần kiểm Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/phat-hien?status=xong",
+        "path": "/m/phat-hien"
+      }
+    },
+    {
+      "id": "QA-20",
+      "dump": {
+        "feature": "web-rmms-cam-nghiem-thu",
+        "zones": [
+          "UA-00",
+          "NT-00",
+          "NT-11",
+          "NT-F-banner",
+          "NT-10",
+          "NT-05",
+          "NT-06",
+          "NT-06b",
+          "NT-07",
+          "NT-09",
+          "NT-08",
+          "NT-RO-LINK"
+        ],
+        "fields": [
+          "roleCaps",
+          "route",
+          "assignee",
+          "scores",
+          "gps",
+          "photos",
+          "captureFacts",
+          "linkRo"
+        ],
+        "testids": [
+          "roleGateBanner",
+          "nt-ro-sessions",
+          "nt-ro-findings"
+        ],
+        "hasCreate": false,
+        "hasSave": false,
+        "hasRo": true,
+        "text": "Chi tiết nghiệm thu Chế độ chỉ đọc — không Lưu / không capture. Huỷ Mẫu nghiệm thu Cắt cỏ lề / cắt cây Vệ sinh / vá ổ gà mặt đường Nạo vét rãnh Sơn bổ sung báo hiệu Khơi thông cống / rãnh Sửa chữa lề đường Hót sụt Bảo dưỡng báo hiệu đường bộ Hạng mục công trình khác Bảo dưỡng thiết bị Tuyến Hiện trường Khu vực Km từ Km đến Người NT Thời điểm NT Kết quả — Đạt Không đạt Khấu trừ Ghi chú kết quả Hạng mục kiểm tra 2.1.1 · Vá ổ gà — cao độ ±5 mm, không khe >3 mm Đạt Không đạt Không áp dụng 2.1.2 · Không vết nứt rộng >5 mm Đạt Không đạt Không áp dụng 2.1.vs · Vệ sinh mặt — không rác/chướng ngại Đạt Không đạt Không áp dụng Ghi chú Định vị Ảnh hiện trường Định vị người chụp [0.000000, 0.000000] Vị trí vật thể Chưa ghim vật thể trên ảnh Tuyến QL.1 RMMS.vn QL.1 Đối chiếu (chỉ đọc) Ca tuần đường cùng tuyếnPhiếu phát hiện đã Xác nhận đạt",
+        "href": "http://localhost:9301/m/nghiem-thu/84b06899-9693-4bcb-a0c0-2e96c3875363",
+        "path": "/m/nghiem-thu/84b06899-9693-4bcb-a0c0-2e96c3875363"
+      }
+    }
+  ],
+  "dup": null,
+  "ok": true
+}

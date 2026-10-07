@@ -1,79 +1,70 @@
-# handoff-compact — review · gis-patrol-map
+# Handoff compact — review
 
-| Field | Value |
-|-------|-------|
-| schemaVersion | `1` |
-| role | `review` |
-| feature | `gis-patrol-map` |
-| title | Bản đồ tuần đường — leftover + ảnh |
-| packKind | `map` |
-| changeScope | `edit_page` |
-| status | `done` |
-| verdict | **PASS** |
-| review_confirm | **done** |
-| findingsCount | P0=`0` · P1=`0` · P2=`1` (Auth stub) · info=`1` |
-| taskId | `task_3a72c9b1` |
-| contentHash | `sha256:e1d043dbf402977a2d0e888df1d32d0e542b2792b22076e2dc5fc482e8a7c287` |
-| reviewHash | `sha256:f2ab1a14889d9ec2a9de6e514a19bc00b2728901e49b6c73abac84f83d67a788` |
-| hashSkip | **no** (prior META draft) |
-| skillVersion | `2026.09.05.03` |
-| workflowVersion | `2026.09.05.03` |
-| rulesVersion | `2026.09.12.2` |
-| autoApprove | `ON` |
-| e2eQa | prior QA **PASS** · S0/S1/QA-20 |
-| design_confirm | `approve` |
-| solution_confirm | `approve` |
-| route_confirm | `route_keep` `/gis/tuan-duong` |
-| mfeStdUrl | `http://localhost:9301/gis-patrol-map` |
-| beRepo | `D:/AI-QLBD/Linm.RMMS.WebService` · **cấm ERP.*** |
-| uiRepo | `D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Gis` |
-| domain | **Patrol** · `api/v1/patrol/sessions` |
-| formPattern | Full page + MapPopup Modal |
-| writtenAt | `2026-09-12T07:00:00.000Z` |
+schemaVersion: 1
+feature: gis-patrol-map
+packKind: map
+role: review
+status: done
+skillVersion: 2026.09.05.03
+writtenAt: 2026-09-30T16:01:38.511Z
+taskId: task_92f62e9b
+contentHash: sha256:ca2b1f0e2bf0bd97e92b99936fde30e4e92f1db00023191cf55297415b8d8247
+reviewHash: sha256:92e744a0988d8843a5c0a22d340eb35fc683a7b9852631ece9126d6a33876998
+changeScope: edit_page
+formPattern: Full page + MapPopup Modal
+formType: map
+autoApprove: ON
+review_confirm: done
+verdict: PASS
 
 ## Decisions
+- changeScope: edit_page
+- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Gis · `/gis/tuan-duong`
+- be: D:/AI-QLBD/Linm.RMMS.WebService · Patrol · migration=none · cấm ERP.*
+- Delta QUERY/SEC/UI/BE: REAL…KM-EMPTY + PHOTO + OMS **PASS**
+- hashSkip: no (edit cycle · prior findings contentHash lệch)
+- live shell: skip · evidence QA `task_e337c304` S0/S1/QA-20 + code spot-check
+- P0/P1: none · fix_gaps: none
+- open questions: none
 
-- review_confirm **done** (autoApprove) · QUERY/SEC/UI-FN/BE-FN/OMS R1–R11 **PASS**
-- GAP-MAP-PATROL-PHOTO-01 **CLOSED** · FileService resign guid · GALLERY-PATROL
-- Live start:std **skipped** (roleOnly=review) · QA manifest + code spot-check
-- open Q: **none** P0/P1 · fix_gaps **none**
+## Inventory (slim)
+| id | label | controlHint | notes |
+|----|-------|-------------|-------|
+| filter.* | VP/Tuyến | Select | FILTER-BAR |
+| list.personName | Họ tên | Text | FIT fitBounds |
+| list.kmFromTo | Km đoạn | Text | empty-ok |
+| map.assignedSeg | Nét giao | MapPolyline | LAYER-ASSIGNED |
+| map.kmPost | KM_POST | MapLayer | clamp |
+| map.pin | Pin | MapPin | |
+| inspect.* | PIN-02 | Text | HARD 6dp |
+| inspect.photoIds | Ảnh | ImageGallery | resign |
 
-## Gates
+## Screens / zones (ids only)
+- SCR-MAP / SCR-INSPECT / SCR-DETAIL
+- NAV-GIS · FILTER-BAR · TAB-* · LIST-PERSON · MAP-HOST · LAYER-ASSIGNED · LAYER-KMPOST · MAP-POPUP-INSPECT · GALLERY-PATROL
+- runtimeUrl=`http://localhost:9302/gis-patrol-map` · live=`/gis/tuan-duong`
+- reviewUrl=`file:///D:/AI-QLBD/Linm.RMMS.Data/specs/gis-patrol-map/ui/prototype/gis-patrol-map-prototype.html`
 
-| Gate | Result |
-|------|--------|
-| QUERY | PASS |
-| SEC | PASS · Auth stub P2 debt |
-| UI-FN | PASS · map chrome + gallery |
-| BE-FN | PASS · Patrol + PhotoLocalIds |
-| OMS R1–R11 | PASS |
-| Hash | rescan → written |
-
-## Artifacts
-
-| Kind | Path |
-|------|------|
-| findings | `specs/gis-patrol-map/review/findings.md` |
-| REVIEW-META | `specs/gis-patrol-map/review/REVIEW-META.json` |
-| prior qa | `handoff/qa-compact.md` |
-| STATUS | `specs/gis-patrol-map/STATUS.md` |
-
-## Debt (carry)
-
-- REV-S-01 Auth DEFER P2 · FileService seed 404 info
-
-## Next
-
-| Role | Need |
-|------|------|
-| — | chain roleOnly complete · **cấm** phase=done qldb without pilot/docs |
+## API / tasks (ids only)
+- FormMode↔API: View→sessions(scoped+AssignedSegments) · check-ins(+chainage) · gis/chainage cite · files resign · no PATCH P1
+- Findings: REV-Q-01 PASS · REV-S-02 PASS · REV-UI-* PASS · REV-BE-* PASS
+- debt: REV-S-01 Auth stub P2 · REV-INFO-01 FileService 404 · REV-INFO-02 port :9301/:9302
 
 ## UNCLEAR
-
 - none
 
-## Cấm (compact)
+## Full paths (Read only if needed)
+- findings: D:/AI-QLBD/Linm.RMMS.Data/specs/gis-patrol-map/review/findings.md
+- REVIEW-META: D:/AI-QLBD/Linm.RMMS.Data/specs/gis-patrol-map/review/REVIEW-META.json
+- STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/gis-patrol-map/STATUS.md
+- prior compact: D:/AI-QLBD/Linm.RMMS.Data/specs/gis-patrol-map/handoff/qa-compact.md
 
-- ERP.* · invent FilesController · e2e/start:std ở review · fix code ở review
+## Handoff next
+| Role | Do |
+|------|----|
+| — | chain complete · review PASS · **cấm** start role khác từ task này |
 
-<!-- compact schemaVersion=1 role=review feature=gis-patrol-map taskId=task_3a72c9b1 verdict=PASS review_confirm=done -->
+## Cấm
+- ERP.* · e2e/build/start:std ở Review · phase reopen · invent FilesController · start role khác
+
+<!-- compact schemaVersion=1 role=review feature=gis-patrol-map taskId=task_92f62e9b -->

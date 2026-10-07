@@ -5,22 +5,22 @@
   "skillVersion": "2026.09.05.03",
   "workflowVersion": "2026.09.05.03",
   "rulesVersion": "2026.09.12.2",
-  "contentHash": "sha256:e1d043dbf402977a2d0e888df1d32d0e542b2792b22076e2dc5fc482e8a7c287",
-  "reviewHash": "sha256:f2ab1a14889d9ec2a9de6e514a19bc00b2728901e49b6c73abac84f83d67a788",
+  "contentHash": "sha256:ca2b1f0e2bf0bd97e92b99936fde30e4e92f1db00023191cf55297415b8d8247",
+  "reviewHash": "sha256:92e744a0988d8843a5c0a22d340eb35fc683a7b9852631ece9126d6a33876998",
   "status": "done",
   "review_confirm": "done",
   "verdict": "PASS",
   "packKind": "map",
   "changeScope": "edit_page",
-  "taskId": "task_3a72c9b1",
+  "taskId": "task_92f62e9b",
   "autoApprove": true,
   "hashSkip": false,
   "findingsCount": {
     "P0": 0,
     "P1": 0,
     "P2": 1,
-    "info": 1
+    "info": 2
   },
-  "generatedAt": "2026-09-12T07:00:00.000Z",
+  "generatedAt": "2026-09-30T16:01:38.511Z",
   "versionGate": "ok"
 }

@@ -7,8 +7,12 @@ import { createRequire } from "node:module";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = __dirname;
 const base = "http://localhost:9301";
-const featureUrl = base + "/web-rmms-patrol-map";
-const homeUrl = base + "/web-rmms-home";
+/** Live SSOT: window = /m/{slug} · memory = /{slug} (paths.ts). */
+const featurePath = "/m/ban-do-tuan";
+const homePath = "/m/trang-chu";
+const loginPath = "/m/dang-nhap";
+const featureUrl = base + featurePath;
+const homeUrl = base + homePath;
 const require = createRequire(import.meta.url);
 
 let chromiumLauncher = chromium;
@@ -79,6 +83,16 @@ async function dismissOverlay() {
   }
 }
 
+/** Standalone MemoryRouter: mount không sync window → dùng popstate để sync. */
+async function navigateMemory(windowPath) {
+  await page.evaluate((p) => {
+    window.history.pushState(null, "", p);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  }, windowPath);
+  await page.waitForTimeout(600);
+  await dismissOverlay();
+}
+
 async function fatalUi() {
   await dismissOverlay();
   const t = await page.locator("body").innerText().catch(() => "");
@@ -88,6 +102,9 @@ async function fatalUi() {
     )
   ) {
     return "crash text: " + t.slice(0, 180).replace(/\s+/g, " ");
+  }
+  if (/Trang không tìm thấy|không tồn tại hoặc đã bị di chuyển/i.test(t)) {
+    return "spa-404: " + t.slice(0, 120).replace(/\s+/g, " ");
   }
   const real = pageErrors.filter(
     (e) =>
@@ -99,13 +116,19 @@ async function fatalUi() {
 }
 
 async function login() {
-  await page.goto(base + "/login", { waitUntil: "domcontentloaded", timeout: 60000 });
-  await page.waitForSelector('input[name="username"], input[type="password"]', {
-    timeout: 20000,
-  });
+  await page.goto(base + loginPath, { waitUntil: "domcontentloaded", timeout: 60000 });
+  await navigateMemory(loginPath);
+  await page.waitForSelector(
+    '#f-pass, input[name="password"], input[type="password"], input[name="username"]',
+    { timeout: 20000 },
+  );
   await dismissOverlay();
-  await page.fill('input[name="username"]', user);
-  await page.fill('input[type="password"]', password);
+  const userSel = page
+    .locator('#f-user, input[name="username"], input[name="userName"], input[type="text"]')
+    .first();
+  const passSel = page.locator('#f-pass, input[name="password"], input[type="password"]').first();
+  await userSel.fill(user);
+  await passSel.fill(password);
   await Promise.all([
     page
       .waitForResponse(
@@ -113,7 +136,10 @@ async function login() {
         { timeout: 25000 },
       )
       .catch(() => null),
-    page.locator('button[type="submit"]').click({ force: true }),
+    page
+      .locator('#btn-login, button[type="submit"], button:has-text("Đăng nhập")')
+      .first()
+      .click({ force: true }),
   ]);
   await page.waitForTimeout(2000);
   await dismissOverlay();
@@ -129,10 +155,19 @@ async function dumpZones() {
     const zones = [...document.querySelectorAll("[data-zone]")].map((el) =>
       el.getAttribute("data-zone"),
     );
-    const ids = ["gridPatrolMap", "navBack", "mapHost"].filter(
-      (id) => !!document.getElementById(id),
+    const ids = [
+      "gridPatrolMap",
+      "navBack",
+      "mapHost",
+      "map-patrol-host",
+      "sc-patrol-map",
+      "btn-pin-here",
+      "ci-chainage-km",
+      "ci-chainage-label",
+    ].filter((id) => !!document.getElementById(id) || !!document.querySelector(`[data-testid="${id}"]`));
+    const canvas = !!document.querySelector(
+      ".maplibregl-canvas, .mapboxgl-canvas, [data-testid='map-patrol-host'] canvas, canvas",
     );
-    const canvas = !!document.querySelector(".maplibregl-canvas, .mapboxgl-canvas, canvas");
     const text = (document.body?.innerText || "").slice(0, 900).replace(/\s+/g, " ");
     return {
       feature: root?.getAttribute("data-feature") || null,
@@ -158,20 +193,26 @@ async function captureCurrent(id, waitSel) {
     await page.screenshot({ path: abs, fullPage: true });
     const dump = await dumpZones();
     if (id === "S0" || id === "QA-20") {
-      if (!dump.zones?.includes("PM-00") || !dump.zones?.includes("PM-02")) {
-        throw new Error("GAP-QA-E2E-MAP-01 PM zones missing: " + JSON.stringify(dump.zones));
-      }
       if (dump.feature && dump.feature !== "web-rmms-patrol-map") {
         throw new Error("GAP-QA-E2E-MAP-01 wrong feature " + dump.feature);
       }
-      if (!dump.canvas) {
-        throw new Error("GAP-QA-E2E-MAP-01 map canvas missing");
+      if (!dump.zones?.includes("PM-00") && !dump.ids?.includes("sc-patrol-map")) {
+        throw new Error(
+          "GAP-QA-E2E-MAP-01 patrol surface missing: " +
+            JSON.stringify({ zones: dump.zones, ids: dump.ids }),
+        );
+      }
+      if (!dump.canvas && !dump.ids?.includes("map-patrol-host")) {
+        throw new Error("GAP-QA-E2E-MAP-01 map canvas/host missing");
+      }
+      if (/web-rmms-patrol-map/i.test(dump.href || "") && !/ban-do-tuan|patrol-map|field\/map/i.test(dump.href || "")) {
+        /* legacy STATUS slug may 404 — already guarded by spa-404 */
       }
     }
     if (id === "S1") {
       if (
         !dump.ids?.includes("gridPatrolMap") &&
-        !/Bản đồ tuần|patrolMap|gridPatrolMap/i.test(dump.text || "")
+        !/Bản đồ tuần|Tuần đường|patrolMap|gridPatrolMap/i.test(dump.text || "")
       ) {
         throw new Error("GAP-QA-E2E-PEER-01 Home gridPatrolMap missing");
       }
@@ -203,52 +244,62 @@ async function captureCurrent(id, waitSel) {
 try {
   await login();
 
-  // S0 — Patrol Map PM-00…08
+  // S0 — Patrol Map (live /m/ban-do-tuan)
   {
-    await page.goto(featureUrl, { waitUntil: "domcontentloaded", timeout: 60000 });
-    await dismissOverlay();
+    await navigateMemory(featurePath);
     await page
       .waitForResponse(
-        (r) => /patrol\/sessions|gis\/tiles/i.test(r.url()) && r.status() < 500,
+        (r) => /patrol\/sessions|gis\/tiles|gis\/streets/i.test(r.url()) && r.status() < 500,
         { timeout: 25000 },
       )
       .catch(() => null);
     await captureCurrent(
       "S0",
-      '[data-feature="web-rmms-patrol-map"] [data-zone="PM-02"], [data-zone="PM-00"]',
+      '[data-feature="web-rmms-patrol-map"], [data-testid="sc-patrol-map"], [data-testid="map-patrol-host"]',
     );
   }
 
   // S1 — peer Home entry (#gridPatrolMap)
   {
-    await page.goto(homeUrl, { waitUntil: "domcontentloaded", timeout: 60000 });
-    await dismissOverlay();
+    await navigateMemory(homePath);
     await captureCurrent(
       "S1",
-      '[data-feature="web-rmms-home"] #gridPatrolMap, #gridPatrolMap',
+      '[data-feature="web-rmms-home"] #gridPatrolMap, #gridPatrolMap, [data-field="gridPatrolMap"]',
     );
   }
 
-  // QA-20 — Home gridPatrolMap → Patrol Map (JWT kept)
+  // QA-20 — Home #gridPatrolMap → /tuan-duong hub → #patrol-map → /ban-do-tuan (JWT kept)
   {
-    const entry = page.locator("#gridPatrolMap").first();
+    const entry = page.locator("#gridPatrolMap, [data-field='gridPatrolMap']").first();
     if (await entry.count()) {
       await entry.click();
       await dismissOverlay();
+      await page.waitForTimeout(800);
+      const hubMap = page
+        .locator(
+          "[data-testid='row-quick-patrol-map'], #patrol-map, [data-field='patrol-map'], a[href*='ban-do-tuan']",
+        )
+        .first();
+      if (await hubMap.count()) {
+        await hubMap.click();
+        await dismissOverlay();
+      } else {
+        await navigateMemory(featurePath);
+      }
       await page.waitForSelector(
-        '[data-feature="web-rmms-patrol-map"] [data-zone="PM-02"], [data-zone="PM-00"]',
+        '[data-feature="web-rmms-patrol-map"], [data-testid="sc-patrol-map"]',
         { timeout: 45000 },
       );
       await page.waitForTimeout(800);
       await captureCurrent(
         "QA-20",
-        '[data-feature="web-rmms-patrol-map"] [data-zone="PM-02"], [data-zone="PM-00"]',
+        '[data-feature="web-rmms-patrol-map"], [data-testid="sc-patrol-map"]',
       );
     } else {
-      await page.goto(featureUrl, { waitUntil: "domcontentloaded", timeout: 60000 });
+      await navigateMemory(featurePath);
       await captureCurrent(
         "QA-20",
-        '[data-feature="web-rmms-patrol-map"] [data-zone="PM-02"]',
+        '[data-feature="web-rmms-patrol-map"], [data-testid="sc-patrol-map"]',
       );
     }
   }
@@ -262,9 +313,24 @@ try {
   await browser.close();
 }
 
+const hashes = {};
+for (const id of ["S0", "S1", "QA-20"]) {
+  try {
+    const buf = readFileSync(join(outDir, shotName(id)));
+    hashes[id] = buf.length + ":" + buf.slice(0, 64).toString("hex");
+  } catch {
+    hashes[id] = null;
+  }
+}
+const dup =
+  hashes.S0 && hashes.S1 && hashes.S0 === hashes.S1
+    ? "GAP-QA-E2E-DUP-01 S1 same as S0"
+    : null;
+
 const ok =
   ["S0", "S1", "QA-20"].every((id) => results.some((r) => r.id === id && r.result === "PASS")) &&
-  !results.some((r) => r.result === "FAIL");
+  !results.some((r) => r.result === "FAIL") &&
+  !dup;
 writeFileSync(
   join(outDir, "manifest.json"),
   JSON.stringify(
@@ -272,7 +338,12 @@ writeFileSync(
       url: featureUrl,
       capturedAt: new Date().toISOString(),
       method:
-        "capture_patrol_map · MFE /login · phone 430 · S0 PM map · S1 Home #gridPatrolMap · QA-20 click→patrol-map · geo grant · deep-link fulfill · no kill worker",
+        "capture_patrol_map · /m/dang-nhap · popstate MemoryRouter · phone 430 · S0 /m/ban-do-tuan · S1 /m/trang-chu #gridPatrolMap · QA-20 click→map · geo · no kill worker",
+      liveStdUrl: featureUrl,
+      legacyStatusUrl: "http://localhost:9301/web-rmms-patrol-map",
+      note: "STATUS mfeStdUrl legacy slug → live SSOT /m/ban-do-tuan",
+      hashes,
+      dup,
       steps: results,
       ok,
     },
@@ -281,4 +352,8 @@ writeFileSync(
   ),
   "utf8",
 );
-if (!ok) process.exit(1);
+if (!ok) {
+  if (dup) console.error(dup);
+  process.exit(1);
+}
+console.log(JSON.stringify({ ok, url: featureUrl, steps: results.map((r) => r.id + ":" + r.result) }));

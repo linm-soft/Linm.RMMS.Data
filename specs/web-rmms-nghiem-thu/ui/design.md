@@ -128,7 +128,7 @@ Leave dirty → in-app confirm → list
 | scores | NT-10 | Checklist | opt | Scores[] replace-all |
 | mediaIds * | NT-09 | PhotoRow | opt | guid[] max 10 · `capture="environment"` |
 | status | NT-06/07 | Select/State | * | draft on Lưu nháp |
-| assigneeCode * | NT-06/07 | **SearchInput** | * | `GET …/integration/users?search=` · miss=`--` · **không** RO profile-only |
+| assigneeCode * | NT-06/07 | **Text readonly** | * | `GET patrol/actors` `caller` · khóa sửa · không chọn người khác |
 | inspectedAt | NT-06/07 | DateTime | * | now UTC create |
 | note | NT-06/07 | Text | opt | Note |
 | validationBanner * | NT-06/07 | **Banner** | — | Pattern B · `string[]` · mẫu/tuyến/hiện trường/người thực hiện · first-click |

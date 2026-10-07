@@ -2,65 +2,65 @@
 
 schemaVersion: 1
 feature: web-rmms-patrol-map
-packKind: list
+packKind: map
 role: design
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T03:40:00.000Z
-taskId: task_5013ac7a
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
-design_confirm: approve
+writtenAt: 2026-09-30T14:10:00.000Z
+contentHash: sha256:52bd4a74401781b03b20ace930fd7d47d9e5ca2c5714b39fc6927f0d4fd6bcaf
+taskId: task_71842b2a
 autoApprove: ON
+changeScope: edit_page
+design_confirm: approve
 real_view_parity: v1
-shared_grid_example: N/A
 
 ## Decisions
-- changeScope: new_page
-- formPattern: Mobile Map / full · phone 430 · N/A ERP Modal/Slideout · no master form · no POST check-in/tracks P1 · DES-LEAVE N/A
-- Grid AC Kind B / DES-GRID / LinErpListFilterBar: N/A phone Map
-- Report AC / DES-RPT: N/A
-- mfe: D:/AI-QLBD/MFE-Source/Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/web-rmms-patrol-map
-- mfeStdRoute: /web-rmms-patrol-map · nativeRouteCite SCREENS /patrol-map · /field/map
-- be: D:/AI-QLBD/Linm.RMMS.WebService · Patrol (+Gis tiles) · Mobile.Bff :5202 · cấm ERP.*
-- demo: N/A · hash skip · cấm rescan (GAP-DES-DEMO-RESCAN-01)
-- Map: tiles MVT · basemap Tiêu chuẩn|Vệ tinh · locate · legend isolate · next-card Route · GPS me-dot · locate popup · toast check-in
-- Overlay P1: empty tracks · next-pin only if session Live has coords · else Route text · cấm invent tracks/OMS
-- REMOVED: Fit/Đường/Phố · me* · feedback · cam-view · check-in sheet · invent PatrolMapController
-- labels: useFormOptions() · patrolMap.* · GPS real · cấm fake
-- next: /agent-sa · roleOnly stop (GAP-PKT-ROLE-01)
+- changeScope: edit_page · keep PM-00…08 · § Delta PM-09/10 + bake track
+- formPattern: Mobile Map / full (≤430) · check-in peer sheet PM-10 · N/A ERP Modal Kind B
+- DES-GRID / LinErpListFilterBar / DES-RPT: N/A phone Map
+- Control = controlHint · Ghim→GET gis/chainage→chainageKm/Label editable · planPointLabel≠km · fetchLatestKm←chainageLabel
+- Track: bake routeCode cut km · **1 token `#0A84FF`** (UNCLEAR-TRACK-STYLE chốt) · cấm màu tên
+- mapGate R1–R11 · OSRM local bake · cấm public OSRM/Overpass · cấm OSM.org · cấm demo Nghi Lộc
+- GPS raw persist · snap≠overwrite pin · gap>2km null
+- mfe: Linm.Web.RMMS.Mobile `/ban-do-tuan` · peerStdUrl http://localhost:9301/web-rmms-patrol-map
+- be: Linm.RMMS.WebService Patrol+Gis · Mobile.Bff :5202 · cấm ERP.* · cấm Map.Api
+- demo: N/A · hash-skip · cấm re-scan
+- next: SA · roleOnly stop
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| navBack | back | Button/Nav | → Home/Field/Supervise |
-| title | title | Text RO | patrolMap.title |
-| trailingCheckin | checkin | Button | toast P1 |
-| mapHost | map | Map | gis/tiles |
-| basemap×2+locate | bar | Chip/Button | no Fit |
-| legend×4 | isolate | Chip | track geom empty P1 |
-| nextCard | Route | Card RO | GET sessions |
-| gpsMe+popup | me | Marker/Popup | Geolocation |
+| map+tiles+bake | map | Map/MapLine | overlay bake |
+| pinHere | ghim | Button | → GET chainage |
+| chainageKm | lý trình số | Number | editable / null>2km |
+| chainageLabel | lý trình nhãn | Text | QL.n - Km X + Ym |
+| planPointLabel | điểm KH | Text | ≠ km |
+| gpsRaw | GPS thô | Number RO | persist |
+| trackLine | nét ca | MapLine | token #0A84FF |
+| fetchLatestKm | stamp | Text RO | chainageLabel |
+| basemap+legend | chrome | Chip | clip |
 
 ## Screens / zones (ids only)
-- PM-00 · PM-01 · PM-02 · PM-03 · PM-04 · PM-05 · PM-06 · PM-07 · PM-08
+- PM-00…PM-10
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/ui/prototype/index.html
 - peerStdUrl= http://localhost:9301/web-rmms-patrol-map
 - real_view_parity= v1
-- DES-GRID / LinErpListFilterBar: N/A phone Map
+- DES-GRID / LinErpListFilterBar: N/A
 
 ## API / tasks (ids only)
-- FormMode↔API: GET patrol/sessions · GET gis/tiles · nav/toast writes only
-- real-data §A+§B: PASS · T-*: (team_lead) · devSlash=/agent-dev
+- FormMode↔API: sessions GET · check-in POST+chainage* · gis/chainage GET · tiles · streets/search echo · bake read
+- real-data §A+§B+§D: PASS
+- T-*: (team_lead)
 
 ## UNCLEAR
-- UNCLEAR-DOMAIN-MAP-PATROL-MAP: SA add DOMAIN-MAP row web-rmms-patrol-map
-- UNCLEAR-OVERLAY-GEOM: Design chốt empty tracks + next-pin if coords · SA confirm DTO
-- UNCLEAR-STD-PORT: follow STATUS mfeStdUrl :9301
+- UNCLEAR-CHAINAGE-BFF: SA Mobile.Bff proxy gis/chainage
+- UNCLEAR-SCHEMA-PAIR: SA Schema_* chainageKm/Label
+- UNCLEAR-TRACK-STYLE: Design done `#0A84FF`
 
 ## Full paths (Read only if needed)
 - design: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/ui/design.md
 - prototype: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/ui/prototype/index.html
+- requirement: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/po/requirement.md
 - control-hint: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-patrol-map-control-hint.md
 - real-data: D:/AI-QLBD/Linm.RMMS.Data/specs/_data-analy/features/web-rmms-patrol-map-real-data.md
-- po: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/po/requirement.md
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/STATUS.md

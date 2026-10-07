@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hướng dẫn tập sự — Gán nhãn ảnh và bàn giao model</title>
+  <style>
+    body { font-family: "Times New Roman", Times, serif; font-size: 13pt; line-height: 1.45; color: #111; max-width: 920px; margin: 24px auto; padding: 0 16px 48px; }
+    h1 { font-size: 16pt; text-align: center; text-transform: uppercase; }
+    h2 { font-size: 14pt; margin-top: 1.4em; page-break-after: avoid; }
+    h3 { font-size: 13pt; margin-top: 1.1em; page-break-after: avoid; }
+    p, li { margin: 0.35em 0; }
+    table { border-collapse: collapse; width: 100%; margin: 0.8em 0 1em; font-size: 11pt; page-break-inside: avoid; }
+    th, td { border: 1px solid #222; padding: 4px 6px; vertical-align: top; }
+    th { background: #f3f3f3; }
+    .meta { margin: 0.2em 0; }
+    .note { font-size: 11pt; }
+    code, .path { font-family: Consolas, "Courier New", monospace; font-size: 11pt; }
+    ol.steps > li { margin: 0.55em 0; }
+    .sheet { page-break-before: always; }
+    @media print {
+      body { margin: 12mm auto; max-width: none; }
+      a { color: #111; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Hướng dẫn tập sự<br />Từ ảnh hiện trường đến file model</h1>
+<p class="meta"><strong>Dành cho:</strong> nhóm sinh viên chưa làm AI. Đọc từ mục 1 đến mục 6 là đủ để bắt đầu gán nhãn.</p>
+<p class="meta"><strong>Người phụ trách kỹ thuật:</strong> giữ danh sách class, gộp nhãn, chạy train, xuất file cho phần mềm.</p>
+<p class="meta"><strong>Phần mềm nhận kết quả:</strong> RMMS. Camera Hikvision vẫn đếm xe và đọc biển số. Bài tập này không học lại việc đó.</p>
+<p class="meta"><strong>Ngày:</strong> 2026-10-07</p>
+
+<h2>1. Việc của một nhóm, nói bằng lời thường</h2>
+<p>Máy học bằng cách xem nhiều ảnh đã có người khoanh. Khoanh đúng thì máy học đúng. Khoanh sai thì máy báo sai khi đưa vào đường thật.</p>
+<p>Một nhóm nhận <strong>một loại việc</strong> trong <strong>một album</strong>. Ví dụ: chỉ khoanh ổ gà, hoặc chỉ khoanh biển báo cấm. Nhóm không train riêng một “model nhỏ” rồi cộng các model lại. Cộng file model của nhiều nhóm không ra một model đúng.</p>
+<p>Thứ tự cả đợt:</p>
+<ol class="steps">
+  <li>Người phụ trách phát ảnh và một file danh sách loại (mỗi loại một số, số không đổi suốt đợt).</li>
+  <li>Nhóm mở từng ảnh, kéo hình chữ nhật quanh đúng vật của nhóm mình, ghi đúng số loại.</li>
+  <li>Người khác trong nhóm xem lại khoảng một phần mười số ảnh.</li>
+  <li>Nhóm nộp thư mục ảnh và file nhãn.</li>
+  <li>Người phụ trách <strong>gộp các file nhãn</strong> của mọi nhóm trong cùng album thành một bộ.</li>
+  <li>Người phụ trách train <strong>một lần</strong> trên máy có card đồ họa, rồi xuất ba file bàn giao.</li>
+</ol>
+
+<h2>2. Bốn album — không trộn ảnh và không trộn số loại</h2>
+<p>Mỗi album là một bộ model riêng. Số 0 của album mặt đường là ổ gà. Số 0 của album biển báo là biển cấm. Hai số 0 này không liên quan. Ảnh và file nhãn để trong thư mục album tương ứng.</p>
+<table>
+  <thead><tr><th>Album</th><th>Máy sẽ học</th><th>Không đưa vào album này</th></tr></thead>
+  <tbody>
+    <tr><td>A. Hư mặt đường</td><td>Ổ gà, nứt, vá, sạt…</td><td>Biển báo, xe, biển số</td></tr>
+    <tr><td>B. Biển báo còn trên đường</td><td>Họ biển: cấm, nguy hiểm, hiệu lệnh, chỉ dẫn, biển phụ, biển trên giá long môn</td><td>Biển đổ, biển mất, ổ gà</td></tr>
+    <tr><td>C. Sự cố biển báo</td><td>Đổ, nghiêng, mất, che, mờ, cột hỏng</td><td>Chữ trên biển khi biển vẫn tốt</td></tr>
+    <tr><td>D. Lấn chiếm mặt đường và lề</td><td>Vật liệu, quán tạm, đồ chiếm hành lang</td><td>Xe đang chạy bình thường, ổ gà</td></tr>
+  </tbody>
+</table>
+<p>Đếm xe, đọc biển số, ùn, đổi làn, ngược chiều: camera giao thông đã gửi sự kiện. Không lập nhóm học các việc đó.</p>
+<p>Khi album B đã chạy ổn, người phụ trách mới tách tiếp <strong>từng mã biển</strong> trong một họ (theo QCVN 41:2024) thành album B2. Mỗi mã biển lúc đó là một nhóm mới. Chưa tách mã khi họ biển còn ít ảnh.</p>
+
+<h2>3. Danh sách loại đã khóa</h2>
+<p>Sinh viên dùng đúng số trong bảng. Thêm loại mới phải hỏi người phụ trách trước, vì thêm số là phải gán lại toàn bộ album.</p>
+
+<h3>3.1. Album A — hư mặt đường</h3>
+<table>
+  <thead><tr><th>Số</th><th>Tên trong file</th><th>Nhóm khoanh khi nào</th><th>Nhóm</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td><span class="path">pothole</span></td><td>Ổ gà, hố thủng mặt đường</td><td>A0</td></tr>
+    <tr><td>1</td><td><span class="path">longitudinal_crack</span></td><td>Nứt chạy dọc theo hướng xe chạy</td><td>A1</td></tr>
+    <tr><td>2</td><td><span class="path">transverse_crack</span></td><td>Nứt cắt ngang mặt đường</td><td>A2</td></tr>
+    <tr><td>3</td><td><span class="path">alligator_crack</span></td><td>Nứt ô mạng, giống mai rùa</td><td>A3</td></tr>
+    <tr><td>4</td><td><span class="path">bleeding</span></td><td>Mặt đường chảy nhựa, bóng</td><td>A4</td></tr>
+    <tr><td>5</td><td><span class="path">raveling</span></td><td>Bong đá, rời mặt</td><td>A5</td></tr>
+    <tr><td>6</td><td><span class="path">rutting</span></td><td>Vệt bánh xe lún thành rãnh</td><td>A6</td></tr>
+    <tr><td>7</td><td><span class="path">patching</span></td><td>Miếng vá khác màu, khác cao độ</td><td>A7</td></tr>
+    <tr><td>8</td><td><span class="path">edge_damage</span></td><td>Mép nhựa vỡ, sụt</td><td>A8</td></tr>
+    <tr><td>9</td><td><span class="path">landslide</span></td><td>Đất đá sạt xuống mặt đường</td><td>A9</td></tr>
+  </tbody>
+</table>
+<p>Nhóm A-nền: ảnh mặt đường lành, không khoanh hộp nào. Ảnh này dạy máy đừng báo hư ở chỗ đường tốt. Mỗi album đều có một nhóm nền như vậy.</p>
+
+<h3>3.2. Album B — biển còn dùng được</h3>
+<table>
+  <thead><tr><th>Số</th><th>Tên trong file</th><th>Nhóm khoanh khi nào</th><th>Nhóm</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td><span class="path">sign_prohibit</span></td><td>Biển cấm (vòng tròn, gạch chéo, kiểu cấm)</td><td>B0</td></tr>
+    <tr><td>1</td><td><span class="path">sign_warning</span></td><td>Biển nguy hiểm (thường hình tam giác)</td><td>B1</td></tr>
+    <tr><td>2</td><td><span class="path">sign_mandatory</span></td><td>Biển hiệu lệnh</td><td>B2</td></tr>
+    <tr><td>3</td><td><span class="path">sign_guide</span></td><td>Biển chỉ dẫn</td><td>B3</td></tr>
+    <tr><td>4</td><td><span class="path">sign_supplement</span></td><td>Biển phụ gắn dưới biển chính</td><td>B4</td></tr>
+    <tr><td>5</td><td><span class="path">gantry_sign</span></td><td>Biển gắn trên giá long môn, cổng vượt đường</td><td>B5</td></tr>
+  </tbody>
+</table>
+<p>Khoanh cả mặt biển, sát mép tôn. Biển phụ là hộp riêng, không gộp vào hộp biển chính. Giá long môn không gọi là biển cấm dù nội dung trên giá là biển cấm.</p>
+
+<h3>3.3. Album C — sự cố biển báo</h3>
+<table>
+  <thead><tr><th>Số</th><th>Tên trong file</th><th>Nhóm khoanh khi nào</th><th>Nhóm</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td><span class="path">sign_tilt</span></td><td>Biển đổ, quay, nghiêng nhìn rõ</td><td>C0</td></tr>
+    <tr><td>1</td><td><span class="path">sign_missing</span></td><td>Còn cột hoặc giá, mất tấm biển</td><td>C1</td></tr>
+    <tr><td>2</td><td><span class="path">sign_occluded</span></td><td>Cây, bạt, biển quảng cáo che một phần tấm</td><td>C2</td></tr>
+    <tr><td>3</td><td><span class="path">sign_faded</span></td><td>Chữ hoặc phản quang mờ, không đọc được bằng mắt thường</td><td>C3</td></tr>
+    <tr><td>4</td><td><span class="path">sign_post_damage</span></td><td>Cột gãy, cong, mất chân đế</td><td>C4</td></tr>
+  </tbody>
+</table>
+
+<h3>3.4. Album D — lấn chiếm</h3>
+<table>
+  <thead><tr><th>Số</th><th>Tên trong file</th><th>Nhóm khoanh khi nào</th><th>Nhóm</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td><span class="path">material_on_road</span></td><td>Đất, cát, gạch, hàng hóa nằm trên mặt đường</td><td>D0</td></tr>
+    <tr><td>1</td><td><span class="path">stall_or_structure</span></td><td>Quán, lều, mái che cố định trên phần đường</td><td>D1</td></tr>
+    <tr><td>2</td><td><span class="path">corridor_occupation</span></td><td>Vật chiếm hành lang hoặc lề, chưa thành quán</td><td>D2</td></tr>
+  </tbody>
+</table>
+<p>Xe đang đi, xe dừng đèn đỏ: không khoanh. Chỉ khoanh đồ vật hoặc công trình chiếm chỗ.</p>
+
+<h2>4. Các bước nhóm làm mỗi ngày</h2>
+
+<h3>Bước 1 — Nhận việc</h3>
+<ol class="steps">
+  <li>Ghi vào phiếu ở cuối tài liệu: album, số loại, tên nhóm, hạn nộp.</li>
+  <li>Nhận thư mục ảnh. Ảnh đã được che biển số xe và mặt người. Nhóm không tự tải ảnh từ camera, không đưa ảnh lên web bên ngoài.</li>
+  <li>Mở file <span class="path">classes.txt</span> của album. Dòng đầu là số 0. Đếm dòng để khớp bảng mục 3.</li>
+</ol>
+
+<h3>Bước 2 — Chuẩn bị chỗ gán nhãn</h3>
+<p>Dùng CVAT cài trên máy chủ của đơn vị (người phụ trách gửi địa chỉ và tài khoản). Mỗi nhóm một project, đúng một album.</p>
+<ol class="steps">
+  <li>Đăng nhập CVAT. Mở project đúng tên album, ví dụ <span class="path">album-a-pavement</span>.</li>
+  <li>Vào task được giao. Bấm <strong>Job</strong> rồi <strong>Open</strong>.</li>
+  <li>Thanh bên trái chỉ hiện loại của nhóm mình. Nếu thấy loại của nhóm khác, dừng và báo người phụ trách.</li>
+  <li>Chọn công cụ hình chữ nhật (Rectangle).</li>
+</ol>
+
+<h3>Bước 3 — Khoanh trên một ảnh</h3>
+<ol class="steps">
+  <li>Nhìn cả ảnh trước. Tìm đúng vật trong phiếu nhóm.</li>
+  <li>Kéo từ góc trên-trái của vật đến góc dưới-phải. Hộp chạm mép vật. Không ôm cả làn xe, không ôm cả cột nếu phiếu chỉ yêu cầu tấm biển.</li>
+  <li>Một vật một hộp. Hai ổ gà cách nhau thì hai hộp.</li>
+  <li>Nứt dài: một hộp bao hết vết nứt nhìn thấy trên ảnh, không cắt vụn từng centimet trừ khi giữa hai vết là mặt đường lành dài.</li>
+  <li>Ảnh không có vật của nhóm: không vẽ hộp. Vẫn bấm ảnh kế tiếp. Ảnh trống này có giá trị.</li>
+  <li>Không chắc: gắn cờ <strong>Question</strong> trên ảnh và viết một câu. Không đoán.</li>
+  <li>Bấm <strong>Save</strong> sau mỗi 10 ảnh.</li>
+</ol>
+<p>Nứt dọc và nứt ngang dễ lẫn. Nứt dọc chạy cùng hướng xe. Nứt ngang cắt vuông góc hướng xe. Mai rùa là mảng nhiều ô kín, không phải một đường nứt đơn.</p>
+
+<h3>Bước 4 — File nhãn trông như thế nào</h3>
+<p>Khi xuất, mỗi ảnh <span class="path">a001.jpg</span> có một file <span class="path">a001.txt</span>. Mỗi dòng là một hộp. Năm số trên một dòng, cách nhau bởi dấu cách:</p>
+<p class="path">số_loại &nbsp; tâm_x &nbsp; tâm_y &nbsp; rộng &nbsp; cao</p>
+<p>Bốn số sau nằm trong khoảng 0 đến 1, tính theo bề rộng và bề cao ảnh. Ví dụ hộp loại 0 nằm giữa ảnh, rộng khoảng một phần năm ảnh:</p>
+<p class="path">0 0.50 0.50 0.20 0.15</p>
+<p>Ảnh không có vật: file txt rỗng, vẫn nộp kèm. Thiếu file txt nghĩa là ảnh chưa được xem.</p>
+
+<h3>Bước 5 — Soát chéo</h3>
+<ol class="steps">
+  <li>Người khoanh không tự chấm bài mình.</li>
+  <li>Lấy ít nhất 10% số ảnh, rải đều sáng, tối, mưa nếu có.</li>
+  <li>Sai loại, thiếu hộp, hộp quá rộng: sửa rồi ghi số ảnh đã sửa vào phiếu.</li>
+  <li>Hai người nhìn cùng một ảnh mà không thống nhất: chuyển người phụ trách, không để cả hai cách trong bộ nộp.</li>
+</ol>
+
+<h3>Bước 6 — Nộp</h3>
+<p>Thư mục nộp, ví dụ nhóm ổ gà:</p>
+<p class="path">nop/album-a/A0-pothole/images/<br />nop/album-a/A0-pothole/labels/</p>
+<p>Trong <span class="path">images</span> là file jpg. Trong <span class="path">labels</span> là file txt cùng tên. Kèm file phiếu đã điền. Không nộp ảnh gốc chưa che biển số. Không nộp mật khẩu camera.</p>
+<p class="note">Mốc tập sự: 200 ảnh đã soát cho đúng loại của nhóm, trong đó có ảnh trống. Mốc bàn giao album A cả đợt: khoảng 20.000 ảnh đã soát, các loại đều có mặt. Album B, C, D do người phụ trách chốt số lượng sau đợt ảnh thử 200.</p>
+
+<h2>5. Người phụ trách gộp nhãn và train một lần</h2>
+<p>Sinh viên đọc mục này để biết bài mình nằm ở đâu. Chỉ người phụ trách thao tác trên máy có card đồ họa.</p>
+
+<h3>5.1. Gộp nhãn, chưa đụng đến model</h3>
+<ol class="steps">
+  <li>Tạo thư mục <span class="path">merged/&lt;album&gt;/images</span> và <span class="path">merged/&lt;album&gt;/labels</span>.</li>
+  <li>Copy ảnh. Trùng tên file thì giữ một ảnh, đối chiếu hai file txt.</li>
+  <li>Với mỗi ảnh, nối các dòng txt của mọi nhóm thành một file txt. Hai dòng giống hệt thì giữ một dòng.</li>
+  <li>Hai hộp chồng quá nửa trên cùng một vật và khác số loại: mở ảnh, chọn một loại, xóa dòng kia.</li>
+  <li>Chia bộ đã gộp: khoảng 80% ảnh để học, 10% để xem trong lúc học, 10% để chấm sau cùng. Ảnh cùng một buổi chụp không để cả ba phần, kẻo máy “nhớ” buổi đó.</li>
+  <li>Ghi <span class="path">classes.txt</span> đúng thứ tự mục 3 vào thư mục merged.</li>
+</ol>
+
+<h3>5.2. Train</h3>
+<ol class="steps">
+  <li>Chạy trên máy GPU ở Việt Nam, tách khỏi máy chủ ứng dụng. Tắt máy sau khi xuất file.</li>
+  <li>Dùng bộ công cụ giấy phép Apache-2.0 (YOLOX, RTMDet hoặc RT-DETR). Ultralytics bản AGPL không đưa vào sản phẩm đóng. Chỉ dùng Ultralytics khi đã có hợp đồng Enterprise.</li>
+  <li>Ảnh đưa vào lúc học để cỡ 640 điểm cạnh dài. Giữ nguyên tỷ lệ, phần thiếu thì viền.</li>
+  <li>Học xong, xem bảng nhầm: nứt dọc có bị gọi là nứt ngang không, đường lành có bị gọi là ổ gà không. Sai nhiều thì sửa nhãn, học lại. Thêm vòng lặp học trên nhãn bẩn không làm model đúng hơn.</li>
+  <li>Xuất một file chạy được trên máy khác, định dạng ONNX.</li>
+</ol>
+
+<h3>5.3. Ba file bàn giao cho lập trình</h3>
+<table>
+  <thead><tr><th>File</th><th>Nội dung</th></tr></thead>
+  <tbody>
+    <tr><td><span class="path">model.onnx</span></td><td>Model đã học của đúng một album</td></tr>
+    <tr><td><span class="path">classes.yaml</span></td><td>Số loại khớp <span class="path">classes.txt</span></td></tr>
+    <tr><td><span class="path">manifest.json</span></td><td>Tên phiên bản, ngày, cỡ ảnh 640, tên công cụ, giấy phép, số commit hoặc số hợp đồng</td></tr>
+  </tbody>
+</table>
+<p>Bốn album là bốn bộ ba file. Không gộp bốn album thành một file onnx.</p>
+<p>Ảnh gốc và weights để trên đĩa nội bộ. Không copy vào git. Không copy vào máy chủ web ứng dụng.</p>
+
+<h2>6. Quy tắc dữ liệu, đọc trước khi nhận ảnh</h2>
+<table>
+  <thead><tr><th>Việc</th><th>Cách làm</th></tr></thead>
+  <tbody>
+    <tr><td>Ảnh hiện trường</td><td>Chỉ xem trên CVAT hoặc thư mục được cấp. Không đăng diễn đàn, không upload Roboflow, không để trên Google Drive cá nhân</td></tr>
+    <tr><td>Biển số và mặt người</td><td>Đã che trước khi vào album A, C, D và trước khi ảnh rời tủ camera. Nhóm thấy ảnh chưa che thì dừng, không khoanh tiếp</td></tr>
+    <tr><td>Tài khoản</td><td>Mỗi người một tài khoản CVAT. Không dùng chung mật khẩu</td></tr>
+    <tr><td>Máy cá nhân</td><td>Không copy cả thư mục ảnh về laptop. Làm trên máy chủ gán nhãn</td></tr>
+    <tr><td>Kết quả model</td><td>Là gợi ý cho người tuần đường. Không tự thành biên bản</td></tr>
+  </tbody>
+</table>
+
+<h2>7. Phiếu giao việc — in một tờ cho mỗi nhóm</h2>
+<p>Điền tay hoặc đánh máy, nộp cùng thư mục nhãn.</p>
+
+<div class="sheet">
+<h1>Phiếu giao việc gán nhãn</h1>
+<table>
+  <tbody>
+    <tr><th>Album</th><td>A / B / C / D</td></tr>
+    <tr><th>Nhóm</th><td></td></tr>
+    <tr><th>Số loại</th><td></td></tr>
+    <tr><th>Tên trong file</th><td></td></tr>
+    <tr><th>Tên gọi trên đường</th><td></td></tr>
+    <tr><th>Thành viên khoanh</th><td></td></tr>
+    <tr><th>Thành viên soát</th><td></td></tr>
+    <tr><th>Ngày nhận ảnh</th><td></td></tr>
+    <tr><th>Hạn nộp</th><td></td></tr>
+    <tr><th>Số ảnh đã xem</th><td></td></tr>
+    <tr><th>Số ảnh có ít nhất một hộp</th><td></td></tr>
+    <tr><th>Số ảnh trống</th><td></td></tr>
+    <tr><th>Số ảnh đã soát chéo</th><td></td></tr>
+    <tr><th>Số ảnh sửa sau soát</th><td></td></tr>
+    <tr><th>Số ảnh gắn cờ hỏi</th><td></td></tr>
+  </tbody>
+</table>
+<h3>Việc phải xong trước khi nộp</h3>
+<ol>
+  <li>Mọi ảnh trong task đều đã mở (kể cả ảnh trống).</li>
+  <li>Hộp đúng số loại trên phiếu này.</li>
+  <li>File txt cùng tên với jpg.</li>
+  <li>Không còn ảnh chưa che biển số hoặc mặt người.</li>
+  <li>Người soát ký tên khác người khoanh.</li>
+</ol>
+<p><strong>Ký người khoanh:</strong> ____________________ &nbsp;&nbsp; <strong>Ký người soát:</strong> ____________________</p>
+</div>
+
+</body>
+</html>

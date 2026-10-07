@@ -1,0 +1,18 @@
+{
+  "feature": "web-rmms-giao-viec-ql-hat",
+  "status": "pass",
+  "review_confirm": "done",
+  "autoApprove": true,
+  "skillId": "agent-review",
+  "skillVersion": "2026.09.05.03",
+  "schemaVersion": 1,
+  "contentHash": "sha256:96af983c06df39ae72f23cd8bca1d51b7851c175d5d43f1a62d1fea87673ecb7",
+  "hashGate": "skip",
+  "taskId": "task_9a0b766f",
+  "writtenAt": "2026-10-01T04:00:00.000Z",
+  "verdict": "PASS",
+  "softDebt": [
+    "SOFT-RV-01 headed GV-F needs qlHat user",
+    "SOFT-RV-02 stock e2e S1 DUP workaround _capture_gv.mjs"
+  ]
+}

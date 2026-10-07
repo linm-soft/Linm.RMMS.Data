@@ -12,6 +12,7 @@
 |--------|---------|
 | Draft | Chỉ backlog / stub P2–P3 |
 | Context | Đủ `{slug}.md` §1–§7 |
+| Implement | Code đã vào · STATUS chưa `done` |
 | Demo | Đã có HTML mock |
 | Signed | Khách chốt checklist trên demo |
 
@@ -96,6 +97,8 @@
 | 17i | `rpt-tong-hop-bao-tri` | Tổng hợp bảo trì | Report | P2 | maintenance Kind E | Context | [rpt-tong-hop-bao-tri.md](rpt-tong-hop-bao-tri.md) |
 | 17j | `rpt-nhat-ky-tuan-duong` | Nhật ký tuần đường | Report | P2 | GOVOne BDTX | Context | [rpt-nhat-ky-tuan-duong.md](rpt-nhat-ky-tuan-duong.md) |
 | 17k | `rpt-nhat-ky-tuan-kiem` | Nhật ký tuần kiểm | Report | P2 | GOVOne BDTX | Context | [rpt-nhat-ky-tuan-kiem.md](rpt-nhat-ky-tuan-kiem.md) |
+| 17k2 | `tuan-kiem-context` | Chuỗi sự cố, sổ, báo cáo tuần kiểm | Patrol | support | Phone + báo cáo | Implement | [tuan-kiem-context.md](tuan-kiem-context.md) |
+| 17k3 | `quan-ly-context` | Ba vai — nghiệm thu và giao việc thuộc Quản lý | Patrol | support | Phone | Context | [quan-ly-context.md](quan-ly-context.md) |
 | 17l | `rpt-nhat-ky-cong-viec` | Nhật ký công việc | Report | P2 | GOVOne BDTX | Context | [rpt-nhat-ky-cong-viec.md](rpt-nhat-ky-cong-viec.md) |
 | 17m | `rpt-thien-tai` | Thiên tai, bão lũ | Report | P2 | GOVOne Số liệu | Context | [rpt-thien-tai.md](rpt-thien-tai.md) |
 | 17n | `rpt-thiet-hai` | Khối lượng thiệt hại | Report | P2 | GOVOne Số liệu | Context | [rpt-thiet-hai.md](rpt-thiet-hai.md) |

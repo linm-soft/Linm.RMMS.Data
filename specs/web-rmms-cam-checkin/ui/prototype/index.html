@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-cam-checkin — CI-01 / CI-02 role-gate</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --warning: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --radius-sheet: 24px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --field-h: 52px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      max-width: var(--phone-w);
+      width: 100%;
+      margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border);
+      background: #2a2a2e;
+      color: #eee;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .back {
+      width: 44px; height: 44px;
+      border: 0; background: transparent; color: inherit;
+      font-size: 28px; line-height: 1; padding: 0;
+      display: grid; place-items: center;
+      cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center;
+    }
+    .topbar .spacer { width: 44px; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 24px; }
+    .screen { display: none; }
+    .screen.active { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+    .banner {
+      border-radius: var(--radius-control);
+      padding: 10px 12px;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .banner.warn { background: #FFF4E0; color: #8A5A00; border: 1px solid #F5D08A; }
+    .banner.ok { background: #E8F8EA; color: #1B7A28; border: 1px solid #B7E0BC; }
+    .banner.info { background: #E8F6FC; color: #086A9A; border: 1px solid #B5DDF0; }
+    .banner.danger { background: #FDECEA; color: #9B1C14; border: 1px solid #F5B5B0; }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border);
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .card .meta { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .chip {
+      display: inline-block; font-size: 12px; padding: 3px 8px;
+      border-radius: 6px; background: #E8F8EA; color: #1B7A28;
+    }
+    .chip.muted { background: #EFEFF4; color: var(--muted); }
+    .field { margin-bottom: 12px; }
+    .section-label { display: block; margin: 4px 0 8px; font-size: var(--label); font-weight: 600; }
+    .km-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .hint { margin: -4px 0 12px; font-size: 12px; color: var(--muted); }
+    .field label {
+      display: block; font-size: var(--label); color: var(--muted); margin-bottom: 4px;
+    }
+    .field input, .field textarea {
+      width: 100%;
+      min-height: var(--field-h);
+      font-size: var(--field);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-control);
+      padding: 10px 12px;
+      background: var(--card);
+      color: var(--on-surface);
+    }
+    .field textarea { min-height: 88px; resize: vertical; }
+    .field .ro {
+      min-height: 44px;
+      padding: 12px;
+      background: #EFEFF4;
+      border-radius: var(--radius-control);
+      font-size: var(--field);
+    }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .photo-slot {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      background: #E5E5EA;
+      border: 1px dashed var(--border);
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .photo-slot.filled {
+      background: linear-gradient(145deg, #c9e8f5, #8ec8e0);
+      border-style: solid;
+      color: #086A9A;
+      font-weight: 600;
+    }
+    .sheet-footer {
+      display: flex;
+      gap: 8px;
+      padding: 12px 14px 18px;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+    }
+    .btn {
+      height: var(--control-h);
+      border-radius: var(--radius-control);
+      border: 0;
+      padding: 0 16px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      flex: 1;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); }
+    .btn-secondary { background: #E5E5EA; color: var(--on-surface); }
+    .btn-block { width: 100%; margin-top: 8px; flex: none; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .btn.hidden, .hidden { display: none !important; }
+    .cta-stack { margin-top: 8px; }
+    .overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.45);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 20;
+    }
+    .overlay.show { display: flex; }
+    .modal {
+      width: 100%;
+      background: var(--card);
+      border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+      padding: 18px 16px 24px;
+    }
+    .modal h3 { margin: 0 0 8px; font-size: 17px; }
+    .modal p { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+    .modal .actions { display: flex; gap: 8px; }
+    .note {
+      max-width: var(--phone-w);
+      width: 100%;
+      color: #aaa;
+      font-size: 12px;
+      margin-top: 10px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <nav class="board-nav" aria-label="zones">
+    <button type="button" class="active" data-screen="ci02-td">CI-02 tuần đường</button>
+    <button type="button" data-screen="ci02-hat">CI-02 QL_HAT</button>
+    <button type="button" data-screen="ci01-write">CI-01 ghi điểm</button>
+    <button type="button" data-screen="ci01-view">CI-01 QL_HAT view</button>
+    <button type="button" data-screen="ci-block">TK/NT block</button>
+  </nav>
+
+  <div class="phone" id="phone">
+    <!-- CI-02 tuần đường -->
+    <section class="screen active" id="ci02-td" data-zone="CI-02">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="back">‹</button>
+        <div class="title">Chi tiết ca</div>
+        <div class="spacer"></div>
+      </header>
+      <div class="content">
+        <div class="card" data-id="sessionHeader">
+          <div><strong>QL.22 · Chiều đi</strong> <span class="chip">Đang tuần</span></div>
+          <div class="meta">Coverage 2/5 · Nhân sự: Nguyễn Văn A</div>
+        </div>
+        <h3 style="margin:8px 0 10px;font-size:15px;">Điểm đã ghi</h3>
+        <div class="card" data-id="timeline">
+          <div><strong>#2 · Km 12+350</strong></div>
+          <div class="meta">10:42 · Đúng điểm · 2 ảnh</div>
+        </div>
+        <div class="card" data-id="timeline">
+          <div><strong>#1 · Km 11+800</strong></div>
+          <div class="meta">09:15 · Sai điểm (+82m) · 1 ảnh</div>
+        </div>
+        <div class="cta-stack">
+          <button type="button" class="btn btn-primary btn-block" data-id="ctaCheckIn" onclick="showScreen('ci01-write')">Ghi điểm</button>
+          <button type="button" class="btn btn-secondary btn-block" data-id="endSession">Kết ca</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CI-02 QL_HAT -->
+    <section class="screen" id="ci02-hat" data-zone="CI-02">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="back">‹</button>
+        <div class="title">Chi tiết ca</div>
+        <div class="spacer"></div>
+      </header>
+      <div class="content">
+        <div class="banner info" data-id="roleGateBanner">Bạn đang xem với vai QL_HAT — chỉ xem timeline, không ghi điểm / kết ca.</div>
+        <div class="card" data-id="sessionHeader">
+          <div><strong>QL.22 · Chiều đi</strong> <span class="chip">Đang tuần</span></div>
+          <div class="meta">Coverage 2/5 · Nhân sự: Nguyễn Văn A</div>
+        </div>
+        <h3 style="margin:8px 0 10px;font-size:15px;">Điểm đã ghi</h3>
+        <div class="card" data-id="timeline">
+          <div><strong>#2 · Km 12+350</strong></div>
+          <div class="meta">10:42 · Đúng điểm · 2 ảnh · chạm để xem</div>
+        </div>
+        <div class="card" data-id="timeline">
+          <div><strong>#1 · Km 11+800</strong></div>
+          <div class="meta">09:15 · Sai điểm · 1 ảnh</div>
+        </div>
+        <!-- ctaCheckIn / endSession ẩn -->
+      </div>
+    </section>
+
+    <!-- CI-01 write -->
+    <section class="screen" id="ci01-write" data-zone="CI-01">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="back" onclick="openLeave()">‹</button>
+        <div class="title">Ghi điểm tuần</div>
+        <div class="spacer"></div>
+      </header>
+      <div class="content">
+        <div class="banner ok" data-id="matchBanner" id="matchBanner">Khớp điểm kế hoạch · bán kính 50m</div>
+        <div class="banner danger hidden" data-id="gpsDenyHint" id="gpsDenyHint">Chưa có GPS hợp lệ — bật định vị rồi thử Lưu lại. Không giả lập toạ độ.</div>
+        <div class="field" data-id="planPointLabel">
+          <label>Điểm kế hoạch</label>
+          <div class="ro">P-12 · Km 12+350</div>
+        </div>
+        <div data-id="currentRoute">
+          <span class="section-label">Tuyến hiện tại</span>
+          <div class="field" data-id="routeSearch">
+            <label>Tuyến</label>
+            <input type="search" value="QL.22" placeholder="Tìm tuyến…" />
+          </div>
+          <div class="km-pair">
+            <div class="field" data-id="cotKm">
+              <label>Cột KM</label>
+              <input type="number" inputmode="numeric" value="12" />
+            </div>
+            <div class="field" data-id="offsetM">
+              <label>Khoảng cách (m)</label>
+              <input type="number" inputmode="numeric" value="350" />
+            </div>
+          </div>
+          <p class="hint">QL.22 - Km 12 + 350m · Cách điểm trước 180 m</p>
+        </div>
+        <div class="field" data-id="routeStamp">
+          <label>Tuyến</label>
+          <div class="ro">QL.22</div>
+        </div>
+        <div class="field" data-id="gpsRaw">
+          <label>GPS</label>
+          <div class="ro" id="gpsRo">21.0285, 105.8542 · ±12m</div>
+        </div>
+        <div class="field" data-id="distToPlan">
+          <label>Cách điểm KH</label>
+          <div class="ro">18 m · Đúng điểm</div>
+        </div>
+        <div class="field" data-id="content">
+          <label>Nội dung</label>
+          <textarea placeholder="Mô tả tuỳ chọn">Mặt đường khô, không vật cản</textarea>
+        </div>
+        <div class="field" data-id="photos">
+          <label>Ảnh (RouteCapture)</label>
+          <div class="photo-grid">
+            <div class="photo-slot filled">1</div>
+            <div class="photo-slot filled">2</div>
+            <div class="photo-slot">+</div>
+          </div>
+        </div>
+      </div>
+      <div class="sheet-footer">
+        <button type="button" class="btn btn-secondary" data-id="cancelBlock" onclick="openLeave()">Hủy</button>
+        <button type="button" class="btn btn-primary" data-id="saveBlock" id="btnSave" onclick="onSave()">Lưu</button>
+      </div>
+    </section>
+
+    <!-- CI-01 QL_HAT view -->
+    <section class="screen" id="ci01-view" data-zone="CI-01">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="back">‹</button>
+        <div class="title">Ghi điểm tuần</div>
+        <div class="spacer"></div>
+      </header>
+      <div class="content">
+        <div class="banner info" data-id="roleGateBanner">QL_HAT — chế độ xem. Không ghi / không chụp mới.</div>
+        <div class="field" data-id="planPointLabel">
+          <label>Điểm kế hoạch</label>
+          <div class="ro">P-12 · Km 12+350</div>
+        </div>
+        <div class="field" data-id="routeStamp">
+          <label>Tuyến</label>
+          <div class="ro">QL.22</div>
+        </div>
+        <div class="field" data-id="gpsRaw">
+          <label>GPS</label>
+          <div class="ro">21.0285, 105.8542 · ±12m</div>
+        </div>
+        <div class="field" data-id="content">
+          <label>Nội dung</label>
+          <div class="ro">Mặt đường khô, không vật cản</div>
+        </div>
+        <div class="field" data-id="photos">
+          <label>Ảnh (view)</label>
+          <div class="photo-grid">
+            <div class="photo-slot filled">1</div>
+            <div class="photo-slot filled">2</div>
+          </div>
+        </div>
+      </div>
+      <!-- Lưu ẩn -->
+    </section>
+
+    <!-- TK/NT block -->
+    <section class="screen" id="ci-block" data-zone="roleGate">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="back">‹</button>
+        <div class="title">Chi tiết ca</div>
+        <div class="spacer"></div>
+      </header>
+      <div class="content">
+        <div class="banner danger" data-id="roleGateBanner">Vai Tuần kiểm / Nghiệm thu không mở ca tuần đường và không ghi điểm trên màn này.</div>
+        <div class="card">
+          <div><strong>Không có CTA ghi điểm</strong></div>
+          <div class="meta">Deep-link bị chặn · quay hub peer</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="overlay" id="leaveOverlay" data-zone="DES-LEAVE">
+      <div class="modal">
+        <h3>Rời trang?</h3>
+        <p>Thay đổi chưa lưu sẽ mất. Ở lại để tiếp tục ghi điểm.</p>
+        <div class="actions">
+          <button type="button" class="btn btn-secondary" onclick="closeLeave()">Ở lại</button>
+          <button type="button" class="btn btn-primary" onclick="confirmLeave()">Rời</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="note">
+    reviewUrl · zones CI-01 / CI-02 / DES-LEAVE · Pattern B: Lưu không khóa trước GPS · role: tuần đường write · QL_HAT view · TK/NT block ·
+    product deep-link <code>/tuan-duong/:id/diem-tuan</code> · mfeStdUrl alias only · DES-GRID N/A · 430px
+  </p>
+
+  <script>
+    var gpsOk = true;
+    var saving = false;
+
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(function (el) {
+        el.classList.toggle('active', el.id === id);
+      });
+      document.querySelectorAll('.board-nav button').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-screen') === id);
+      });
+      closeLeave();
+      resetSaveUi();
+    }
+
+    document.querySelectorAll('.board-nav button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        showScreen(btn.getAttribute('data-screen'));
+      });
+    });
+
+    function resetSaveUi() {
+      saving = false;
+      var hint = document.getElementById('gpsDenyHint');
+      var btn = document.getElementById('btnSave');
+      if (hint) hint.classList.add('hidden');
+      if (btn) { btn.disabled = false; btn.textContent = 'Lưu'; }
+    }
+
+    function onSave() {
+      if (saving) return;
+      if (!gpsOk) {
+        document.getElementById('gpsDenyHint').classList.remove('hidden');
+        document.getElementById('matchBanner').classList.add('hidden');
+        return;
+      }
+      saving = true;
+      var btn = document.getElementById('btnSave');
+      btn.disabled = true;
+      btn.textContent = 'Đang lưu…';
+      setTimeout(function () {
+        saving = false;
+        btn.disabled = false;
+        btn.textContent = 'Lưu';
+        var b = document.getElementById('matchBanner');
+        b.classList.remove('hidden');
+        b.className = 'banner ok';
+        b.textContent = 'Đã ghi điểm · chuyển sc-checkin-detail (RO)';
+      }, 600);
+    }
+
+    // Demo Pattern B: double-tap title toggles GPS deny for review
+    document.querySelector('#ci01-write .title').addEventListener('dblclick', function () {
+      gpsOk = !gpsOk;
+      document.getElementById('gpsRo').textContent = gpsOk
+        ? '21.0285, 105.8542 · ±12m'
+        : 'GPS chưa sẵn sàng / bị từ chối';
+      resetSaveUi();
+    });
+
+    function openLeave() {
+      document.getElementById('leaveOverlay').classList.add('show');
+    }
+    function closeLeave() {
+      document.getElementById('leaveOverlay').classList.remove('show');
+    }
+    function confirmLeave() {
+      closeLeave();
+      showScreen('ci02-td');
+    }
+  </script>
+</body>
+</html>

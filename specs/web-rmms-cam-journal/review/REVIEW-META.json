@@ -1,0 +1,18 @@
+{
+  "feature": "web-rmms-cam-journal",
+  "status": "PASS",
+  "review_confirm": "approve",
+  "autoApprove": true,
+  "taskId": "task_648b8ba6",
+  "skillVersion": "2026.09.05.03",
+  "writtenAt": "2026-10-01T01:31:18.000Z",
+  "contentHash": "sha256:76d6d3e1ec6437552d8e12b1c18c3aa8a0fd16abdcc3ef54b3ebc783d062050e",
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  },
+  "critical": [],
+  "soft": ["SOFT-E2E-WRITE", "SOFT-E2E-STOCK-DUP", "SOFT-BE-PERM"]
+}

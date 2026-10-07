@@ -2,53 +2,51 @@
 
 schemaVersion: 1
 feature: web-rmms-patrol-map
-packKind: list
+packKind: map
 role: qa
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T03:50:00.000Z
-taskId: task_0ea11a1b
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
+writtenAt: 2026-09-30T15:05:00.000Z
+contentHash: sha256:52bd4a74401781b03b20ace930fd7d47d9e5ca2c5714b39fc6927f0d4fd6bcaf
+taskId: task_c35139c7
 autoApprove: ON
-e2eQa: ON · runtime PASS
-mfeStdUrl: http://localhost:9301/web-rmms-patrol-map
+changeScope: edit_page
+verdict: PASS
 
 ## Decisions
-- changeScope: new_page
-- formPattern: Mobile Map / full · phone 430 · Leave N/A · DES-GRID WAIVE
-- verdict: **PASS** · DOM Aligned · Must 0
-- method: start:std :9301 (no kill) + docker up + capture_patrol_map S0/S1/QA-20 · MFE /login · geo grant
-- T-QA-MAP/LEGEND/NEXT/PEER/GPS/CHECKIN **PASS** · FILTER/Leave **WAIVE**
-- stock e2e soft-fail PORT :5101 vs :5111 · capture S1=Home `#gridPatrolMap`
-- Live: next Route QL.1-LANGSON · canvas + PM-06 me
-- next: review · `/agent-review` · roleOnly stop · **cấm** phase=done
+- changeScope: edit_page · keep PM-00… · delta chainage/Ghim/sheet verified soft+live
+- formPattern: Mobile Map / full ≤430 · peer sheet CheckInSheet · LeaveConfirmModal
+- mfeStdUrl live: http://localhost:9301/m/ban-do-tuan · route `/ban-do-tuan`
+- e2eQa ON · docker + start:std + capture S0/S1/QA-20 PNG · vision Aligned
+- stock yarn e2e-qa legacy url FAIL soft DUP · capture = evidence
+- **cấm** phase=done · next=/agent-review* · roleOnly stop
+- **cấm** ERP.* · **cấm** kill worker
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| mapHost | map | MapLibre | S0 canvas Live |
-| basemap/locate | chips | Chip/Button | PM-03 |
-| legend | all/track/done/next | Chip | PM-04 isolate |
-| nextCard | Route | Card RO | QL.1-LANGSON |
-| gpsMe | me-dot | MapMarker | PM-06 grant |
-| checkin | toast | Button | PM-08 no POST |
-| gridPatrolMap | Bản đồ tuần | Button/Nav | S1/QA-20 Home |
+| map+tiles | map | Map/MapLine | canvas PASS |
+| pinHere | ghim | Button | btn-pin-here live |
+| chainage* | lý trình | Number/Text | sheet code PASS soft |
+| checkin.sheet | PM-10 | Form | LeaveModal code |
+| peer Home | Tuần đường | Link | hub hop QA-20 |
 
 ## Screens / zones (ids only)
-- PM-00…PM-08 · PNG `qa/screens/{S0,S1,QA-20}.png`
-- S1 peer: `/web-rmms-home` `#gridPatrolMap`
+- S0/S1/QA-20 PNG: specs/web-rmms-patrol-map/qa/screens/{S0,S1,QA-20}.png
+- PM-00 · HM-* · DES-MOB-TABBAR
+- peerStdUrl= http://localhost:9301/m/ban-do-tuan
 - reviewUrl= file:///D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/ui/prototype/index.html
-- peerStdUrl= http://localhost:9301/web-rmms-patrol-map
 
 ## API / tasks (ids only)
-- VERIFY: sessions Live Route · canvas · visual/DOM Aligned · 0 crash
-- T-QA-MAP/LEGEND/NEXT/PEER/GPS/CHECKIN = done
-- soft: GAP-QA-E2E-STOCK-PORT · HISTORY-FALLBACK · S0/QA-20 DUP hash
+- T-QA-MAP-01 · LEGEND · NEXT · PEER · GPS · CHAINAGE soft · TRACK soft = PASS
+- T-QA-FILTER WAIVE · VI-ENC PASS
+- debt: STATUS url legacy · zone PM thin · migration deploy
 
 ## UNCLEAR
-- none
+- (none)
 
 ## Full paths (Read only if needed)
-- qa: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/qa/scenarios.md
+- scenarios: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/qa/scenarios.md
+- manifest: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/qa/screens/manifest.json
 - STATUS: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/STATUS.md
-- prior: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/handoff/dev-compact.md
+- implement: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/implement/web-rmms-patrol-map.md

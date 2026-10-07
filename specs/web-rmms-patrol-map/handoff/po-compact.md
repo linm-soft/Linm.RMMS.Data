@@ -2,54 +2,59 @@
 
 schemaVersion: 1
 feature: web-rmms-patrol-map
-packKind: list
+packKind: map
 role: po
 status: done
 skillVersion: 2026.09.05.03
-writtenAt: 2026-09-26T03:32:00.000Z
-contentHash: sha256:6f74282b807da7f2cc1aa57ac64848cd1d75ff3383c0f432eaad7bea53fff80e
-taskId: task_e0463d5f
+writtenAt: 2026-09-30T14:00:00.000Z
+contentHash: sha256:52bd4a74401781b03b20ace930fd7d47d9e5ca2c5714b39fc6927f0d4fd6bcaf
+taskId: task_59a25efd
+autoApprove: ON
+changeScope: edit_page
 
 ## Decisions
-- changeScope: new_page
-- formPattern: Mobile Map / full (phone ≤430) · N/A ERP Modal/Slideout · no master form · no POST check-in/tracks P1
-- DoD: map + Live sessions + tiles + toast check-in · GPS real · chrome /gis/live · Android 1-1
-- Grid AC / Report AC / LinErpListFilterBar: N/A phone Map
-- mfe: Linm.Web.RMMS.Mobile · mfeStdUrl http://localhost:9301/web-rmms-patrol-map
-- be: Linm.RMMS.WebService · Mobile.Bff :5202 mobile-bff/api/v1 · Patrol GET sessions + Gis tiles · cấm ERP.*
-- demo: N/A · cấm OMS/demo-json SSOT · hash-skip analy reuse
-- Check-in: toast only P1 · sheet/POST = peer
-- labels: useFormOptions() / patrolMap.* · cấm hardcode VN · cấm Đường/Phố/Fit
-- GPS: navigator.geolocation · deny hide me/disable locate · cấm fake · map still opens
-- copy: Android 1-1 · cấm sửa native · cấm invent PatrolMapController
-- next: Design · reviewUrl pending
-- open: UNCLEAR-DOMAIN-MAP-PATROL-MAP · UNCLEAR-OVERLAY-GEOM · UNCLEAR-STD-PORT
+- changeScope: edit_page · NEW task · keep baseline PM-00…08 · § Delta PM-09/10
+- packKind: map · Grid/Report/LinErpListFilterBar: N/A phone Map
+- formPattern: Mobile Map / full (≤430) · check-in peer sheet · N/A ERP Modal Kind B
+- DoD: Ghim→GET gis/chainage→chainageKm/Label editable · POST+GPS raw · fetchLatestKm←chainageLabel · bake nét · no name color · no demo Nghi Lộc
+- Map AC: AC-MAP-01…08 · mapGate /agent-dev-oms-map R1–R11 · OSRM local only
+- planPointLabel ≠ km · Schema_* pair (SA)
+- streets/search: snap name + echo km · snap≠overwrite pin
+- mfe: Linm.Web.RMMS.Mobile `/ban-do-tuan` · mfeStdUrl http://localhost:9301/web-rmms-patrol-map
+- be: Linm.RMMS.WebService Patrol+Gis · Mobile.Bff :5202 · cấm ERP.* · cấm Map.Api
+- demo: N/A · hash-skip analy · cấm re-scan
+- labels: useFormOptions / patrolMap.* · GPS real · cấm fake · cấm native edit
+- UNCLEAR-TRACK-STYLE: PO → 1 token route color (Design hex)
+- next: Design delta · autoApprove ON
 
 ## Inventory (slim)
 | id | label | controlHint | notes |
 |----|-------|-------------|-------|
-| nav+title+checkin | chrome | Button/Text | toast check-in only |
-| mapHost+tiles | map | Map | gis/tiles · no OSM.org |
-| basemap×2+locate | bar | Chip/Button | Tiêu chuẩn/Vệ tinh · GPS |
-| legend×4 | isolate | Chip | track/done/next |
-| nextCard | Route | Card RO | GET sessions Đang tuần |
-| gpsMe+popup | me | Marker/Popup | Geolocation |
+| map+tiles+bake | map | Map/MapLine | overlay bake |
+| pinHere | ghim | Button | → GET chainage |
+| chainageKm | lý trình số | Number | editable / null>2km |
+| chainageLabel | lý trình nhãn | Text | QL.n - Km X + Ym |
+| planPointLabel | điểm KH | Text | ≠ km |
+| gpsRaw | GPS thô | Number RO | persist |
+| basemap+legend | chrome | Chip | clip |
+| fetchLatestKm | stamp | Text RO | chainageLabel |
+| trackLine | nét ca | MapLine | no name color |
 
 ## Screens / zones (ids only)
-- PM-00 · PM-01 · PM-02 · PM-03 · PM-04 · PM-05 · PM-06 · PM-07 · PM-08
-- reviewUrl= (Design)
+- PM-00…PM-10
+- reviewUrl= (Design delta · prior file:///…/ui/prototype/index.html)
 - peerStdUrl= http://localhost:9301/web-rmms-patrol-map
 - DES-GRID / LinErpListFilterBar: N/A
 
 ## API / tasks (ids only)
-- FormMode↔API: sessions GET · tiles GET · nav/toast writes only
-- real-data §A+§B: PASS (analy)
+- FormMode↔API: sessions GET · check-in POST+chainage* · gis/chainage GET · tiles · streets/search echo · bake read
+- real-data §A+§B+§D: PASS (analy hash-skip)
 - T-*: (team_lead)
 
 ## UNCLEAR
-- UNCLEAR-DOMAIN-MAP-PATROL-MAP: SA add DOMAIN-MAP row
-- UNCLEAR-OVERLAY-GEOM: Design/SA empty vs session pins · cấm invent tracks
-- UNCLEAR-STD-PORT: follow STATUS mfeStdUrl :9301
+- UNCLEAR-CHAINAGE-BFF: SA Mobile.Bff proxy gis/chainage
+- UNCLEAR-SCHEMA-PAIR: SA Schema_* chainageKm/Label
+- UNCLEAR-TRACK-STYLE: Design hex/token (PO default=1 route token)
 
 ## Full paths (Read only if needed)
 - requirement: D:/AI-QLBD/Linm.RMMS.Data/specs/web-rmms-patrol-map/po/requirement.md

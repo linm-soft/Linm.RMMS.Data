@@ -23,7 +23,7 @@
 |--|--|
 | Mục tiêu | User **nhập cấu hình kết nối** camera ITS (model · IP · PORT · User · Pass · chuẩn RTSP/ONVIF/ISAPI), **xem live** (mock/preview), và **nhận event** từ camera (tốc độ radar · biển số · loại/màu/hướng xe) |
 | Persona | Vận hành Chi cục · kỹ thuật ITS · admin RMMS |
-| Model seed | **iDS-TCM403-GIR** — 4 MP Radar-Assisted ANPR Bullet |
+| Model seed | **iDS-TCM403-GIR** — lab, có radar. QL.5 / trạm đếm: **iDS-TCM403-BI(G)/G** — không radar. Ranh giới AI: [`../../camera-info/bc-thuyet-minh/tra-loi-yeu-cau-hikvision.md`](../../camera-info/bc-thuyet-minh/tra-loi-yeu-cau-hikvision.md) |
 | App hiện có | **Mới** — MFE `RMMS.Camera` |
 | DoD P1 (demo) | Form config đủ field · chọn chuẩn kết nối · live mock · feed event tốc độ/detect · localStorage |
 | DoD P1.5 (real) | **DONE** — model catalog · Login_V40 · CaptureJPEG snapshot · ingest · MFE defaults + JPEG UI |

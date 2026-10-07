@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-cam-home — Trang chủ & tab theo vai</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --quick-bg: #FFF8E8;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 20px; cursor: pointer; border-radius: 12px;
+      position: relative;
+    }
+    .badge {
+      position: absolute; top: 6px; right: 4px;
+      min-width: 18px; height: 18px; padding: 0 5px;
+      background: var(--danger); color: #fff; font-size: 11px;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    }
+    .content { flex: 1; overflow-y: auto; padding: 12px 14px 88px; }
+    .hero {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+      background: var(--quick-bg); border-radius: var(--radius-card);
+      padding: 12px; margin-bottom: 14px;
+    }
+    .hero button, .tile, .quick-item, .wallet {
+      border: 0; background: var(--card); border-radius: var(--radius-control);
+      min-height: 44px; font-size: var(--field); color: var(--on-surface);
+      cursor: pointer; text-align: left;
+    }
+    .hero button {
+      padding: 12px; font-weight: 600; color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    .grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+      margin-bottom: 14px;
+    }
+    .tile {
+      padding: 14px 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08);
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .tile .lbl { font-size: var(--label); color: var(--muted); }
+    .tile .name { font-weight: 600; font-size: 15px; }
+    .tile.accent { border: 1px solid var(--primary); }
+    .wallet {
+      display: block; width: 100%; padding: 14px; margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    .wallet .lbl { font-size: var(--label); color: var(--muted); }
+    .note {
+      font-size: 12px; color: var(--muted); padding: 8px 0;
+    }
+    .note strong { color: var(--primary); }
+    .session {
+      background: var(--card); border-radius: var(--radius-card);
+      padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    .session h3 { margin: 0 0 6px; font-size: 15px; }
+    .quick {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
+    .quick-item {
+      padding: 12px; text-align: center; font-size: 13px; font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    .quick-item.removed {
+      opacity: .35; text-decoration: line-through; pointer-events: none;
+      border: 1px dashed var(--danger); color: var(--danger);
+    }
+    .tabbar {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 64px; background: var(--card);
+      border-top: 1px solid var(--border);
+      display: flex; align-items: stretch;
+    }
+    .tab {
+      flex: 1; border: 0; background: transparent; font-size: 11px;
+      color: var(--muted); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2px; cursor: pointer;
+    }
+    .tab.active { color: var(--primary); font-weight: 700; }
+    .tab .ico { font-size: 18px; }
+    .hidden { display: none !important; }
+    .chip {
+      display: inline-block; font-size: 11px; padding: 2px 8px;
+      border-radius: 999px; background: #E8F4FB; color: var(--primary);
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="board-nav" id="board" aria-label="Prototype scenes"></nav>
+  <div class="meta" id="meta"></div>
+  <div class="phone" data-zone="CH-00">
+    <header class="topbar" data-zone="CH-HM">
+      <div class="title" id="screenTitle">Trang chủ</div>
+      <span id="profileName" style="font-size:13px;opacity:.95">Nguyễn A</span>
+      <button class="icon-btn" type="button" aria-label="Thông báo" data-field="notifyBadge">
+        🔔<span class="badge" id="badge">2</span>
+      </button>
+    </header>
+    <main class="content" id="main"></main>
+    <nav class="tabbar" data-zone="CH-SH-TAB" id="tabbar"></nav>
+  </div>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const role = params.get("role") || "td";
+    const view = params.get("view") || "home";
+    const path = params.get("path") || "trang-chu";
+
+    const scenes = [
+      { role: "td", view: "home", label: "Home TD" },
+      { role: "tk", view: "home", label: "Home TK" },
+      { role: "nt", view: "home", label: "Home NT" },
+      { role: "qlhat", view: "home", label: "Home QL_HAT" },
+      { role: "td", view: "hub", label: "Hub TD" },
+      { role: "qlhat", view: "hub", label: "Hub QL_HAT" },
+      { role: "tk", view: "shell", path: "tuan-kiem", label: "Shell TK" },
+    ];
+
+    const caps = {
+      td: { tuanDuong: true, tuanKiem: false, nghiemThu: false, qlHat: false, name: "NV Tuần đường" },
+      tk: { tuanDuong: false, tuanKiem: true, nghiemThu: false, qlHat: false, name: "NV Tuần kiểm" },
+      nt: { tuanDuong: false, tuanKiem: false, nghiemThu: true, qlHat: false, name: "NV Nghiệm thu" },
+      qlhat: { tuanDuong: true, tuanKiem: false, nghiemThu: false, qlHat: true, name: "HAT-TRUONG" },
+    };
+    const c = caps[role] || caps.td;
+
+    document.getElementById("board").innerHTML = scenes.map((s) => {
+      const active = s.role === role && s.view === view && (s.path || "trang-chu") === (s.view === "shell" ? path : (s.path || "trang-chu"));
+      const q = new URLSearchParams({ role: s.role, view: s.view });
+      if (s.path) q.set("path", s.path);
+      return `<button type="button" class="${active ? "active" : ""}" onclick="location.search='?${q.toString()}'">${s.label}</button>`;
+    }).join("");
+
+    document.getElementById("profileName").textContent = c.name;
+    document.getElementById("meta").textContent =
+      `feature=web-rmms-cam-home · role=${role} · view=${view} · path=${path} · zones CH-* · assign→/van-de · supervise=QL_HAT · hub NT=CẤM`;
+
+    function tile(id, name, note, accent) {
+      return `<button type="button" class="tile${accent ? " accent" : ""}" data-field="${id}">
+        <span class="lbl">${note || ""}</span>
+        <span class="name">${name}</span>
+      </button>`;
+    }
+
+    function homeHtml() {
+      const hero = c.tuanDuong
+        ? `<section class="hero" data-zone="CH-HM-HERO">
+            <button type="button" data-field="qaPatrolPoint">Điểm tuần</button>
+            <button type="button" data-field="qaIncidentNew">Ghi sự cố</button>
+          </section>`
+        : `<p class="note" data-zone="CH-HM-HERO">Hero ẩn — <strong>AC-CH-HERO-02</strong> (không tuanDuong)</p>`;
+
+      const tiles = [];
+      if (c.tuanDuong) tiles.push(tile("gridPatrolMap", "Tuần đường", "→ /tuan-duong"));
+      if (c.tuanKiem) tiles.push(tile("gridTuanKiem", "Tuần kiểm", "→ /tuan-kiem", true));
+      if (c.nghiemThu) tiles.push(tile("gridNghiemThu", "Công tác nghiệm thu", "chỉ nghiemThu", true));
+      tiles.push(tile("gridIncident", "Vấn đề", c.tuanDuong ? "tạo / xem" : "xem RO"));
+      tiles.push(tile("gridWork", "Công việc", "theo dõi đơn vị"));
+      tiles.push(tile("gridAsset", "Tài sản", "peer"));
+      tiles.push(tile("gridOffline", "Lưu trữ", "offline"));
+      if (c.qlHat) {
+        tiles.push(tile("gridAssign", "Giao việc", "→ /van-de · QL_HAT", true));
+        tiles.push(tile("gridSupervise", "Giám sát", "→ /giam-sat · QL_HAT", true));
+      }
+
+      const banned = [];
+      if (!c.nghiemThu) banned.push("NT");
+      if (!c.tuanKiem) banned.push("Tuần kiểm");
+      if (!c.qlHat) banned.push("Giao việc", "Giám sát");
+      if (!c.tuanDuong) banned.push("hero TD");
+
+      return `
+        <div data-zone="CH-HM-00">
+          ${hero}
+          <section class="grid" data-zone="CH-HM-GRID">${tiles.join("")}</section>
+          <button type="button" class="wallet" data-zone="CH-HM-WALLET" data-field="walletAsset">
+            <div class="lbl">Hồ sơ tài sản</div>
+            <div style="font-weight:600;font-size:15px">Wallet peer (giữ)</div>
+          </button>
+          <p class="note">Ẩn: <strong>${banned.join(" · ") || "—"}</strong> · cấm MANAGER→Assign</p>
+        </div>`;
+    }
+
+    function hubHtml() {
+      const supervise = c.qlHat
+        ? `<button type="button" class="quick-item" data-field="hub.quick.supervise">Giám sát</button>`
+        : "";
+      return `
+        <div data-zone="CH-HUB-00">
+          <div class="session" data-field="hub.todaySession">
+            <h3>Ca hôm nay <span class="chip">peer</span></h3>
+            <div style="font-size:14px;color:var(--muted)">Session card — cite patrol sessions</div>
+          </div>
+          <p class="note" style="margin-top:0">Thao tác nhanh — <strong>không</strong> Công tác nghiệm thu</p>
+          <section class="quick" data-zone="CH-HUB-QUICK">
+            <button type="button" class="quick-item" data-field="hub.quick.reflect">Phản ánh</button>
+            <button type="button" class="quick-item" data-field="hub.quick.cam">Camera</button>
+            <button type="button" class="quick-item" data-field="hub.quick.map">Bản đồ</button>
+            <button type="button" class="quick-item" data-field="hub.quick.history">Lịch sử</button>
+            <button type="button" class="quick-item" data-field="hub.quick.offline">Offline</button>
+            ${supervise}
+            <button type="button" class="quick-item removed" data-field="hub.quick.nghiemThu" aria-disabled="true">NT — CẤM</button>
+          </section>
+        </div>`;
+    }
+
+    function shellFocusHtml() {
+      return `
+        <div>
+          <p class="note"><strong>Plan #8</strong> — path=<code>/${path}</code> · vai tuần kiểm</p>
+          <div class="session">
+            <h3>Nội dung /${path}</h3>
+            <p style="margin:0;font-size:14px;color:var(--muted)">
+              Tab <strong>Tuần đường (Field)</strong> <u>không</u> active khi ở /tuan-kiem* hoặc /phat-hien*
+              (AC-CH-SHELL-08).
+            </p>
+          </div>
+        </div>`;
+    }
+
+    const titles = { home: "Trang chủ", hub: "Tuần đường", shell: "Shell · Plan #8" };
+    document.getElementById("screenTitle").textContent = titles[view] || "Trang chủ";
+    document.getElementById("main").innerHTML =
+      view === "hub" ? hubHtml() : view === "shell" ? shellFocusHtml() : homeHtml();
+
+    const fieldActive =
+      view === "hub" ||
+      (view === "home" && c.tuanDuong && !c.tuanKiem) ||
+      (view === "shell" && !(c.tuanKiem && (path === "tuan-kiem" || path === "phat-hien")));
+
+    const tabs = [
+      { id: "home", label: "Trang chủ", ico: "🏠", active: view === "home" },
+      { id: "field", label: "Tuần đường", ico: "🛣", active: fieldActive && view !== "home" && !(view === "shell" && c.tuanKiem) },
+      { id: "incident", label: "Vấn đề", ico: "⚠", active: false },
+      { id: "work", label: "Công việc", ico: "📋", active: false },
+      { id: "me", label: "Tôi", ico: "👤", active: false },
+    ];
+    if (view === "shell" && c.tuanKiem) {
+      tabs[1].active = false;
+      tabs[0].active = false;
+    }
+
+    document.getElementById("tabbar").innerHTML = tabs.map((t) =>
+      `<button type="button" class="tab${t.active ? " active" : ""}" data-field="shell.tab.${t.id}">
+        <span class="ico">${t.ico}</span>${t.label}
+      </button>`
+    ).join("");
+  </script>
+</body>
+</html>

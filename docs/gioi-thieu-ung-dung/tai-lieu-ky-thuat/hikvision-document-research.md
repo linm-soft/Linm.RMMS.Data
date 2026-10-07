@@ -58,11 +58,20 @@ Nguồn spec đã đọc: trang [Hikvision HK](https://www.hikvision.com/hk/prod
 | 9 loại xe: Car, Van, Bus, Truck, Light Truck, SUV(MPV), Pickup, Motorcycle, Tricycle | Vehicle Type — không có % phân loại |
 | Màu 11 sắc, chỉ ban ngày | Vehicle Color |
 | 212 hãng xe (có VinFast) | Vehicle Manufacturer |
-| Bắt xe > 99%, đọc biển > 98%, hướng > 98,5%, bắt nhầm < 2% | Accuracy, recommended installation and lighting |
+| Bắt xe > 99%, đọc biển > 98%, bắt nhầm < 2% | Accuracy, recommended installation and lighting. Không lấy dòng direction accuracy thành event |
 | Dải bắt 5–120 km/h, tới 3 làn | Capture Speed Range · Coverage |
 | Xe không biển, biển xe máy | No License Plate Detection · Motorcycle LPR |
 | Việt Nam | LPR Countries/Regions · Asia-Pacific |
-| Ùn, dừng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp; lưu lượng, tốc độ trung bình, hàng đợi | Smart Function / Incident — không có % |
+| Event | Basic Event: HDD Error, Network Disconnected, IP Address Conflicted, Vehicle Detector Exception, Traffic Light Detector Exception. Event xe = ANPR. Không có event hướng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp, ùn, dừng |
+| Mũ bảo hiểm | Smart Function trên trang HK: «Helmet Detection, Manned Non-Motor» — mũ gắn với xe thô sơ có người, không phải loại xe thứ 10, không có %, không nằm mục Event. «Without Helmet Detection Supported» chỉ có trên datasheet mã `iDS-TCM403-BI-UHK`, không phải `BI(G)/G` |
+| Cảm biến, hình | 1/1.8" CMOS, 2688 × 1520, WDR 140 dB, BLC, 3D DNR |
+| Đèn | 3 đèn IR 850 nm, tới 50 m |
+| Ống kính trên trang | 2.8–12 mm, 8–32 mm, 10–50 mm, focus auto, DC-IRIS |
+| Mạng | ISAPI, SDK, ISUP, ONVIF Profile S/G/T/M. Live tối đa 6 kênh. Cổng RMMS: HTTP 80, SDK 8000, RTSP 554 |
+| Bản `/G` | LTE FDD/TDD, WCDMA, GSM; Micro SIM; GPS |
+| Lưu tại camera | microSD tới 512 GB |
+| Nguồn | DC 12–24 V, tối đa 15 W, hoặc PoE 802.3at Class 4, tối đa 15 W |
+| Vỏ | Nhôm, 428,5 × 120 × 132,8 mm, khoảng 2,975 kg, IP67, IK10, −30 °C đến 70 °C, ẩm ≤ 95% không đọng |
 | Không radar 77 GHz như GIR | Không có mục Radar trên SKU BI |
 | PDF pt-br 20250424 còn bảng 120 km/h và 200 km/h | Không lấy bảng 200 km/h khi trích SKU `BI(G)/G` (trang SKU ghi 5–120 km/h) |
 

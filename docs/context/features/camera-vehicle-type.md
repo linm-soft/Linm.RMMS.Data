@@ -18,7 +18,7 @@
 | Ngày tra mapping | 2026-09-12 · **BI(G)/G** 2026-09-23 |
 | Model lựa chọn QL1 | **iDS-TCM403-BI(G)/G** — chi tiết nhận diện §1b |
 
-Hãng **không** công bố % chính xác phân loại. Có % bắt xe / hướng / LPR khi lắp đúng khuyến nghị.
+Hãng **không** công bố % chính xác phân loại. Có % bắt xe và đọc biển khi lắp đúng khuyến nghị. `BI(G)/G` không có event hướng.
 
 Cùng họ TCM403 (BI / B / GIR): **cùng 9 Vehicle Type**. DeepinView `2CD7A*` = họ khác — §4.
 
@@ -41,15 +41,14 @@ Chốt 2026-09-23 cho trạm đếm QL1. Lab ingest vẫn **iDS-TCM403-GIR**. C�
 | Màu | red, yellow, green, blue, pink, purple, cyan, brown, white, grey, black — **chỉ ban ngày** | Raw `Color` · GAP-CAM-VT-COLOR |
 | Hãng xe | **212** hãng (trang liệt kê đủ, có Toyota, Hyundai, Ford, Honda, Isuzu, VinFast) | **Chưa** parse · GAP-CAM-VT-MAKE |
 | Biển | Đọc biển, xe không biển, biển xe máy | `Plate` |
-| Hướng | Có | `Direction` §3.1 |
+| Hướng | Không có event hướng trên SKU này | Không ghi `Direction` thành sự kiện |
 | Bắt xe | **> 99%** | Event ingest |
 | Đọc biển | **> 98%** | |
-| Hướng | **> 98,5%** | |
 | Bắt nhầm | **< 2%** | |
-| Tốc độ bắt | **5–120 km/h** (không phải sai số radar) | `SpeedKmh` chỉ khi payload có tốc độ |
+| Tốc độ bắt | **5–120 km/h** (không phải sai số radar, không phải event vượt tốc) | `SpeedKmh` chỉ khi payload có số; không suy ra vượt tốc |
 | Danh sách biển | Blocklist / allowlist tối đa **50.000** | Không dùng cho đếm RMMS |
-| Dòng xe / ùn | Lưu lượng, tốc độ trung bình, chiều dài hàng, trạng thái; sự cố: ùn, dừng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp | Ingest P1 **chưa** tách loại sự cố — vượt tốc = ANPR + `speedKmh` |
-| Mũ bảo hiểm / xe thô sơ có người | Có trên trang SKU | Ngoài 9 loại đếm ô tô |
+| Lưu lượng | Trang Smart Function có câu traffic flow (tốc độ trung bình, lưu lượng, hàng, trạng thái) | Không đổi thành event ùn / dừng / đổi làn / ngược chiều / vượt tốc / tốc độ thấp |
+| Mũ bảo hiểm | Không có event. Trang HK ghi Smart Function «Helmet Detection, Manned Non-Motor» (mũ trên xe thô sơ có người). Datasheet `iDS-TCM403-BI-UHK` ghi «Without Helmet Detection Supported» — mã khác `BI(G)/G`. PDF `BI(G)` cũ không có dòng mũ | Ngoài 9 loại đếm. Không có % |
 
 PDF `20250424` (nhánh pt-br) còn một bảng độ chính xác theo **120 km/h** và **200 km/h**. Trang SKU `BI(G)/G` đã đọc ghi dải bắt **5–120 km/h** và không lặp bảng 200 km/h. Khi trích thuyết minh QL1, lấy số của trang SKU đã chọn.
 
@@ -61,7 +60,7 @@ PDF `20250424` (nhánh pt-br) còn một bảng độ chính xác theo **120 km/
 | `AID` | Lab TCM403 (incident / pedestrian) | Cùng UUID với ANPR → **dedup gộp 1 hàng** (payload giàu hơn thắng) |
 | `illaccess` | Không UUID | Fingerprint host + `RawKind` + giây UTC |
 
-Một hàng `CameraEvent` = một lần bắt. **Không** tách ùn tắc / đổi làn / vượt tốc thành loại event riêng (datasheet có incident; ingest P1 chưa parse). Vượt tốc = cùng ANPR + `speedKmh`.
+Một hàng `CameraEvent` = một lần bắt ANPR. `iDS-TCM403-BI(G)/G` không có event hướng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp, ùn, dừng. `AID` trên lab GIR không được ghi thành sáu sự cố đó.
 
 ## 3. 9 Vehicle Type (datasheet) → ISAPI → nhãn RMMS
 
@@ -165,6 +164,7 @@ Word Cục: `docs/tai-lieu/Đếm xe tự động.docx`. Quy đổi PCU **không
 | GAP-CAM-VT-COLOR | Màu raw, chưa nhãn VN | DEFER |
 | GAP-CAM-VT-MAKE | Manufacturer datasheet | DEFER parse |
 | GAP-CAM-COUNTS | `GET /cameras/{id}/counts` mock | Report `rpt-dem-xe` đọc **event** theo `DisplayKey` khi ship — **cấm** 16 class |
+| GAP-CAM-QL5 | Thuyết minh QL.5 ghi hư hỏng, lấn chiếm, phân loại 98%, sự cố 90% | Ngoài datasheet TCM403. SSOT [`../../camera-info/bc-thuyet-minh/tra-loi-yeu-cau-hikvision.md`](../../camera-info/bc-thuyet-minh/tra-loi-yeu-cau-hikvision.md) |
 
 ## 8. Ownership
 

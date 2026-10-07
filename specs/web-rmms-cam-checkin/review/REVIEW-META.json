@@ -1,0 +1,18 @@
+{
+  "feature": "web-rmms-cam-checkin",
+  "status": "PASS",
+  "review_confirm": "approve",
+  "skillVersion": "2026.09.05.03",
+  "contentHash": "sha256:2ff2873ea06c8d3d8e707c24a142432b3f1e356db42bbb006f594fc6b9f213db",
+  "taskId": "task_1c9a2927",
+  "writtenAt": "2026-10-01T00:57:30.000Z",
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  },
+  "softDebt": ["SOFT-E2E-WRITE", "SOFT-E2E-VIEW", "SOFT-ALIAS"],
+  "critical": [],
+  "autoApprove": true
+}

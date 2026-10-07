@@ -33,7 +33,7 @@
     <thead><tr><th>Điểm đặc biệt</th><th>Nội dung</th></tr></thead>
     <tbody>
       <tr><td>Nhận dạng tại vạch</td><td>Camera phân loại theo hình dáng đúng lúc xe vào vạch đếm, rồi gửi một lượt về trung tâm</td></tr>
-      <tr><td>Chín loại xe của hãng</td><td>Xe con, van, xe khách, xe tải, xe tải nhẹ, SUV/MPV, bán tải, xe máy, xe ba bánh. Kèm biển số, hướng, màu xe ban ngày</td></tr>
+      <tr><td>Chín loại xe của hãng</td><td>Xe con, van, xe khách, xe tải, xe tải nhẹ, SUV/MPV, bán tải, xe máy, xe ba bánh. Kèm biển số và màu xe ban ngày. Không có event hướng</td></tr>
       <tr><td>Biển số tự động (ANPR)</td><td>Đọc biển ô tô, biển xe máy và trường hợp không có biển. Việt Nam thuộc vùng biển Asia-Pacific của hãng</td></tr>
       <tr><td>Hai kênh độc lập</td><td>Hình trực tiếp luôn nối. Lượt đếm chỉ phát sinh khi xe vào vạch</td></tr>
       <tr><td>Gắn với tài sản đường</td><td>Mỗi lượt gắn mã camera, tuyến, lý trình, tọa độ trong cơ sở dữ liệu đường bộ</td></tr>
@@ -42,7 +42,7 @@
       <tr><td>Phục vụ hiện trường</td><td>Báo cáo lưu lượng thời gian thực dùng cho tuần đường, tuần kiểm và bảo dưỡng thường xuyên</td></tr>
     </tbody>
   </table>
-  <p>Chỉ số hãng, khi lắp đặt và chiếu sáng đúng khuyến nghị: nhận diện xe trên 99%, đọc biển trên 98%, nhận hướng trên 98,5%, nhận diện nhầm dưới 2%. Dải tốc độ nhận diện 5–120 km/h. Tốc độ chỉ lưu khi sự kiện có trường tốc độ. Một camera phủ tối đa 3 làn.</p>
+  <p>Chỉ số hãng, khi lắp đặt và chiếu sáng đúng khuyến nghị: bắt xe trên 99%, đọc biển trên 98%, bắt nhầm dưới 2%. Dải bắt 5–120 km/h, tối đa 3 làn, không radar. Event xe là ANPR. Không có event hướng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp, ùn, dừng, mũ bảo hiểm. Tốc độ chỉ lưu khi payload có số.</p>
 
   <h2>3. Kết nối và đồng bộ thời gian thực</h2>
   <h3>3.1. Kiến trúc</h3>
@@ -53,7 +53,7 @@
     <tbody>
       <tr><td>Trạm đếm</td><td>Mã trạm, tuyến, lý trình, tọa độ, khu quản lý, địa hình đoạn (đồng bằng và đồi, hoặc miền núi)</td></tr>
       <tr><td>Camera</td><td>Mã thiết bị, model, làn, trạng thái đường truyền</td></tr>
-      <tr><td>Lượt xe</td><td>Thời điểm, làn, loại xe theo camera, biển số, hướng</td></tr>
+      <tr><td>Lượt xe</td><td>Thời điểm, làn, loại xe theo camera, biển số, màu ban ngày</td></tr>
       <tr><td>Hình trực tiếp</td><td>Cùng mã camera. Xem hình không tạo lượt đếm</td></tr>
       <tr><td>Lớp quy đổi</td><td>Cơ cấu 19 loại và xe con quy đổi, tính riêng, không sửa lượt gốc</td></tr>
       <tr><td>Báo cáo</td><td>Lưu lượng theo trạm, tuyến, làn và khoảng thời gian</td></tr>
@@ -65,7 +65,7 @@
     <thead><tr><th>Kênh</th><th>Cách nối</th><th>Trung tâm nhận được</th></tr></thead>
     <tbody>
       <tr><td>Camera Live</td><td>Luôn kết nối (HLS), 24/7, không chờ có xe</td><td>Tường hình và bản đồ</td></tr>
-      <tr><td>Đếm xe</td><td>Camera gửi một lần khi xe vào vạch đếm</td><td>Một bản ghi: thời điểm, loại xe, biển số, hướng</td></tr>
+      <tr><td>Đếm xe</td><td>Camera gửi một lần khi xe vào vạch đếm</td><td>Một bản ghi ANPR: thời điểm, loại xe, biển số, màu ban ngày</td></tr>
     </tbody>
   </table>
   <p>Đồng bộ lượt đếm: sự kiện ghi vào cơ sở dữ liệu ngay khi đường truyền thông. Màn hình bản đồ và báo cáo làm mới theo chu kỳ ngắn, khoảng 15 giây, trong suốt ca trực. Mất liên lạc thì sự kiện lưu tại trạm và gửi bù khi có sóng trở lại; nhật ký ghi nhận khoảng thời gian mất đồng bộ.</p>
@@ -180,23 +180,26 @@
   <table>
     <thead><tr><th>Hạng mục</th><th>Thông số</th></tr></thead>
     <tbody>
-      <tr><td>Công dụng</td><td>Nhận biển số và đếm xe tại trạm</td></tr>
-      <tr><td>Độ phân giải</td><td>4 MP (2688 × 1520), cảm biến 1/1.8 inch</td></tr>
+      <tr><td>Công dụng</td><td>Nhận biển số (event ANPR) và đếm xe tại trạm</td></tr>
+      <tr><td>Cảm biến, độ phân giải</td><td>1/1.8 inch CMOS, 4 MP (2688 × 1520)</td></tr>
       <tr><td>Chống ngược sáng</td><td>140 dB</td></tr>
-      <tr><td>Đèn hồng ngoại</td><td>850 nm, tới 50 m</td></tr>
-      <tr><td>Nhận diện được xe</td><td>Trên 99%</td></tr>
+      <tr><td>Đèn hồng ngoại</td><td>3 đèn IR, 850 nm, tới 50 m</td></tr>
+      <tr><td>Bắt xe</td><td>Trên 99%</td></tr>
       <tr><td>Đọc biển số</td><td>Trên 98%</td></tr>
-      <tr><td>Nhận hướng</td><td>Trên 98,5%</td></tr>
-      <tr><td>Nhận diện nhầm</td><td>Dưới 2%</td></tr>
+      <tr><td>Bắt nhầm</td><td>Dưới 2%</td></tr>
+      <tr><td>Event hướng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp, ùn, dừng, mũ bảo hiểm</td><td>Không có</td></tr>
       <tr><td>Số làn</td><td>Tối đa 3 làn</td></tr>
-      <tr><td>Tốc độ xe khi nhận diện</td><td>5–120 km/h</td></tr>
-      <tr><td>Loại xe</td><td>9 loại nêu tại mục 4</td></tr>
-      <tr><td>Biển số</td><td>Ô tô, xe máy, xe không biển</td></tr>
-      <tr><td>Màu xe</td><td>Ban ngày</td></tr>
-      <tr><td>Thẻ nhớ tại trạm</td><td>Tới 512 GB</td></tr>
-      <tr><td>Nguồn</td><td>12–24 V hoặc PoE+, tối đa 15 W</td></tr>
-      <tr><td>Kích thước, khối lượng</td><td>428,5 × 120 × 132,8 mm; khoảng 2,98 kg</td></tr>
-      <tr><td>Vỏ, môi trường</td><td>IP67, IK10; −30 °C đến 70 °C; độ ẩm đến 95%</td></tr>
+      <tr><td>Dải bắt xe</td><td>5–120 km/h. Không radar 77 GHz</td></tr>
+      <tr><td>Loại xe</td><td>9 loại nêu tại mục 4. Không có % phân loại</td></tr>
+      <tr><td>Biển số</td><td>Ô tô, xe máy, xe không biển. Việt Nam thuộc Asia-Pacific</td></tr>
+      <tr><td>Màu xe</td><td>11 sắc, chỉ ban ngày</td></tr>
+      <tr><td>Hãng xe</td><td>212 hãng trên trang SKU. RMMS chưa tách hãng trên sự kiện</td></tr>
+      <tr><td>Event</td><td>ANPR. Basic Event: HDD Error, Network Disconnected, IP Address Conflicted, Vehicle Detector Exception, Traffic Light Detector Exception</td></tr>
+      <tr><td>Bản /G</td><td>LTE + GPS, khe Micro SIM</td></tr>
+      <tr><td>Thẻ nhớ tại trạm</td><td>microSD tới 512 GB</td></tr>
+      <tr><td>Nguồn</td><td>12–24 V, tối đa 15 W, hoặc PoE 802.3at Class 4, tối đa 15 W</td></tr>
+      <tr><td>Kích thước, khối lượng</td><td>428,5 × 120 × 132,8 mm; khoảng 2,975 kg</td></tr>
+      <tr><td>Vỏ, môi trường</td><td>Nhôm, IP67, IK10; −30 °C đến 70 °C; độ ẩm đến 95% không đọng</td></tr>
     </tbody>
   </table>
   <p>Trang hãng: https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/</p>

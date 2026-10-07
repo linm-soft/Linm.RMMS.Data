@@ -22,6 +22,7 @@
 
 ## Notes
 
+- 2026-10-06 map: one `GET patrol/check-ins` (`search` + `day` ICT, pageSize 500). List Áp dụng sends `search` + `day` on that same search. No per-session check-ins fan-out.
 - Reuse live `GET mobile-bff/api/v1/patrol/attendance-logs` + `GET/{id}` via existing `attendanceLogsEndpoint` · **cấm** invent `/supervise*` API · **cấm** invent `fromDate` · **cấm** POST P1.
 - Day filter = client `CheckInAt` (`localDayKey`) · route Select options from live list · Org = Note/org fields fallback.
 - GPS: RO stored Lat/Lng only · map CTA → `/patrol-map?lat&lng&attId` · **cấm** capture/fake/POST.

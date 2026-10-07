@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-giao-viec-ql-hat — Giao việc QL_HAT</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --warning: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .back {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 28px; line-height: 1; padding: 0;
+      display: grid; place-items: center; cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center;
+    }
+    .topbar .spacer { width: 44px; }
+    .content { flex: 1; min-height: 0; overflow: auto; padding: 12px 14px 16px; }
+    .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex; flex-direction: column; min-height: 0; }
+    .btn {
+      height: var(--control-h); border-radius: var(--radius-control); border: 0;
+      padding: 0 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); }
+    .btn-secondary { background: #E5E5EA; color: var(--on-surface); }
+    .btn-ghost { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+    .btn-block { width: 100%; margin-top: 8px; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .card {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 14px; margin-bottom: 10px;
+    }
+    .card .sub { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .chip {
+      display: inline-block; font-size: 12px; padding: 3px 8px;
+      border-radius: 999px; background: #E8F4FB; color: var(--primary); font-weight: 600;
+      margin-right: 4px;
+    }
+    .chip.warn { background: #FFF4E0; color: #B86B00; }
+    .chip.ok { background: #E6F7E8; color: #1B7A28; }
+    .chip.muted { background: #EFEFF4; color: var(--muted); }
+    .filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .filters .chip { cursor: default; }
+    .label {
+      display: block; font-size: var(--label); color: var(--muted);
+      margin: 10px 0 4px; font-weight: 600;
+    }
+    .field, .select, textarea {
+      width: 100%; min-height: 44px; border: 1px solid var(--border);
+      border-radius: var(--radius-control); padding: 10px 12px;
+      font-size: var(--field); background: #fff; color: var(--on-surface);
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    .hint {
+      font-size: 12px; color: var(--muted); margin-top: 4px;
+    }
+    .hint.ok { color: #1B7A28; }
+    .banner {
+      background: #FFF4E0; color: #7A4A00; border-radius: 12px;
+      padding: 10px 12px; font-size: 13px; margin-bottom: 10px;
+    }
+    .banner.deny { background: #FDECEA; color: #8B1E18; }
+    .row-actions { display: flex; gap: 8px; margin-top: 10px; }
+    .row-actions .btn { flex: 1; }
+    .footer {
+      padding: 10px 14px 16px; background: var(--card);
+      border-top: 1px solid var(--border);
+    }
+    .modal-backdrop {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45);
+      display: none; align-items: flex-end; justify-content: center; z-index: 20;
+    }
+    .modal-backdrop.show { display: flex; }
+    .modal {
+      width: 100%; background: #fff; border-radius: 16px 16px 0 0;
+      padding: 16px; margin: 0;
+    }
+    .toast {
+      position: absolute; left: 16px; right: 16px; bottom: 24px;
+      background: #1C1C1E; color: #fff; border-radius: 12px;
+      padding: 12px 14px; font-size: 14px; display: none; z-index: 30;
+    }
+    .toast.show { display: block; }
+    .toast.err { background: var(--danger); }
+    .icon-btn {
+      height: 36px; min-width: 36px; border-radius: 10px; border: 1px solid var(--border);
+      background: #E8F4FB; color: var(--primary); font-size: 12px; font-weight: 700; cursor: pointer;
+    }
+    .list-row {
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .list-row .body { flex: 1; min-width: 0; }
+  </style>
+</head>
+<body>
+  <div class="meta">
+    reviewUrl · zones GV-L-* · GV-D-* · GV-F · GV-W · DES-LEAVE · TOAST · role=qlHat only · TT41 due hint · cấm creator filter · cấm SlaHours=24
+  </div>
+  <div class="board-nav" id="nav">
+    <button data-screen="list-inc" class="active">GV-L-INC</button>
+    <button data-screen="list-rpt">GV-L-RPT</button>
+    <button data-screen="detail-inc">GV-D-INC</button>
+    <button data-screen="detail-rpt">GV-D-RPT</button>
+    <button data-screen="form">GV-F</button>
+    <button data-screen="work">GV-W</button>
+    <button data-role="qlhat">role=qlHat</button>
+    <button data-role="other">role=other</button>
+    <button data-leave="1">leave</button>
+  </div>
+
+  <div class="phone" id="phone">
+    <!-- GV-L-INC -->
+    <section class="screen active" id="screen-list-inc" data-zone="GV-L-INC">
+      <div class="topbar">
+        <button class="back" type="button" aria-label="back">‹</button>
+        <div class="title">Vấn đề</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="content">
+        <div class="banner" id="banner-list-inc" hidden>Chỉ xem — không giao việc (không QL_HAT).</div>
+        <div class="filters" data-field="listFilters">
+          <span class="chip">Tuyến</span>
+          <span class="chip">Loại</span>
+          <span class="chip">Trạng thái</span>
+          <span class="chip">Mức</span>
+          <span class="chip muted">∅ người tạo</span>
+        </div>
+        <div class="card" data-field="incidentCards">
+          <div class="list-row">
+            <div class="body">
+              <strong>SC-241001-01</strong>
+              <span class="chip warn">P2</span>
+              <div class="sub">QL1 · km 12+300 · Đợi phân công</div>
+            </div>
+            <button class="icon-btn assign-cta" type="button" data-field="assignCta" data-goto="form">Giao</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="list-row">
+            <div class="body">
+              <strong>SC-241001-02</strong>
+              <span class="chip">P3</span>
+              <div class="sub">ĐT183 · nứt mặt · Đã giao</div>
+            </div>
+            <button class="icon-btn assign-cta" type="button" data-field="assignCta" data-goto="detail-inc">Giao</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GV-L-RPT -->
+    <section class="screen" id="screen-list-rpt" data-zone="GV-L-RPT">
+      <div class="topbar">
+        <button class="back" type="button">‹</button>
+        <div class="title">Lịch sử ca</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="content">
+        <div class="banner" id="banner-list-rpt" hidden>Chỉ xem — không giao việc.</div>
+        <div class="filters">
+          <span class="chip">Tuyến</span>
+          <span class="chip">Trạng thái</span>
+          <span class="chip muted">∅ người tạo</span>
+        </div>
+        <div class="card" data-field="reportCards">
+          <div class="list-row">
+            <div class="body">
+              <strong>Ca TD-0928</strong>
+              <div class="sub">QL1 · 08:00–16:00 · 2 sự cố</div>
+            </div>
+            <button class="icon-btn assign-cta" type="button" data-goto="detail-rpt">Giao</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GV-D-INC -->
+    <section class="screen" id="screen-detail-inc" data-zone="GV-D-INC">
+      <div class="topbar">
+        <button class="back" type="button" data-goto="list-inc">‹</button>
+        <div class="title">Chi tiết sự cố</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="content">
+        <div class="banner deny" id="banner-detail-inc" hidden>Không có quyền giao việc.</div>
+        <div class="card">
+          <span class="chip">SC-241001-01</span>
+          <span class="chip warn">Đợi phân công</span>
+          <div style="margin-top:8px"><strong>Ổ gà mặt đường</strong></div>
+          <div class="sub" data-field="detail.fields">QL1 · km 12+300 · GPS RO · cấm sửa tọa độ</div>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-ghost" type="button">Xem bản đồ</button>
+          <button class="btn btn-primary assign-cta" type="button" data-field="assignCta" data-goto="form">Giao việc xử lý</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- GV-D-RPT -->
+    <section class="screen" id="screen-detail-rpt" data-zone="GV-D-RPT">
+      <div class="topbar">
+        <button class="back" type="button" data-goto="list-rpt">‹</button>
+        <div class="title">Chi tiết ca</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="content">
+        <div class="banner deny" id="banner-detail-rpt" hidden>Không có quyền giao việc.</div>
+        <div class="card">
+          <span class="chip">TD-0928</span>
+          <div style="margin-top:8px"><strong>Báo cáo ca tuần đường</strong></div>
+          <div class="sub">route shipped `/tuan-duong/:sessionId` · cấm invent</div>
+        </div>
+        <button class="btn btn-primary btn-block assign-cta" type="button" data-goto="form">Giao việc xử lý</button>
+      </div>
+    </section>
+
+    <!-- GV-F -->
+    <section class="screen" id="screen-form" data-zone="GV-F">
+      <div class="topbar">
+        <button class="back" type="button" id="form-back">‹</button>
+        <div class="title">Giao việc</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="content">
+        <div class="card">
+          <div class="label">Nguồn</div>
+          <div data-field="sourceStamp"><strong>SC-241001-01</strong> · sự cố</div>
+        </div>
+        <label class="label" for="assignee">Người nhận *</label>
+        <input class="field" id="assignee" data-field="assignee" placeholder="Tìm người…" value="" />
+        <label class="label" for="team">Đơn vị bảo dưỡng</label>
+        <input class="field" id="team" data-field="team" placeholder="Tìm đơn vị…" />
+        <label class="label" for="hangMuc">Hạng mục *</label>
+        <select class="select" id="hangMuc" data-field="hangMuc">
+          <option value="va-o-ga" data-days="3">Vá ổ gà (3 ngày)</option>
+          <option value="nut" data-days="7">Nứt dọc/ngang/mai rùa (7 ngày)</option>
+          <option value="lun-lom" data-days="10">Lún lõm / sình lún (10 ngày)</option>
+          <option value="ve-sinh" data-days="7">Vệ sinh / chướng ngại (7 ngày)</option>
+          <option value="nuoc-dong" data-days="1">Nước đọng (1 ngày · ≤24h)</option>
+          <option value="bien-bao" data-days="1">Biển cấm / hiệu lệnh (1 ngày)</option>
+          <option value="vach-son" data-days="28">Vạch sơn hư cục bộ (28 ngày)</option>
+          <option value="ton-tai-nt" data-days="5">Tồn tại nghiệm thu (5 ngày)</option>
+        </select>
+        <p class="hint ok" id="dueHint">Gợi ý TT41 Phụ lục IV — có thể sửa hạn.</p>
+        <label class="label" for="dueAt">Hạn xử lý *</label>
+        <input class="field" id="dueAt" data-field="dueAt" type="datetime-local" />
+        <p class="hint">Cấm SlaHours=24 mặc định · DueAt absolute.</p>
+        <label class="label" for="note">Ghi chú</label>
+        <textarea id="note" data-field="note" placeholder="Tùy chọn"></textarea>
+      </div>
+      <div class="footer">
+        <button class="btn btn-primary btn-block" type="button" id="submitAssign" data-field="submitAssign">Giao</button>
+      </div>
+    </section>
+
+    <!-- GV-W -->
+    <section class="screen" id="screen-work" data-zone="GV-W">
+      <div class="topbar">
+        <button class="back" type="button" data-goto="list-inc">‹</button>
+        <div class="title">Công việc</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="content">
+        <div class="card">
+          <span class="chip ok">new</span>
+          <div style="margin-top:6px"><strong>WO từ SC-241001-01</strong></div>
+          <div class="sub" data-field="afterNav">Đội BD · hạn đã giao · theo dõi · cấm hoàn thành hộ</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="modal-backdrop" id="leaveModal" data-zone="DES-LEAVE">
+      <div class="modal">
+        <strong>Huỷ thay đổi?</strong>
+        <p class="hint" style="margin:8px 0 12px">Form giao chưa gửi. Rời đi sẽ mất dữ liệu đã nhập.</p>
+        <div class="row-actions">
+          <button class="btn btn-secondary" type="button" id="leaveStay">Ở lại</button>
+          <button class="btn btn-primary" type="button" id="leaveDiscard">Huỷ</button>
+        </div>
+      </div>
+    </div>
+    <div class="toast" id="toast" data-zone="TOAST"></div>
+  </div>
+
+  <script>
+    const DUE = {
+      'va-o-ga': 3, nut: 7, 'lun-lom': 10, 've-sinh': 7,
+      'nuoc-dong': 1, 'bien-bao': 1, 'vach-son': 28, 'ton-tai-nt': 5
+    };
+    let role = 'qlhat';
+    let dirty = false;
+    let pendingScreen = null;
+
+    function qs() {
+      return new URLSearchParams(location.search);
+    }
+    function setDueFromHangMuc() {
+      const sel = document.getElementById('hangMuc');
+      const days = DUE[sel.value] ?? 3;
+      const d = new Date();
+      d.setDate(d.getDate() + days);
+      d.setHours(17, 0, 0, 0);
+      const pad = (n) => String(n).padStart(2, '0');
+      document.getElementById('dueAt').value =
+        `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      dirty = true;
+    }
+    function showToast(msg, err) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.toggle('err', !!err);
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+    function applyRole() {
+      const isHat = role === 'qlhat';
+      document.querySelectorAll('.assign-cta').forEach((btn) => {
+        btn.hidden = !isHat;
+        btn.disabled = !isHat;
+      });
+      ['banner-list-inc', 'banner-list-rpt', 'banner-detail-inc', 'banner-detail-rpt'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.hidden = isHat;
+      });
+      document.querySelectorAll('[data-role]').forEach((b) => {
+        b.classList.toggle('active', b.getAttribute('data-role') === role);
+      });
+    }
+    function showScreen(name) {
+      document.querySelectorAll('.screen').forEach((s) => s.classList.remove('active'));
+      const el = document.getElementById('screen-' + name);
+      if (el) el.classList.add('active');
+      document.querySelectorAll('[data-screen]').forEach((b) => {
+        b.classList.toggle('active', b.getAttribute('data-screen') === name);
+      });
+      const u = new URL(location.href);
+      u.searchParams.set('screen', name);
+      u.searchParams.set('role', role);
+      history.replaceState(null, '', u);
+    }
+    function go(name) {
+      if (document.getElementById('screen-form').classList.contains('active') && dirty && name !== 'form') {
+        pendingScreen = name;
+        document.getElementById('leaveModal').classList.add('show');
+        return;
+      }
+      showScreen(name);
+    }
+
+    document.getElementById('hangMuc').addEventListener('change', setDueFromHangMuc);
+    ['assignee', 'team', 'dueAt', 'note'].forEach((id) => {
+      document.getElementById(id).addEventListener('input', () => { dirty = true; });
+    });
+    document.getElementById('submitAssign').addEventListener('click', () => {
+      if (role !== 'qlhat') {
+        showToast('Chỉ QL_HAT được giao việc.', true);
+        return;
+      }
+      const a = document.getElementById('assignee').value.trim();
+      if (!a) {
+        showToast('Chọn người nhận.', true);
+        return;
+      }
+      dirty = false;
+      showToast('Đã giao — chuyển Công việc.');
+      setTimeout(() => showScreen('work'), 400);
+    });
+    document.getElementById('form-back').addEventListener('click', () => go('detail-inc'));
+    document.getElementById('leaveStay').addEventListener('click', () => {
+      document.getElementById('leaveModal').classList.remove('show');
+      pendingScreen = null;
+    });
+    document.getElementById('leaveDiscard').addEventListener('click', () => {
+      document.getElementById('leaveModal').classList.remove('show');
+      dirty = false;
+      const next = pendingScreen || 'detail-inc';
+      pendingScreen = null;
+      showScreen(next);
+    });
+    document.getElementById('nav').addEventListener('click', (e) => {
+      const t = e.target;
+      if (!(t instanceof HTMLElement)) return;
+      if (t.dataset.screen) go(t.dataset.screen);
+      if (t.dataset.role) {
+        role = t.dataset.role;
+        applyRole();
+        const u = new URL(location.href);
+        u.searchParams.set('role', role);
+        history.replaceState(null, '', u);
+        if (role === 'other') showToast('CTA ẩn — không giao.', true);
+      }
+      if (t.dataset.leave === '1') {
+        dirty = true;
+        go('detail-inc');
+      }
+    });
+    document.getElementById('phone').addEventListener('click', (e) => {
+      const t = e.target;
+      if (!(t instanceof HTMLElement)) return;
+      if (t.classList.contains('assign-cta')) {
+        if (role !== 'qlhat') {
+          showToast('Chỉ QL_HAT được giao việc.', true);
+          return;
+        }
+        if (t.dataset.goto) go(t.dataset.goto);
+      }
+      if (t.dataset.goto && !t.classList.contains('assign-cta')) go(t.dataset.goto);
+    });
+
+    // boot
+    const p = qs();
+    role = p.get('role') === 'other' ? 'other' : 'qlhat';
+    setDueFromHangMuc();
+    dirty = false;
+    applyRole();
+    showScreen(p.get('screen') || 'list-inc');
+    if (p.get('leave') === '1') {
+      dirty = true;
+      showScreen('form');
+      setTimeout(() => go('detail-inc'), 300);
+    }
+    if (p.get('deny') === '1') {
+      role = 'other';
+      applyRole();
+      showScreen('detail-inc');
+      showToast('Chỉ QL_HAT được giao việc.', true);
+    }
+  </script>
+</body>
+</html>

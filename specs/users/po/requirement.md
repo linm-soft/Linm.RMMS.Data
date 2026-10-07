@@ -139,6 +139,10 @@ Persona: Admin hạt/công ty.
 | Form View | `<dl>` «Chức vụ» resolved · **cấm** readOnly Input |
 | Profile/switch | SearchInput catalog (boundary SA nếu repo Home khác) |
 
+## 8b. Public register layout
+
+`/integration/users/register` — danh sách và cá nhân: cột **Đoạn tuyến** (tuyến) tách khỏi cột **Lý trình** (từ km, đến km). Cấm một cột gộp.
+
 ## 9. Out of scope (this pack)
 
 - Master CRUD `job-title` (`/mas/chuc-vu`)

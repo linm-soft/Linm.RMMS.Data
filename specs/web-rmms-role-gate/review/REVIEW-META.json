@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "feature": "web-rmms-role-gate",
+  "status": "done",
+  "reviewHash": "sha256:cc33bfbc2361d40d732e6b018e209ccce2e8778cce33f39c7766119237ba4216",
+  "contentHash": "sha256:cc33bfbc2361d40d732e6b018e209ccce2e8778cce33f39c7766119237ba4216",
+  "rulesVersion": "2026.09.05.03",
+  "skillId": "agent-review",
+  "skillVersion": "2026.09.05.03",
+  "mode": "review_only",
+  "review_confirm": "accept",
+  "autoApprove": true,
+  "taskId": "task_79e8f3f2",
+  "findings": {
+    "p0": 0,
+    "p1": 0,
+    "p2": 0,
+    "p3": 1,
+    "ids": ["REV-UI-SOFT-01"]
+  },
+  "waive": [
+    "REV-UI-LAYOUT-06",
+    "REV-UI-FILTER-RIGHT-01",
+    "REV-UI-FORM-GRID-05",
+    "REV-UI-TB-ZONES-01"
+  ],
+  "waiveReason": "phone gate ≤430 · Kind B list/filter/form-grid N/A",
+  "generatedAt": "2026-09-30T17:15:00.000Z"
+}

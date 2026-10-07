@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prototype — Bản đồ Tuần đường (gis-patrol-map)</title>
   <style>
-    :root { --teal:#0d9488; --road:#0C84C0; --ok:#3CB448; --pending:#dc2626; --border:#c5d0dc; --muted:#64748b; --bg:#f1f5f9; }
+    :root { --teal:#0d9488; --road:#0C84C0; --assigned:#7c3aed; --ok:#3CB448; --pending:#dc2626; --border:#c5d0dc; --muted:#64748b; --bg:#f1f5f9; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; font-family: system-ui, sans-serif; color: #0f172a; background: var(--bg); }
     .page { display: flex; flex-direction: column; height: 100%; }
@@ -13,7 +13,10 @@
     .nav span { padding: 6px 10px; border-radius: 6px; color: var(--muted); }
     .nav span.on { background: #ecfdf5; color: #065f46; }
     .body { display: flex; flex: 1; min-height: 0; }
-    .side { width: 320px; background: #fff; border-right: 1px solid var(--border); display: flex; flex-direction: column; min-height: 0; }
+    .side { width: 340px; background: #fff; border-right: 1px solid var(--border); display: flex; flex-direction: column; min-height: 0; }
+    .filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 10px; border-bottom: 1px solid var(--border); background: #f8fafc; }
+    .filters select, .filters .chip { font-size: 11px; border: 1px solid #e2e8f0; background: #fff; border-radius: 6px; padding: 4px 8px; }
+    .filters .chip.on { background: var(--teal); color: #fff; border-color: var(--teal); font-weight: 700; }
     .tabs { display: flex; border-bottom: 1px solid var(--border); }
     .tabs span { flex: 1; text-align: center; font-size: 12px; font-weight: 700; padding: 10px 4px; color: var(--muted); }
     .tabs span.on { color: var(--teal); border-bottom: 2px solid var(--teal); }
@@ -22,6 +25,7 @@
     .person.on { border-color: var(--teal); background: #f0fdfa; }
     .person strong { font-size: 13px; }
     .person .meta { font-size: 12px; color: var(--muted); }
+    .person .hint { font-size: 10px; color: var(--teal); font-weight: 600; }
     .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ecfdf5; color: #065f46; width: fit-content; }
     .badge.pending { background: #fef2f2; color: #991b1b; }
     .hist { font-size: 12px; border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; }
@@ -29,7 +33,9 @@
     .hist button { display: block; width: 100%; text-align: left; border: 1px solid #e2e8f0; background: #fff; border-radius: 6px; padding: 8px; margin-bottom: 6px; cursor: pointer; }
     .main { flex: 1; display: flex; flex-direction: column; min-width: 0; min-height: 0; }
     .map-host { flex: 1; min-height: 0; background: linear-gradient(160deg, #aad3df 0%, #c5d5c0 42%, #e8e4d4 100%); position: relative; }
+    .map-host .assigned { position: absolute; left: 8%; top: 52%; width: 78%; height: 0; border-top: 4px solid var(--assigned); opacity: .85; transform: rotate(-4deg); }
     .map-host .track { position: absolute; left: 10%; top: 46%; width: 72%; height: 0; border-top: 5px solid var(--road); box-shadow: 0 0 0 2px #7dd3fc; transform: rotate(-6deg); }
+    .map-host .kmpost { position: absolute; font-size: 9px; font-weight: 700; color: #334155; background: rgba(255,255,255,.85); border: 1px solid #94a3b8; border-radius: 3px; padding: 1px 4px; }
     .map-host .pin { position: absolute; width: 22px; height: 28px; }
     .map-host .pin i { display: block; width: 22px; height: 22px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.3); }
     .map-host .pin.ok i { background: var(--ok); }
@@ -38,7 +44,7 @@
     .map-host .rider { position: absolute; left: 42%; top: 40%; width: 14px; height: 14px; background: #0ea5e9; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 1px 4px rgba(0,0,0,.35); }
     .map-host .zoom { position: absolute; left: 10px; top: 10px; display: flex; flex-direction: column; gap: 4px; }
     .map-host .zoom button { width: 28px; height: 28px; border: 1px solid #cbd5e1; background: #fff; border-radius: 4px; font-weight: 700; }
-    .popup { position: absolute; left: 54%; top: 22%; width: 260px; background: #fff; border-radius: 8px; box-shadow: 0 8px 24px rgba(15,23,42,.18); padding: 10px 12px; font-size: 12px; border: 1px solid var(--border); }
+    .popup { position: absolute; left: 52%; top: 18%; width: 280px; background: #fff; border-radius: 8px; box-shadow: 0 8px 24px rgba(15,23,42,.18); padding: 10px 12px; font-size: 12px; border: 1px solid var(--border); }
     .popup strong { display: block; margin-bottom: 6px; font-size: 13px; }
     .popup .row { margin: 0 0 4px; color: #334155; }
     .popup .row span { color: var(--muted); }
@@ -51,7 +57,7 @@
   </style>
 </head>
 <body>
-  <div class="page" data-feature="gis-patrol-map" data-kind="F" data-form-pattern="full-page-map" data-real-view-parity="v1">
+  <div class="page" data-feature="gis-patrol-map" data-kind="F" data-form-pattern="full-page-map" data-real-view-parity="v1" data-delta="REAL-SCOPE-LAYER-FIT-PIN02-KMPOST">
     <nav class="nav" data-zone="NAV-GIS" aria-label="Điều hướng GIS">
       <span>Bản đồ tài sản</span>
       <span class="on">Tuần đường</span>
@@ -60,6 +66,19 @@
 
     <div class="body">
       <aside class="side">
+        <div class="filters" data-zone="FILTER-BAR" aria-label="Bộ lọc">
+          <select data-control="filter.office" aria-label="Văn phòng" title="Văn phòng">
+            <option>Văn phòng · cuc-01</option>
+            <option>Tất cả (Admin)</option>
+          </select>
+          <select data-control="filter.route" aria-label="Tuyến" title="Tuyến">
+            <option>QL.1</option>
+            <option>QL.46</option>
+          </select>
+          <button type="button" class="chip on" data-control="filter.mode" title="Tuần đường">Tuần đường</button>
+          <button type="button" class="chip" data-control="filter.mode" title="Tuần kiểm">Tuần kiểm</button>
+        </div>
+
         <div class="tabs" role="tablist" aria-label="Sidebar tuần đường">
           <span class="on" data-zone="TAB-ROAD">Tuần đường</span>
           <span data-zone="TAB-CHECK">Tuần kiểm</span>
@@ -67,15 +86,20 @@
         </div>
 
         <div class="panel" data-zone="LIST-PERSON">
-          <div class="person on">
-            <strong>Nguyễn Văn A</strong>
-            <div class="meta">QL.1 · Bến Thủy → Nghi Lộc</div>
-            <span class="badge">Đang tuần</span>
+          <div class="person on" title="Click → fitBounds nét đoạn giao" data-action="fit-assigned">
+            <strong data-control="list.personName">Nguyễn Văn A</strong>
+            <div class="meta" data-control="list.employeeCode">NV-1042</div>
+            <div class="meta" data-control="list.route">QL.1 · Bến Thủy → Nghi Lộc</div>
+            <div class="meta" data-control="list.kmFromTo">Km 127+000 – 129+500</div>
+            <span class="badge" data-control="list.status">Đang tuần</span>
+            <span class="hint">Click → fit nét đoạn giao</span>
           </div>
-          <div class="person">
-            <strong>Trần Thị B</strong>
-            <div class="meta">QL.46 · đoạn Vinh</div>
-            <span class="badge pending">Chưa bắt đầu</span>
+          <div class="person" title="Thiếu cột km · vẫn vẽ nét">
+            <strong data-control="list.personName">Trần Thị B</strong>
+            <div class="meta" data-control="list.employeeCode">NV-2088</div>
+            <div class="meta" data-control="list.route">QL.46 · đoạn Vinh</div>
+            <div class="meta" data-control="list.kmFromTo">Km đoạn: —</div>
+            <span class="badge pending" data-control="list.status">Chưa bắt đầu</span>
           </div>
 
           <div class="hist" data-zone="TAB-DETAIL">
@@ -88,7 +112,7 @@
               </div>
             </button>
             <button type="button">
-              Km 128+050 · Chưa
+              Km — · Chưa
               <p class="empty">Chưa có ảnh</p>
             </button>
           </div>
@@ -101,16 +125,21 @@
             <button type="button" title="Phóng to">+</button>
             <button type="button" title="Thu nhỏ">−</button>
           </div>
+          <div class="assigned" data-zone="LAYER-ASSIGNED" data-control="map.assignedSeg" title="Nét đoạn giao (bake)"></div>
           <div class="track" title="Nét tuần OSRM" data-control="map.track"></div>
+          <div class="kmpost" style="left:22%;top:50%;" data-zone="LAYER-KMPOST" data-control="map.kmPost">KM 127</div>
+          <div class="kmpost" style="left:48%;top:44%;" data-zone="LAYER-KMPOST" data-control="map.kmPost">KM 128</div>
+          <div class="kmpost" style="left:70%;top:40%;" data-zone="LAYER-KMPOST" data-control="map.kmPost">KM 129</div>
           <div class="rider" title="Người tuần"></div>
           <div class="pin ok" style="left:28%;top:36%;" data-control="map.pinDone"><i></i><b>08:15</b></div>
           <div class="pin wait" style="left:58%;top:48%;" data-control="map.pinPending"><i></i><b>Chưa</b></div>
 
           <div class="popup" data-zone="MAP-POPUP-INSPECT" role="dialog" aria-label="Chi tiết điểm tuần">
-            <strong data-control="inspect.label">Điểm tuần · Km 127+200</strong>
-            <div class="row" data-control="inspect.gps"><span>GPS:</span> 18.6796, 105.6813</div>
-            <div class="row" data-control="inspect.status"><span>Trạng thái:</span> Đã check-in</div>
-            <div class="row" data-control="inspect.content"><span>Ghi chú:</span> Mặt đường khô</div>
+            <strong data-control="inspect.name">Nguyễn Văn A</strong>
+            <div class="row" data-control="inspect.employeeCode"><span>Mã NV:</span> NV-1042</div>
+            <div class="row" data-control="inspect.chainageLabel"><span>Lý trình:</span> Km 127+200</div>
+            <div class="row" data-control="inspect.gps"><span>GPS:</span> 18.679585, 105.681332</div>
+            <div class="row" data-control="inspect.time"><span>Giờ:</span> 08:15</div>
             <div class="gallery" data-zone="GALLERY-PATROL" data-control="inspect.photoIds" aria-label="Ảnh tuần đường">
               <div class="cell">Ảnh 1</div>
               <div class="cell">Ảnh 2</div>

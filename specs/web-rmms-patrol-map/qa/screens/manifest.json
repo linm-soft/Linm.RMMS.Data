@@ -1,76 +1,83 @@
 {
-  "url": "http://localhost:9301/web-rmms-patrol-map",
-  "capturedAt": "2026-09-25T20:48:59.708Z",
-  "method": "capture_patrol_map · MFE /login · phone 430 · S0 PM map · S1 Home #gridPatrolMap · QA-20 click→patrol-map · geo grant · deep-link fulfill · no kill worker",
+  "url": "http://localhost:9301/m/ban-do-tuan",
+  "capturedAt": "2026-09-30T15:03:18.477Z",
+  "method": "capture_patrol_map · /m/dang-nhap · popstate MemoryRouter · phone 430 · S0 /m/ban-do-tuan · S1 /m/trang-chu #gridPatrolMap · QA-20 click→map · geo · no kill worker",
+  "liveStdUrl": "http://localhost:9301/m/ban-do-tuan",
+  "legacyStatusUrl": "http://localhost:9301/web-rmms-patrol-map",
+  "note": "STATUS mfeStdUrl legacy slug → live SSOT /m/ban-do-tuan",
+  "hashes": {
+    "S0": "80392:89504e470d0a1a0a0000000d49484452000001ae000003840802000000763f42b40000100049444154789cec9d058024c775f7ab61987996e96ef798ef7427e9",
+    "S1": "68103:89504e470d0a1a0a0000000d49484452000001ae000003840802000000763f42b40000100049444154789cec9d097c14f5f5c0dfec26d95c24044820c21220e1",
+    "QA-20": "91509:89504e470d0a1a0a0000000d49484452000001ae000003840802000000763f42b40000100049444154789cecbd0760dbe69df7ff80431c2225517b6f5bb66cc9"
+  },
+  "dup": null,
   "steps": [
     {
       "id": "S0",
       "result": "PASS",
       "screenshot": "S0.png",
-      "href": "http://localhost:9301/web-rmms-patrol-map",
+      "href": "http://localhost:9301/m/ban-do-tuan",
       "dump": {
         "feature": "web-rmms-patrol-map",
         "zones": [
+          "UA-00",
           "PM-00",
-          "PM-01",
-          "PM-08",
-          "PM-02",
-          "PM-06",
-          "PM-05",
-          "PM-03",
-          "PM-04"
+          "DES-MOB-TABBAR"
         ],
-        "ids": [],
+        "ids": [
+          "map-patrol-host",
+          "sc-patrol-map",
+          "btn-pin-here"
+        ],
         "canvas": true,
-        "text": "RMMS · Mobile Home Field hub Shell chrome Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Chấm công (attendance) Asset adjust GIS map Patrol map Bản đồ tuần Alias /patrol-map Alias /field/map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Ca đang chạy Ghi điểm tuần Điểm tiếp theo QL.1-LANGSON Ghi điểm tuần Tiêu chuẩn Vệ tinh Vị trí của tôi Tất cả Hành trình Đã ghi điểm tuần Điểm kế tiếp",
-        "href": "http://localhost:9301/web-rmms-patrol-map"
+        "text": "Ca đang chạy Ghi điểm tuần RMMS.vn Vị trí của tôi Điểm tiếp theo QL.1 Ghi điểm tuần Ghim vị trí hiện tại Tiêu chuẩn Vệ tinh Toàn tuyến Tất cả Hành trình Đã ghi điểm tuần Điểm kế tiếp Trang Chủ Tuần đường Vấn đề Công việc Tôi Đăng nhập thành công",
+        "href": "http://localhost:9301/m/ban-do-tuan"
       }
     },
     {
       "id": "S1",
       "result": "PASS",
       "screenshot": "S1.png",
-      "href": "http://localhost:9301/web-rmms-home",
+      "href": "http://localhost:9301/m/trang-chu",
       "dump": {
         "feature": "web-rmms-home",
         "zones": [
-          "SH-00",
+          "UA-00",
           "HM-00",
           "HM-06",
           "HM-03",
           "HM-04",
           "HM-05",
-          "SH-01"
+          "DES-MOB-TABBAR"
         ],
         "ids": [
           "gridPatrolMap"
         ],
         "canvas": false,
-        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Chấm công (attendance) Asset adjust GIS map Patrol map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Trang chủ Linm Soft Admin Truy cập nhanh Điểm tuần Ghi sự cố Chức năng 👁 Giám sát 🗺 Bản đồ tuần 🛠 Công việc ⚠ Sự cố 📦 Tài sản ☁ Offline 👛 Hồ sơ tài sản Xem và quản lý tài sản Thông báo — 🏠 Trang chủ 🛣 Hiện trường ⚠️ Sự cố 🧰 Công việc",
-        "href": "http://localhost:9301/web-rmms-home"
+        "text": "RMMS Tốt Linm Soft Admin Điểm tuần Ghim định vị · lý trình Ghi sự cố Chọn tài sản · mẫu sự cố NGHIỆP VỤ THƯỜNG DÙNG Giám sát Tuần đường Công việc Vấn đề Tài sản Lưu trữ Công tác nghiệm thu HỒ SƠ TÀI SẢN - — - 45 loại KCHT · thông số và hạng mục kiểm tra sự cố Phiên bản v1.0.0 · hiện trường đường bộ Cục Đường bộ VN · RMMS Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/trang-chu"
       }
     },
     {
       "id": "QA-20",
       "result": "PASS",
       "screenshot": "QA-20.png",
-      "href": "http://localhost:9301/web-rmms-patrol-map",
+      "href": "http://localhost:9301/m/ban-do-tuan",
       "dump": {
         "feature": "web-rmms-patrol-map",
         "zones": [
+          "UA-00",
           "PM-00",
-          "PM-01",
-          "PM-08",
-          "PM-02",
-          "PM-06",
-          "PM-05",
-          "PM-03",
-          "PM-04"
+          "DES-MOB-TABBAR"
         ],
-        "ids": [],
+        "ids": [
+          "map-patrol-host",
+          "sc-patrol-map",
+          "btn-pin-here"
+        ],
         "canvas": true,
-        "text": "RMMS · Mobile Home Field hub Shell chrome Home → Field tab Incident Work Ops → Ops inbox Supervise Asset hub Asset KCHT Asset list Asset collect Asset AI + HITL Camera tuần (cam-patrol) Field Reflect Chấm công (attendance) Asset adjust GIS map Patrol map Bản đồ tuần Alias /patrol-map Alias /field/map Field mobile Journal mobile B Findings mobile C Wave D mobile Wave E mobile Nghiệm thu DS Dev Standalone Developer RMMS Mobile Ca đang chạy Ghi điểm tuần Điểm tiếp theo QL.1-LANGSON Ghi điểm tuần Tiêu chuẩn Vệ tinh Vị trí của tôi Tất cả Hành trình Đã ghi điểm tuần Điểm kế tiếp",
-        "href": "http://localhost:9301/web-rmms-patrol-map"
+        "text": "Ca đang chạy Ghi điểm tuần RMMS.vn Vị trí của tôi Điểm tiếp theo QL.1 Ghi điểm tuần Ghim vị trí hiện tại Tiêu chuẩn Vệ tinh Toàn tuyến Tất cả Hành trình Đã ghi điểm tuần Điểm kế tiếp Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/ban-do-tuan"
       }
     }
   ],

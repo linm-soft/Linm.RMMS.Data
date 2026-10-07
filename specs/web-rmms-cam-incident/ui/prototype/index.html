@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-cam-incident — INC-L/N/D/CAP role-gate</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --warning: #FCB43C;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --radius-sheet: 24px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .meta {
+      max-width: var(--phone-w); width: 100%;
+      color: #aaa; font-size: 11px; margin-bottom: 8px; text-align: center;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 20px; cursor: pointer; border-radius: 12px;
+    }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 88px; }
+    .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex; }
+    .search {
+      margin: 0 0 8px; height: 44px; background: var(--card);
+      border: 1px solid var(--border); border-radius: 12px;
+      display: flex; align-items: center; gap: 8px; padding: 0 12px;
+      color: var(--muted); font-size: var(--field);
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .chip {
+      min-height: 36px; padding: 6px 12px; border-radius: 18px;
+      border: 1px solid var(--border); background: var(--card);
+      font-size: var(--label); cursor: pointer;
+    }
+    .chip.on { background: #E8F4FA; border-color: var(--primary); color: var(--primary); font-weight: 600; }
+    .banner {
+      margin: 0 0 12px; padding: 12px; border-radius: var(--radius-card);
+      background: linear-gradient(135deg, #E8F4FA, #fff);
+      border: 1px solid #B8DCEF; font-size: var(--label);
+    }
+    .banner.warn { background: #FFF8E6; border-color: #F5D78A; color: #8A5A00; }
+    .banner.danger { background: #FDECEA; border-color: #F5B5B0; color: #8A1F18; }
+    .banner .t { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+    .card {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 12px 14px; margin-bottom: 10px;
+    }
+    .card .row { display: flex; align-items: flex-start; gap: 10px; }
+    .card .meta-line { font-size: var(--label); color: var(--muted); margin-top: 4px; }
+    .badge {
+      display: inline-block; padding: 2px 8px; border-radius: 10px;
+      font-size: 11px; font-weight: 600; background: #E8F4FA; color: var(--primary);
+    }
+    .badge.sev { background: #FDECEA; color: var(--danger); }
+    .fab {
+      position: absolute; right: 18px; bottom: 22px;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--primary); color: #fff; border: 0;
+      font-size: 28px; box-shadow: 0 6px 16px rgba(12,132,192,.4); cursor: pointer;
+      z-index: 5;
+    }
+    .fab.hidden, .hidden { display: none !important; }
+    label.field-label {
+      display: block; font-size: var(--label); color: var(--muted); margin: 10px 0 4px;
+    }
+    .field, .select, textarea {
+      width: 100%; min-height: 44px; border: 1px solid var(--border);
+      border-radius: var(--radius-control); padding: 10px 12px;
+      font-size: var(--field); background: var(--card);
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    .field.ro { background: #F7F7F8; color: var(--muted); }
+    .footer-bar {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      background: var(--card); border-top: 1px solid var(--border);
+      padding: 10px 14px; display: flex; gap: 10px; z-index: 6;
+    }
+    .btn {
+      flex: 1; min-height: var(--control-h); border-radius: var(--radius-control);
+      border: 1px solid var(--border); background: var(--card);
+      font-size: 15px; font-weight: 600; cursor: pointer;
+    }
+    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .btn.danger { background: var(--danger); color: #fff; border-color: var(--danger); }
+    .btn.ghost { background: transparent; }
+    .photo-row {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;
+    }
+    .photo {
+      width: 72px; height: 72px; border-radius: 12px;
+      background: linear-gradient(135deg, #cfe8f5, #9bcfe8);
+      border: 1px dashed var(--primary); display: flex; align-items: center;
+      justify-content: center; font-size: 11px; color: #055a82;
+    }
+    .sheet-mask {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45);
+      display: none; z-index: 20;
+    }
+    .sheet-mask.open { display: block; }
+    .sheet {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      background: var(--card); border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+      padding: 12px 14px 16px; z-index: 21; display: none;
+      max-height: 78%; overflow: auto;
+    }
+    .sheet.open { display: block; }
+    .sheet .handle {
+      width: 40px; height: 4px; background: var(--border); border-radius: 2px;
+      margin: 0 auto 10px;
+    }
+    .modal-mask {
+      position: absolute; inset: 0; background: rgba(0,0,0,.5);
+      display: none; align-items: center; justify-content: center; z-index: 30;
+      padding: 24px;
+    }
+    .modal-mask.open { display: flex; }
+    .modal {
+      background: var(--card); border-radius: 16px; padding: 16px; width: 100%;
+    }
+    .modal h3 { margin: 0 0 8px; font-size: 17px; }
+    .modal p { margin: 0 0 14px; font-size: 14px; color: var(--muted); }
+    .detail-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .assign-ico {
+      min-width: 44px; min-height: 44px; border: 1px solid var(--primary);
+      background: #E8F4FA; color: var(--primary); border-radius: 12px;
+      font-size: 12px; font-weight: 700; cursor: pointer; padding: 0 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="meta">web-rmms-cam-incident · edit_page · role-gate + Giao việc QL_HAT · 430px · demo N/A</div>
+  <div class="board-nav" id="roleNav">
+    <button type="button" data-role="tuan" class="active">Vai: Tuần đường</button>
+    <button type="button" data-role="qlhat">Vai: QL_HAT</button>
+    <button type="button" data-role="tk">Vai: TK</button>
+    <button type="button" data-role="nt">Vai: NT</button>
+  </div>
+  <div class="board-nav" id="screenNav">
+    <button type="button" data-screen="list" class="active">INC-L</button>
+    <button type="button" data-screen="create">INC-N</button>
+    <button type="button" data-screen="capture">INC-CAP</button>
+    <button type="button" data-screen="detail">INC-D</button>
+    <button type="button" data-screen="gps">Pattern B GPS</button>
+    <button type="button" data-screen="leave">DES-LEAVE</button>
+  </div>
+
+  <div class="phone" id="phone">
+    <!-- INC-L -->
+    <div class="screen active" id="sc-list">
+      <div class="topbar">
+        <button class="icon-btn" type="button" aria-label="back">‹</button>
+        <div class="title">Vấn đề</div>
+        <button class="icon-btn" type="button" aria-label="more">⋯</button>
+      </div>
+      <div class="content">
+        <div class="banner" id="listRoleBanner"></div>
+        <div class="search">🔍 Tìm sự cố…</div>
+        <div class="chips">
+          <span class="chip on">Tất cả</span>
+          <span class="chip">Mở</span>
+          <span class="chip">Đã đóng</span>
+          <span class="chip">Nghiêm trọng</span>
+        </div>
+        <div class="card" data-own="1">
+          <div class="row">
+            <div style="flex:1">
+              <div><strong>SC-2401</strong> · Hư lan can Km12+300</div>
+              <div class="meta-line">Tuyến QL1 · <span class="badge">Mở</span> <span class="badge sev">Cao</span></div>
+              <div class="meta-line">Người tạo: bạn · 08:12</div>
+            </div>
+            <button type="button" class="assign-ico assign-only" title="Giao việc">Giao</button>
+          </div>
+        </div>
+        <div class="card" data-own="0">
+          <div class="row">
+            <div style="flex:1">
+              <div><strong>SC-2398</strong> · Sụt taluy Km8</div>
+              <div class="meta-line">Tuyến ĐT746 · <span class="badge">Mở</span></div>
+              <div class="meta-line">Người tạo: Nguyễn A · hôm qua</div>
+            </div>
+            <button type="button" class="assign-ico assign-only" title="Giao việc">Giao</button>
+          </div>
+        </div>
+        <div class="card" data-own="0">
+          <div class="row">
+            <div style="flex:1">
+              <div><strong>SC-2390</strong> · Ổ gà mặt đường</div>
+              <div class="meta-line">Tuyến QL51 · <span class="badge">Đã đóng</span></div>
+              <div class="meta-line">Người tạo: Trần B</div>
+            </div>
+            <button type="button" class="assign-ico assign-only" title="Giao việc">Giao</button>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="fab fab-only" id="fabCreate" title="Tạo sự cố">+</button>
+    </div>
+
+    <!-- INC-N -->
+    <div class="screen" id="sc-create">
+      <div class="topbar">
+        <button class="icon-btn" type="button" data-go="list">‹</button>
+        <div class="title">Ghi sự cố</div>
+      </div>
+      <div class="content">
+        <div class="banner warn hidden" id="createBlockBanner">
+          <div class="t">Không có quyền tạo</div>
+          Vai hiện tại chỉ xem — chỉ tuần đường được ghi sự cố.
+        </div>
+        <div class="banner danger hidden" id="gpsBanner">
+          <div class="t">Chưa có GPS</div>
+          Cho phép định vị rồi thử lại. (Pattern B — nút Create không khóa trước)
+        </div>
+        <div class="banner" id="sessionStamp">Ca tuần · Tuyến QL1 · phiên #4821</div>
+        <label class="field-label">Loại tài sản</label>
+        <select class="select"><option>Lan can</option><option>Mặt đường</option></select>
+        <label class="field-label">Tiêu đề *</label>
+        <input class="field" value="Hư lan can Km12+300" />
+        <label class="field-label">Loại sự cố</label>
+        <select class="select"><option>Hư hỏng</option><option>An toàn</option></select>
+        <label class="field-label">Mức độ</label>
+        <select class="select"><option>Cao</option><option>Trung bình</option></select>
+        <label class="field-label">Mô tả</label>
+        <textarea>Lan can gãy đoạn dài ~4m, cần xử lý.</textarea>
+        <label class="field-label">Ảnh hiện trường</label>
+        <div class="photo-row">
+          <div class="photo">+ ảnh</div>
+          <div class="photo">geo</div>
+        </div>
+      </div>
+      <div class="footer-bar create-footer">
+        <button type="button" class="btn ghost" data-go="list">Hủy</button>
+        <button type="button" class="btn primary" id="btnCreate">Tạo sự cố</button>
+      </div>
+    </div>
+
+    <!-- INC-D -->
+    <div class="screen" id="sc-detail">
+      <div class="topbar">
+        <button class="icon-btn" type="button" data-go="list">‹</button>
+        <div class="title">Chi tiết sự cố</div>
+      </div>
+      <div class="content">
+        <div class="banner" id="detailRoleBanner"></div>
+        <div class="card">
+          <div><strong>SC-2401</strong> · <span class="badge">Mở</span> <span class="badge sev">Cao</span></div>
+          <div class="meta-line">Hư lan can Km12+300</div>
+        </div>
+        <label class="field-label">Loại</label>
+        <div class="field ro">Hư hỏng</div>
+        <label class="field-label">Tuyến / Km</label>
+        <div class="field ro">QL1 · Km12+300</div>
+        <label class="field-label">GPS</label>
+        <div class="field ro">10.762 · 106.660 (±18m)</div>
+        <label class="field-label">Người báo / Thời gian</label>
+        <div class="field ro">Tuần đường · 08:12 hôm nay</div>
+        <label class="field-label">Mô tả</label>
+        <div class="field ro">Lan can gãy đoạn dài ~4m.</div>
+        <label class="field-label">Ảnh</label>
+        <div class="photo-row">
+          <div class="photo">view</div>
+          <div class="photo">view</div>
+        </div>
+        <div class="detail-actions">
+          <button type="button" class="btn ghost">Chat sự cố</button>
+          <button type="button" class="btn ghost">Ước lượng</button>
+          <button type="button" class="btn primary assign-only" id="btnAssign">Giao việc xử lý</button>
+        </div>
+        <div class="card close-only" style="margin-top:12px">
+          <label class="field-label">Ghi chú đóng</label>
+          <textarea placeholder="Ghi chú đóng sự cố…"></textarea>
+          <button type="button" class="btn danger" style="margin-top:8px;width:100%">Đóng sự cố</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- INC-CAP sheet -->
+    <div class="sheet-mask" id="sheetMask"></div>
+    <div class="sheet" id="captureSheet">
+      <div class="handle"></div>
+      <div style="font-weight:600;font-size:17px;margin-bottom:8px">Chụp ảnh sự cố</div>
+      <div class="banner" id="capRoleBanner"></div>
+      <div class="banner danger hidden" id="capGpsBanner">
+        <div class="t">Chưa có GPS</div>
+        Pattern B — Lưu không khóa trước; hiện banner khi bấm Lưu.
+      </div>
+      <label class="field-label">Ảnh + geo (RouteCapture)</label>
+      <div class="photo-row">
+        <div class="photo">cam</div>
+        <div class="photo">+ thêm</div>
+      </div>
+      <label class="field-label">GPS stamp</label>
+      <div class="field ro">10.762, 106.660 · ±18m</div>
+      <div style="display:flex;gap:10px;margin-top:14px">
+        <button type="button" class="btn ghost" id="capCancel">Hủy</button>
+        <button type="button" class="btn primary cap-save" id="capSave">Lưu</button>
+      </div>
+    </div>
+
+    <!-- DES-LEAVE -->
+    <div class="modal-mask" id="leaveModal">
+      <div class="modal">
+        <h3>Rời trang?</h3>
+        <p>Bạn có thay đổi chưa lưu. Ở lại để tiếp tục, hoặc Rời bỏ thay đổi.</p>
+        <div style="display:flex;gap:10px">
+          <button type="button" class="btn" id="leaveStay">Ở lại</button>
+          <button type="button" class="btn danger" id="leaveGo">Rời</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var role = "tuan";
+      var gpsDeny = false;
+      var params = new URLSearchParams(location.search);
+      if (params.get("role")) role = params.get("role");
+      if (params.get("gps") === "deny") gpsDeny = true;
+
+      var screens = {
+        list: "sc-list",
+        create: "sc-create",
+        detail: "sc-detail"
+      };
+
+      function applyRole() {
+        var isTuan = role === "tuan";
+        var isQl = role === "qlhat";
+        var isRo = role === "tk" || role === "nt";
+
+        document.querySelectorAll(".fab-only").forEach(function (el) {
+          el.classList.toggle("hidden", !isTuan);
+        });
+        document.querySelectorAll(".assign-only").forEach(function (el) {
+          el.classList.toggle("hidden", !isQl);
+        });
+        document.querySelectorAll(".close-only").forEach(function (el) {
+          el.classList.toggle("hidden", !isTuan);
+        });
+        document.querySelectorAll(".create-footer").forEach(function (el) {
+          el.classList.toggle("hidden", !isTuan);
+        });
+        document.getElementById("createBlockBanner").classList.toggle("hidden", isTuan);
+        document.getElementById("btnCreate").classList.toggle("hidden", !isTuan);
+
+        // list scope: tuần đường hide others' cards
+        document.querySelectorAll("#sc-list .card").forEach(function (c) {
+          var own = c.getAttribute("data-own") === "1";
+          c.classList.toggle("hidden", isTuan && !own);
+        });
+
+        var listBanner = document.getElementById("listRoleBanner");
+        if (isTuan) {
+          listBanner.className = "banner";
+          listBanner.innerHTML = "<div class='t'>Phạm vi: sự cố của bạn</div>FAB tạo · không Giao việc.";
+        } else if (isQl) {
+          listBanner.className = "banner";
+          listBanner.innerHTML = "<div class='t'>QL_HAT · mọi sự cố</div>Ẩn FAB · hiện CTA Giao việc → paths.workFor.";
+        } else {
+          listBanner.className = "banner warn";
+          listBanner.innerHTML = "<div class='t'>Chỉ xem</div>Ẩn FAB · ẩn Giao việc · ẩn Đóng.";
+        }
+
+        var detailBanner = document.getElementById("detailRoleBanner");
+        if (isQl) {
+          detailBanner.className = "banner";
+          detailBanner.innerHTML = "<div class='t'>QL_HAT</div>Giao việc xử lý · ẩn Đóng sự cố (PO chốt).";
+        } else if (isTuan) {
+          detailBanner.className = "banner";
+          detailBanner.innerHTML = "<div class='t'>Tuần đường</div>Đóng peer · ẩn Giao việc.";
+        } else {
+          detailBanner.className = "banner warn";
+          detailBanner.innerHTML = "<div class='t'>Chỉ xem</div>Không Giao việc · không Đóng.";
+        }
+
+        var capBanner = document.getElementById("capRoleBanner");
+        if (isTuan) {
+          capBanner.className = "banner";
+          capBanner.innerHTML = "RouteCapture write · Pattern B GPS.";
+          document.getElementById("capSave").classList.remove("hidden");
+        } else {
+          capBanner.className = "banner warn";
+          capBanner.innerHTML = "Không được capture — chỉ tuần đường.";
+          document.getElementById("capSave").classList.add("hidden");
+        }
+
+        document.getElementById("gpsBanner").classList.toggle("hidden", !(gpsDeny && isTuan));
+        document.getElementById("capGpsBanner").classList.toggle("hidden", !(gpsDeny && isTuan));
+
+        document.querySelectorAll("#roleNav button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-role") === role);
+        });
+      }
+
+      function showScreen(name) {
+        Object.keys(screens).forEach(function (k) {
+          document.getElementById(screens[k]).classList.toggle("active", k === name);
+        });
+        document.getElementById("sheetMask").classList.remove("open");
+        document.getElementById("captureSheet").classList.remove("open");
+        document.getElementById("leaveModal").classList.remove("open");
+        gpsDeny = false;
+        document.getElementById("gpsBanner").classList.add("hidden");
+        document.getElementById("capGpsBanner").classList.add("hidden");
+
+        if (name === "capture") {
+          document.getElementById("sc-create").classList.add("active");
+          document.getElementById("sc-list").classList.remove("active");
+          document.getElementById("sc-detail").classList.remove("active");
+          document.getElementById("sheetMask").classList.add("open");
+          document.getElementById("captureSheet").classList.add("open");
+        }
+        if (name === "gps") {
+          gpsDeny = true;
+          showScreen("create");
+          document.getElementById("gpsBanner").classList.toggle("hidden", role !== "tuan");
+          return;
+        }
+        if (name === "leave") {
+          showScreen("create");
+          document.getElementById("leaveModal").classList.add("open");
+          return;
+        }
+        document.querySelectorAll("#screenNav button").forEach(function (b) {
+          var s = b.getAttribute("data-screen");
+          b.classList.toggle("active", s === name || (name === "create" && s === "create"));
+        });
+        applyRole();
+      }
+
+      document.getElementById("roleNav").addEventListener("click", function (e) {
+        var b = e.target.closest("button[data-role]");
+        if (!b) return;
+        role = b.getAttribute("data-role");
+        applyRole();
+      });
+      document.getElementById("screenNav").addEventListener("click", function (e) {
+        var b = e.target.closest("button[data-screen]");
+        if (!b) return;
+        showScreen(b.getAttribute("data-screen"));
+      });
+      document.querySelectorAll("[data-go]").forEach(function (el) {
+        el.addEventListener("click", function () {
+          showScreen(el.getAttribute("data-go"));
+        });
+      });
+      document.getElementById("fabCreate").addEventListener("click", function () {
+        showScreen("create");
+      });
+      document.getElementById("btnCreate").addEventListener("click", function () {
+        if (gpsDeny) {
+          document.getElementById("gpsBanner").classList.remove("hidden");
+          return;
+        }
+        showScreen("detail");
+      });
+      document.getElementById("capCancel").addEventListener("click", function () {
+        document.getElementById("sheetMask").classList.remove("open");
+        document.getElementById("captureSheet").classList.remove("open");
+      });
+      document.getElementById("capSave").addEventListener("click", function () {
+        if (gpsDeny) {
+          document.getElementById("capGpsBanner").classList.remove("hidden");
+          return;
+        }
+        document.getElementById("sheetMask").classList.remove("open");
+        document.getElementById("captureSheet").classList.remove("open");
+      });
+      document.getElementById("leaveStay").addEventListener("click", function () {
+        document.getElementById("leaveModal").classList.remove("open");
+      });
+      document.getElementById("leaveGo").addEventListener("click", function () {
+        document.getElementById("leaveModal").classList.remove("open");
+        showScreen("list");
+      });
+      document.getElementById("btnAssign").addEventListener("click", function () {
+        alert("nav paths.workFor(id) → peer web-rmms-giao-viec-ql-hat (prototype stub)");
+      });
+
+      var initial = params.get("screen") || "list";
+      if (params.get("leave") === "1") initial = "leave";
+      if (params.get("gps") === "deny") {
+        gpsDeny = true;
+        initial = initial === "list" ? "gps" : initial;
+      }
+      showScreen(initial);
+      applyRole();
+    })();
+  </script>
+</body>
+</html>

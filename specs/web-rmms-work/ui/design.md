@@ -127,6 +127,7 @@
 
 **Labels:** `useFormOptions()` / copy keys — prototype hiện nhãn VN để review; Dev wire key.  
 **GPS:** WORK-L **không** bắt buộc · peer progress owns · **cấm** fake.  
+**Assignee scope (2026-10-05):** GET list và GET id lọc trên API theo người được giao. Nhân viên chỉ thấy việc của mình. Quản lý thấy việc trong phạm vi quyền, cộng việc chưa giao. UI bind `items`. Ô tìm gửi `search`.  
 **Status map:** `new`→Chờ xử lý · `in_progress`→Đang xử lý · `done`→Hoàn thành · `cancelled`→Đã hủy.  
 **WorkType cite:** `repair` · `inspect` · `emergency`.
 
@@ -182,6 +183,22 @@ App base `{BffBase}/mobile-bff/api/v1`. **Cấm** invent `web-rmms-work/*` contr
 | Next slash | `/agent-sa` |
 | Chain | roleOnly=design · **không** start SA turn này (**GAP-PKT-ROLE-01**) |
 | Compact | `handoff/design-compact.md` |
+
+## Notes — incident section (2026-10-06)
+
+Chi tiết công việc có khối Thông tin sự cố (loại, mã, tuyến, lý trình, ghi chú, hạng mục đã chọn). Bấm khối mở chi tiết sự cố.
+
+## Notes — work detail layout (2026-10-06)
+
+Chi tiết công việc dùng khối từng dòng như chi tiết sự cố. Thao tác là nút icon + chữ, cùng đích với danh sách.
+
+## Notes — filter and due span (2026-10-06)
+
+Thời hạn hoàn thành: mốc giờ một dòng, «Còn» / «Quá hạn» dòng dưới, dạng `1d 3h 4'`. Bộ lọc: tuyến và từ ngày–đến ngày, mặc định hôm nay, lưu session.
+
+## Notes — list card (2026-10-06)
+
+Thẻ bấm vào mở chi tiết `/cong-viec/:id`. Mỗi thẻ hiện tuyến, lý trình (Km không lặp tuyến), người được giao và số điện thoại (`tel:`), thời gian giao (`createdAt`), thời hạn hoàn thành (`dueAt` + số phút, trạng thái quá hạn).
 
 ## Version meta (REQUIRED)
 

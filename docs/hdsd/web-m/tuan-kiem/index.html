@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hướng dẫn tuần kiểm</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: #1c1c1e; background: #f2f2f7; line-height: 1.45; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+    header.top, table, .step { background: #fff; border: 1px solid #e5e5ea; border-radius: 16px; }
+    header.top { padding: 20px 22px; }
+    h1 { font-size: 1.45rem; margin: 0 0 8px; }
+    h2 { font-size: 1.2rem; margin: 28px 0 8px; }
+    h3 { font-size: 1.02rem; margin: 0 0 8px; }
+    p { margin: 0 0 8px; }
+    a { color: #086a9a; }
+    .back { font-size: 0.92rem; text-decoration: none; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin-top: 8px; }
+    th, td { border: 1px solid #d8d8dc; padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #f4f4f6; }
+    .step { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 18px; align-items: start; padding: 16px; margin: 12px 0; }
+    .step ol { margin: 8px 0 0; padding-left: 1.2rem; }
+    .step li { margin: 4px 0; }
+    figure { margin: 0; }
+    figure img { width: 100%; height: auto; border: 1px solid #e5e5ea; border-radius: 12px; display: block; }
+    figcaption { font-size: 0.82rem; color: #636366; margin-top: 6px; }
+    @page { size: A4 portrait; margin: 12mm; }
+    @media print {
+      body { background: #fff; }
+      .wrap { max-width: none; padding: 0; }
+      header.top, table, .step { border: 0; border-radius: 0; }
+      .back { display: none; }
+      .step { grid-template-columns: 58mm minmax(0, 1fr); gap: 6mm; break-inside: avoid; page-break-inside: avoid; padding: 0 0 6mm; }
+      figure img { width: 58mm; max-height: 145mm; object-fit: contain; object-position: top center; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <a class="back" href="/hdsd/">Về hướng dẫn sử dụng</a>
+      <h1>Tuần kiểm</h1>
+      <p>Cán bộ tuần kiểm kiểm tra công tác tuần đường và bảo dưỡng của nhà thầu trên đoạn được giao. Tuần đường phát hiện sự cố. Hạt trưởng giao việc và ghi thời hạn. Tuần kiểm kiểm tra lại và xác nhận hoàn thành. Tuần kiểm không giao việc và không thay nghiệm thu.</p>
+    </header>
+
+    <h2>Mở đợt</h2>
+    <article class="step">
+      <figure>
+        <img src="/hdsd/img/05-tuan-kiem.png" alt="Màn tuần kiểm" />
+        <figcaption>Hình 1. Đợt đang kiểm.</figcaption>
+      </figure>
+      <div>
+        <ol>
+          <li>Mở mục <strong>Tuần kiểm</strong>.</li>
+          <li>Mục <strong>Đợt đang kiểm</strong> chỉ liệt kê đợt chưa kết thúc.</li>
+          <li>Nhấn <strong>Kế hoạch tần suất</strong> để đối chiếu kế hoạch kiểm tra trên tuyến.</li>
+        </ol>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="/hdsd/img/06-tuan-kiem-mo-dot.png" alt="Mở đợt tuần kiểm" />
+        <figcaption>Hình 2. Mở đợt.</figcaption>
+      </figure>
+      <div>
+        <ol>
+          <li>Nhấn <strong>Mở đợt</strong>.</li>
+          <li>Chọn <strong>Tuyến</strong>. Nhập <strong>Từ km</strong> và <strong>Đến km</strong>.</li>
+          <li>Chọn <strong>Hình thức</strong>: Định kỳ hoặc Đột xuất. Đột xuất thì nhập lý do đột xuất.</li>
+          <li>Chọn <strong>Người</strong>, rồi nhấn <strong>Mở đợt</strong>.</li>
+        </ol>
+        <p>Loại ghi sẵn Tuần kiểm, trạng thái Đang tuần.</p>
+      </div>
+    </article>
+
+    <h2>Đối chiếu tuần đường</h2>
+    <article class="step">
+      <figure>
+        <img src="/hdsd/img/04-tuan-duong-lich-su.png" alt="Lịch sử ca tuần đường" />
+        <figcaption>Hình 3. Lịch sử ca để đối chiếu.</figcaption>
+      </figure>
+      <div>
+        <p>Trong đợt kiểm, đối chiếu hiện trường với nhật ký tuần đường trên cùng tuyến.</p>
+        <ol>
+          <li>Mở <strong>Tuần đường</strong>, nhấn <strong>Lịch sử phiên</strong>, chọn ca của đoạn đang kiểm.</li>
+          <li>Xem điểm tuần, nội dung và ảnh.</li>
+          <li>Mở <strong>Vấn đề</strong> của cùng tuyến. Đối chiếu mô tả, vị trí và trạng thái với thực tế.</li>
+          <li>Ghi nhận lệch giữa nhật ký và hiện trường bằng <strong>Trao đổi</strong> trên vấn đề, hoặc ghi nhận hư hỏng mới nếu chưa có phiếu.</li>
+        </ol>
+      </div>
+    </article>
+
+    <h2>Từ phát hiện đến xác nhận</h2>
+    <article class="step">
+      <figure>
+        <img src="/hdsd/img/04-van-de.png" alt="Vấn đề chờ hạt trưởng giao việc" />
+        <figcaption>Hình 4. Sự cố tuần đường đã ghi, chờ giao việc.</figcaption>
+      </figure>
+      <div>
+        <ol>
+          <li>Nhân viên tuần đường nhấn <strong>Ghi nhận hư hỏng</strong>. Phiếu ở trạng thái <strong>Đợi phân công giám sát</strong>.</li>
+          <li>Hạt trưởng mở dòng vấn đề, nhấn <strong>Giao việc</strong>, chọn người nhận và ghi thời hạn theo bảng dưới.</li>
+          <li>Việc vượt phạm vi bảo dưỡng thường xuyên thì hạt trưởng kiến nghị cấp có thẩm quyền, không giao vá tại chỗ.</li>
+        </ol>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="/hdsd/img/07-cong-viec.png" alt="Công việc để tuần kiểm xác nhận" />
+        <figcaption>Hình 5. Công việc sau khi hạt trưởng giao.</figcaption>
+      </figure>
+      <div>
+        <p>Cán bộ tuần kiểm không giao việc. Việc của tuần kiểm là kiểm tra lại và xác nhận hoàn thành.</p>
+        <ol>
+          <li>Mở mục <strong>Công việc</strong>. Tình trạng gồm <strong>Chờ xử lý</strong>, <strong>Đang xử lý</strong>, <strong>Đã hoàn thành</strong>.</li>
+          <li>Đối chiếu hiện trường, ảnh và thời hạn hạt trưởng đã ghi. Nhấn <strong>Trao đổi</strong> khi cần yêu cầu làm lại.</li>
+          <li>Chưa đạt: nhấn <strong>Cập nhật trạng thái</strong>, giữ việc, không xác nhận xong.</li>
+          <li>Đạt: nhấn <strong>Hoàn thành</strong> để xác nhận hoàn thành, rồi mở vấn đề và nhấn <strong>Đóng sự cố</strong>.</li>
+        </ol>
+      </div>
+    </article>
+
+    <h2>Thời hạn khắc phục</h2>
+    <p>Hạt trưởng ghi hạn khi giao việc. Tuần kiểm lấy hạn này để xác nhận. Mốc tính từ khi xuất hiện hoặc khi phát hiện, theo Thông tư 41/2024, Phụ lục IV.</p>
+    <table>
+      <thead><tr><th>Hạng mục</th><th>Thời hạn</th></tr></thead>
+      <tbody>
+        <tr><td>Vá ổ gà</td><td>3 ngày với đường cấp I, II. 5 ngày với đường cấp III đến VI.</td></tr>
+        <tr><td>Nứt dọc, nứt ngang, nứt mai rùa</td><td>7 ngày mùa mưa. 14 ngày mùa khô.</td></tr>
+        <tr><td>Lún lõm, sình lún vượt mức</td><td>10 ngày. Không tính ngày mưa, mặt đường ẩm không thi công được.</td></tr>
+        <tr><td>Vệ sinh mặt đường, chướng ngại mất an toàn</td><td>1 giờ nếu nguy hiểm. 7 ngày với trường hợp còn lại.</td></tr>
+        <tr><td>Nước đọng trên mặt đường</td><td>Không quá 24 giờ.</td></tr>
+        <tr><td>Biển báo cấm, biển hiệu lệnh</td><td>1 ngày sau khi phát hiện. Biển còn lại: 3 ngày.</td></tr>
+        <tr><td>Vạch sơn hư cục bộ</td><td>28 ngày.</td></tr>
+        <tr><td>Tồn tại phát hiện lúc nghiệm thu</td><td>Khắc phục tối đa 5 ngày kể từ văn bản yêu cầu của cơ quan quản lý tài sản. Tuần kiểm xác nhận kết quả khắc phục.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Quá hạn và trừ điểm</h2>
+    <p>Quá thời hạn mà chưa được tuần kiểm xác nhận hoàn thành thì hạng mục bị trừ điểm ở kỳ nghiệm thu. Cách chia điểm từng việc và cách trừ khi quá hạn nằm ở hướng dẫn nghiệm thu.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-cam-journal — Nhật ký tuần đường (role-gate)</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --success: #3CB448;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --field-h: 52px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 12px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 780px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .back, .topbar .icon-btn {
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: inherit; font-size: 36px; line-height: 1; padding: 0;
+      display: grid; place-items: center;
+      cursor: pointer; border-radius: 12px;
+    }
+    .topbar .title {
+      flex: 1; font-size: var(--nav-title); font-weight: 600; text-align: center;
+    }
+    .topbar .spacer { width: 44px; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 88px; }
+    .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex; }
+    .btn {
+      height: var(--control-h); border-radius: var(--radius-control); border: 0;
+      padding: 0 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); }
+    .btn-secondary { background: #E5E5EA; color: var(--on-surface); }
+    .btn-ghost { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+    .btn-block { width: 100%; margin-top: 8px; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .toolbar-form { display: flex; gap: 8px; margin-bottom: 12px; }
+    .toolbar-form .btn { flex: 1; }
+    .card {
+      background: var(--card); border-radius: var(--radius-card);
+      border: 1px solid var(--border); padding: 14px; margin-bottom: 10px; cursor: pointer;
+    }
+    .card .meta { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .card .row { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .chip {
+      display: inline-block; font-size: 12px; padding: 3px 8px;
+      border-radius: 6px; background: #E8F6FC; color: var(--primary); margin-right: 4px;
+    }
+    .chip.status-dang-xu-ly { background: #E8F6FC; color: var(--primary); }
+    .chip.status-phat-hien { background: #FFF4E0; color: #9A6200; }
+    .chip.status-xong { background: #E8F8EA; color: #1B7A28; }
+    .field { margin-bottom: 12px; }
+    .field label {
+      display: block; font-size: var(--label); color: var(--muted); margin-bottom: 4px;
+    }
+    .field input:not([type="checkbox"]), .field select, .field textarea {
+      width: 100%; min-height: var(--field-h); font-size: var(--field);
+      border: 1px solid var(--border); border-radius: var(--radius-control);
+      padding: 10px 12px; background: var(--card); color: var(--on-surface);
+    }
+    .field textarea { min-height: 96px; resize: vertical; }
+    .field input[type="checkbox"], .toggle-row input {
+      width: 20px; height: 20px; min-width: 20px; min-height: 20px;
+      margin: 0; padding: 0; flex: 0 0 20px; accent-color: var(--primary);
+    }
+    .field .ro { background: #F2F2F7; color: var(--muted); }
+    .empty { text-align: center; padding: 48px 16px; color: var(--muted); }
+    .empty strong { display: block; color: var(--on-surface); margin-bottom: 8px; font-size: 16px; }
+    .session-bar {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 12px; margin-bottom: 12px; font-size: 13px;
+    }
+    .fab {
+      position: absolute; right: 16px; bottom: 20px; z-index: 10;
+      height: 52px; padding: 0 20px; border-radius: 26px;
+      background: var(--primary); color: var(--on-primary); border: 0;
+      font-weight: 600; font-size: 15px; box-shadow: 0 6px 16px rgba(12,132,192,.4);
+      cursor: pointer;
+    }
+    .gps-ok { color: var(--success); font-size: 13px; }
+    .gps-deny { color: var(--danger); font-size: 13px; }
+    .banner-deny {
+      background: #FDECEA; color: var(--danger); border-radius: 12px;
+      padding: 10px 12px; margin-bottom: 12px; font-size: 13px;
+    }
+    .banner-deny ul { margin: 0; padding-left: 18px; }
+    .banner-info {
+      background: #E8F6FC; color: #086A9A; border-radius: 12px;
+      padding: 10px 12px; margin-bottom: 12px; font-size: 13px;
+    }
+    .field-error input, .field-error textarea, .field-error .btn-ghost {
+      border-color: var(--danger) !important; outline: 1px solid var(--danger);
+    }
+    .inline-error { color: var(--danger); font-size: 12px; margin-top: 4px; }
+    .toggle-row {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 12px 14px; margin-bottom: 12px;
+    }
+    .photo-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .photo-add {
+      width: 72px; height: 72px; border: 1px dashed var(--border);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 28px; cursor: pointer; background: var(--card);
+    }
+    .photo-add input[type="file"] { display: none; }
+    .photo-thumb {
+      width: 72px; height: 72px; border-radius: 12px; background: #DDE8EE;
+      border: 1px solid var(--border); display: grid; place-items: center;
+      font-size: 11px; color: var(--muted);
+    }
+    .leave-modal {
+      position: absolute; inset: 0; background: rgba(0,0,0,.45);
+      display: none; align-items: center; justify-content: center; z-index: 40; padding: 24px;
+    }
+    .leave-modal.open { display: flex; }
+    .leave-card {
+      background: var(--card); border-radius: 16px; padding: 18px; width: 100%; max-width: 320px;
+    }
+    .leave-card h3 { margin: 0 0 8px; font-size: 17px; }
+    .leave-card p { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+    .leave-actions { display: flex; gap: 8px; }
+    .leave-actions .btn { flex: 1; }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <nav class="board-nav" aria-label="Screens">
+    <button type="button" data-go="JL-02w" class="active">JL-02 tuần đường</button>
+    <button type="button" data-go="JL-02v">JL-02 view (QL_HAT)</button>
+    <button type="button" data-go="JL-02e">JL-02 empty</button>
+    <button type="button" data-go="JL-01">JL-01 form</button>
+    <button type="button" data-go="JL-01g">JL-01 Pattern B</button>
+    <button type="button" data-go="JL-01v">JL-01 view-only</button>
+  </nav>
+
+  <div class="phone" id="phone" data-feature="web-rmms-cam-journal" data-phone-frame="430" data-change-scope="edit_page">
+    <!-- JL-02 tuần đường — CTA visible -->
+    <section class="screen active" id="sc-JL-02w" data-des-id="JL-02" data-route="/nhat-ky/:sessionId" data-role="tuan-duong" data-state="data">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="Quay lại">‹</button>
+        <div class="title">Nhật ký</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content" data-field="lineCards">
+        <div class="session-bar" data-field="listHeader">
+          <strong>TD-2026-091</strong> · QL.1 · Đang tuần
+        </div>
+        <div class="card" data-go="JL-01">
+          <div class="row">
+            <div>
+              <strong>08:42</strong>
+              <span class="chip">hành lang</span>
+            </div>
+            <span class="chip status-dang-xu-ly">đang xử lý</span>
+          </div>
+          <div class="meta">Km 12+350 · chiều tăng</div>
+        </div>
+        <div class="card" data-go="JL-01">
+          <div class="row">
+            <div>
+              <strong>09:15</strong>
+              <span class="chip">mặt đường</span>
+            </div>
+            <span class="chip status-phat-hien">phát hiện</span>
+          </div>
+          <div class="meta">Km 14+020 · chiều tăng</div>
+        </div>
+        <p class="hint">roleCaps=tuần đường · CTA ghi hiện · GET journal-lines</p>
+      </div>
+      <button type="button" class="fab" data-field="ctaCreate" data-go="JL-01">+ Ghi</button>
+    </section>
+
+    <!-- JL-02 QL_HAT / TK / NT — CTA ẩn · list RO -->
+    <section class="screen" id="sc-JL-02v" data-des-id="JL-02" data-route="/nhat-ky/:sessionId" data-role="QL_HAT" data-state="view-only">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="Quay lại">‹</button>
+        <div class="title">Nhật ký</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content" data-field="lineCards">
+        <div class="banner-info" data-field="roleGateBanner">Chỉ xem — vai QL_HAT/TK/NT không tạo dòng nhật ký.</div>
+        <div class="session-bar" data-field="listHeader">
+          <strong>TD-2026-091</strong> · QL.1 · Đang tuần
+        </div>
+        <div class="card" data-go="JL-01v">
+          <div class="row">
+            <div>
+              <strong>08:42</strong>
+              <span class="chip">hành lang</span>
+            </div>
+            <span class="chip status-dang-xu-ly">đang xử lý</span>
+          </div>
+          <div class="meta">Km 12+350 · chiều tăng</div>
+        </div>
+        <div class="card" data-go="JL-01v">
+          <div class="row">
+            <div>
+              <strong>09:15</strong>
+              <span class="chip">mặt đường</span>
+            </div>
+            <span class="chip status-phat-hien">phát hiện</span>
+          </div>
+          <div class="meta">Km 14+020 · chiều tăng</div>
+        </div>
+        <p class="hint">ctaCreate ẩn · không FAB · deep-link dòng → JL-01 view-only</p>
+      </div>
+    </section>
+
+    <!-- JL-02 empty — CTA gated -->
+    <section class="screen" id="sc-JL-02e" data-des-id="JL-02" data-route="/nhat-ky/:sessionId" data-role="tuan-duong" data-state="empty">
+      <header class="topbar">
+        <button type="button" class="back" aria-label="Quay lại">‹</button>
+        <div class="title">Nhật ký</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="session-bar" data-field="listHeader">
+          <strong>TD-2026-091</strong> · QL.1 · Đang tuần
+        </div>
+        <div class="empty" data-field="emptyState">
+          <strong>Chưa ghi việc</strong>
+          Ghi dòng nhật ký trong ca.
+        </div>
+        <button type="button" class="btn btn-primary btn-block" data-field="ctaCreate" data-go="JL-01">Ghi nhật ký</button>
+        <p class="hint">Empty + CTA chỉ tuần đường · QL_HAT/TK/NT: empty không CTA</p>
+      </div>
+    </section>
+
+    <!-- JL-01 create — tuần đường write -->
+    <section class="screen" id="sc-JL-01" data-des-id="JL-01" data-route="/nhat-ky/:sessionId/moi" data-role="tuan-duong" data-state="gps-ok">
+      <header class="topbar">
+        <button type="button" class="back" data-leave="1" aria-label="Hủy">‹</button>
+        <div class="title" data-field="screenTitle">Ghi nhật ký</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="toolbar-form">
+          <button type="button" class="btn btn-secondary" data-field="cancel" data-leave="1">Hủy</button>
+          <button type="button" class="btn btn-primary" data-field="save" data-go="JL-02w">Lưu</button>
+        </div>
+        <div class="field" data-field="atLocal">
+          <label>Thời điểm</label>
+          <input type="datetime-local" value="2026-09-30T08:42" />
+        </div>
+        <div class="field" data-field="writerLabel">
+          <label>Người ghi</label>
+          <input class="ro" readonly value="Nguyễn Văn A" />
+        </div>
+        <div class="field" data-field="gpsPin">
+          <label>Định vị</label>
+          <p class="gps-ok">[21.028500, 105.854200]</p>
+          <button type="button" class="btn btn-ghost btn-block">Ghim vị trí hiện tại</button>
+        </div>
+        <div class="field" data-field="kmText">
+          <label>Lý trình</label>
+          <input type="text" value="12+350" />
+        </div>
+        <div class="field" data-field="direction">
+          <label>Chiều</label>
+          <select><option selected>chiều tăng</option><option>chiều giảm</option></select>
+        </div>
+        <div class="field" data-field="weather">
+          <label>Thời tiết</label>
+          <select><option selected>nắng</option><option>mưa</option><option>mù</option><option>khác</option></select>
+        </div>
+        <div class="field" data-field="kind">
+          <label>Loại</label>
+          <select><option selected>hành lang</option><option>mặt đường</option><option>biển báo</option><option>khác</option></select>
+        </div>
+        <div class="field" data-field="narrative">
+          <label>Diễn biến *</label>
+          <textarea>Phát hiện lấn chiếm hành lang gần Km 12+350.</textarea>
+        </div>
+        <div class="field" data-field="photos">
+          <label>Ảnh hiện trường</label>
+          <div class="photo-row">
+            <label class="photo-add" title="RouteCaptureControl · capture=environment">
+              +
+              <input type="file" accept="image/*" capture="environment" multiple />
+            </label>
+          </div>
+          <p class="hint">RouteCaptureControl · tuần đường write</p>
+        </div>
+        <div class="toggle-row" data-field="onSiteAction">
+          <span>Đã xử lý tại chỗ</span>
+          <input type="checkbox" />
+        </div>
+        <div class="field" data-field="onSiteResult">
+          <label>Kết quả tại chỗ</label>
+          <textarea placeholder="Optional khi onSite"></textarea>
+        </div>
+        <div class="field" data-field="reportedTo">
+          <label>Báo cáo tới</label>
+          <select><option value="">—</option><option>Tuần kiểm</option></select>
+          <p class="hint">cờ TK · không tạo phiếu</p>
+        </div>
+        <div class="field" data-field="reportedAtLocal">
+          <label>Thời điểm báo</label>
+          <input type="datetime-local" />
+        </div>
+        <div class="toggle-row" data-field="violationFlag">
+          <span>Vi phạm</span>
+          <input type="checkbox" />
+        </div>
+        <div class="field" data-field="status">
+          <label>Trạng thái</label>
+          <select><option>phát hiện</option><option selected>đang xử lý</option><option>xong</option></select>
+        </div>
+        <p class="hint">Lưu disabled chỉ saving|photoBusy · Pattern B · cấm Giao việc / SLA / Excel</p>
+      </div>
+    </section>
+
+    <!-- JL-01 Pattern B validationAttempted -->
+    <section class="screen" id="sc-JL-01g" data-des-id="JL-01" data-route="/nhat-ky/:sessionId/moi" data-role="tuan-duong" data-state="validation-attempted">
+      <header class="topbar">
+        <button type="button" class="back" data-leave="1" aria-label="Hủy">‹</button>
+        <div class="title">Ghi nhật ký</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="toolbar-form">
+          <button type="button" class="btn btn-secondary" data-leave="1">Hủy</button>
+          <button type="button" class="btn btn-primary" data-field="save">Lưu</button>
+        </div>
+        <div class="banner-deny" data-field="bannerErrors" data-zone="banner">
+          <ul>
+            <li>Chưa có GPS — cấp quyền rồi ghim lại. Cấm tọa độ mẫu.</li>
+            <li>Diễn biến bắt buộc.</li>
+          </ul>
+        </div>
+        <div class="field field-error" data-field="gpsPin">
+          <label>Định vị</label>
+          <button type="button" class="btn btn-ghost btn-block">Ghim vị trí hiện tại</button>
+          <p class="gps-deny">Từ chối / chưa cấp quyền</p>
+          <p class="inline-error">Thiếu GPS — báo khi bấm Lưu (Pattern B)</p>
+        </div>
+        <div class="field field-error" data-field="narrative">
+          <label>Diễn biến *</label>
+          <textarea></textarea>
+          <p class="inline-error">Bắt buộc — báo khi bấm Lưu</p>
+        </div>
+        <p class="hint">Pattern B: Lưu luôn bật trừ saving|photoBusy · cấm pre-disable · cấm alert.warning</p>
+      </div>
+    </section>
+
+    <!-- JL-01 view-only — QL_HAT / TK / NT deep-link -->
+    <section class="screen" id="sc-JL-01v" data-des-id="JL-01" data-route="/nhat-ky/:sessionId/:lineId" data-role="QL_HAT" data-state="view-only">
+      <header class="topbar">
+        <button type="button" class="back" data-go="JL-02v" aria-label="Quay lại">‹</button>
+        <div class="title" data-field="screenTitle">Sửa dòng</div>
+        <span class="spacer"></span>
+      </header>
+      <div class="content">
+        <div class="banner-info" data-field="roleGateBanner">Chế độ xem — không Lưu / không capture.</div>
+        <div class="field" data-field="atLocal">
+          <label>Thời điểm</label>
+          <input class="ro" readonly type="text" value="30/09/2026 08:42" />
+        </div>
+        <div class="field" data-field="writerLabel">
+          <label>Người ghi</label>
+          <input class="ro" readonly value="Nguyễn Văn A" />
+        </div>
+        <div class="field" data-field="gpsPin">
+          <label>Định vị</label>
+          <p class="gps-ok">[21.028500, 105.854200]</p>
+          <p class="hint">RO · không ghim lại</p>
+        </div>
+        <div class="field" data-field="narrative">
+          <label>Diễn biến</label>
+          <textarea class="ro" readonly>Phát hiện lấn chiếm hành lang gần Km 12+350.</textarea>
+        </div>
+        <div class="field" data-field="photos">
+          <label>Ảnh hiện trường</label>
+          <div class="photo-row">
+            <div class="photo-thumb">ảnh 1</div>
+            <div class="photo-thumb">ảnh 2</div>
+          </div>
+          <p class="hint">RouteCapture mode=view · không +</p>
+        </div>
+        <p class="hint">Ẩn Hủy/Lưu write · giữ layout list/form peer mobile-b</p>
+      </div>
+    </section>
+
+    <div class="leave-modal" id="leave" data-des-id="DES-LEAVE" aria-hidden="true">
+      <div class="leave-card">
+        <h3>Rời màn hình?</h3>
+        <p>Thay đổi chưa lưu sẽ mất.</p>
+        <div class="leave-actions">
+          <button type="button" class="btn btn-secondary" id="leave-stay">Ở lại</button>
+          <button type="button" class="btn btn-primary" id="leave-go" data-go="JL-02w">Rời</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const screens = document.querySelectorAll(".screen");
+    const navBtns = document.querySelectorAll(".board-nav button");
+    const leave = document.getElementById("leave");
+
+    function show(id) {
+      screens.forEach((s) => s.classList.toggle("active", s.id === "sc-" + id));
+      navBtns.forEach((b) => b.classList.toggle("active", b.getAttribute("data-go") === id));
+      leave.classList.remove("open");
+    }
+
+    document.querySelectorAll("[data-go]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        if (el.hasAttribute("data-leave")) return;
+        const id = el.getAttribute("data-go");
+        if (!id || !document.getElementById("sc-" + id)) return;
+        e.preventDefault();
+        show(id);
+      });
+    });
+
+    document.querySelectorAll("[data-leave]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        leave.classList.add("open");
+      });
+    });
+
+    document.getElementById("leave-stay").addEventListener("click", () => leave.classList.remove("open"));
+    document.getElementById("leave-go").addEventListener("click", () => show("JL-02w"));
+  </script>
+</body>
+</html>

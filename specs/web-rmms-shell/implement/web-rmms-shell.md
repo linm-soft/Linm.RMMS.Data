@@ -82,6 +82,22 @@
 - OMS `useFormOptions('web-rmms-shell')` + LOOKUP_STATIC fallback — catalog may empty until OMS seed
 - Token storage key multi-probe (linm.auth.*) — align when authService SSOT documents single key
 
+## Notes — quyền camera / vị trí (2026-10-06)
+
+Màn cần camera hoặc vị trí mà trình duyệt chưa `granted`: lớp phủ full màn (`BrowserPermissionWall`). Hiện câu cần quyền, dòng bấm **Cho phép camera** / **Cho phép vị trí**. Hướng dẫn tự chọn: tab = ổ khóa cạnh địa chỉ; app cài (`display-mode: standalone`) = Android mở trình duyệt vào đúng trang rồi Cho phép, Safari trên iPhone, hoặc ổ khóa thanh tiêu đề trên máy tính. `PermissionStatus` `change` → `granted` thì `location.reload()`. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
+
+## Notes — xác nhận tuyến (2026-10-07)
+
+Shell đưa về `/xac-nhan-tuyen` khi hồ sơ `needsRouteConfirm`. Ẩn tab bar trên form đó. Verify: vào app khi chưa xác nhận thì thấy form, quản lý đã nhận ở BE thì vào thẳng trang chủ.
+
+## Notes — Tôi: lý trình, mật khẩu, thông tin (2026-10-07)
+
+`/toi/ly-trinh` bind `segments` và `confirmations`. Mỗi lần xác nhận thêm dòng `rmms_user_route_confirms`. Đổi mật khẩu gọi `POST auth/change-password`. Cập nhật thông tin gọi `PUT auth/profile` rồi `PUT integration/users/me/profile`. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile` và `dotnet build` API.
+
+## Notes — scrollbar mép cột
+
+`.body` giữ `overflow: auto` và ẩn thanh cuộn (`scrollbar-width: none`). Cột điện thoại không hiện scrollbar mép ngoài. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
+
 ## Next
 
 `/agent-qa*` · roleOnly stop (**GAP-PKT-ROLE-01**) · e2eQa=ON

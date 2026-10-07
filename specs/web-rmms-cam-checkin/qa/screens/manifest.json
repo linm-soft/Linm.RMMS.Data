@@ -1,0 +1,64 @@
+{
+  "url": "http://localhost:9301/tuan-duong/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7",
+  "aliasUrl": "http://localhost:9301/web-rmms-cam-checkin",
+  "sessionId": "cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7",
+  "method": "_capture_ci.mjs",
+  "capturedAt": "2026-09-30T17:53:46.555Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/tuan-duong/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/tuan-duong/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7/diem-tuan"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/m/tuan-duong/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7"
+    }
+  ],
+  "dumps": [
+    {
+      "id": "S0",
+      "dump": {
+        "testids": [
+          "sc-patrol-detail",
+          "roleGateBanner"
+        ],
+        "text": "Chi tiết ca ⋯ Vai Tuần kiểm / Nghiệm thu không mở ca tuần đường và không ghi điểm trên màn này. Không có CTA ghi điểm · quay lại hub Chi tiết ca Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/tuan-duong/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7"
+      }
+    },
+    {
+      "id": "S1",
+      "dump": {
+        "testids": [
+          "sheet-checkin",
+          "roleGateBanner",
+          "ci-btn-cancel"
+        ],
+        "text": "Vai Tuần kiểm / Nghiệm thu không mở ca tuần đường và không ghi điểm trên màn này. Không có CTA ghi điểm · quay lại hub Hủy",
+        "href": "http://localhost:9301/tuan-duong/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7/diem-tuan"
+      }
+    },
+    {
+      "id": "QA-20",
+      "dump": {
+        "testids": [
+          "sc-patrol-detail",
+          "roleGateBanner"
+        ],
+        "text": "Chi tiết ca ⋯ Vai Tuần kiểm / Nghiệm thu không mở ca tuần đường và không ghi điểm trên màn này. Không có CTA ghi điểm · quay lại hub Chi tiết ca Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/tuan-duong/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7"
+      }
+    }
+  ],
+  "ok": true
+}

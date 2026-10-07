@@ -10,8 +10,9 @@ Tất cả các thiết bị trong danh sách này đều hỗ trợ **Edge AI (
 
 * **Model:** `iDS-TCM403-BI(G)/G`
 * **Trang:** [ids-tcm403-bi · BI(G)/G](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/?subName=iDS-TCM403-BI%28G%29%2FG)
-* **Nhận diện (hãng, 2026-09-23):** 9 loại Car / Van / Bus / Truck / Light Truck / SUV(MPV) / Pickup / Motorcycle / Tricycle · màu ban ngày · 212 hãng xe · biển (kể cả không biển và xe máy) · hướng · tới 3 làn · bắt xe > 99% · đọc biển > 98% · hướng > 98,5% · bắt nhầm < 2% · dải bắt 5–120 km/h. **Không** radar 77 GHz. Chi tiết và map nhãn: [`features/camera-vehicle-type.md`](features/camera-vehicle-type.md) §1b.
+* **Nhận diện (hãng, 2026-10-07):** 9 loại Car / Van / Bus / Truck / Light Truck / SUV(MPV) / Pickup / Motorcycle / Tricycle · màu ban ngày · 212 hãng xe · biển (kể cả không biển và xe máy) · tới 3 làn · bắt xe > 99% · đọc biển > 98% · bắt nhầm < 2% · dải bắt 5–120 km/h. Event xe = ANPR. Không có event hướng, đổi làn, ngược chiều, vượt tốc, tốc độ thấp, ùn, dừng, mũ bảo hiểm. **Không** radar 77 GHz. Bản `/G`: LTE + GPS. Chi tiết: [`features/camera-vehicle-type.md`](features/camera-vehicle-type.md) §1b.
 * Lab ingest hiện tại vẫn là **iDS-TCM403-GIR** (có radar).
+* QL.5 (thuyết minh BCKTKT 18.9 + góp ý `docs/camera-info/bc-thuyet-minh/yeu-cau/`): cùng model này. Ranh giới AI, 04 camera/nút, sự kiện 4G: [`../camera-info/bc-thuyet-minh/tra-loi-yeu-cau-hikvision.md`](../camera-info/bc-thuyet-minh/tra-loi-yeu-cau-hikvision.md).
 
 ### 📡 Urban road / Radar-Assisted ANPR (ưu tiên ITS tốc độ + biển số)
 * **Model Đề xuất:** `iDS-TCM403-GIR`
@@ -60,7 +61,7 @@ Tất cả các thiết bị trong danh sách này đều hỗ trợ **Edge AI (
 
 | Model (catalog RMMS) | Bắt xe (capture) | Đọc biển (LPR) | Hướng xe | Tốc độ | Đếm / phân loại | Ghi chú |
 |----------------------|------------------|----------------|----------|--------|-----------------|---------|
-| **iDS-TCM403-BI(G)/G** (đã chọn QL1) | **> 99%** | **> 98%** | **> 98.5%** | Dải bắt **5–120 km/h** · **không** radar · phủ tới **3 làn** | 9 loại như GIR · màu ban ngày · **212** hãng xe · sự cố ùn/dừng/đổi làn/ngược chiều/vượt tốc/tốc độ thấp — **không** % phân loại | Bắt nhầm **< 2%** · VN = Asia-Pacific · [BI(G)/G](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/?subName=iDS-TCM403-BI%28G%29%2FG) · map [`features/camera-vehicle-type.md`](features/camera-vehicle-type.md) §1b |
+| **iDS-TCM403-BI(G)/G** (đã chọn QL1) | **> 99%** | **> 98%** | Không có event hướng | Dải bắt **5–120 km/h** · **không** radar · phủ tới **3 làn** | 9 loại như GIR · màu ban ngày · **212** hãng xe · event xe = **ANPR** · không có event đổi làn / ngược chiều / vượt tốc / tốc độ thấp / ùn / dừng | Bắt nhầm **< 2%** · VN = Asia-Pacific · [BI(G)/G](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-bi/?subName=iDS-TCM403-BI%28G%29%2FG) · map [`features/camera-vehicle-type.md`](features/camera-vehicle-type.md) §1b |
 | **iDS-TCM403-GIR** (lab) | **> 99%** | **> 98%** | **> 98.5%** | Radar 77 GHz · tới **~120 km/h** · sai số tham chiếu dự án **±2 km/h** · phủ tới 3 làn | Traffic flow / đếm trên cam; loại xe: Car, Van, Bus, Truck, Light Truck, SUV, Pickup, Motorcycle, Tricycle · màu (ban ngày) · **map ISAPI→nhãn** [`features/camera-vehicle-type.md`](features/camera-vehicle-type.md) | Mistaken capture **< 2%** · VN nằm vùng Asia-Pacific LPR · [product](https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/urban-road-anpr-cameras/ids-tcm403-gir/) |
 | **iDS-2CD7A46G0/…** (QL tốc độ cao) | **≥ 99%** | **≥ 98%** | **≥ 98%** | Capture tới **120 km/h** (lắp trước) / **80 km/h** (lắp bên) — **không** radar tích hợp mặc định | Đếm xe + non-vehicle; loại/màu/hãng/hướng | Checkpoint scenario · DeepinView ANPR |
 | **iDS-2CD7A26G0/…** (liên tỉnh) | **≥ 99%** | **≥ 98%** | **≥ 98%** | Tới **120 / 80 km/h** (trước / bên) — như trên | Đếm xe + non-vehicle; loại/màu/hãng | 2 MP DarkFighter · tối ưu đêm |
@@ -72,7 +73,7 @@ Tất cả các thiết bị trong danh sách này đều hỗ trợ **Edge AI (
 |----------|--------------------------------------|
 | Đọc biển số | **≥ / > 98%** |
 | Bắt được xe qua vạch (capture / gắn với đếm sự kiện) | **≥ / > 99%** |
-| Nhận hướng di chuyển | **≥ 98%** (TCM403: **> 98.5%**) |
+| Nhận hướng di chuyển | **GIR lab:** > 98,5% trên datasheet. **BI(G)/G:** không có event hướng |
 | Tốc độ (chỉ TCM403 có radar sẵn) | Tới **120 km/h** · sai số tham chiếu **±2 km/h** (docs RMMS) |
 | Phân loại loại xe | Có danh mục class — **Hikvision không công bố % riêng** trên datasheet các model trên |
 | Đếm xe đô thị hỗn hợp (7146) | Có chức năng — **chưa có % chính thức** trong tài liệu public đã tra |
@@ -94,7 +95,7 @@ Mỗi khi có phương tiện đi qua vạch ảo, camera sẽ gửi về một 
    * Loại phương tiện (Vehicle Type: Car, Truck, Bus, Motorbike).
    * Biển số xe (License Plate Text - nếu có).
    * Màu sắc xe (Vehicle Color).
-   * Hướng di chuyển (Direction: Approach - Lại gần, Leave - Đi ra xa).
+   * Hướng di chuyển chỉ khi payload có trường đó. `iDS-TCM403-BI(G)/G` không có event hướng.
    * Thời gian chính xác (Timestamp).
 2. **Image Data (Hình ảnh):**
    * Ảnh chụp toàn cảnh phương tiện (được mã hóa dạng Base64 hoặc truyền link binarized).
@@ -103,4 +104,12 @@ Mỗi khi có phương tiện đi qua vạch ảo, camera sẽ gửi về một 
 ---
 
 ## 3. Kiến trúc Hệ thống Gợi ý
+
+Sự kiện XML/JSON từ camera → ingest RMMS. Video biên nằm ở tủ. Trung tâm xem HLS khi ca trực bật.
+
+QL.5 chỉ cam kết các việc nằm trong datasheet `iDS-TCM403-BI(G)/G` (mục 1 và file trả lời yêu cầu). Hư hỏng mặt đường, lấn chiếm hành lang, vật rơi, xử phạt không thuộc model này.
+
+## 4. Catalog kết nối
+
+`CameraModelCatalog`: `iDS-TCM403-BI(G)/G` (không radar, SDK-first) và `iDS-TCM403-GIR` (lab, có radar, SDK-first). DeepinView `2CD7A*` giữ ISAPI-first, không dùng cho lối mở QL.5.
 

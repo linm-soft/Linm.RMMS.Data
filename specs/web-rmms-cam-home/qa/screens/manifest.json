@@ -1,0 +1,143 @@
+{
+  "ok": true,
+  "feature": "web-rmms-cam-home",
+  "method": "_capture_cam_home.mjs",
+  "runtimeUrl": "http://localhost:9301/trang-chu",
+  "mfeStdAlias": "http://localhost:9301/web-rmms-cam-home",
+  "distinctShas": true,
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/trang-chu",
+      "sha": "4d0566b0b9af",
+      "dump": {
+        "feature": "web-rmms-home",
+        "zones": [
+          "UA-00",
+          "HM-00",
+          "HM-06",
+          "HM-04",
+          "HM-05",
+          "DES-MOB-TABBAR"
+        ],
+        "fields": [
+          "notifyBadge",
+          "orgSignal",
+          "profileName",
+          "gridWork",
+          "gridIncident",
+          "gridAsset",
+          "gridOffline",
+          "walletAsset",
+          "shell.tab.home",
+          "shell.tab.field",
+          "shell.tab.incident",
+          "shell.tab.work",
+          "shell.tab.me"
+        ],
+        "testids": [],
+        "hasNtQuick": false,
+        "hasSuperviseQuick": false,
+        "shellTabs": [
+          "shell.tab.home",
+          "shell.tab.field",
+          "shell.tab.incident",
+          "shell.tab.work",
+          "shell.tab.me"
+        ],
+        "text": "RMMS Tốt Linm Soft Admin NGHIỆP VỤ THƯỜNG DÙNG Công việc Vấn đề Tài sản Lưu trữ HỒ SƠ TÀI SẢN - — - 45 loại KCHT · thông số và hạng mục kiểm tra sự cố Phiên bản v1.0.0 · hiện trường đường bộ Cục Đường bộ VN · RMMS Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/trang-chu",
+        "path": "/trang-chu"
+      }
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/tuan-duong",
+      "sha": "5f3ac48f942b",
+      "dump": {
+        "feature": null,
+        "zones": [
+          "UA-00",
+          "DES-MOB-TABBAR"
+        ],
+        "fields": [
+          "hub.quick.field-reflect",
+          "hub.quick.cam-patrol",
+          "hub.quick.patrol-map",
+          "hub.quick.patrol-history",
+          "hub.quick.patrol-offline",
+          "shell.tab.home",
+          "shell.tab.field",
+          "shell.tab.incident",
+          "shell.tab.work",
+          "shell.tab.me"
+        ],
+        "testids": [
+          "sc-patrol-home",
+          "patrol-hero",
+          "row-quick-field-reflect"
+        ],
+        "hasNtQuick": false,
+        "hasSuperviseQuick": false,
+        "shellTabs": [
+          "shell.tab.home",
+          "shell.tab.field",
+          "shell.tab.incident",
+          "shell.tab.work",
+          "shell.tab.me"
+        ],
+        "text": "Tuần đường Tuần đường Chấm công Ca đang chạy · Tốt QL.1 TD-20260930-001 · Lê Đức Hùng Điểm tuần 4/3 · Độ phủ 0% Tiếp tục bản đồ Ghi điểm tuần Ghim vị trí hiện tại 4 Đã ghi điểm tuần 0 Còn lại 0% Độ phủ Hôm nay TD-20260930-001 Tuần đường · QL.1 · 08:31 Đang tuần TD-20260929-006 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-021 Tuần đường · QL.HCM · 10:55 Đang tuần TD-20260929-029 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-028 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-027 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-026 Tuần đường · QL.3 · Hoàn thành Xong TD-20260929-025 Tuần đường · CT.MAISONQUOCLO45 · Hoàn thành Xong TD-20260929-018 Tuần đường · QL.HCM · Hoàn thành Xong TD-20260929-023 Tuần đường · QL.HCM · Hoàn thành Xong TD-20260929-024 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-022 Tuần đường · QL.HCM · Hoàn thành Xong TD-20260929-013 Tuần đường · QL.14 · Hoàn thành Xong TD-20260929-009 Tuần đường · CT.MAISONQUOCLO45 · Hoàn thành Xong TD-20260929-014 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-020 Tuần đường · CT.NOIBAI-LAOCAI · 10:54 Đang tuần TD-20260929-017 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-019 Tuần đường · QL.1 · 10:53 Đang tuần TD-20260929-011 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-015 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-016 Tuần đường · QL.HCM · 10:50 Đang tuần TD-20260929-012 Tuần đường · QL.1 · Hoàn th",
+        "href": "http://localhost:9301/tuan-duong",
+        "path": "/tuan-duong"
+      }
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/m/tuan-duong",
+      "sha": "0f2c6d7dfb8c",
+      "dump": {
+        "feature": null,
+        "zones": [
+          "UA-00",
+          "DES-MOB-TABBAR"
+        ],
+        "fields": [
+          "hub.quick.field-reflect",
+          "hub.quick.cam-patrol",
+          "hub.quick.patrol-map",
+          "hub.quick.patrol-history",
+          "hub.quick.patrol-offline",
+          "shell.tab.home",
+          "shell.tab.field",
+          "shell.tab.incident",
+          "shell.tab.work",
+          "shell.tab.me"
+        ],
+        "testids": [
+          "sc-patrol-home",
+          "patrol-hero",
+          "row-quick-field-reflect"
+        ],
+        "hasNtQuick": false,
+        "hasSuperviseQuick": false,
+        "shellTabs": [
+          "shell.tab.home",
+          "shell.tab.field",
+          "shell.tab.incident",
+          "shell.tab.work",
+          "shell.tab.me"
+        ],
+        "text": "Tuần đường Tuần đường Chấm công Ca đang chạy · Tốt QL.1 TD-20260930-001 · Lê Đức Hùng Điểm tuần 4/3 · Độ phủ 0% Tiếp tục bản đồ Ghi điểm tuần Ghim vị trí hiện tại 4 Đã ghi điểm tuần 0 Còn lại 0% Độ phủ Hôm nay TD-20260930-001 Tuần đường · QL.1 · 08:31 Đang tuần TD-20260929-006 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-021 Tuần đường · QL.HCM · 10:55 Đang tuần TD-20260929-029 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-028 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-027 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-026 Tuần đường · QL.3 · Hoàn thành Xong TD-20260929-025 Tuần đường · CT.MAISONQUOCLO45 · Hoàn thành Xong TD-20260929-018 Tuần đường · QL.HCM · Hoàn thành Xong TD-20260929-023 Tuần đường · QL.HCM · Hoàn thành Xong TD-20260929-024 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-022 Tuần đường · QL.HCM · Hoàn thành Xong TD-20260929-013 Tuần đường · QL.14 · Hoàn thành Xong TD-20260929-009 Tuần đường · CT.MAISONQUOCLO45 · Hoàn thành Xong TD-20260929-014 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-020 Tuần đường · CT.NOIBAI-LAOCAI · 10:54 Đang tuần TD-20260929-017 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-019 Tuần đường · QL.1 · 10:53 Đang tuần TD-20260929-011 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-015 Tuần đường · QL.1 · Hoàn thành Xong TD-20260929-016 Tuần đường · QL.HCM · 10:50 Đang tuần TD-20260929-012 Tuần đường · QL.1 · Hoàn th",
+        "href": "http://localhost:9301/m/tuan-duong",
+        "path": "/m/tuan-duong"
+      }
+    }
+  ],
+  "writtenAt": "2026-09-30T20:17:08.171Z"
+}

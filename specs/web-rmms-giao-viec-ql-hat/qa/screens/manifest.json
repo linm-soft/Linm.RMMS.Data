@@ -1,0 +1,27 @@
+{
+  "url": "http://localhost:9301/web-rmms-giao-viec-ql-hat",
+  "capturedAt": "2026-09-30T20:50:05.443Z",
+  "steps": [
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png"
+    },
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png"
+    }
+  ],
+  "ok": true,
+  "hashes": {
+    "S0": "354990cf7850e3a2",
+    "S1": "edce90065f0269e8",
+    "QA-20": "b8b0e1461439bbfe"
+  }
+}

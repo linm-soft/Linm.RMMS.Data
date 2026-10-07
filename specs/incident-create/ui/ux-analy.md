@@ -32,7 +32,7 @@ Login → Tab Trang Chủ (shell Tab 5 · index home)
 | DES / sc-* | Tên VN | iOS chrome | Android chrome | CTA |
 |------------|--------|------------|----------------|-----|
 | DES-MOB-INC-FORM / `#sc-inc-form` | Ghi sự cố | nav back «Thông tin tài sản» + chevron · title 17 · Tab 5 home | icon-btn chevron · TopAppBar title · Nav 5 home | Tạo vấn đề / cam / estimate / nháp |
-| DES-MOB-INC-KIND | Loại ghi nhận | pills Hư/Mất/Hỏng | same | — |
+| DES-MOB-INC-KIND | Loại ghi nhận | pills Hư/Hỏng (+ Mất khi tài sản có hạng mục mất) | same | phone web 2026-10-06: gộp Hư + Hỏng thành một nút **Hư/Hỏng** · checklist chip bind `kindLabel` **Hư/Hỏng** |
 | DES-MOB-GPS-DENY / `#modal-gps` | Định vị bị tắt | in-app modal | Material dialog card | Mở Cài đặt / Để sau |
 | Entry pick (cùng flow) | Chọn loại tài sản… | banner + grid 3 cột stretch · pict 36 QCVN | same | toast pick nếu thiếu |
 

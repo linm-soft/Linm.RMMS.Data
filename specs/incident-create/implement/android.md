@@ -70,6 +70,10 @@ Dual parity with iOS implement · Create `POST incident/incidents` catalog codes
 | versionGate | rechecked |
 
 
+## Notes — `/edit-web-mobile` (2026-10-06)
+
+Phone web `IncidentCreatePage`: pill **Hư** và **Hỏng** gộp một nút **Hư/Hỏng** · checklist chip bind `kindLabel` **Hư/Hỏng** (BE kind `Damage`) · **Mất** giữ khi tài sản có hạng mục mất. Native pills không đổi.
+
 ## Notes — MOB-PERM-OS-01 (2026-09-20)
 
 - OS location/camera dialog **trước** GPS read / capture (`LaunchLocationPermissionOnStart` / `rememberAskLocationPermission` · iOS `requestWhenInUseAuthorization` / `requestAccess`).

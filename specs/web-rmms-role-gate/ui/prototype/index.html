@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web-rmms-role-gate — Quyền QL_HAT · vai theo chức danh</title>
+  <style>
+    :root {
+      --primary: #0C84C0;
+      --header-start: #086A9A;
+      --header-end: #0C84C0;
+      --ok: #34C759;
+      --warn: #FF9500;
+      --danger: #F03C30;
+      --surface: #F2F2F7;
+      --card: #FFFFFF;
+      --on-primary: #FFFFFF;
+      --on-surface: #1C1C1E;
+      --border: #C7C7CC;
+      --muted: #8E8E93;
+      --radius-card: 16px;
+      --radius-control: 12px;
+      --label: 13px;
+      --field: 16px;
+      --nav-title: 17px;
+      --control-h: 44px;
+      --phone-w: 430px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #1a1a1e;
+      color: var(--on-surface);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 8px 32px;
+    }
+    .board-nav {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      max-width: var(--phone-w); width: 100%; margin-bottom: 8px;
+    }
+    .board-nav button {
+      border: 1px solid var(--border); background: #2a2a2e; color: #eee;
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .board-nav button.active { background: var(--primary); border-color: var(--primary); }
+    .meta {
+      max-width: var(--phone-w); width: 100%; color: #aaa; font-size: 12px; margin-bottom: 8px;
+    }
+    .phone {
+      width: min(100%, var(--phone-w));
+      min-height: 820px;
+      background: var(--surface);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      background: linear-gradient(135deg, var(--header-start), var(--header-end));
+      color: var(--on-primary);
+      min-height: 56px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar .title { flex: 1; font-size: var(--nav-title); font-weight: 600; }
+    .content { flex: 1; overflow: auto; padding: 12px 14px 88px; }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 14px 16px; margin-bottom: 12px;
+    }
+    .card h3 { margin: 0 0 8px; font-size: 17px; }
+    .row { display: flex; align-items: center; gap: 8px; margin: 8px 0; flex-wrap: wrap; }
+    .label { font-size: var(--label); color: var(--muted); min-width: 88px; }
+    .value { font-size: var(--field); }
+    .chip {
+      display: inline-flex; align-items: center; height: 28px;
+      padding: 0 10px; border-radius: 14px; font-size: var(--label);
+      background: #E8F4FA; color: var(--primary); border: 1px solid #B8DCEC;
+    }
+    .chip.ql { background: #E8F8EE; color: #1B7A3A; border-color: #A8E0B8; }
+    .chip.off { background: #F2F2F7; color: var(--muted); border-color: var(--border); }
+    .chip.warn { background: #FFF4E5; color: #B86A00; border-color: #F5D5A0; }
+    .flag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: var(--label); padding: 6px 10px; border-radius: 10px;
+      border: 1px solid var(--border); background: #fff;
+    }
+    .flag.on { border-color: #A8E0B8; background: #F0FBF4; }
+    .flag.off { opacity: .55; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+    .flag.on .dot { background: var(--ok); }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .tile {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-card); min-height: 88px;
+      padding: 12px; font-size: var(--label); cursor: default;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .tile.hidden { display: none; }
+    .tile .t { font-size: var(--field); font-weight: 600; }
+    .btn {
+      height: var(--control-h); border: 0; border-radius: var(--radius-control);
+      padding: 0 16px; font-size: var(--field); cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); width: 100%; }
+    .btn-ok { background: var(--ok); color: #fff; flex: 1; }
+    .btn-danger { background: var(--danger); color: #fff; flex: 1; }
+    .btn-ghost {
+      background: #fff; color: var(--on-surface); border: 1px solid var(--border); flex: 1;
+    }
+    .btn[hidden], .hidden { display: none !important; }
+    .field { margin: 10px 0; }
+    .field label { display: block; font-size: var(--label); color: var(--muted); margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%; height: var(--control-h); border: 1px solid var(--border);
+      border-radius: var(--radius-control); padding: 0 12px; font-size: var(--field);
+      background: #fff;
+    }
+    .field textarea { height: 72px; padding: 10px 12px; resize: vertical; }
+    .tabs {
+      display: flex; gap: 0; border-top: 1px solid var(--border);
+      background: #fff; position: absolute; left: 0; right: 0; bottom: 0; height: 64px;
+    }
+    .phone { position: relative; }
+    .tab {
+      flex: 1; border: 0; background: transparent; font-size: 11px; color: var(--muted);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    }
+    .tab.on { color: var(--primary); font-weight: 600; }
+    .tab.hidden { display: none; }
+    .quick { display: flex; flex-wrap: wrap; gap: 8px; }
+    .quick .q {
+      background: #FFF8E8; color: var(--primary); border: 1px solid #F5E6C8;
+      border-radius: 14px; padding: 10px 12px; font-size: var(--label);
+    }
+    .quick .q.hidden { display: none; }
+    .sheet {
+      margin-top: 8px; border: 1px dashed var(--border); border-radius: 16px;
+      padding: 12px; background: #fafafa;
+    }
+    .toast {
+      display: none; margin-top: 8px; padding: 10px 12px; border-radius: 10px;
+      background: #1C1C1E; color: #fff; font-size: var(--label);
+    }
+    .toast.show { display: block; }
+    .sub { font-size: var(--label); color: var(--muted); margin: 0 0 8px; }
+  </style>
+</head>
+<body>
+  <div class="board-nav" role="tablist" aria-label="Persona">
+    <button type="button" class="active" data-persona="tuanDuong">Tuần đường</button>
+    <button type="button" data-persona="tuanKiem">Tuần kiểm</button>
+    <button type="button" data-persona="nghiemThu">Nghiệm thu</button>
+    <button type="button" data-persona="qlHat">Hạt trưởng (QL_HAT)</button>
+  </div>
+  <div class="board-nav" role="tablist" aria-label="Màn hình">
+    <button type="button" class="active" data-screen="rg01">Hồ sơ</button>
+    <button type="button" data-screen="rg03a">Trang chủ</button>
+    <button type="button" data-screen="rg03b">Hub / Tab</button>
+    <button type="button" data-screen="rg03c">Sự cố</button>
+    <button type="button" data-screen="rg03d">Phát hiện / NT</button>
+  </div>
+  <p class="meta">RG-00…03d · phone ≤430 · reviewUrl prototype · peerStdUrl localhost:9301/web-rmms-role-gate · DES-GRID N/A</p>
+
+  <div class="phone" data-des-id="RG-00">
+    <div class="topbar">
+      <div class="title" id="topTitle">Hồ sơ vai trò</div>
+    </div>
+    <div class="content">
+
+      <!-- RG-01 Profile -->
+      <section class="screen active" id="rg01" data-des-id="RG-01">
+        <div class="card">
+          <h3>Thông tin đăng nhập</h3>
+          <p class="sub">Chỉ đọc từ hồ sơ Live — không sửa trên điện thoại</p>
+          <div class="row"><span class="label">Họ tên</span><span class="value" id="pName">—</span></div>
+          <div class="row"><span class="label">Chức danh</span><span class="chip" id="pJob">—</span></div>
+          <div class="row"><span class="label">Gói quyền</span><span class="chip ql" id="pPkg">—</span></div>
+        </div>
+        <div class="card">
+          <h3>Năng lực vai</h3>
+          <div class="row" id="capsRow"></div>
+        </div>
+        <div class="card" data-des-id="RG-02">
+          <h3>Chức danh Hạt (seed)</h3>
+          <p class="sub">Master job-title · HAT-TRUONG / HAT-PHO → packageHint QL_HAT</p>
+          <div class="row">
+            <span class="chip">HAT-TRUONG</span>
+            <span class="chip ql">packageHint = QL_HAT</span>
+          </div>
+          <div class="row">
+            <span class="chip">HAT-PHO</span>
+            <span class="chip ql">packageHint = QL_HAT</span>
+          </div>
+          <div class="row">
+            <span class="chip off">MANAGER-RMMS</span>
+            <span class="chip warn">không suy Giao việc</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RG-03a Home -->
+      <section class="screen" id="rg03a" data-des-id="RG-03a">
+        <p class="sub">Ô Trang chủ theo năng lực — không thanh lọc desktop</p>
+        <div class="grid" id="homeGrid">
+          <div class="tile" data-cap="tuanDuong"><span class="t">Tuần đường</span><span>Mở ca · nhật ký</span></div>
+          <div class="tile" data-cap="tuanKiem"><span class="t">Tuần kiểm</span><span>Phát hiện · xác nhận</span></div>
+          <div class="tile" data-cap="nghiemThu"><span class="t">Nghiệm thu</span><span>Xem phiếu đã xác nhận</span></div>
+          <div class="tile" data-cap="any"><span class="t">Sự cố</span><span>Danh sách / báo cáo ca</span></div>
+          <div class="tile" data-cap="any"><span class="t">Bản đồ tuần</span><span>GPS tuyến</span></div>
+          <div class="tile" data-cap="qlHat"><span class="t">Giao việc</span><span>Chỉ QL_HAT</span></div>
+        </div>
+      </section>
+
+      <!-- RG-03b Hub / Shell -->
+      <section class="screen" id="rg03b" data-des-id="RG-03b">
+        <div class="card">
+          <h3>Thao tác nhanh (hub tuần đường)</h3>
+          <div class="quick">
+            <span class="q" data-cap="tuanDuong">Mở ca</span>
+            <span class="q" data-cap="tuanDuong">Nhật ký</span>
+            <span class="q" data-cap="tuanDuong">Báo cáo ca</span>
+            <span class="q hidden" data-hub="nghiemThu" id="hubNt">Nghiệm thu</span>
+          </div>
+          <p class="sub" style="margin-top:10px">Hub tuần đường ẩn «Nghiệm thu» (AC-RG-09)</p>
+        </div>
+        <div class="card">
+          <h3>Tab thanh dưới</h3>
+          <p class="sub">Tab sáng theo vai — tuần kiểm không thắp Tuần đường</p>
+          <div class="row" id="tabPreview"></div>
+        </div>
+      </section>
+
+      <!-- RG-03c Incident -->
+      <section class="screen" id="rg03c" data-des-id="RG-03c">
+        <div class="card">
+          <h3>Sự cố · báo cáo ca</h3>
+          <p class="sub">Hư hỏng mặt đường · đoạn Km 12+350</p>
+          <button type="button" class="btn btn-primary" id="btnAssign" hidden>Giao việc xử lý</button>
+          <div class="toast" id="denyToast">Không có quyền giao việc. Chỉ gói QL_HAT.</div>
+        </div>
+        <div class="sheet" id="assignSheet" hidden>
+          <h3 style="margin:0 0 8px;font-size:17px">Giao việc</h3>
+          <div class="field">
+            <label>Người nhận</label>
+            <input type="search" placeholder="Tìm người nhận" value="" />
+          </div>
+          <div class="field">
+            <label>Đơn vị bảo dưỡng</label>
+            <input type="search" placeholder="Tìm đơn vị" value="" />
+          </div>
+          <div class="field">
+            <label>Hạng mục</label>
+            <select id="hangMuc">
+              <option value="mat-duong">Mặt đường</option>
+              <option value="lan-duong">Lề đường</option>
+              <option value="thoat-nuoc">Thoát nước</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Hạn xử lý (gợi ý Phụ lục IV · sửa được)</label>
+            <input type="datetime-local" id="dueAt" />
+          </div>
+          <div class="field">
+            <label>Ghi chú</label>
+            <textarea placeholder="Ghi chú giao việc"></textarea>
+          </div>
+          <div class="row">
+            <button type="button" class="btn btn-ghost" id="btnCancelAssign">Hủy</button>
+            <button type="button" class="btn btn-primary" style="flex:1;width:auto">Giao</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- RG-03d Finding / NT -->
+      <section class="screen" id="rg03d" data-des-id="RG-03d">
+        <div class="card">
+          <h3>Phát hiện hiện trường</h3>
+          <div class="row"><span class="label">Hạn</span><span class="chip" id="slaChip">Trong hạn</span></div>
+          <div class="row" id="confirmBtns">
+            <button type="button" class="btn btn-ok" id="btnPass" hidden>Đạt</button>
+            <button type="button" class="btn btn-danger" id="btnFail" hidden>Không đạt</button>
+          </div>
+          <p class="sub" id="confirmHint">Chỉ tuần kiểm được xác nhận</p>
+        </div>
+        <div class="card">
+          <h3>Nghiệm thu</h3>
+          <p class="sub">Chỉ xem chuỗi đã xác nhận — không giao việc</p>
+          <a href="#" id="ntLink" style="color:var(--primary);font-size:var(--field)">Xem phiếu đã xác nhận</a>
+          <button type="button" class="btn btn-primary" id="btnNtAssign" hidden style="margin-top:12px">Giao việc xử lý</button>
+        </div>
+      </section>
+    </div>
+
+    <nav class="tabs" aria-label="Tab ứng dụng" data-des-id="RG-03b-tabs">
+      <button type="button" class="tab" data-tab="home">Trang chủ</button>
+      <button type="button" class="tab" data-tab="tuanDuong">Tuần đường</button>
+      <button type="button" class="tab" data-tab="tuanKiem">Tuần kiểm</button>
+      <button type="button" class="tab" data-tab="incident">Sự cố</button>
+      <button type="button" class="tab" data-tab="more">Thêm</button>
+    </nav>
+  </div>
+
+  <script>
+    const PERSONAS = {
+      tuanDuong: {
+        name: "Nguyễn Văn A",
+        job: "TUAN-DUONG · Công nhân tuần đường",
+        pkg: "RMMS-TDTK",
+        caps: { tuanDuong: true, tuanKiem: false, nghiemThu: false, qlHat: false },
+        tab: "tuanDuong"
+      },
+      tuanKiem: {
+        name: "Trần Thị B",
+        job: "TUAN-KIEM · Cán bộ tuần kiểm",
+        pkg: "RMMS-TDTK",
+        caps: { tuanDuong: false, tuanKiem: true, nghiemThu: false, qlHat: false },
+        tab: "tuanKiem"
+      },
+      nghiemThu: {
+        name: "Lê Văn C",
+        job: "NGHIEM-THU · Công tác nghiệm thu",
+        pkg: "RMMS-TDTK",
+        caps: { tuanDuong: false, tuanKiem: false, nghiemThu: true, qlHat: false },
+        tab: "more"
+      },
+      qlHat: {
+        name: "Phạm Văn D",
+        job: "HAT-TRUONG · Hạt trưởng",
+        pkg: "QL_HAT",
+        caps: { tuanDuong: true, tuanKiem: true, nghiemThu: false, qlHat: true },
+        tab: "incident"
+      }
+    };
+
+    const DUE_HINT = {
+      "mat-duong": "2026-10-02T17:00",
+      "lan-duong": "2026-10-03T17:00",
+      "thoat-nuoc": "2026-10-01T17:00"
+    };
+
+    let persona = "tuanDuong";
+    let screen = "rg01";
+
+    const titles = {
+      rg01: "Hồ sơ vai trò",
+      rg03a: "Trang chủ",
+      rg03b: "Hub / Tab",
+      rg03c: "Sự cố",
+      rg03d: "Phát hiện / NT"
+    };
+
+    function applyPersona() {
+      const p = PERSONAS[persona];
+      document.getElementById("pName").textContent = p.name;
+      document.getElementById("pJob").textContent = p.job;
+      const pkg = document.getElementById("pPkg");
+      pkg.textContent = p.pkg;
+      pkg.className = "chip" + (p.pkg === "QL_HAT" ? " ql" : "");
+
+      const capsRow = document.getElementById("capsRow");
+      capsRow.innerHTML = "";
+      [
+        ["tuanDuong", "Tuần đường"],
+        ["tuanKiem", "Tuần kiểm"],
+        ["nghiemThu", "Nghiệm thu"],
+        ["qlHat", "QL_HAT"]
+      ].forEach(([k, label]) => {
+        const el = document.createElement("span");
+        el.className = "flag " + (p.caps[k] ? "on" : "off");
+        el.innerHTML = '<span class="dot"></span>' + label;
+        capsRow.appendChild(el);
+      });
+
+      document.querySelectorAll("#homeGrid .tile").forEach((tile) => {
+        const need = tile.getAttribute("data-cap");
+        let show = need === "any";
+        if (need === "tuanDuong") show = p.caps.tuanDuong || p.caps.qlHat;
+        if (need === "tuanKiem") show = p.caps.tuanKiem || p.caps.qlHat;
+        if (need === "nghiemThu") show = p.caps.nghiemThu;
+        if (need === "qlHat") show = p.caps.qlHat;
+        tile.classList.toggle("hidden", !show);
+      });
+
+      // Hub NT always hidden on TD hub (AC-RG-09) — keep hidden for all personas on this hub surface
+      document.getElementById("hubNt").classList.add("hidden");
+
+      document.querySelectorAll(".tabs .tab").forEach((tab) => {
+        const id = tab.getAttribute("data-tab");
+        tab.classList.toggle("on", id === p.tab);
+        if (id === "tuanDuong") {
+          // tuần kiểm không thắp tab tuần đường
+          if (persona === "tuanKiem") tab.classList.remove("on");
+        }
+      });
+
+      const tabPreview = document.getElementById("tabPreview");
+      tabPreview.innerHTML = "";
+      ["Trang chủ", "Tuần đường", "Tuần kiểm", "Sự cố"].forEach((label, i) => {
+        const keys = ["home", "tuanDuong", "tuanKiem", "incident"];
+        const chip = document.createElement("span");
+        const on = keys[i] === p.tab && !(persona === "tuanKiem" && keys[i] === "tuanDuong");
+        chip.className = "chip" + (on ? " ql" : " off");
+        chip.textContent = label + (on ? " · đang chọn" : "");
+        tabPreview.appendChild(chip);
+      });
+
+      const canAssign = p.caps.qlHat;
+      const btnAssign = document.getElementById("btnAssign");
+      btnAssign.hidden = !canAssign;
+      if (!canAssign) {
+        document.getElementById("assignSheet").hidden = true;
+      }
+      document.getElementById("denyToast").classList.toggle("show", !canAssign && screen === "rg03c");
+
+      const canConfirm = p.caps.tuanKiem;
+      document.getElementById("btnPass").hidden = !canConfirm;
+      document.getElementById("btnFail").hidden = !canConfirm;
+      document.getElementById("confirmHint").textContent = canConfirm
+        ? "Tuần kiểm xác nhận đạt / không đạt"
+        : "Chỉ tuần kiểm được xác nhận";
+      document.getElementById("btnNtAssign").hidden = true;
+      document.getElementById("ntLink").style.display = p.caps.nghiemThu || p.caps.qlHat ? "inline" : "none";
+    }
+
+    function showScreen(id) {
+      screen = id;
+      document.querySelectorAll(".screen").forEach((s) => s.classList.toggle("active", s.id === id));
+      document.getElementById("topTitle").textContent = titles[id] || "Role gate";
+      document.querySelectorAll("[data-screen]").forEach((b) => {
+        b.classList.toggle("active", b.getAttribute("data-screen") === id);
+      });
+      applyPersona();
+    }
+
+    document.querySelectorAll("[data-persona]").forEach((b) => {
+      b.addEventListener("click", () => {
+        persona = b.getAttribute("data-persona");
+        document.querySelectorAll("[data-persona]").forEach((x) => x.classList.toggle("active", x === b));
+        applyPersona();
+      });
+    });
+    document.querySelectorAll("[data-screen]").forEach((b) => {
+      b.addEventListener("click", () => showScreen(b.getAttribute("data-screen")));
+    });
+
+    document.getElementById("btnAssign").addEventListener("click", () => {
+      document.getElementById("assignSheet").hidden = false;
+      document.getElementById("denyToast").classList.remove("show");
+      document.getElementById("dueAt").value = DUE_HINT[document.getElementById("hangMuc").value];
+    });
+    document.getElementById("btnCancelAssign").addEventListener("click", () => {
+      document.getElementById("assignSheet").hidden = true;
+    });
+    document.getElementById("hangMuc").addEventListener("change", (e) => {
+      document.getElementById("dueAt").value = DUE_HINT[e.target.value];
+    });
+
+    applyPersona();
+  </script>
+</body>
+</html>

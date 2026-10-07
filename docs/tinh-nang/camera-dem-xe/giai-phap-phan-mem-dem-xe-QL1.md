@@ -22,7 +22,7 @@ Mỗi trạm một mã. Camera, làn, tuyến, lý trình và tọa độ gắn 
 |-----------|-------------------|
 | Trạm đếm | Mã trạm, tuyến, lý trình, tọa độ, khu quản lý |
 | Camera | Mã thiết bị, model, làn, trạng thái |
-| Lượt xe | Thời điểm, làn, loại xe, biển số, hướng |
+| Lượt xe | Thời điểm, làn, loại xe, biển số, màu ban ngày |
 | Hình trực tiếp | Cùng mã camera, không tính là một lượt đếm |
 | Báo cáo kỳ | Tổng theo trạm, tuyến, khoảng thời gian |
 
@@ -31,7 +31,7 @@ Mỗi trạm một mã. Camera, làn, tuyến, lý trình và tọa độ gắn 
 | Kênh | Khi nào chạy | Trung tâm nhận |
 |------|----------------|----------------|
 | Camera Live | Luôn kết nối (HLS). Không chờ có xe | Tường hình và bản đồ |
-| Đếm xe | Chỉ khi xe vào vạch đếm | Một bản ghi: loại xe, biển số, hướng, thời điểm |
+| Đếm xe | Chỉ khi xe vào vạch đếm | Một bản ghi ANPR: loại xe, biển số, màu ban ngày, thời điểm |
 
 Xem hình nhiều trạm cần cáp quang hoặc đường truyền riêng, khoảng 2–4 Mb/giây mỗi camera. Đường 4G/5G đủ gửi lượt đếm, không đủ xem hình hàng loạt.
 
@@ -61,7 +61,7 @@ Trang hãng: https://www.hikvision.com/en/products/ITS-Products/traffic-cameras/
 ## 7. Phần mềm đã đáp ứng
 
 - Danh sách camera theo tuyến, lý trình, tọa độ.
-- Nhận lượt xe khi vào vạch: thời điểm, loại xe, biển số, hướng.
+- Nhận lượt xe khi vào vạch: thời điểm, loại xe, biển số, màu ban ngày. Không có event hướng.
 - Đếm theo 9 loại trên màn hình và bản đồ.
 - Camera Live luôn kết nối (HLS).
 - Khóa nhận tin riêng cho camera.

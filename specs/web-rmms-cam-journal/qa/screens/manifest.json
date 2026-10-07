@@ -1,0 +1,75 @@
+{
+  "url": "http://localhost:9301/nhat-ky/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7",
+  "aliasUrl": "http://localhost:9301/web-rmms-cam-journal",
+  "sessionId": "cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7",
+  "method": "_capture_jl.mjs",
+  "capturedAt": "2026-09-30T18:28:36.898Z",
+  "steps": [
+    {
+      "id": "S0",
+      "result": "PASS",
+      "screenshot": "S0.png",
+      "href": "http://localhost:9301/nhat-ky/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7"
+    },
+    {
+      "id": "S1",
+      "result": "PASS",
+      "screenshot": "S1.png",
+      "href": "http://localhost:9301/nhat-ky/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7/moi"
+    },
+    {
+      "id": "QA-20",
+      "result": "PASS",
+      "screenshot": "QA-20.png",
+      "href": "http://localhost:9301/m/nhat-ky/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7"
+    }
+  ],
+  "dumps": [
+    {
+      "id": "S0",
+      "dump": {
+        "testids": [
+          "roleGateBanner"
+        ],
+        "desIds": [
+          "JL-02",
+          "JL-02v"
+        ],
+        "feature": true,
+        "text": "Sổ nhật ký Chế độ xem — chỉ tuần đường được ghi nhật ký và chụp ảnh. Ca TD-20260930-001 Chưa ghi việc Chưa có dòng nhật ký trên ca này. Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/nhat-ky/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7"
+      }
+    },
+    {
+      "id": "S1",
+      "dump": {
+        "testids": [
+          "roleGateBanner"
+        ],
+        "desIds": [
+          "JL-01",
+          "JL-01v"
+        ],
+        "feature": true,
+        "text": "Ghi nhật ký Huỷ Chế độ xem — chỉ tuần đường được ghi nhật ký và chụp ảnh. Giờ Người ghi Định vị Lý trình Chiều Chiều đi Chiều về Hai chiều Thời tiết Nắng Mưa Mù Lũ Bão Khác Loại KCHT Hành lang TNGT Ùn tắc Xe hỏng Chướng ngại Cháy Thời tiết ATGT Diễn biến — Ảnh Định vị người chụp -- Vị trí vật thể Chưa ghim vật thể trên ảnh Tuyến -- RMMS.vn Chưa có ảnh -- Xử lý tại chỗ Báo tuần kiểm — Trạng thái Phát hiện Đang xử lý Chờ kiểm tra Xong",
+        "href": "http://localhost:9301/nhat-ky/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7/moi"
+      }
+    },
+    {
+      "id": "QA-20",
+      "dump": {
+        "testids": [
+          "roleGateBanner"
+        ],
+        "desIds": [
+          "JL-02",
+          "JL-02v"
+        ],
+        "feature": true,
+        "text": "Sổ nhật ký Chế độ xem — chỉ tuần đường được ghi nhật ký và chụp ảnh. Ca TD-20260930-001 Chưa ghi việc Chưa có dòng nhật ký trên ca này. Trang Chủ Tuần đường Vấn đề Công việc Tôi",
+        "href": "http://localhost:9301/m/nhat-ky/cf7cea17-1b5f-4c12-8d8f-d01d0c5b1fb7"
+      }
+    }
+  ],
+  "ok": true
+}

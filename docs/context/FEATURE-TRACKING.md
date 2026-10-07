@@ -272,6 +272,16 @@
 | `web-rmms-ui-align` | Align UI Home · tab · Field theo prototype iOS | — | support | `done` / `done` | none | [ctx](features/web-rmms-ui-align.md) | [ST](../../specs/web-rmms-ui-align/STATUS.md) |
 | `rmms-phan-quyen` | Phân quyền data tuần đường | — | support | `dev` / `done` | none | [ctx](features/rmms-phan-quyen.md) | — |
 | `gps-route-capture` | Fill tuyến theo GPS | — | P1 | `context` / `draft` | none | [ctx](features/gps-route-capture.md) | — |
+| `web-rmms-role-gate` | Quyền QL_HAT và vai theo chức danh | — | support | `done` / `done` | none | [ctx](features/web-rmms-role-gate.md) | [ST](../../specs/web-rmms-role-gate/STATUS.md) |
+| `web-rmms-cam-checkin` | Camera check-in tuần đường | — | support | `done` / `done` | none | [ctx](features/web-rmms-cam-checkin.md) | [ST](../../specs/web-rmms-cam-checkin/STATUS.md) |
+| `web-rmms-cam-journal` | Camera nhật ký tuần đường | — | support | `done` / `done` | none | [ctx](features/web-rmms-cam-journal.md) | [ST](../../specs/web-rmms-cam-journal/STATUS.md) |
+| `web-rmms-cam-incident` | Camera sự cố theo vai | — | support | `done` / `done` | none | [ctx](features/web-rmms-cam-incident.md) | [ST](../../specs/web-rmms-cam-incident/STATUS.md) |
+| `web-rmms-cam-finding` | Camera phiếu tuần kiểm và SLA | — | support | `done` / `done` | none | [ctx](features/web-rmms-cam-finding.md) | [ST](../../specs/web-rmms-cam-finding/STATUS.md) |
+| `web-rmms-cam-nghiem-thu` | Camera phiếu nghiệm thu | — | support | `done` / `done` | none | [ctx](features/web-rmms-cam-nghiem-thu.md) | [ST](../../specs/web-rmms-cam-nghiem-thu/STATUS.md) |
+| `web-rmms-cam-home` | Trang chủ và tab theo vai | — | support | `done` / `done` | none | [ctx](features/web-rmms-cam-home.md) | [ST](../../specs/web-rmms-cam-home/STATUS.md) |
+| `web-rmms-giao-viec-ql-hat` | Giao việc chỉ QL_HAT | — | support | `done` / `done` | none | [ctx](features/web-rmms-giao-viec-ql-hat.md) | [ST](../../specs/web-rmms-giao-viec-ql-hat/STATUS.md) |
+| `tuan-kiem-context` | Chuỗi sự cố, sổ nhật ký, báo cáo tuần kiểm | — | support | `dev` / `in_progress` | none | [ctx](features/tuan-kiem-context.md) | [ST](../../specs/tuan-kiem-context/STATUS.md) |
+| `quan-ly-context` | Ba vai — nghiệm thu và giao việc thuộc Quản lý | — | support | `context` / `draft` | none | [ctx](features/quan-ly-context.md) | [ST](../../specs/quan-ly-context/STATUS.md) |
 **Báo cáo `rpt-*`:** xem [§ Reports](#17--dashboard--báo-cáo). Pipeline STATUS **done** hết (release: P1 / P1.5 / P2 / P3 theo từng slug).
 
 **Draft mobile (CTX/analy):** `incident-list` — [STATUS](../../specs/). `cam-view` data_analy **PASS** → PO pending. `incident-create` · `field-reflect` · `cam-patrol` · `mnt-list` đã có CTX + data_analy (hoặc done).
@@ -285,6 +295,8 @@
 | Now | `platform-message` | SA → TL → Dev → QA → Review (`yarn run-implement`) |
 | Next | `platform-task` | data_analy sau message sticky |
 | Later | `rmms-task-integrate` | blocked đến message + task |
+| Later | `tuan-kiem-context` | `dev` / `in_progress` — apply migration sổ, dòng đối chiếu tuần đường, ảnh sau |
+| Later | `quan-ly-context` | Context draft — ba vai, nghiệm thu và giao việc thuộc Quản lý |
 | P1-900 | `ai-vision` | Dev · analy paused · QA/Review |
 | P1-900 | `patrol` | Dev leftover `crud_formtype` |
 | P1-900 | `incident` | **T-PILOT-01** e2e+HDSD+guide · Dev → QA → Review |
@@ -918,6 +930,24 @@ Pending domain folders (README only): `workflow`.
 | STATUS | [specs/mobile-cleanup-mock/STATUS.md](../../specs/mobile-cleanup-mock/STATUS.md) |
 | Next | Worker pick child tasks `roleOnly=dev` · `/edit-mobile-feature` · seed BFF |
 | Updated | 2026-09-01 |
+
+#### `quan-ly-context`
+
+| | |
+|--|--|
+| Release / implement | support · context đủ mô tả vai · chưa implement |
+| Demo | none |
+| Pipeline | `context` / `draft` |
+| Next | `/agent-qldb-workflow` khi user gọi implement · **cấm** đánh done |
+
+#### `tuan-kiem-context`
+
+| | |
+|--|--|
+| Release / implement | support · chat đã implement sự cố, sổ, báo cáo · chưa đủ pack |
+| Demo | none |
+| Pipeline | `dev` / `in_progress` |
+| Next | Apply `20261007165514_Schema_TuanKiemBook` · TK-SO-04 dòng đối chiếu · TK-SO-03 ảnh sau · **cấm** đánh done |
 
 #### `photo-geo-capture`
 

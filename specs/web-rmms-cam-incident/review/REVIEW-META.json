@@ -1,0 +1,18 @@
+{
+  "feature": "web-rmms-cam-incident",
+  "status": "PASS",
+  "review_confirm": "approve",
+  "skillVersion": "2026.09.05.03",
+  "contentHash": "sha256:e515f74ca821b652154473ac30eaec7bb13c8921acf6725b739dc4eb1744b8d1",
+  "taskId": "task_c4447acf",
+  "writtenAt": "2026-10-01T02:07:30.000Z",
+  "gates": {
+    "QUERY": "PASS",
+    "SEC": "PASS",
+    "UI-FN": "PASS",
+    "BE-FN": "PASS"
+  },
+  "softDebt": ["SOFT-E2E-WRITE", "SOFT-E2E-STOCK-ALIAS"],
+  "critical": [],
+  "autoApprove": true
+}

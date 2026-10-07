@@ -234,6 +234,17 @@ GAP-F-USR-05 **IN** · GAP-JOB-05 soft stub OK · GAP-F-USR-01 P2 no block. SA m
 | Form | DES-FORM | full-page | **+ jobTitleCode** |
 | Profile | DES-PROFILE | SearchInput catalog | note boundary |
 
+## Public register — cột lý trình (layout lock)
+
+Màn `/integration/users/register` (`UsersRegisterPage`).
+
+| Cột | Nội dung |
+|-----|----------|
+| Đoạn tuyến | `RouteChainageField` `part="route"` · nút Xóa · Thêm đoạn tuyến |
+| Lý trình | `RouteChainageField` `part="chainage"` · Từ km + Đến km (cột KM + khoảng cách) |
+
+Cấm gộp lại một cột «Đoạn tuyến / lý trình». Cùng control, không nhân bản ô km. Đăng ký cá nhân: hai cột cạnh nhau trong khối đoạn tuyến. Payload `segments` giữ `routeCode` + `kmFrom` + `kmTo`.
+
 ## Version meta (REQUIRED)
 
 | Field | Value |

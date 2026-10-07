@@ -71,6 +71,10 @@ Base client: Mobile BFF `…/mobile-bff/api/v1` · **cấm** web-bff base.
 ## WAIVE (phone)
 Kind B DES-GRID · LinErpListFilterBar · LinCatalogUiSchemaEditorModal · T-UI-FILTER · T-UI-HIST · DELETE — N/A P1
 
+## Notes — người NT theo tài khoản (2026-10-06)
+
+Ô Người NT readonly. Tạo mới gắn `caller` của `GET patrol/actors` (mã nhân viên). Sửa/xem giữ mã đã lưu, không đổi. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
+
 ## Debt / GAP keep
 - ZoneOrgCode: no reverse-geocode → GPS fills FieldInfo only · zone RO empty unless loaded
 - e2e **queued QA** — cấm Dev (`T-QA-FORM-01` · `T-QA-CRUD-01`)
