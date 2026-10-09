@@ -58,6 +58,7 @@ GPS: `navigator.geolocation` · **edit_page:** deny → báo khi bấm Create (b
 | `incident-list.md` · `incident-create.md` · `incident-detail.md` | Peer CTX native |
 | DOMAIN-MAP | Incident · MFE `/van-de` |
 | Code Current | `IncidentCreatePage.tsx` · `paths.ts` `INCIDENT_BASE=/van-de` |
+| Ảnh + viewer | [`lin-image-view-capture.md`](lin-image-view-capture.md) — `pins` và `LinImageView` khi lưu / xem ảnh |
 
 ## 5. Constraints HARD
 

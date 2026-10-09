@@ -26,6 +26,7 @@
 | 0a | `org-unit` | Cơ cấu tổ chức DRVN | Master | P1 | — (**no demo**) | Context | [org-unit.md](org-unit.md) |
 | 0b | `road-route` | Tuyến đường | Master | P1 | `Sau-sat-nhap/gov` raw tuyến | Context | [road-route.md](road-route.md) · [đề cương LRS](../24-TUAN-DUONG-DUONG-BO.md) |
 | 0b2 | `gps-route-capture` | Fill tuyến theo GPS (phone) | Patrol·Incident | P1 | Mobile capture · sự cố · check-in | Context | [gps-route-capture.md](gps-route-capture.md) |
+| 0b3 | `lin-image-view-capture` | LinImageView và capture ảnh | Incident·Patrol | P1 | Phone web · `FieldImageView` | Context | [lin-image-view-capture.md](lin-image-view-capture.md) |
 | 0c | `asset-type` | Loại tài sản KCHT | Master | P1 | `Sau-sat-nhap/gov` (catalog) | Context | [asset-type.md](asset-type.md) |
 | 0c2 | `traffic-sign-type` | Loại biển báo (mã QCVN) | Master | P1 | Excel số hiệu biển + dump `gov-vn` | Context | [traffic-sign-type.md](traffic-sign-type.md) |
 | 0d | `partner-unit` | Sở / BOT / Cty | Master | P1 | Seed 13 + Excel T6 `t6-org-scope` · CUC 2 = demo | Context | [partner-unit.md](partner-unit.md) |
@@ -99,6 +100,7 @@
 | 17k | `rpt-nhat-ky-tuan-kiem` | Nhật ký tuần kiểm | Report | P2 | GOVOne BDTX | Context | [rpt-nhat-ky-tuan-kiem.md](rpt-nhat-ky-tuan-kiem.md) |
 | 17k2 | `tuan-kiem-context` | Chuỗi sự cố, sổ, báo cáo tuần kiểm | Patrol | support | Phone + báo cáo | Implement | [tuan-kiem-context.md](tuan-kiem-context.md) |
 | 17k3 | `quan-ly-context` | Ba vai — nghiệm thu và giao việc thuộc Quản lý | Patrol | support | Phone | Context | [quan-ly-context.md](quan-ly-context.md) |
+| 17k4 | `review-rmms-role` | Rà màn phone theo 3 vai, đúng nút | Integration | support | Phone | Dev | [review-rmms-role.md](review-rmms-role.md) |
 | 17l | `rpt-nhat-ky-cong-viec` | Nhật ký công việc | Report | P2 | GOVOne BDTX | Context | [rpt-nhat-ky-cong-viec.md](rpt-nhat-ky-cong-viec.md) |
 | 17m | `rpt-thien-tai` | Thiên tai, bão lũ | Report | P2 | GOVOne Số liệu | Context | [rpt-thien-tai.md](rpt-thien-tai.md) |
 | 17n | `rpt-thiet-hai` | Khối lượng thiệt hại | Report | P2 | GOVOne Số liệu | Context | [rpt-thiet-hai.md](rpt-thiet-hai.md) |

@@ -58,6 +58,8 @@ Lào/Campuchia = biển clip (`vietnam.poly` + không OSM đất ngoài VN) — 
 
 **Tile fetch (MFE · `gisMapRuntime.ts` · 2026-09-03):** chip **Live \| Cache** trên map-bar. **Live** (`real`, DEV mặc định): `?v=session` + `volatile` + `Cache-Control: no-cache` — zoom **phải** thấy `…/gis/tiles/{basemap\|boundaries}/{z}/{x}/{y}.pbf` trên Network. **Cache:** HTTP max-age (prod). Ghi đè: `?gisTiles=real` · `VITE_GIS_TILE_FETCH`. **Cấm** nhầm `:9307` (Workflow) với GIS **`localhost:9302/gis/tai-san`**. Overlay TS chỉ vẽ khi **tick** lớp — nền beige = `vn-land`, không phải pin 107k.
 
+**Glyph (2026-10-09):** `buildVnClipMapStyle` trong `Linm.Web.Map.Components` (GIS re-export package). `glyphs` = `{api base}/gis/fonts/{fontstack}/{range}.pbf`. Web base `https://web-bff.rmms.vn/web-bff/api/v1`. Phone base `VITE_MOBILE_API_URL` → `mobile-bff`. `transformRequest` gắn header font **giống** `/gis/tiles/` (`Authorization`, `X-Company-Id`, Live `Cache-Control: no-cache`). **Cấm** browser `https://demotiles.maplibre.org/font/…` — host đó không nhận `OPTIONS`; `X-Device-Id` trên request đó thành **405** (interceptor 2026-10-08). Header device chỉ cùng origin và host `rmms.vn` / `linm-soft.com`. Nhãn mất khi font 404; nét đường vẫn là tile `basemap`. Package đang chạy **1.4.0** còn URL demo đến khi publish (`GAP-MAP-GLYPH-01`).
+
 **Zoom bước (`GAP-MAP-ZOOM-STEP`):** `zoomSnap: 0` giữ fill VN (`GAP-MAP-ZOOM-FILL`). **+/-**, phím, **lăn chuột** cùng `VN_CLIP_ZOOM_DELTA` **1** (tắt Leaflet `scrollWheelZoom` fractional `delta/60`). Plugin GL zoom = Leaflet − 1.
 
 **Empty OSM / răng cưa:** miss `basemap` z≤12 = **200 rỗng `no-store`** (không 404 native — MapLibre không overzoom) · z>12 = **404** overzoom parent · `boundaries` maxzoom **16** · simp/pad/buffer PostGIS (`GAP-MAP-MVT-SIMP`).
@@ -114,6 +116,7 @@ Xem [`map-service.md`](map-service.md). Client không giữ polygon chủ quyề
 | GAP-MAP-PANE-ALIVE | **CLOSED 2026-09-03 web** — `isVnClipMapAlive` + clear clip timers on `unload` · **cấm** `setMaxBounds` sau `remove()` |
 | GAP-MAP-PIN-ZOOM | **CLOSED 2026-09-03 web** — plugin `padding: 0` · **cấm** `0.1`/`0.15` (canvas lệch / map trống khi zoom) |
 | GAP-MAP-TILE-EMPTY-ZOOM | **CLOSED 2026-09-03 web** — empty PBF cache + overzoom in-memory → map trống / Network trống. Live bust `?v=` · OSM miss z≤12 **200 no-store** · z>12 **404** |
+| GAP-MAP-GLYPH-01 | **OPEN deploy 2026-10-09** — source glyph = BFF `gis/fonts` + header giống tile. Prod font **404**. **Cấm** gọi `demotiles.maplibre.org` từ browser |
 | GAP-MAP-ZOOM-STEP | **CLOSED 2026-09-03 web** — +/- và lăn chuột cùng bước `VN_CLIP_ZOOM_DELTA=1` · **cấm** wheel `delta/wheelPx` |
 | GAP-MAP-MVT-SIMP | **CLOSED 2026-09-03** — `ST_Simplify` mịn + clip pad + MVT buffer **256** (GL z = Leaflet−1 · **cấm** simp thô bậc thang bờ biển) |
 | GAP-MOB-IOS-MAP-HOST-01 | **closed** `task_1f6d86c4` — patrol + HITL reuse `GisClipMapView` |
@@ -129,5 +132,6 @@ Xem [`map-service.md`](map-service.md). Client không giữ polygon chủ quyề
 - [x] Zoom max **16** (`GAP-MAP-ZOOM-MAX`) · pin detail pad bbox (`GAP-MAP-PIN-DETAIL-BBOX`) — `/gis/live`  
 - [x] Tile **Live** bust cache (`GAP-MAP-TILE-EMPTY-ZOOM`) · `padding: 0` (`GAP-MAP-PIN-ZOOM`) · +/- = wheel (`GAP-MAP-ZOOM-STEP`) — `/gis/tai-san` `:9302`  
 - [x] Map-bar **Vị trí của tôi** (cấm Fit trên bar) — native copy [`patrol-map.md`](patrol-map.md)  
+- [ ] Glyph BFF **200** (`GAP-MAP-GLYPH-01`) · Network **0** `demotiles.maplibre.org`
 - [ ] Staff overlay 401 unsigned  
 - [ ] `/review-map-release`

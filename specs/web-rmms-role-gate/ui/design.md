@@ -164,6 +164,7 @@ Persona board: Tuần đường | Tuần kiểm | Nghiệm thu | Hạt trưởng
 | RG-02 / RG-03c | **LeaveConfirmModal** · toast API fail · **cấm** `window.alert`/`confirm` |
 | Gate deny | toast in-app |
 | Route confirm | `/xac-nhan-tuyen` khi `needsRouteConfirm` · checkbox «Bạn là quản lý» làm tuyến optional · tuần đường/tuần kiểm bắt buộc |
+| Chức vụ view | `/cau-hinh-chuc-vu`: tick Enable nhiều view, một Default. `ViewCode` là default. Phiên đổi trong các view đã bật, vào default. |
 | Boot | Sau login, `/web-rmms-role-gate` mount trong MemoryRouter. Không giữ “Đang tải hệ thống…” bằng cách gọi lại `session-window`. |
 
 ## 7. Handoff → SA / TL

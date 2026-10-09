@@ -71,6 +71,14 @@ Base client: Mobile BFF `…/mobile-bff/api/v1` · **cấm** web-bff base.
 ## WAIVE (phone)
 Kind B DES-GRID · LinErpListFilterBar · LinCatalogUiSchemaEditorModal · T-UI-FILTER · T-UI-HIST · DELETE — N/A P1
 
+## Notes — vị trí không phủ màn (2026-10-08)
+
+Form nghiệm thu thiếu quyền vị trí thì hiện lỗi trên ô Định vị và dưới ảnh hiện trường lúc mở. Bấm lỗi hiện cách bật Vị trí. Không tự `location.reload()` — app cài iOS/Android manifest không còn vòng tải lại. User tự tải lại sau khi bật. Lỗi nằm trong dải `bannerWarn`. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
+
+## Notes — xem, ký, tên (2026-10-08)
+
+Danh sách không trả `signature`. Chỉ `signed` và `signedAt`. Ảnh lưu DB dạng `enc:v1:{kid}:…` (AES-256-GCM). Key `NghiemThu:Signature` trong appsettings. Chi tiết giải mã khi kid có trong vòng key; sai key thì `signed` vẫn true, ảnh null. `viewOnly` khi sửa và chưa bấm Sửa, trừ `done` chưa ký (form sửa). Layout xem là `src/shared/detail/DetailView.tsx`, chi tiết sự cố dùng cùng component. Nháp và `in_progress` hiện nút Sửa (`formOpen`). Nút Nghiệm thu gửi `status=done` cùng data URL chữ ký và `signedByName`. Cột `AssigneeName`, `Signature`, `SignedByName`, `SignedAt` — migration `20261008142021_Schema_NghiemThuSign`. Update bỏ qua chữ ký rỗng nên Lưu không xóa chữ ký đã có. Người NT: tạo lấy `actor.label`, sửa lấy `assigneeName` hoặc `resolveActorName`.
+
 ## Notes — người NT theo tài khoản (2026-10-06)
 
 Ô Người NT readonly. Tạo mới gắn `caller` của `GET patrol/actors` (mã nhân viên). Sửa/xem giữ mã đã lưu, không đổi. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.

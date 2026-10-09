@@ -66,6 +66,7 @@ Khoảng cách đo tới đoạn thẳng của `LineString`, không chỉ tới 
 |----|----------|---------|
 | GAP-GPS-ROUTE-01 | Phiếu phát hiện và dòng nhật ký chưa có cột tuyến | Giữ tuyến của ca. Capture chỉ tô nét. Không thêm cột trong đợt này |
 | GAP-GPS-ROUTE-02 | Hành lang bbox sắp theo số tài sản, `take=40` | Mã ca được hỏi thêm khi thiếu trong 40 dòng |
+| Ảnh trên capture | Ghim và xem `LinImageView` | [`lin-image-view-capture.md`](lin-image-view-capture.md) |
 
 ## 7. Demo checklist (chốt khách)
 

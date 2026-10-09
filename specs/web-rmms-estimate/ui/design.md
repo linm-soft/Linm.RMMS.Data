@@ -129,7 +129,7 @@
 | header.model | EST-F | Text RO | — | ModelVersion |
 | header.laborHours | EST-F | NumberInput | — | lock after confirm |
 | header.equipment | EST-F | Text | — | lock after confirm |
-| header.durationDays | EST-F | NumberInput | — | lock after confirm |
+| header.durationDays | EST-F | NumberInput | — | Số ngày dự kiến · lock after confirm |
 | lines | EST-F | InlineList | * | Lines[] mobile rows |
 | line.itemCode | EST-F | Text | — | ItemCode |
 | line.itemName | EST-F | Text | — | ItemName |
@@ -151,7 +151,7 @@
 | empty | EST-EMPTY | EmptyState | — | thiếu incidentId |
 | toast.ok/fail | TOAST | Toast | — | **cấm** alert |
 
-**Labels:** `useFormOptions()` / `estimate.*` keys — prototype hiện VN để review; Dev wire key. Copy 2026-10-05: không viết tắt — Giờ nhân công · Ngày thi công · Mã / Tên hạng mục · Khối lượng · Đơn vị tính.
+**Labels:** `useFormOptions()` / `estimate.*` keys — prototype hiện VN để review; Dev wire key. Copy 2026-10-08: không viết tắt — Giờ nhân công · Số ngày dự kiến · Mã / Tên hạng mục · Khối lượng · Đơn vị tính.
 
 **FormMode↔API**
 

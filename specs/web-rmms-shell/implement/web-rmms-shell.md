@@ -84,7 +84,11 @@
 
 ## Notes — quyền camera / vị trí (2026-10-06)
 
-Màn cần camera hoặc vị trí mà trình duyệt chưa `granted`: lớp phủ full màn (`BrowserPermissionWall`). Hiện câu cần quyền, dòng bấm **Cho phép camera** / **Cho phép vị trí**. Hướng dẫn tự chọn: tab = ổ khóa cạnh địa chỉ; app cài (`display-mode: standalone`) = Android mở trình duyệt vào đúng trang rồi Cho phép, Safari trên iPhone, hoặc ổ khóa thanh tiêu đề trên máy tính. `PermissionStatus` `change` → `granted` thì `location.reload()`. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
+Màn cần camera mà trình duyệt chưa `granted`: lớp phủ full màn (`BrowserPermissionWall`). Hiện câu cần quyền, dòng bấm **Cho phép camera**. Hướng dẫn tự chọn: tab = ổ khóa cạnh địa chỉ; app cài (`display-mode: standalone`) = Android mở trình duyệt vào đúng trang rồi Cho phép, Safari trên iPhone, hoặc ổ khóa thanh tiêu đề trên máy tính. Camera `granted` thì `location.reload()`.
+
+## Notes — vị trí trên form gửi (2026-10-08)
+
+Form gửi không phủ full màn khi thiếu vị trí. Lúc mở form hiện lỗi trên chỗ định vị. Bấm lỗi thì hiện cách bật Vị trí (tab hoặc app cài iOS/Android). Trang không tự tải lại; user tự tải lại sau khi bật. App cài manifest không còn vòng `location.reload()` vì query vị trí nhảy `prompt`/`granted`. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
 
 ## Notes — xác nhận tuyến (2026-10-07)
 
@@ -93,6 +97,14 @@ Shell đưa về `/xac-nhan-tuyen` khi hồ sơ `needsRouteConfirm`. Ẩn tab ba
 ## Notes — Tôi: lý trình, mật khẩu, thông tin (2026-10-07)
 
 `/toi/ly-trinh` bind `segments` và `confirmations`. Mỗi lần xác nhận thêm dòng `rmms_user_route_confirms`. Đổi mật khẩu gọi `POST auth/change-password`. Cập nhật thông tin gọi `PUT auth/profile` rồi `PUT integration/users/me/profile`. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile` và `dotnet build` API.
+
+## Notes — đổi mật khẩu hiện ô + luật (2026-10-08)
+
+`/toi/doi-mat-khau` dùng một cờ hiện/ẩn cho cả 3 ô (nút mắt như login). Mật khẩu mới chặn khi thiếu 6 ký tự hoặc thiếu chữ số. Nhập lại chỉ kiểm tra khớp. Dòng luật đen khi trống, đỏ khi đang nhập mà sai, xanh khi đạt. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
+
+## Notes — tab Nghiệm thu (2026-10-08)
+
+`TAB_LOOKUP_STATIC` `fieldNt` = Nghiệm thu. Nhãn tab nằm trong `.tabLabel` (`text-align: center`, full width) để chữ nằm giữa icon. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
 
 ## Notes — scrollbar mép cột
 

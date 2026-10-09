@@ -49,6 +49,8 @@
 
 **Cấm** invent tab · «Có mạng» · watermark Gói · device label trên title.
 
+Web phone `/toi/thiet-bi`: danh sách trình duyệt của tài khoản (đăng nhập, dùng gần nhất, đăng xuất một thiết bị) từ `GET auth/sessions`. Admin `/admin/login-activity`: thiết bị nền tảng và lịch sử đăng nhập.
+
 ## 3. Field inventory
 
 | Field | VN | Kit dual | Notes |

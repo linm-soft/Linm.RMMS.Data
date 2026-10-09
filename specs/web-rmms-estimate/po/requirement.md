@@ -83,7 +83,7 @@ Prototype zone (Design 1-1): estimate form · reviewUrl — **không** demo SSOT
 | header.incident/* | Text RO | GET incident |
 | header.code / sourceType / model / status | Text/Badge RO | detail · lock after confirm |
 | header.defectType / severity | Select | init-data |
-| header.defectArea / laborHours / durationDays | NumberInput | write PUT |
+| header.defectArea / laborHours / durationDays | NumberInput | write PUT · nhãn Số ngày dự kiến |
 | header.equipment | Text | write PUT |
 | lines.* | InlineList | Qty `NumberInput` · UnitPrice `MoneyInput` · Amount `LabelMoney` · add/remove · min 1 |
 | totalAmount | LabelMoney RO | TotalAmount |

@@ -54,6 +54,12 @@
 
 ## Notes
 
+- 2026-10-08: Một view thì ẩn card Views. Chip chỉ hiện tên view, không có «Đang xem».
+- 2026-10-08: Header tên trên Tôi dùng cùng thẻ xanh Trang chủ: pill tín hiệu, title lớn, chip Đang xem.
+- 2026-10-08: Ô Views trên Tôi và role-gate là icon màu + tiêu đề, cùng kiểu lưới Nghiệp vụ thường dùng.
+- 2026-10-08: Tab Tôi có menu Views và card chọn view (cùng lưới với role-gate). Card role-gate đổi tên Views.
+- 2026-10-08: Một chức vụ bật nhiều view (Enable) và một Default. Cột `rmms_job_titles.EnabledViewCodes` (JSON). `ViewCode` là default. Hồ sơ trả `enabledViewCodes` + `viewCode`. Nhiều view thì phiên chọn trong danh sách đó và vào default. Verify: `yarn typecheck` Mobile · `dotnet build` API + Mobile BFF · migration `Schema_JobTitleEnabledViews`.
+
 - 2026-10-05: Login success stuck on role-gate loader. In-app nav now updates MemoryRouter while the URL is already `/m/…`. Session-window is one shared call; role-gate renders without waiting on that boot. Verify: login → `/m/web-rmms-role-gate` shows the pick screen, Network has a single `session-window`.
 - 2026-10-05: Chọn vai không được đưa về màn Khách. Có token thì `staff` bật ngay, không chờ `notification/overview`. Overview một request đang bay. Verify: chọn Tuần đường → Trang chủ còn đăng nhập, Network một `overview`.
 - 2026-10-07: Màn `/cau-hinh-chuc-vu` cấu hình mã, tên, view (view ở trên). `ViewCode` trên `rmms_job_titles`. Hồ sơ trả `viewCode` + `roleCaps` theo chức vụ của user. Verify: sửa Chuyên viên sang Tuần kiểm, đăng nhập lại `RMMS-VPI1-005` vào `/tuan-kiem`.

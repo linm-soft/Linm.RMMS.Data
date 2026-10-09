@@ -6,6 +6,8 @@
 **Brand tokens:** Primary `#0C84C0` · deep `#086A9A` · success `#34C759` · orange `#FF9500` · surface `#F2F2F7` · label `#1C1C1E` · muted `#8E8E93`  
 **Hash skip:** DA contentHash `sha256:incident-create-control-hint-20260829` · **cấm** re-scan DemoRoot (`GAP-DES-DEMO-RESCAN-01`)
 
+**Context lock (2026-10-09):** Camera nhúng form này trong sheet (`embed`). Tài sản `PAVEMENT`, ảnh đã upload. Tạo xong gọi `onCreated`, không rời màn camera.
+
 ## 1. IA
 
 ```

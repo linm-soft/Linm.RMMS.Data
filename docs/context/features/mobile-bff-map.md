@@ -26,7 +26,10 @@ Reuse Signed GIS. **Cấm invent.**
 | Path app | BFF | Downstream |
 |----------|-----|------------|
 | `gis/tiles/{layer}/{z}/{x}/{y}.pbf` | MapService proxy (parity Web `GisBffController`) | `{MapService}/api/v1/gis/tiles/…` |
+| `gis/fonts/{fontstack}/{range}.pbf` | `GisTilesController` — cùng proxy tile | `{MapService}/api/v1/gis/fonts/…` |
 | `gis/clusters` · `gis/geojson` · drawings | catch-all / explicit | RMMS `api/v1/gis/*` `{AssetDb}` |
+
+Catch-all `MobileApiProxyController` **không** forward `gis/tiles`, `gis/fonts`, `gis/streets` sang RMMS API. Phone base = `VITE_MOBILE_API_URL` (`…/mobile-bff/api/v1`), không `web-bff`.
 
 **Cấm** `AddLinmMapServiceBffControllers` (duplicate `gis`). **Cấm** `{MapDb}` thứ 2 cho mobile.
 
@@ -45,6 +48,7 @@ Không.
 | GAP-MOB-BFF-MAP-01 | Mobile.Bff chưa `ServiceEndpoints:MapService` |
 | GAP-MAP-OSM-CDN-01 | Native còn CDN nếu TileUrl chưa BFF clip |
 | GAP-MOB-BFF-MAP-02 | Catch-all `gis/tiles` hiện đi RMMS, không clip |
+| GAP-MAP-GLYPH-01 | **OPEN deploy 2026-10-09** — source `gis/fonts` trên Mobile.Bff. Prod chưa có route (web-bff font **404**) |
 
 ## 7. Demo checklist
 

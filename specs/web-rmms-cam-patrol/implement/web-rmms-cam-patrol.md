@@ -51,6 +51,13 @@
 - Frame = `<input capture=environment>` → base64
 - E2E: queued `/agent-qa*` — **cấm** e2e ở Dev
 
+## Notes — edge ONNX (2026-10-08)
+
+- UI có công tắc Camera (mặc định) / Tải file. Ảnh dừng quét khi đã nhận. Video và camera dừng khi cuộn tới vùng sự kiện, bấm danh sách, hoặc mở sự kiện, kèm dòng vàng “Đã dừng nhận diện để tránh lag.” Khung camera, ảnh xem lớn, và hàng dropdown mô hình có `data-pull-lock`: kéo hoặc chạm ở đó không gọi làm mới trang. Đổi nguồn cũng dừng và hiện dòng vàng cho tới khi bấm bắt đầu hoặc chọn file. Camera gắn tọa độ `watchPosition` vào ảnh đã nhận. File không đọc được track GPS của camera hành trình. Mặt đường (nhãn Sự cố) nạp `public/ai-model/mat-duong-model.onnx` (YOLO11s, 1 lớp `pothole` hiện «Ổ gà», output `[1,5,8400]`, ngưỡng 0.25). Xác nhận mở sheet, upload JPEG rồi `POST /incident/incidents` với `mediaIds`, không chặn GPS hay 0.75.
+- Biển báo: `public/models/traffic-sign-yolo11s.onnx` = [YOLO11s 82 lớp](https://huggingface.co/star092304/traffic-sign-detection-vietnam-yolo), output `[1,86,8400]`, ngưỡng 0.25. Ảnh Hội An tốc độ 30 ra lớp 62 khoảng 0.76. File không nạp nằm ở `public/models/_archive/` (`traffic-sign.onnx`, `yolov8n-coco.onnx`, `yolov8n.onnx`). Hit dưới 0.75 không POST.
+- BE: `POST api/v1/ai-vision/edge-sync` lưu `rmms_ai_vision_detections` Engine=P2 · SourceKind=`edge-onnx` · không ghi base64 vào ImageUrl. Ảnh bằng chứng chỉ ở preview máy. Dedupe 12 giây cùng loại trong ~30 m. Không thêm cột.
+- Verify: `yarn typecheck` MFE · `dotnet build` RMMS.Service.Api. Quét thật cần file onnx và quyền camera/GPS.
+
 ## nextSlash
 
 `/agent-qa` · roleOnly stop (GAP-PKT-ROLE-01)

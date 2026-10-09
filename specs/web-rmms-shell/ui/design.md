@@ -197,11 +197,21 @@ Empty/error/403 → toast in-app · **cấm** `window.alert`.
 
 ## Notes — quyền camera / vị trí (2026-10-06)
 
-Lớp phủ full màn khi tính năng cần camera hoặc vị trí mà người dùng chưa cho phép. Dòng bấm gọi đúng quyền. Hướng dẫn tự đổi: tab trình duyệt hoặc app đã cài. Cho phép rồi thì tải lại trang.
+Lớp phủ full màn khi tính năng cần camera mà người dùng chưa cho phép. Dòng bấm gọi đúng quyền. Hướng dẫn tự đổi: tab trình duyệt hoặc app đã cài. Cho phép camera rồi thì tải lại trang.
+
+## Notes — vị trí trên form gửi (2026-10-08)
+
+Form gửi thiếu vị trí thì hiện lỗi trên form lúc mở, không phủ kín màn. Bấm lỗi hiện cách bật Vị trí. Không tự tải lại; user tự tải lại.
 
 ## Notes — Tôi: lý trình, mật khẩu, thông tin (2026-10-07)
 
 `/toi` thêm Xem lý trình của tôi (`/toi/ly-trinh`: đoạn tuyến hiện tại và lịch sử thời gian xác nhận), Đổi mật khẩu (`/toi/doi-mat-khau`), Cập nhật thông tin (`/toi/cap-nhat`: họ tên, điện thoại, email).
+
+`/toi/doi-mat-khau`: nút mắt cùng kiểu login, một lần bấm hiện cả 3 ô. Mật khẩu mới theo Identity: tối thiểu 6 ký tự và có 1 chữ số. Nhập lại chỉ so khớp. Dòng luật: chưa nhập đen, đang nhập sai đỏ, đạt xanh.
+
+## Notes — tab Nghiệm thu (2026-10-08)
+
+Tab vai nghiệm thu (`fieldNt`) hiện **Nghiệm thu**, chữ căn giữa dưới icon.
 
 ## Notes — scrollbar mép cột
 

@@ -44,6 +44,7 @@ Reuse Signed GIS (MapService):
 | GET | `/api/v1/gis/basemap-config` | Guest · `provider=map-service-clip-osm` khi P2 ready · maxBounds 102–118 / **6.8–23.5** · minZoom 5 |
 | GET | `/api/v1/gis/layers` | Guest thấy lớp public; inspector thêm overlay |
 | GET | `/api/v1/gis/tiles/{layer}/{z}/{x}/{y}.pbf` | Guest: `basemap`/`boundaries`/`mask`/`notices`. Inspector: `routes`/`assets`/`cameras`/`patrol`. **`basemap`** = MBTiles OSM (`OsmTileMaxZoom` **12**). Empty z≤12 → **200** `no-store` (ocean). Empty z>12 → **404** (MapLibre overzoom). **`boundaries`** = PostGIS ST_AsMVT · empty ocean **200**. Query `?v=` MFE Live — BFF bỏ query khi forward MapService. |
+| GET | `/api/v1/gis/fonts/{fontstack}/{range}.pbf` | Guest. Nhãn MapLibre (`Noto Sans Regular` only). Range 256 mã, `start % 256 = 0` và `end = start + 255`. Sai font/range → **400**. Upstream miss → **404** `no-store`. **200** → `IMemoryCache` **24h** + `Cache-Control: public, max-age=86400`. **Không** cache đĩa MBTiles. Upstream server-side `Map:GlyphFontUpstream` (mặc định `https://demotiles.maplibre.org/font`). **Cấm** trình duyệt gọi host đó. BFF: `web-bff` + `mobile-bff` `…/gis/fonts/…`. |
 | GET | `/api/v1/gis/geojson/{layer}?bbox=` | JWT inspector; **cấm** guest |
 | GET | `/api/v1/gis/streets/search?lat=&lng=&km=` | **AllowAnonymous** + rate limit. **Cấm** 401 — interceptor phone đá login. Đồ thị `street.lua` (`Map:OsrmStreetBaseUrl`, host `:5001`) — primary/secondary/tertiary/residential/service/unclassified **và** pedestrian, living_street, footway, path. Nearest named way trong 80 m (`number=8`). `km` = lý trình caller. **Cấm** `router.project-osrm.org`. BFF: `web-bff` + `mobile-bff` `…/gis/streets/search`. Car `/route` vẫn `car.lua` cổng 5000. |
 
@@ -62,6 +63,8 @@ Chỉ dump WGS-84. **Cấm** 650k GeoJSON · **cấm** km-lerp. Guest không pin
 Import KCHT: pipeline [`import-gov-ssot.md`](import-gov-ssot.md) — **cấm** OSM POI làm sổ TS.
 
 Tile URL prod = BFF cùng origin — **GAP-MAP-OSM-CDN-01 CLOSED web**. Live API nội bộ: `http://localhost:5021/api/v1/gis/tiles/basemap/{z}/{x}/{y}.pbf` (verify 200 MVT). Palette MFE: [`gis-osm-clip.md`](gis-osm-clip.md) §2.
+
+**Glyph (2026-10-09):** trình duyệt dùng cùng base với tile. Web `https://web-bff.rmms.vn/web-bff/api/v1/gis/fonts/{fontstack}/{range}.pbf`. Phone `https://mobile-bff.rmms.vn/mobile-bff/api/v1/gis/fonts/…` (`VITE_MOBILE_API_URL`). Probe cùng ngày: tile `basemap/4/12/6.pbf` **200** · font `Noto Sans Regular/0-255.pbf` **404** — route chưa deploy (`GAP-MAP-GLYPH-01`). Không thêm env trình duyệt. Config mới chỉ `Map:GlyphFontUpstream` / `Map__GlyphFontUpstream`.
 
 ## 4. Database
 
@@ -114,6 +117,7 @@ Import gov xong → rebuild overlay MVT. Clip PBF mới → invalidate tile cach
 | GAP-MAP-TILE-EMPTY-ZOOM | **CLOSED 2026-09-03** — OSM empty native **200 no-store** (cấm 404 z≤12) · z>12 **404** · MFE Live `?v=` — [`gis-osm-clip.md`](gis-osm-clip.md) |
 | GAP-MAP-MVT-SIMP | **CLOSED 2026-09-03** — boundaries simp/pad nhỏ + MVT buffer **256** (GL = Leaflet−1) |
 | GAP-MAP-OSRM-SELFHOST-01 | **OPEN runtime** — client **0** `project-osrm.org` (GIS + Asset sổ 10 + Demo HTML fail-closed · 2026-09-19) · compose+script+nginx **done** · extract/HTTPS smoke = Linux **DEFER** · native iOS Debug public **còn** |
+| GAP-MAP-GLYPH-01 | **OPEN deploy 2026-10-09** — source `GET gis/fonts` + cache RAM 24h. Prod web-bff font **404** đến khi deploy MapService và BFF. Package map **1.4.0** vẫn `demotiles.maplibre.org` đến khi publish |
 
 ## 7. Demo checklist
 
@@ -128,6 +132,7 @@ Import gov xong → rebuild overlay MVT. Clip PBF mới → invalidate tile cach
 - [x] Chip **Tiêu chuẩn / Vệ tinh** OSM Carto muted (`GAP-MAP-OSM-TONE-01`) · **cấm** Default/Streets EN
 - [x] OSM miss z≤12 **200 no-store** · z>12 **404** · MBTiles `/cache` (`GAP-MAP-TILE-EMPTY-ZOOM`)
 - [x] Web MFE + Asset sổ 10 + Demo HTML **0** `router.project-osrm.org` (default `127.0.0.1:5000` · fail-closed URL · Demo `assertSelfHostOsrm`)  
+- [ ] Glyph BFF (`GAP-MAP-GLYPH-01`) — deploy xong `…/gis/fonts/Noto%20Sans%20Regular/0-255.pbf` **200** · lần hai không gọi upstream
 - [ ] Native iOS Debug `OsrmBase` — **cấm** public (repo native không trong workspace)  
 - [ ] OSRM self-host graph extract trên Linux (~4 GB) · `docker compose --profile osrm up` · smoke `/nearest` `code=Ok`
 - [ ] Nginx TLS `/route/v1/` + `/nearest/v1/` · MFE/prod `VITE_OSRM_URL` HTTPS

@@ -7,7 +7,8 @@
 **Hash skip:** DA `sha256:cam-patrol-control-hint-20260912-frame` · **cấm** re-scan DemoRoot (`GAP-DES-DEMO-RESCAN-01`)  
 **changeScope:** `edit_page` · § Delta FRAME · **cấm** full redesign
 
-**Context lock:** finder stamp = live active session · empty = «Chưa có ca đang chạy» · **cấm** demo SSOT stamp on native.
+**Context lock:** finder stamp = live active session · empty = «Chưa có ca đang chạy» · **cấm** demo SSOT stamp on native.  
+**Context lock (2026-10-09):** Xác nhận trên list mở sheet form Ghi sự cố (mặt đường + ảnh). List giữ nguyên. Tạo xong đóng sheet, card đó hiện «Đã tạo sự cố» và ẩn nút. Tạo tiếp các card khác.
 
 ## 1. IA
 

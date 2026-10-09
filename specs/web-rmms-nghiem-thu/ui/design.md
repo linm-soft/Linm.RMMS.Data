@@ -227,6 +227,14 @@ Empty list → NT-04 · error/503 → toast in-app · **cấm** `window.alert` �
 | Dev | `/agent-dev` · `NghiemThuFormPage.tsx` Delta only · no seed · align-mobile-to-mfe |
 | QA | Pattern B submit · SearchInput 200 · capture · GPS deny no lock · e2e queued |
 
+## Notes — vị trí trên form (2026-10-08)
+
+Thiếu quyền vị trí: lỗi trên form lúc mở, bấm lỗi hiện cách bật. Không phủ kín màn và không tự tải lại. Dải cảnh báo cùng màu với dải trạng thái (`bannerWarn`).
+
+## Notes — xem, ký, tên người NT (2026-10-08)
+
+Màn xem dùng `DetailView` chung với chi tiết sự cố: một mã, một nhãn trạng thái, một thẻ nhiều dòng. Không tách mỗi trường thành một ô. Nháp và Đang nghiệm thu có nút Sửa để mở form. `done` chưa ký vẫn là form sửa. Nút Nghiệm thu kèm tên người và khung ký tay; sau khi ký cả màn chuyển sang xem. Người NT hiện tên.
+
 ## Version meta
 
 `skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:b8f3ce70ff3e80073c39d2dac6a01d2fed2e98232877ef6979881eef8e37acb4` · `rulesVersion=2026.09.25.2` · `updatedAt=2026-09-27T15:10:00.000Z` · `design_confirm=approve` · `taskId=task_c6a6da70` · `changeScope=edit_page`

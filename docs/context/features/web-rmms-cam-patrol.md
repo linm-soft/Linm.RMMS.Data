@@ -45,6 +45,7 @@ Trong ca Field đang mở: **finder camera + GPS chốt** → `POST ai-vision/de
 | Screens | `docs/plan/web-rmms-mobile/SCREENS.md` · `/field/cam` Camera tuần |
 | Plan / task | `docs/plan/web-rmms-mobile/PLAN.md` · `TASKS.md` T-W3-09 `CamPatrolView` |
 | Peer CTX | `docs/context/features/cam-patrol.md` (DES-MOB-CAM-* · gaps FRAME) |
+| Ảnh + viewer | [`lin-image-view-capture.md`](lin-image-view-capture.md) — file gốc, Geo/Pin/Detect, `LinImageView` |
 | Peers | `patrol-home` · `ai-vision` · `field-reflect` · `incident` · waves `web-rmms-mobile-a`…`e` |
 | DOMAIN-MAP | `Linm.RMMS.WebService/docs/DOMAIN-MAP.md` · Patrol · AiVision · Incident |
 | Prototype cite | `specs/mobile-p1/ui/prototype/{android}/index.html` `#sc-cam-patrol` · **chỉ** Design 1-1 · **không** ship demo SSOT |
@@ -81,6 +82,21 @@ Trong ca Field đang mở: **finder camera + GPS chốt** → `POST ai-vision/de
 | Màn | Ai |
 |-----|-----|
 | CP-01 | Nhân viên Field — Tuần đường (BDTX) hoặc Tuần kiểm (Khu/VP) trong ca `Đang tuần` |
+
+## 7. Link tải đã chốt
+
+Chỉ model đang nạp trên trang và link đã dùng để tải ảnh / train. **Không** ghi file trong `public/models/_archive/`.
+
+| Việc | File trên trang | Link |
+|------|-----------------|------|
+| Tải ảnh ổ gà đã gắn nhãn | — | [Annotated Potholes Dataset](https://www.kaggle.com/datasets/chitholian/annotated-potholes-dataset?resource=download) |
+| Upload ảnh lên project train | — | [Roboflow o-ga — Upload](https://app.roboflow.com/linm-soft/o-ga-goasa/upload) |
+| Version dataset (640, Fit black) | — | [Roboflow o-ga — Versions](https://app.roboflow.com/linm-soft/o-ga-goasa/1) |
+| Train YOLOv11 Small | — | [Roboflow o-ga — Train](https://app.roboflow.com/linm-soft/o-ga-goasa/train) |
+| Các bước train | — | `docs/tinh-nang/ai-vission/train-o-ga.md` |
+| Train, convert, plan gộp lớp | — | [`ai-vision.md`](ai-vision.md) §8 |
+| Mặt đường đang chạy | `public/ai-model/mat-duong-model.onnx` | YOLO11s 1 lớp `pothole` · Roboflow `o-ga-goasa` · [Kaggle](https://www.kaggle.com/datasets/chitholian/annotated-potholes-dataset?resource=download) |
+| Biển báo đang chạy | `public/ai-model/traffic-sign-yolo11s.onnx` | [YOLO11s 82 lớp Việt Nam](https://huggingface.co/star092304/traffic-sign-detection-vietnam-yolo) |
 
 ## Version meta
 
