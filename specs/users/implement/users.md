@@ -47,6 +47,14 @@ Prior A–D (route filter · CRUD · MultiSearchCsv · View `<dl>` · full-page)
 | BE `dotnet build` | **PASS** (0 error) |
 | E2E | **cấm** role Dev · queued `/agent-qa*` |
 
+## Notes — Khu hiện tên
+
+View và list resolve `khuCode` qua cây org (`getTree` / `treeItems`). `REG-I` hiện «Khu Quản lý đường bộ I». List: cột **Khu** rồi **Văn phòng**. Văn phòng giữ chuỗi tên đã lưu. Không thêm cột DB.
+
+## Notes — view đoạn tuyến tách dòng
+
+`UsersFormPage` view: `filledSegments` render từng `segmentStamp` trong `.segmentLine` (flex column). Cấm nối ` · ` một dòng. Không đổi API `segments`.
+
 ## Notes — public register cột lý trình
 
 `UsersRegisterPage` list: header **Đoạn tuyến** và **Lý trình** là hai cột. `RouteChainageField` `part="route"` chỉ ô tuyến (effect nhớ km chạy ở part này). `part="chainage"` chỉ Từ km / Đến km. Nhiều đoạn: slot `min-height: 16rem` để hai cột thẳng hàng. Không đổi API segment.

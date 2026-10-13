@@ -136,7 +136,8 @@ Persona: Admin hạt/công ty.
 |--------|------|
 | List | Kind B A–D · delta cột + filter chức vụ |
 | Form Create/Edit | full-page · SearchInput `jobTitleCode` · leave-confirm dirty **KEEP** |
-| Form View | `<dl>` «Chức vụ» resolved · **cấm** readOnly Input |
+| Form View | `<dl>` «Chức vụ» resolved · **cấm** readOnly Input · **Đoạn tuyến / lý trình** mỗi đoạn một dòng · **Khu** = tên org |
+| List | Cột **Khu** (tên, không mã) ngay trước **Văn phòng** |
 | Profile/switch | SearchInput catalog (boundary SA nếu repo Home khác) |
 
 ## 8b. Public register layout

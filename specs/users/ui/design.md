@@ -98,7 +98,8 @@ Persona: Admin hạt/công ty. Pack **không** clone chrome demo. Auth host tác
 ### Zone C — Tree + Grid
 
 - Trái: cây tổ chức. Phải: **Danh sách người dùng**
-- Columns (kéo cột ON): STT · □ · **Mã** · **Họ tên** · **Tổ chức** · **Chức vụ** · **Vai trò / Cấp** · **Tuyến** · **Trạng thái** · **SĐT** · ⋯
+- Columns (kéo cột ON): STT · □ · **Mã** · **Họ tên** · **Tổ chức** · **Khu** · **Văn phòng** · **Chức vụ** · **Vai trò / Cấp** · **Tuyến** · **Trạng thái** · **SĐT** · ⋯
+- **Khu** ngay trước **Văn phòng**. Cả hai title đúng chữ đó. **Khu** = tên org (`REG-I` → Khu Quản lý đường bộ I), cấm hiện mã. **Văn phòng** = tên đã lưu.
 - **Chức vụ** = `lookupLabel(job-titles, jobTitleCode)` — sample AC: `HAT-TRUONG`→Hạt trưởng · `CHUYEN-VIEN`→Chuyên viên · `TUAN-DUONG`→Tuần đường
 - **Vai trò** giữ `roleCode` — **≠** chức vụ (AC-G-09)
 - Row menu: Xem · Sửa · Sao chép · Xóa · Đổi MK · Phân tuyến · Cán bộ QL
@@ -117,6 +118,8 @@ Persona: Admin hạt/công ty. Pack **không** clone chrome demo. Auth host tác
 | email | Email | `Text` (email) | * | view=`<dl>` | |
 | phone | Số điện thoại | `Text` (tel) | | view=`<dl>` | |
 | orgCode | Tổ chức | `SearchInput` | * | view=`<dl>` | `catalogKind=org-unit` |
+| khuCode | Khu | `SearchInput` | | view=`<dl>` **name** | kind `REG` · value = mã · hiển thị `name` · cấm mã `REG-I` |
+| vanPhong | Văn phòng | `SearchInput` | | view=`<dl>` name | tên VP · sau Khu |
 | **jobTitleCode** | **Chức vụ** | **`SearchInput`** | | view=`<dl>` | **NEW** · `catalogKind=job-title` · peer orgCode · **cấm** Text · resolve `name` |
 | roleCode | Vai trò / Cấp | `SearchInput` | | view=`<dl>` | enum — **≠** jobTitleCode |
 | status | Trạng thái | `SearchInput` | | view=`<dl>` | enum |
@@ -244,6 +247,12 @@ Màn `/integration/users/register` (`UsersRegisterPage`).
 | Lý trình | `RouteChainageField` `part="chainage"` · Từ km + Đến km (cột KM + khoảng cách) |
 
 Cấm gộp lại một cột «Đoạn tuyến / lý trình». Cùng control, không nhân bản ô km. Đăng ký cá nhân: hai cột cạnh nhau trong khối đoạn tuyến. Payload `segments` giữ `routeCode` + `kmFrom` + `kmTo`.
+
+## View form — đoạn tuyến tách dòng
+
+Màn `Xem nhân sự` (`UsersFormPage` view `<dl>`): nhãn **Đoạn tuyến / lý trình** full width. Mỗi `segments[]` một dòng (`segmentStamp`: tuyến + từ km – đến km). Cấm nối nhiều đoạn bằng ` · ` trên một dòng. Không đoạn → `—`.
+
+**Khu** trên view và trên ô sửa: tên cây tổ chức, không mã. Danh sách: cột **Khu** rồi **Văn phòng**, cùng quy tắc tên.
 
 ## Version meta (REQUIRED)
 

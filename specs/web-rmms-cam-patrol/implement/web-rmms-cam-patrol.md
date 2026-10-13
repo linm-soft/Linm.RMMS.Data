@@ -58,6 +58,11 @@
 - BE: `POST api/v1/ai-vision/edge-sync` lưu `rmms_ai_vision_detections` Engine=P2 · SourceKind=`edge-onnx` · không ghi base64 vào ImageUrl. Ảnh bằng chứng chỉ ở preview máy. Dedupe 12 giây cùng loại trong ~30 m. Không thêm cột.
 - Verify: `yarn typecheck` MFE · `dotnet build` RMMS.Service.Api. Quét thật cần file onnx và quyền camera/GPS.
 
+## Notes — edit-web-mobile (2026-10-09)
+
+- Nút «Dừng quét» bán nguyệt nền đỏ, icon dừng, sticky giữa cuối trang, khi camera live hoặc video file đang quét. Tab file dùng icon trang tài liệu. «Chọn ảnh hoặc video» có icon tải lên. Khi file là video, nút tách thành «Đổi file» và cụm tua trái / dừng-phát / tua phải (5 giây). Khung hình video có thanh thời gian «đã phát / tổng» ở đáy khung; bấm hoặc kéo thanh thì tua, không hiện ảnh xem trước. Tọa độ trên khung theo `watchPosition` của máy, tự đổi khi máy di chuyển; tua video file không đổi tọa độ vì file không có quỹ đạo GPS. Ảnh nhận diện, kể cả file, giữ tọa độ máy đúng lúc đóng băng khung. Danh sách hiện đủ lat/lng và sai số. Xác nhận mở form với đúng loại tài sản (biển báo hoặc mặt đường), mô tả theo nhãn ảnh, và tọa độ của ảnh đó — không lấy GPS mới của form. bấm thì dừng nhận diện và hiện cảnh báo lag. Dòng «Độ nhận diện» + ô số + «/%», mặc định 70; parser sự cố (1 hoặc 5 lớp) và biển báo chỉ giữ hộp có confidence ≥ số đó. Chọn ảnh hoặc video hiện skeleton trên khung trước khi decode. Dòng «Đang quét» nằm trong stamp trên khung; chip «Sai số > 30 m» không hiện.
+- Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
+
 ## nextSlash
 
 `/agent-qa` · roleOnly stop (GAP-PKT-ROLE-01)

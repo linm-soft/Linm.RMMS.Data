@@ -177,6 +177,10 @@ Prior surface (route filter · routesCsv/managed SearchInput · CRUD) = **PASS /
 
 `/integration/users/register`: tách **Lý trình** thành cột riêng, cạnh **Đoạn tuyến**. Không gộp header «Đoạn tuyến / lý trình». Không thêm cột DB cho chuỗi km.
 
+View `/integration/users/:id`: **Đoạn tuyến / lý trình** — mỗi đoạn một dòng. Cấm `join(' · ')` một dòng.
+
+**Khu** view + list: tên org, cấm mã. List title và thứ tự: **Khu**, **Văn phòng** (Khu đứng trước).
+
 ## Handoff → Dev
 
 1. **Không** rewrite list shell A–D / grid / pagination / tree / route filter đã DONE.
