@@ -6,22 +6,22 @@
     { "code": "TRUONG-VP", "name": "Trưởng Văn phòng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Trưởng VP"] },
     { "code": "PHO-TRUONG-VP", "name": "Phó trưởng Văn phòng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Phó trưởng VP"] },
     { "code": "DOI-TRUONG", "name": "Đội trưởng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Phó BĐH - Đội trưởng Đội bảo trì số 02", "Đội trưởng ĐQLT"] },
-    { "code": "DOI-PHO", "name": "Đội phó", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Đội phó Đội bảo trì số 02"] },
+    { "code": "DOI-PHO", "name": "Đội phó", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Đội phó Đội bảo trì số 02", "Đội phó đội điện thông gió", "Đội phó đội bảo trì bảo dưỡng"] },
     { "code": "PHU-TRACH-DOI", "name": "Phụ trách đội", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Phụ trách đội- Tuần kiểm", "Phụ trách đội - Tuần kiểm"] },
     { "code": "HAT-TRUONG", "name": "Hạt trưởng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Hạt trưởng quản lý cầu đường", "Hạt trưởng Hạt QLĐB Cẩm Xuyên", "Hạt trưởng Hạt QLĐB Kỳ Anh", "Hạt trưởng Hạt QLĐB Đèo Ngang", "Hạt trưởng Hạt QLĐB Trung Hoá", "Hạt trưởng Hạt QLĐB Phố Châu", "Hạt trưởng Hạt QLĐB Hương Khê", "Hạt trưởng Hạt QLĐB Tân Ấp"] },
-    { "code": "HAT-PHO", "name": "Hạt phó kiêm tuần đường", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Hạt phó", "Phó hạt trưởng"] },
+    { "code": "HAT-PHO", "name": "Hạt phó kiêm tuần đường", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Hạt phó", "Phó hạt trưởng", "Hạt phó Hạt quản lý"] },
     { "code": "GIAM-DOC", "name": "Giám đốc xí nghiệp", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Giám Đốc"] },
     { "code": "PHO-GIAM-DOC", "name": "Phó Giám đốc", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Phó GĐ Ban điều hành", "Phó Giám đốc điều hành", "Phó Giám đốc Xí nghiệp", "Phó BĐH", "Phó tổng GĐ", "Phó trưởng ban điều hành", "PGĐ BĐH", "Phó Tổng giám đốc", "Phó GĐ BĐH"] },
-    { "code": "TRUONG-PHONG", "name": "Trưởng phòng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Trưởng phòng QLBT&ATGT", "TP. QLGT", "Trưởng phòng KT-KT"] },
+    { "code": "TRUONG-PHONG", "name": "Trưởng phòng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Trưởng phòng QLBT&ATGT", "TP. QLGT", "Trưởng phòng KT-KT", "Trưởng phòng KHKT"] },
     { "code": "PHO-PHONG", "name": "Phó phòng Phòng QLBT&ATGT", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": ["Phó phòng QLBT", "Phó phòng QLGT - Hạt trưởng", "Phó ban KHKT", "Phó phòng KT-KT"] },
     { "code": "TO-TRUONG", "name": "Tổ trưởng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": [] },
     { "code": "TRUONG-CA", "name": "Trưởng ca điều hành", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": [] },
     { "code": "CAN-BO-QL", "name": "Cán bộ quản lý", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": [] },
     { "code": "CHUYEN-VIEN", "name": "Chuyên viên", "titleGroup": "TECH", "packageHint": "RMMS-TDTK", "legacyAliases": ["Chuyên viên ban KHKT", "Phòng KHKT", "CV phòng QLGT"] },
     { "code": "KY-SU", "name": "Kỹ thuật", "titleGroup": "TECH", "packageHint": "RMMS-TDTK", "legacyAliases": ["Kỹ Thuận"] },
-    { "code": "CAN-BO-KT", "name": "Cán bộ kỹ thuật", "titleGroup": "TECH", "packageHint": "RMMS-TDTK", "legacyAliases": ["Cán bộ kỹ thuật Đội bảo trì số 02", "Cán bộ kĩ thuật", "cán bộ KT"] },
+    { "code": "CAN-BO-KT", "name": "Cán bộ kỹ thuật", "titleGroup": "TECH", "packageHint": "RMMS-TDTK", "legacyAliases": ["Cán bộ kỹ thuật Đội bảo trì số 02", "Cán bộ kĩ thuật", "cán bộ KT", "Nhân viên đội điện thông gió"] },
     { "code": "TUAN-DUONG", "name": "Tuần đường", "titleGroup": "PATROL", "packageHint": "RMMS-TDTK", "legacyAliases": ["Nhân viên tuần đường"] },
     { "code": "TUAN-KIEM", "name": "Tuần kiểm", "titleGroup": "PATROL", "packageHint": "RMMS-TDTK", "legacyAliases": ["Tuần kiềm"] },
-    { "code": "NHAN-VIEN", "name": "Nhân viên", "titleGroup": "PATROL", "packageHint": "RMMS-TDTK", "legacyAliases": ["Nhân viên Phòng QLBT&ATGT", "NV VHBT", "NV Phòng QLGT"] }
+    { "code": "NHAN-VIEN", "name": "Nhân viên", "titleGroup": "PATROL", "packageHint": "RMMS-TDTK", "legacyAliases": ["Nhân viên Phòng QLBT&ATGT", "NV VHBT", "NV Phòng QLGT", "Nhân viên ITS"] }
   ]
 }

@@ -8,7 +8,8 @@
 **changeScope:** `edit_page` · § Delta FRAME · **cấm** full redesign
 
 **Context lock:** finder stamp = live active session · empty = «Chưa có ca đang chạy» · **cấm** demo SSOT stamp on native.  
-**Context lock (2026-10-09):** Xác nhận trên list mở sheet form Ghi sự cố (mặt đường + ảnh). List giữ nguyên. Tạo xong đóng sheet, card đó hiện «Đã tạo sự cố» và ẩn nút. Tạo tiếp các card khác.
+**Context lock (2026-10-09):** Xác nhận trên list mở sheet form Ghi sự cố (mặt đường + ảnh). List giữ nguyên. Tạo xong đóng sheet, card đó hiện «Đã tạo sự cố» và ẩn nút. Tạo tiếp các card khác.  
+**Context lock (2026-10-15):** Stamp lỗi nạp mô hình hiện nút «Tải lại» (`cam.scan.reload`). `initAgent` tự thử 3 lần rồi mới fail. File mô hình cache `rmms-cam-onnx-v1`; Tải lại dùng bản đã lưu.
 
 ## 1. IA
 
