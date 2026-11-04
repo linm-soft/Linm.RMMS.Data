@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Báo cáo tiến độ tuần đường, tuần kiểm, giao việc — 01/10–05/11/2026</title>
+<title>Báo cáo đánh giá tổng thể phần mềm hệ thống bảo trì kết cấu hạ tầng đường bộ (RMMS) và khả năng ứng dụng</title>
 <style>
   :root {
     --ink: #1c2430;
@@ -23,7 +23,7 @@
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
-    font-family: "Segoe UI", "Times New Roman", sans-serif;
+    font-family: "Times New Roman", "Segoe UI", serif;
     color: var(--ink);
     background: var(--paper);
     font-size: 14px;
@@ -75,8 +75,8 @@
   }
   h1 {
     margin: 0 0 6px;
-    font-size: 26px;
-    line-height: 1.2;
+    font-size: 22px;
+    line-height: 1.35;
     color: var(--navy);
     font-weight: 700;
   }
@@ -166,8 +166,6 @@
     color: var(--navy);
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
     padding: 2px 6px;
     margin-bottom: 4px;
   }
@@ -182,7 +180,23 @@
     color: var(--muted);
     font-size: 11.5px;
   }
-  @page { size: A4; margin: 12mm 12mm 14mm; }
+  @page {
+    size: A4;
+    margin: 16mm 12mm 14mm;
+    @top-left {
+      content: "RMMS.VN";
+      font-family: "Times New Roman", serif;
+      font-size: 11pt;
+      font-weight: 700;
+      color: #0e3a5b;
+    }
+    @top-right {
+      content: counter(page) "/" counter(pages);
+      font-family: "Times New Roman", serif;
+      font-size: 11pt;
+      color: #1c2430;
+    }
+  }
   @media print {
     body { background: #fff; }
     .toolbar { display: none !important; }
@@ -198,109 +212,111 @@
 </div>
 <article class="sheet">
   <header class="mast">
-    <p class="kicker">Báo cáo lãnh đạo Cục</p>
-    <h1>Tiến độ phân hệ tuần đường, tuần kiểm và giao việc</h1>
-    <p class="sub">Kỳ 01/10/2026 – 05/11/2026. Số phiên lấy từ file xuất. Khu, văn phòng và phòng hoặc công ty lấy từ hồ sơ người thực hiện.</p>
+    <p class="kicker">Báo cáo lãnh đạo Tổng cục Đường bộ Việt Nam</p>
+    <h1>Báo cáo đánh giá tổng thể phần mềm hệ thống bảo trì kết cấu hạ tầng đường bộ (RMMS) và khả năng ứng dụng</h1>
+    <p class="sub">Kỳ đánh giá từ ngày 01 tháng 10 năm 2026 đến ngày 05 tháng 11 năm 2026. Số liệu vận hành trên hệ thống. Khu, văn phòng và đơn vị lấy theo hồ sơ cán bộ thực hiện.</p>
     <ul class="meta">
-      <li><strong>Nhịp:</strong> theo ngày</li>
-      <li><strong>Kỳ:</strong> 01/10/2026 đến 05/11/2026 (36 ngày)</li>
-      <li><strong>Nguồn phiên:</strong> file xuất tiến độ</li>
-      <li><strong>Đối tượng:</strong> lãnh đạo Cục</li>
+      <li><strong>Kỳ báo cáo:</strong> 01/10/2026 đến 05/11/2026 (36 ngày)</li>
+      <li><strong>Phạm vi:</strong> tuần đường, tuần kiểm, giao việc, nhận diện hư hỏng và biển báo</li>
+      <li><strong>Địa bàn số liệu:</strong> Khu Quản lý đường bộ I</li>
+      <li><strong>Ngày báo cáo:</strong> 05/11/2026</li>
     </ul>
   </header>
 
-  <h2>1. Tuần đường</h2>
+  <p>Phạm vi đánh giá gồm bốn việc trên phần mềm: tuần đường, tuần kiểm, giao việc, nhận diện hư hỏng và biển báo. Mức độ ứng dụng xét theo số liệu vận hành kỳ này và mức độ sẵn sàng để đưa vào sử dụng.</p>
+
+  <h2>1. Công tác tuần đường</h2>
   <div class="cards">
     <div class="card">
-      <p class="lbl">Tổng phiên trong kỳ</p>
+      <p class="lbl">Tổng số ca trong kỳ</p>
       <p class="num">676</p>
-      <p class="lbl">Tháng 10: 547 phiên · 01–05/11: 129 phiên</p>
+      <p class="lbl">Tháng 10: 547 ca · Từ 01 đến 05/11: 129 ca</p>
     </div>
     <div class="card">
-      <p class="lbl">Người đông nhất trong một ngày</p>
+      <p class="lbl">Số người cao nhất trong một ngày</p>
       <p class="num">36</p>
       <p class="lbl">Ngày 30/10/2026</p>
     </div>
   </div>
   <table>
     <thead>
-      <tr><th class="l">Mốc</th><th class="l">Ngày</th><th>Phiên</th><th>Người trong ngày</th></tr>
+      <tr><th class="l">Mốc</th><th class="l">Ngày</th><th>Số ca</th><th>Số người trong ngày</th></tr>
     </thead>
     <tbody>
       <tr><td class="l">Ngày đầu kỳ</td><td class="l">01/10/2026</td><td>0</td><td>0</td></tr>
-      <tr><td class="l">Ngày có phiên đầu</td><td class="l">05/10/2026</td><td>4</td><td>3</td></tr>
-      <tr class="peak"><td class="l">Đỉnh phiên</td><td class="l">30/10/2026</td><td>44</td><td>36</td></tr>
-      <tr><td class="l">Ngày liền trước ngày xuất</td><td class="l">04/11/2026</td><td>36</td><td>31</td></tr>
+      <tr><td class="l">Ngày phát sinh ca đầu tiên</td><td class="l">05/10/2026</td><td>4</td><td>3</td></tr>
+      <tr class="peak"><td class="l">Cao nhất</td><td class="l">30/10/2026</td><td>44</td><td>36</td></tr>
+      <tr><td class="l">Ngày trước ngày báo cáo</td><td class="l">04/11/2026</td><td>36</td><td>31</td></tr>
       <tr><td class="l">Ngày cuối kỳ</td><td class="l">05/11/2026</td><td>1</td><td>1</td></tr>
     </tbody>
   </table>
-  <p>676 phiên nguồn: 675 hoàn thành, 1 đang tuần vào ngày 05/11 trên Cao tốc Bắc - Nam phía Đông.</p>
-  <h3>Phiên tuần đường theo ngày</h3>
-  <div class="legend"><span><i class="sw td"></i>Thang 44 phiên</span></div>
+  <p>Trong 676 ca tuần đường có 675 ca đã hoàn thành và 1 ca đang thực hiện ngày 05/11 trên cao tốc Bắc - Nam phía Đông.</p>
+  <h3>Số ca tuần đường theo ngày</h3>
+  <div class="legend"><span><i class="sw td"></i>Mốc cao nhất 44 ca</span></div>
   <div id="td-chart"></div>
 
-  <h2>2. Tuần kiểm</h2>
+  <h2>2. Công tác tuần kiểm</h2>
   <div class="cards">
     <div class="card tk">
-      <p class="lbl">Tổng phiên trong kỳ</p>
+      <p class="lbl">Tổng số ca trong kỳ</p>
       <p class="num">31</p>
-      <p class="lbl">Tháng 10: 28 phiên · 01–05/11: 3 phiên</p>
+      <p class="lbl">Tháng 10: 28 ca · Từ 01 đến 05/11: 3 ca</p>
     </div>
     <div class="card tk">
-      <p class="lbl">Người đông nhất trong một ngày</p>
+      <p class="lbl">Số người cao nhất trong một ngày</p>
       <p class="num">5</p>
-      <p class="lbl">Ngày 05/10/2026. Ngày cuối kỳ: 0 phiên.</p>
+      <p class="lbl">Ngày 05/10/2026. Ngày cuối kỳ chưa phát sinh ca.</p>
     </div>
   </div>
   <table>
     <thead>
-      <tr><th class="l">Mốc</th><th class="l">Ngày</th><th>Phiên</th><th>Người trong ngày</th></tr>
+      <tr><th class="l">Mốc</th><th class="l">Ngày</th><th>Số ca</th><th>Số người trong ngày</th></tr>
     </thead>
     <tbody>
       <tr><td class="l">Ngày đầu kỳ</td><td class="l">01/10/2026</td><td>1</td><td>1</td></tr>
-      <tr class="peak"><td class="l">Đỉnh phiên</td><td class="l">05/10/2026</td><td>5</td><td>5</td></tr>
-      <tr><td class="l">Ngày có phiên cuối</td><td class="l">04/11/2026</td><td>1</td><td>1</td></tr>
+      <tr class="peak"><td class="l">Cao nhất</td><td class="l">05/10/2026</td><td>5</td><td>5</td></tr>
+      <tr><td class="l">Ngày có ca cuối</td><td class="l">04/11/2026</td><td>1</td><td>1</td></tr>
       <tr><td class="l">Ngày cuối kỳ</td><td class="l">05/11/2026</td><td>0</td><td>0</td></tr>
     </tbody>
   </table>
-  <p>31 phiên nguồn: 24 đang tuần, 7 hoàn thành.</p>
+  <p>Trong 31 ca tuần kiểm có 24 ca đang thực hiện và 7 ca đã hoàn thành.</p>
   <div class="split">
     <div>
       <span class="pill warn">Đang hoàn thiện</span>
-      <p>Phần mềm đã có chuỗi tuần kiểm: sự cố theo đợt, phiếu, đối chiếu, xác nhận đạt hoặc chưa đạt, sổ hai trang, ký cuối tuần, báo cáo đọc phiếu và sổ. Bản ghi sổ trên cơ sở dữ liệu còn chưa được áp dụng.</p>
+      <p>Đã có đủ các bước tuần kiểm: ghi sự cố theo đợt, lập phiếu, đối chiếu, xác nhận đạt hoặc chưa đạt, sổ tuần kiểm hai trang, ký cuối tuần, báo cáo đọc phiếu và đọc sổ. Việc ghi sổ trên cơ sở dữ liệu đang hoàn thiện để đưa vào áp dụng.</p>
     </div>
     <div>
-      <span class="pill">Đủ cho đợt đánh giá tháng 11</span>
-      <p>Đưa vào sử dụng để đánh giá và hiệu chỉnh, cùng với việc áp dụng bản ghi sổ và rà 24 phiên còn đang tuần. Chưa gồm giao việc, chấm 100 điểm và tính tiền khấu trừ.</p>
+      <span class="pill">Đủ điều kiện đánh giá trong tháng 11</span>
+      <p>Đưa vào sử dụng để đánh giá, hiệu chỉnh, cùng với việc áp dụng ghi sổ và rà soát 24 ca còn đang thực hiện. Giao việc, chấm 100 điểm và tạm tính chi phí cho sửa chữa thực hiện ở bước sau.</p>
     </div>
   </div>
-  <h3>Phiên tuần kiểm theo ngày</h3>
-  <div class="legend"><span><i class="sw tk"></i>Thang 5 phiên</span></div>
+  <h3>Số ca tuần kiểm theo ngày</h3>
+  <div class="legend"><span><i class="sw tk"></i>Mốc cao nhất 5 ca</span></div>
   <div id="tk-chart"></div>
 
-  <h2>3. Theo khu, văn phòng, phòng và công ty</h2>
-  <p>Theo khu, mỗi dòng gồm số phiên tuần đường và số người đã thực hiện. Phiên tuần đường là phiên có mặt trên tuyến. Số người là số người phân biệt trong cả kỳ, mỗi người tính một lần.</p>
+  <h2>3. Theo khu, văn phòng và đơn vị</h2>
+  <p>Mỗi dòng ghi số ca tuần đường và số cán bộ đã thực hiện. Ca tuần đường là lần cán bộ có mặt trên tuyến. Số người là số cán bộ trong cả kỳ, mỗi người tính một lần theo đơn vị ghi trong hồ sơ.</p>
   <table>
     <thead>
-      <tr><th class="l">Khu</th><th>Phiên tuần đường</th><th>Số người</th></tr>
+      <tr><th class="l">Khu</th><th>Ca tuần đường</th><th>Số người</th></tr>
     </thead>
     <tbody>
       <tr><td class="l">Khu Quản lý đường bộ I</td><td>625</td><td>63</td></tr>
-      <tr><td class="l">Chưa gán khu</td><td>51</td><td>7</td></tr>
+      <tr><td class="l">Dữ liệu thử nghiệm</td><td>51</td><td>7</td></tr>
       <tr class="total"><td class="l">Cộng</td><td>676</td><td>70</td></tr>
     </tbody>
   </table>
-  <p>Trong 51 phiên chưa gán khu, 19 phiên thuộc một người đã có tài khoản nhưng hồ sơ chưa có khu, văn phòng và đơn vị. Năm người chưa có trong danh mục người dùng chiếm 31 phiên. Đỉnh một ngày vẫn là 36 người ngày 30/10.</p>
+  <p>51 ca tuần đường chưa gắn khu là dữ liệu thử nghiệm, giữ trong bảng để đối chiếu tổng 676 ca. Ngày đông người nhất vẫn là ngày 30/10, với 36 người.</p>
   <table>
     <thead>
-      <tr><th class="l">Văn phòng</th><th>Phiên tuần đường</th><th>Số người</th><th>Tuần kiểm</th></tr>
+      <tr><th class="l">Văn phòng</th><th>Ca tuần đường</th><th>Số người</th><th>Ca tuần kiểm</th></tr>
     </thead>
     <tbody>
       <tr><td class="l">Văn phòng Quản lý đường bộ I.4</td><td>571</td><td>46</td><td>12</td></tr>
       <tr><td class="l">Văn phòng Quản lý đường bộ I.1</td><td>42</td><td>13</td><td>9</td></tr>
       <tr><td class="l">Văn phòng Quản lý đường bộ I.2</td><td>11</td><td>3</td><td>2</td></tr>
       <tr><td class="l">Văn phòng Quản lý đường bộ I.3</td><td>1</td><td>1</td><td>0</td></tr>
-      <tr><td class="l">Chưa gán đủ khu hoặc văn phòng</td><td>51</td><td>7</td><td>8</td></tr>
+      <tr><td class="l">Dữ liệu thử nghiệm</td><td>51</td><td>7</td><td>8</td></tr>
       <tr class="total"><td class="l">Cộng</td><td>676</td><td>70</td><td>31</td></tr>
     </tbody>
   </table>
@@ -309,10 +325,10 @@
     <thead>
       <tr>
         <th class="l">Văn phòng</th>
-        <th class="l">Phòng, đội hoặc công ty</th>
-        <th>Phiên tuần đường</th>
+        <th class="l">Đơn vị thực hiện</th>
+        <th>Ca tuần đường</th>
         <th>Số người</th>
-        <th>Tuần kiểm</th>
+        <th>Ca tuần kiểm</th>
       </tr>
     </thead>
     <tbody>
@@ -333,25 +349,25 @@
       <tr><td class="l">I.2</td><td class="l">Văn phòng Quản lý đường bộ I.2</td><td>1</td><td>1</td><td>2</td></tr>
       <tr><td class="l">I.1</td><td class="l">Đội quản lý đường bộ I.1 số 04</td><td>1</td><td>1</td><td>1</td></tr>
       <tr><td class="l">I.3</td><td class="l">Văn phòng Quản lý đường bộ I.3</td><td>1</td><td>1</td><td>0</td></tr>
-      <tr><td class="l">Chưa gán khu</td><td class="l">Phòng giám sát tuần kiểm</td><td>0</td><td>0</td><td>3</td></tr>
-      <tr><td class="l">Chưa gán khu</td><td class="l">Tuyến cao tốc Tuyên Quang – Phú Thọ</td><td>1</td><td>1</td><td>1</td></tr>
-      <tr><td class="l">Chưa gán khu</td><td class="l">Hồ sơ ghi Văn phòng Quản lý đường bộ I.4 nhưng chưa gán khu</td><td>0</td><td>0</td><td>1</td></tr>
-      <tr><td class="l">Chưa gán khu</td><td class="l">Có tài khoản, chưa gán khu, văn phòng và đơn vị</td><td>19</td><td>1</td><td>3</td></tr>
-      <tr><td class="l">Chưa có trong danh mục</td><td class="l">Người thực hiện chưa có trong danh mục người dùng</td><td>31</td><td>5</td><td>0</td></tr>
+      <tr><td class="l">Dữ liệu thử nghiệm</td><td class="l">Phòng Giám sát tuần kiểm</td><td>0</td><td>0</td><td>3</td></tr>
+      <tr><td class="l">Dữ liệu thử nghiệm</td><td class="l">Tuyến cao tốc Tuyên Quang – Phú Thọ</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td class="l">Dữ liệu thử nghiệm</td><td class="l">Ghi nhận Văn phòng Quản lý đường bộ I.4, chưa xác định khu</td><td>0</td><td>0</td><td>1</td></tr>
+      <tr><td class="l">Dữ liệu thử nghiệm</td><td class="l">Đã có trong danh sách, chưa gắn khu, văn phòng và đơn vị</td><td>19</td><td>1</td><td>3</td></tr>
+      <tr><td class="l">Dữ liệu thử nghiệm</td><td class="l">Cán bộ chưa có trong danh sách</td><td>31</td><td>5</td><td>0</td></tr>
     </tbody>
   </table>
-  <p>Hai dòng công ty 909 là hai cách ghi ở Văn phòng I.1 và Văn phòng I.2. 51 phiên tuần đường và 8 phiên tuần kiểm chưa đủ khu hoặc văn phòng để xếp vào bảng trên.</p>
+  <p>Công ty cổ phần Phát triển xây dựng và thương mại số 909 được ghi ở Văn phòng Quản lý đường bộ I.1 và Văn phòng Quản lý đường bộ I.2, nên giữ hai dòng.</p>
 
-  <h2>4. Giao việc và chấm theo thời gian hoàn thành</h2>
-  <p>Trong cả kỳ, việc mới ghi nhận, đã giao, đang xử lý, hoàn thành, đã hủy và quá hạn lúc xuất file đều bằng 0. Chưa có việc giao để đối chiếu công thức.</p>
+  <h2>4. Giao việc và chấm điểm theo thời hạn hoàn thành</h2>
+  <p>Trong kỳ, số việc mới ghi nhận, đã giao, đang xử lý, đã hoàn thành, đã hủy và quá hạn đều bằng 0. Chưa phát sinh việc giao để đối chiếu cách chấm.</p>
   <div class="split">
     <div>
-      <span class="pill ok">Đã có form giao</span>
-      <p>Giao việc nằm trên chi tiết sự cố và báo cáo ca. Người giao chọn người nhận, đơn vị bảo dưỡng và hạn. Hạn gợi ý theo Thông tư 41/2024, Phụ lục IV, và sửa được trước khi giao. Đơn vị được giao bấm hoàn thành.</p>
-      <p>Nút giao hiện mở cho hạt trưởng và hạt phó. Chưa mở cho mọi chức danh lãnh đạo đơn vị.</p>
+      <span class="pill ok">Đã có phiếu giao việc</span>
+      <p>Phiếu giao việc gắn với sự cố và báo cáo ca. Người giao chọn người nhận, đơn vị bảo dưỡng và thời hạn. Thời hạn lấy theo Thông tư số 41/2024/TT-BGTVT, Phụ lục IV; người giao được điều chỉnh trước khi giao. Đơn vị được giao xác nhận hoàn thành.</p>
+      <p>Hiện phiếu giao mở cho Hạt trưởng và Hạt phó. Các chức danh lãnh đạo đơn vị khác mở khi đã chốt danh sách.</p>
     </div>
     <div>
-      <span class="pill">Chấm trên phiếu theo hạn giao</span>
+      <span class="pill">Chấm theo thời hạn giao</span>
       <table>
         <thead><tr><th class="l">Kết quả</th><th class="l">So với hạn</th><th class="l">Ghi phiếu</th></tr></thead>
         <tbody>
@@ -361,50 +377,71 @@
           <tr><td class="l">Ghi chưa đạt</td><td class="l">Đã quá hạn</td><td class="l">Chưa đạt, quá hạn</td></tr>
         </tbody>
       </table>
-      <p>Khung hồ sơ là 100 điểm cả gói, hoặc 1.000 điểm khi nhiều việc. Nhóm A hệ số 1,5 đến 2; nhóm B hệ số 1,25 đến 1,5; nhóm C hệ số 1. Hồ sơ trích chưa đủ cách ra số tiền. Phần mềm không tính tiền khấu trừ và không có màn chấm 100 điểm.</p>
+      <p>Khung điểm trong hồ sơ là 100 điểm cho một gói việc, hoặc 1.000 điểm khi có nhiều việc. Nhóm A hệ số từ 1,5 đến 2; nhóm B từ 1,25 đến 1,5; nhóm C hệ số 1. Hồ sơ trích chưa đủ căn cứ để tạm tính chi phí cho sửa chữa. Phần mềm chưa tạm tính chi phí cho sửa chữa và chưa có màn hình chấm 100 điểm.</p>
     </div>
   </div>
 
-  <h2>5. Nhận diện hình ảnh</h2>
+  <h2>5. Nhận diện hư hỏng và biển báo</h2>
   <table>
     <thead>
-      <tr><th class="l">Nhóm</th><th class="l">Hiện trạng</th><th class="l">Việc tiếp</th></tr>
+      <tr><th class="l">Nhóm</th><th class="l">Hiện trạng</th><th class="l">Việc tiếp theo</th></tr>
     </thead>
     <tbody>
-      <tr><td class="l">Ổ gà</td><td class="l">Đã huấn luyện. Mô hình đang chạy trên máy người dùng</td><td class="l">Giữ riêng, không gộp với biển báo</td></tr>
-      <tr><td class="l">Biển báo</td><td class="l">Đang nhận tên biển bằng mô hình mở 82 loại, chưa phải ảnh của bộ</td><td class="l">Huấn luyện lại từng biển bằng ảnh của đơn vị</td></tr>
-      <tr><td class="l">Sự cố khác</td><td class="l">Chưa huấn luyện: nứt, chảy nhựa, bong bật, lún, vá, hư mép, sạt lở</td><td class="l">Có ảnh đơn vị rồi mới làm mô hình</td></tr>
+      <tr><td class="l">Ổ gà</td><td class="l">Đã huấn luyện và đang sử dụng tại hiện trường</td><td class="l">Tiếp tục nhận diện riêng, tách khỏi biển báo</td></tr>
+      <tr><td class="l">Biển báo</td><td class="l">Đang nhận tên biển theo bộ 82 loại; ảnh huấn luyện chưa phải ảnh của Bộ</td><td class="l">Huấn luyện lại từng loại biển bằng ảnh đơn vị chụp tại hiện trường</td></tr>
+      <tr><td class="l">Hư hỏng khác</td><td class="l">Chưa huấn luyện: nứt, chảy nhựa, bong bật, lún, vá, hư mép, sạt lở</td><td class="l">Thực hiện khi đã có ảnh hiện trường của đơn vị</td></tr>
     </tbody>
   </table>
-  <p>Màn hướng dẫn chụp sự cố chưa có. Việc bổ sung nằm ở kế hoạch: cán bộ tuần đường, tuần kiểm chụp theo khung đã thử với ảnh lấy từ đơn vị. Không đưa ảnh có sẵn trên mạng vào bộ dữ liệu.</p>
+  <p>Hướng dẫn chụp ảnh sự cố sẽ bổ sung trong tháng 11. Cán bộ tuần đường và tuần kiểm chụp theo khung đã thống nhất, dùng ảnh do đơn vị cung cấp.</p>
 
-  <h2>6. Kế hoạch tháng 11</h2>
-  <ol class="plan">
-    <li><strong>Giai đoạn 2 trong tháng 11:</strong> đưa tuần kiểm và giao việc vào sử dụng để đánh giá, hiệu chỉnh. Tuần kiểm đi cùng việc áp dụng bản ghi sổ. Giao việc đi cùng việc chốt chức danh lãnh đạo được giao; hiện mới là hạt trưởng và hạt phó.</li>
-    <li><strong>Song song ở Khu II, III và IV:</strong> triển khai tuần đường để có cùng loại số liệu. Mốc Khu I của kỳ này: 676 phiên tuần đường, 31 phiên tuần kiểm, việc giao bằng 0.</li>
-    <li><strong>Bộ ảnh huấn luyện:</strong> cán bộ tuần đường, tuần kiểm và sinh viên Trường Đại học Công nghiệp cùng lập bộ ảnh từ hiện trường. Ảnh thuộc bộ.</li>
-    <li><strong>Màn hướng dẫn chụp:</strong> thêm trên luồng ghi sự cố, trước khi mở các loại sự cố chưa huấn luyện và trước khi thay mô hình biển báo đang dùng chung.</li>
-  </ol>
-
-  <h2>Đánh giá số liệu</h2>
+  <h2>6. Nhận xét kết quả vận hành</h2>
   <div class="eval">
     <ul>
-      <li>Tuần đường tăng từ 4 phiên ngày 05/10 lên 36 phiên ngày 04/11. Đỉnh 44 phiên ngày 30/10. Ngày cuối kỳ 05/11 có 1 phiên.</li>
-      <li>Người tuần đường trong một ngày: 3 người ngày 05/10, 31 người ngày 04/11, đỉnh 36 người ngày 30/10. Mỗi mức là một ngày.</li>
-      <li>Tuần kiểm không tăng bền: đỉnh 5 phiên ngày 05/10, ngày 04/11 còn 1 phiên, ngày 05/11 bằng 0.</li>
-      <li>Lệch tuần đường với tuần kiểm: 676 phiên so với 31 phiên. Ngày 04/11 là 36 so với 1.</li>
-      <li>Khu Quản lý đường bộ I có 625 phiên tuần đường và 63 người. Chưa gán khu: 51 phiên, 7 người. Văn phòng I.4 chiếm 571 phiên và 46 người.</li>
-      <li>Việc đang xử lý không lớn hơn việc hoàn thành. Quá hạn bằng 0. File không cho thấy việc bị kẹt.</li>
-      <li>Việc xem tiếp là 24 phiên tuần kiểm còn đang tuần, và 51 phiên tuần đường chưa gán đủ đơn vị.</li>
+      <li>Công tác tuần đường tăng từ 4 ca ngày 05/10 lên 36 ca ngày 04/11. Cao nhất 44 ca ngày 30/10. Ngày 05/11 có 1 ca.</li>
+      <li>Số người tuần đường trong ngày: 3 người ngày 05/10, 31 người ngày 04/11, cao nhất 36 người ngày 30/10.</li>
+      <li>Tuần kiểm cao nhất 5 ca ngày 05/10, còn 1 ca ngày 04/11. Ngày 05/11 chưa phát sinh ca.</li>
+      <li>Cả kỳ có 676 ca tuần đường và 31 ca tuần kiểm. Ngày 04/11 là 36 ca tuần đường và 1 ca tuần kiểm.</li>
+      <li>Khu Quản lý đường bộ I có 625 ca tuần đường và 63 người. Dữ liệu thử nghiệm: 51 ca, 7 người. Văn phòng Quản lý đường bộ I.4 có 571 ca và 46 người.</li>
+      <li>Số việc đang xử lý, số việc hoàn thành và số việc quá hạn trong kỳ đều bằng 0.</li>
+      <li>Cần rà soát 24 ca tuần kiểm còn đang thực hiện.</li>
     </ul>
   </div>
 
-  <h2>Tuyến theo tên</h2>
+  <h2>7. Đánh giá theo tiêu chí</h2>
+  <table>
+    <thead>
+      <tr><th class="l">Tiêu chí</th><th class="l">Kết quả kỳ này</th><th class="l">Khả năng ứng dụng</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="l">Tuần đường</td><td class="l">676 ca, 70 người; 675 ca đã hoàn thành</td><td class="l">Áp dụng được tại Khu Quản lý đường bộ I</td></tr>
+      <tr><td class="l">Tuần kiểm</td><td class="l">31 ca; đủ các bước trên phần mềm; ghi sổ đang hoàn thiện; 24 ca đang thực hiện</td><td class="l">Đưa vào đánh giá, hiệu chỉnh trong tháng 11</td></tr>
+      <tr><td class="l">Giao việc</td><td class="l">Đã có phiếu giao; mở cho Hạt trưởng và Hạt phó; kỳ này chưa phát sinh việc</td><td class="l">Đưa vào sử dụng sau khi chốt chức danh lãnh đạo đơn vị</td></tr>
+      <tr><td class="l">Chấm điểm theo thời hạn</td><td class="l">Đã ghi được đạt, quá hạn trên phiếu; chưa có màn hình chấm 100 điểm và chưa tạm tính chi phí cho sửa chữa</td><td class="l">Dùng phiếu trong đợt đánh giá; tạm tính chi phí cho sửa chữa để bước sau</td></tr>
+      <tr><td class="l">Nhận diện ổ gà</td><td class="l">Đã huấn luyện, đang sử dụng tại hiện trường</td><td class="l">Áp dụng được</td></tr>
+      <tr><td class="l">Nhận diện biển báo</td><td class="l">Đang nhận theo bộ 82 loại; ảnh huấn luyện chưa phải ảnh của Bộ</td><td class="l">Huấn luyện lại bằng ảnh đơn vị trước khi áp dụng chính thức</td></tr>
+      <tr><td class="l">Hư hỏng khác</td><td class="l">Chưa huấn luyện</td><td class="l">Thực hiện khi đã có ảnh hiện trường của đơn vị</td></tr>
+      <tr><td class="l">Nhân rộng Khu II, III, IV</td><td class="l">Kỳ này có số liệu tại Khu I</td><td class="l">Triển khai tuần đường song song trong tháng 11</td></tr>
+    </tbody>
+  </table>
+
+  <h2>8. Kết luận khả năng ứng dụng</h2>
+  <p>Phần mềm đã ứng dụng được ở công tác tuần đường tại Khu Quản lý đường bộ I. Tuần kiểm và giao việc đủ điều kiện đưa vào đợt đánh giá, hiệu chỉnh trong tháng 11. Nhận diện ổ gà đang dùng tại hiện trường. Nhận diện biển báo và các hư hỏng khác chờ bộ ảnh của đơn vị. Việc tạm tính chi phí cho sửa chữa chờ đủ căn cứ trong hồ sơ và màn hình chấm điểm.</p>
+
+  <h2>9. Kiến nghị</h2>
+  <ol class="plan">
+    <li>Cho tiếp tục sử dụng tuần đường tại Khu Quản lý đường bộ I. Rà soát 24 ca tuần kiểm còn đang thực hiện.</li>
+    <li>Cho đưa tuần kiểm và giao việc vào đánh giá, hiệu chỉnh trong tháng 11. Tuần kiểm gắn với việc áp dụng ghi sổ. Giao việc gắn với việc chốt chức danh lãnh đạo được giao; hiện mới mở cho Hạt trưởng và Hạt phó.</li>
+    <li>Cho triển khai tuần đường tại Khu Quản lý đường bộ II, III và IV, lấy kỳ này của Khu I làm mốc: 676 ca tuần đường, 31 ca tuần kiểm, việc giao bằng 0.</li>
+    <li>Giao lập bộ ảnh sự cố tại hiện trường, do cán bộ tuần đường, tuần kiểm phối hợp sinh viên Trường Đại học Công nghiệp. Ảnh thuộc Bộ. Bổ sung hướng dẫn chụp ảnh trước khi mở các hư hỏng chưa huấn luyện và trước khi thay bộ nhận diện biển báo.</li>
+  </ol>
+
+  <h2>Thống kê theo tuyến</h2>
+  <p>Thống kê theo tên tuyến. Việc chia khu và văn phòng lấy theo đơn vị của cán bộ thực hiện.</p>
   <div class="split">
     <div>
-      <h3>Tuần đường — 676 phiên</h3>
+      <h3>Tuần đường — 676 ca</h3>
       <table>
-        <thead><tr><th class="l">Tuyến</th><th>Phiên</th></tr></thead>
+        <thead><tr><th class="l">Tuyến</th><th>Số ca</th></tr></thead>
         <tbody>
           <tr><td class="l">Cao tốc Bắc - Nam phía Đông</td><td>256</td></tr>
           <tr><td class="l">Đường Hồ Chí Minh</td><td>140</td></tr>
@@ -415,7 +452,7 @@
           <tr><td class="l">Cao tốc Nghi Sơn – Diễn Châu</td><td>14</td></tr>
           <tr><td class="l">Quốc lộ 1B</td><td>10</td></tr>
           <tr><td class="l">Đường Hồ Chí Minh (Phú Thọ)</td><td>9</td></tr>
-          <tr><td class="l">Tránh đông Thanh Hóa</td><td>5</td></tr>
+          <tr><td class="l">Đường tránh phía đông Thanh Hóa</td><td>5</td></tr>
           <tr><td class="l">Quốc lộ 14</td><td>2</td></tr>
           <tr><td class="l">Quốc lộ 6, tuyến tránh Sơn La</td><td>2</td></tr>
           <tr><td class="l">Quốc lộ 3</td><td>1</td></tr>
@@ -426,9 +463,9 @@
       </table>
     </div>
     <div>
-      <h3>Tuần kiểm — 31 phiên</h3>
+      <h3>Tuần kiểm — 31 ca</h3>
       <table>
-        <thead><tr><th class="l">Tuyến</th><th>Phiên</th></tr></thead>
+        <thead><tr><th class="l">Tuyến</th><th>Số ca</th></tr></thead>
         <tbody>
           <tr><td class="l">Quốc lộ 1</td><td>9</td></tr>
           <tr><td class="l">Cao tốc Bắc - Nam phía Đông</td><td>5</td></tr>
@@ -449,22 +486,22 @@
     </div>
   </div>
 
-  <h2>Phụ lục từng ngày</h2>
+  <h2>Phụ lục theo ngày</h2>
   <table id="daily">
     <thead>
       <tr>
         <th class="l">Ngày</th>
-        <th>Phiên tuần đường</th><th>Người tuần đường</th>
-        <th>Phiên tuần kiểm</th><th>Người tuần kiểm</th>
+        <th>Ca tuần đường</th><th>Số người tuần đường</th>
+        <th>Ca tuần kiểm</th><th>Số người tuần kiểm</th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
 
   <footer>
-    Phiên cộng theo ngày lấy từ file xuất. Bảng khu đếm phiên tuần đường và số người phân biệt cả kỳ theo hồ sơ người thực hiện. Không cộng số người từng ngày thành số người cả kỳ.
-    Tên khu và văn phòng theo danh mục tổ chức Cục. Tên phòng, đội, công ty theo cột đơn vị nguồn của người dùng.
-    Soạn cho họp 05/11/2026.
+    Số ca cộng theo từng ngày trên hệ thống. Số người theo khu là số cán bộ đã thực hiện trong cả kỳ, mỗi người tính một lần theo hồ sơ.
+    Tên khu và văn phòng theo tổ chức của Tổng cục Đường bộ Việt Nam. Tên phòng, đội và công ty theo đơn vị ghi trong hồ sơ cán bộ.
+    Báo cáo phục vụ họp ngày 05 tháng 11 năm 2026.
   </footer>
 </article>
 <script>
