@@ -198,6 +198,10 @@ Ghim vị trí: ô Tuyến bắt buộc. Tiếp tục mở ca tuần đường t
 
 Hub tuần kiểm luôn hiện menu: Mở đợt, Sự cố của đợt, Phiếu phát hiện, Sổ nhật ký. Một đợt đang mở thì menu vào thẳng màn đó. Nhiều đợt thì chọn card. Trang chủ và cửa tuần đường có cùng ba mục, dẫn `/tuan-kiem?open=`.
 
+## Notes — sổ trạng thái và ký
+
+Bìa sổ: mã một bên, «Chờ ký» nền hổ phách hoặc «Đã ký» nền xanh một bên. Khối «Ký cuối tuần»: quản lý không phải chủ sổ thấy nhận xét và nút ký; tuần kiểm chỉ thấy «Chỉ quản lý ký. Tuần kiểm không ký hộ.»; đã ký thì hiện người ký và nhận xét.
+
 ## Version meta
 
 `skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:110e845481b0f27091c0f5ca856fef74524bc1634ab8e3785a5d7755730eea45` · `rulesVersion=2026.09.27.1` · `updatedAt=2026-09-27T14:20:00.000Z`

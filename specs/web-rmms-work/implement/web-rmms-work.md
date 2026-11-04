@@ -105,3 +105,4 @@
 ## Next
 
 - `/agent-qa*` · e2eQa ON · roleOnly stop (GAP-PKT-ROLE-01)
+- Header list: Khu quản lý → Văn phòng → Phòng/Công ty. `summary` tính trước `group`. Thẻ hiện khu, văn phòng, tên phòng/công ty.

@@ -3,7 +3,8 @@
 > **SSOT theo dõi.** Backlog mô tả: [`features/README.md`](features/README.md). Pipeline scan: [`implement-status.json`](implement-status.json) (có thể lệch — **ưu tiên** `specs/{slug}/STATUS.md`).  
 > **HĐ:** `37001-08/2026-LIC/LINM-JNET` · PL01 P1 CAPEX 900tr (A 450 + B 300 + C 150). Spec: [`Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md`](../../../Linm.RMMS.Contract/analy/PROMPT-SPEC-P1-P2-PHU-LUC-RELEASE.md).  
 > **Demo hub:** `Linm.RMMS.Demo` · `npm run start:std` → http://localhost:5180 · catalog [`demoCatalog.ts`](../../../Linm.RMMS.Demo/src/demoCatalog.ts).  
-> **Cập nhật:** 2026-10-09 · `/hey-linm` `feature_context` map glyph: browser gọi BFF `gis/fonts` (web-bff + mobile-bff) → MapService · cache RAM 24h · `Map:GlyphFontUpstream` · prod font **404** đến khi deploy (`GAP-MAP-GLYPH-01`) — [map-service](features/map-service.md) · [gis-osm-clip](features/gis-osm-clip.md) · [mobile-bff-map](features/mobile-bff-map.md)  
+> **Cập nhật:** 2026-11-03 · tuần đường và tuần kiểm ở `Linm.RMMS.WebService`. Tài sản sang `Linm.RMMS.AssetService`, drop bảng host, import lại từ file. Camera copy rồi mới drop — [rmms-split-service](features/rmms-split-service.md)  
+> **Prior:** 2026-10-09 · `/hey-linm` `feature_context` map glyph: browser gọi BFF `gis/fonts` (web-bff + mobile-bff) → MapService · cache RAM 24h · `Map:GlyphFontUpstream` · prod font **404** đến khi deploy (`GAP-MAP-GLYPH-01`) — [map-service](features/map-service.md) · [gis-osm-clip](features/gis-osm-clip.md) · [mobile-bff-map](features/mobile-bff-map.md)  
 > **Prior:** 2026-10-09 · `/hey-linm` `feature_context` `lin-image-view-capture`: chi tiết vẽ khung từ GET marks, nhãn không gắn `%` lần hai · map viewer căn điểm ảnh rồi resize lớp nền — [ctx](features/lin-image-view-capture.md)  
 > **Prior:** 2026-10-09 · `/hey-linm` `feature_context` `lin-image-view-capture`: ảnh capture lưu file gốc + Geo/Pin/Detect · viewer `LinImageView` · camera tuần chưa gửi ghim vào phiếu — [ctx](features/lin-image-view-capture.md)  
 > **Prior:** 2026-09-28 · `/hey-linm` `feature_context` `rmms-phan-quyen`: LEAD catalog thấy TECH/PATROL cùng phòng ban · bản ghi `UserId` + mã nhân viên · không khớp họ tên · import chức danh + Auth `JobTitleCode` — [ctx](features/rmms-phan-quyen.md)  
@@ -122,6 +123,7 @@
 | `camera-vehicle-type` | Map loại xe Hikvision | **03c** | support | context / none | none | [ctx](features/camera-vehicle-type.md) | — |
 | `its-anco-signal` | Nút đèn Anco + camera + đếm xe | — | support | context / none | none | [ctx](features/its-anco-signal.md) | — |
 | `patrol` | Tuần đường web | 04 | P1-900 | `qa` / `await_confirm` | catalog | [ctx](features/patrol.md) | [ST](../../specs/patrol/STATUS.md) |
+| `bc-th` | Báo cáo tổng hợp tuần đường | 04 | P1 | context / dev | none | [ctx](features/bc-th.md) | — |
 | `tuan-duong-web` | TT 04 web demo | 04 | P1-900 | (gắn patrol) | catalog | [24](24-TUAN-DUONG-DUONG-BO.md) | [patrol](../../specs/patrol/STATUS.md) |
 | `tuan-duong-mobile` | TT 04 mobile demo | 04 | P1-900 | (gắn mobile-p1) | catalog | [24](24-TUAN-DUONG-DUONG-BO.md) | [mobile-p1](../../specs/mobile-p1/STATUS.md) |
 | `platform-task` | Platform QLCV | — | support P1 | `done` / `done` | catalog | [ctx](features/platform-task.md) | [ST](../../specs/platform-task/STATUS.md) |
@@ -276,6 +278,7 @@
 | `rmms-phan-quyen` | Phân quyền data tuần đường | — | support | `dev` / `done` | none | [ctx](features/rmms-phan-quyen.md) | — |
 | `gps-route-capture` | Fill tuyến theo GPS | — | P1 | `context` / `draft` | none | [ctx](features/gps-route-capture.md) | — |
 | `lin-image-view-capture` | LinImageView và capture ảnh | — | P1 | `context` / `draft` | none | [ctx](features/lin-image-view-capture.md) | — |
+| `train-capture-guide` | Hướng dẫn chụp ảnh train | — | P1 | `dev` / `in_progress` | none | [ctx](features/train-capture-guide.md) | [ST](../../specs/train-capture-guide/STATUS.md) |
 | `web-rmms-role-gate` | Quyền QL_HAT và vai theo chức danh | — | support | `done` / `done` | none | [ctx](features/web-rmms-role-gate.md) | [ST](../../specs/web-rmms-role-gate/STATUS.md) |
 | `web-rmms-cam-checkin` | Camera check-in tuần đường | — | support | `done` / `done` | none | [ctx](features/web-rmms-cam-checkin.md) | [ST](../../specs/web-rmms-cam-checkin/STATUS.md) |
 | `web-rmms-cam-journal` | Camera nhật ký tuần đường | — | support | `done` / `done` | none | [ctx](features/web-rmms-cam-journal.md) | [ST](../../specs/web-rmms-cam-journal/STATUS.md) |
@@ -774,6 +777,7 @@ Không có HTML riêng trong `demoCatalog` — nằm hub reports / GOVOne.
 | `rpt-checkin` | P1 | [ctx](features/rpt-checkin.md) | [ST](../../specs/rpt-checkin/STATUS.md) |
 | `rpt-bao-cao-cong` | P1.5 | [ctx](features/rpt-bao-cao-cong.md) | [ST](../../specs/rpt-bao-cao-cong/STATUS.md) |
 | `rpt-tuan-duong` | P1.5 | [ctx](features/rpt-tuan-duong.md) | [ST](../../specs/rpt-tuan-duong/STATUS.md) |
+| `bc-th` | P1 | [ctx](features/bc-th.md) | — |
 | `rpt-tuan-kiem` | P1.5 | [ctx](features/rpt-tuan-kiem.md) | [ST](../../specs/rpt-tuan-kiem/STATUS.md) |
 | `rpt-tong-hop-bao-tri` | P2-CR | [ctx](features/rpt-tong-hop-bao-tri.md) | [ST](../../specs/rpt-tong-hop-bao-tri/STATUS.md) |
 | `rpt-nhat-ky-tuan-duong` | P2-CR · **live sổ** [CR](../../specs/_cr/nktd-pdf-20260917/task-rpt-nhat-ky-tuan-duong.md) | [ctx](features/rpt-nhat-ky-tuan-duong.md) | [ST](../../specs/rpt-nhat-ky-tuan-duong/STATUS.md) |
@@ -910,6 +914,15 @@ Blocked / later — [STATUS](../../specs/rmms-task-integrate/STATUS.md) · [RMMS
 | Demo | none |
 | Pipeline | `context` / `draft` |
 | Next | Ghim camera vào `pins` — GAP-IMG-CAP-01. Map viewer resize nền sau căn điểm — GAP-IMG-CAP-05 |
+
+#### `train-capture-guide`
+
+| | |
+|--|--|
+| Release / implement | P1 phone web · sheet trên chụp sự cố |
+| Demo | none |
+| Pipeline | `dev` / `in_progress` |
+| Next | Khóa hộp Detect và dấu file — GAP-TRAIN-CAP-01…03 |
 
 ## Demo catalog vs hub
 

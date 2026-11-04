@@ -8,6 +8,11 @@
     * { box-sizing: border-box; }
     body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: #1c1c1e; background: #f2f2f7; line-height: 1.45; }
     .wrap { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+    .brand { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 16px; padding: 4px 2px 12px; border-bottom: 2px solid #086a9a; }
+    .brand h1 { margin: 0; font-size: 1.25rem; line-height: 1.3; color: #0b3a52; }
+    .brand img { height: 52px; width: auto; flex: 0 0 auto; }
+    table.sheet { width: 100%; border-collapse: collapse; border: 0; background: transparent; margin: 0; }
+    table.sheet > thead > tr > td, table.sheet > tbody > tr > td { border: 0 !important; padding: 0 !important; background: transparent; width: auto !important; vertical-align: top; }
     header.top, table, .step { background: #fff; border: 1px solid #e5e5ea; border-radius: 16px; }
     header.top { padding: 20px 22px; display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; }
     header.top .intro { min-width: 0; }
@@ -45,9 +50,33 @@
     figure img { width: 100%; height: auto; border: 1px solid #e5e5ea; border-radius: 12px; display: block; }
     figcaption { font-size: 0.82rem; color: #636366; margin-top: 6px; }
     .tag, .n { display: inline-block; background: #e8f4fb; color: #086a9a; border-radius: 999px; padding: 2px 8px; font-size: 0.78rem; font-weight: 600; }
-    @page { size: A4 portrait; margin: 12mm 12mm 14mm; }
+    @page {
+      size: A4 portrait;
+      margin: 22mm 12mm 16mm;
+      @top-left {
+        content: "Hướng dẫn sử dụng phần mềm RMMS";
+        font-family: "Segoe UI", system-ui, sans-serif;
+        font-size: 11pt;
+        font-weight: 700;
+        color: #0b3a52;
+        vertical-align: middle;
+      }
+      @top-right {
+        content: url("data:image/png;base64,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");
+        width: 16mm;
+        height: 16mm;
+        vertical-align: middle;
+      }
+      @bottom-center {
+        content: counter(page) "/" counter(pages);
+        font-family: "Segoe UI", system-ui, sans-serif;
+        font-size: 10pt;
+        color: #3a3a3c;
+      }
+    }
     @media print {
       body { background: #fff; }
+      table.sheet thead { display: none; }
       .wrap { max-width: none; margin: 0; padding: 0; }
       header.top, table { border: 0; border-radius: 0; break-inside: avoid; }
       nav.toc, #qr-dialog { display: none; }
@@ -73,17 +102,26 @@
 </head>
 <body>
   <div class="wrap">
+    <table class="sheet">
+      <thead><tr><td>
+    <header class="brand">
+      <h1>Hướng dẫn sử dụng phần mềm RMMS</h1>
+      <img src="img/logo.svg" alt="RMMS" />
+    </header>
+      </td></tr></thead>
+      <tbody><tr><td>
     <header class="top">
       <div class="intro">
-      <h1>Hướng dẫn sử dụng phần mềm RMMS</h1>
-      <p>Tài liệu hướng dẫn cán bộ, nhân viên cài đặt phần mềm trên điện thoại và thực hiện tuần đường, tuần kiểm, nghiệm thu bảo dưỡng thường xuyên.</p>
+      <p>Tài liệu hướng dẫn cán bộ, nhân viên cài đặt phần mềm và làm việc theo ba view: Tuần đường, Tuần kiểm, Quản lý.</p>
       <nav class="toc">
         <a href="#cai-dat">Cài đặt</a>
         <a href="/hdsd/nguoi-dung/">Danh sách người dùng</a>
         <a href="#chuc-vu">Chức vụ</a>
         <a href="/hdsd/tuan-duong/">Tuần đường</a>
         <a href="/hdsd/tuan-kiem/">Tuần kiểm</a>
-        <a href="/hdsd/nghiem-thu/">Nghiệm thu</a>
+        <a href="/hdsd/quan-ly/">Quản lý</a>
+        <a href="/hdsd/day-du/">Đầy đủ theo view</a>
+        <a href="/hdsd/xuat-pdf/">Xuất PDF theo vai</a>
         <a href="#chi-tiet">Chi tiết và trạng thái</a>
       </nav>
       </div>
@@ -160,13 +198,13 @@
     </article>
 
     <h2 id="chuc-vu">Chức vụ</h2>
+    <p>Sau đăng nhập, phần mềm mở đúng một view. Tab dưới và ô trang chủ theo view đó.</p>
     <table>
-      <thead><tr><th>Chức vụ</th><th>Nhiệm vụ</th><th>Thao tác trên phần mềm</th></tr></thead>
+      <thead><tr><th>View</th><th>Nhiệm vụ</th><th>Thao tác trên phần mềm</th></tr></thead>
       <tbody>
-        <tr><td>Nhân viên tuần đường</td><td>Tuần tra tuyến được giao, phát hiện sự cố, xử lý ban đầu và ghi nhật ký ca.</td><td>Mở ca, Ghi điểm tuần, Ghi nhận hư hỏng. Không giao việc.</td></tr>
-        <tr><td>Hạt trưởng</td><td>Nhận sự cố tuần đường ghi, giao việc cho đơn vị bảo dưỡng và ghi thời hạn.</td><td>Trên vấn đề đang Đợi phân công giám sát, nhấn Giao việc.</td></tr>
-        <tr><td>Cán bộ tuần kiểm</td><td>Kiểm tra lại việc đã giao. Xác nhận hoàn thành khi đạt. Giữ việc khi chưa đạt.</td><td>Mở đợt, đối chiếu ca tuần đường, nhấn Hoàn thành sau khi kiểm tra đạt.</td></tr>
-        <tr><td>Cán bộ nghiệm thu</td><td>Nghiệm thu khối lượng bảo dưỡng thường xuyên. Nghiệm thu không thay thế tuần kiểm.</td><td>Mục Công tác nghiệm thu: tra cứu phiếu, lập phiếu theo mẫu.</td></tr>
+        <tr><td>Tuần đường</td><td>Tuần tra tuyến được giao, ghi điểm tuần, ghi sự cố và kết thúc ca.</td><td>Tab Tuần đường: Mở ca, Ghi điểm tuần, Ghi nhận hư hỏng, Lịch sử phiên, Kết thúc ca.</td></tr>
+        <tr><td>Tuần kiểm</td><td>Mở đợt trên đoạn được giao, đối chiếu sổ và xác nhận phiếu phát hiện.</td><td>Tab Tuần kiểm: Mở đợt, Sự cố của đợt, Phiếu phát hiện, Sổ nhật ký. Trên phiếu: Xác nhận đạt hoặc Ghi chưa đạt.</td></tr>
+        <tr><td>Quản lý</td><td>Giao việc từ sự cố, giám sát điểm tuần và lập phiếu nghiệm thu hiện trường.</td><td>Tab Nghiệm thu. Trang chủ: Công tác nghiệm thu, Giao việc, Giám sát, Bản đồ camera, Thông tin tài sản.</td></tr>
       </tbody>
     </table>
 
@@ -199,10 +237,12 @@
         <span class="tag">Bước 2</span>
         <h3>Mở ca mới</h3>
         <p>Nút <strong>Mở ca</strong> chỉ hiện khi nhân viên chưa có ca đang tuần.</p>
+        <p>Phần này là tùy chọn. Hệ thống hỗ trợ tự mở ca khi có <strong>Ghi điểm tuần</strong> (check-in) và tự đóng ca khi hết ngày. Ca làm việc theo phân ca của người dùng.</p>
         <ol>
-          <li>Chọn <strong>Tuyến</strong> và <strong>Người</strong> thực hiện.</li>
-          <li>Chọn <strong>Chiều</strong>: Chiều đi, Chiều về hoặc Hai chiều.</li>
-          <li>Kiểm tra <strong>Ngày</strong>. Phần mềm ghi sẵn loại Tuần đường, trạng thái Đang tuần.</li>
+          <li>Chọn <strong>Tuyến đường</strong>.</li>
+          <li>Ở <strong>Từ km</strong> và <strong>Đến km</strong>, nhập <strong>Cột KM</strong> và <strong>Khoảng cách (m)</strong>. Thiếu cột KM thì phiếu báo <strong>Nhập cột KM từ và đến trước khi mở ca.</strong></li>
+          <li>Chọn <strong>Chiều</strong>: Chiều đi, Chiều về hoặc Hai chiều. <strong>Người</strong> hiện sẵn theo tài khoản.</li>
+          <li>Kiểm tra <strong>Ngày</strong>. Ô <strong>Loại / trạng thái</strong> ghi sẵn Tuần đường · Đang tuần.</li>
           <li>Nhấn <strong>Mở ca</strong> để bắt đầu. Nhấn <strong>Hủy</strong> nếu chưa mở ca.</li>
         </ol>
       </div>
@@ -234,9 +274,9 @@
         <span class="tag">Bước 1</span>
         <h3>Đợt đang kiểm</h3>
         <ol>
-          <li>Mở mục <strong>Tuần kiểm</strong>.</li>
-          <li>Mục <strong>Đợt đang kiểm</strong> chỉ liệt kê đợt chưa kết thúc.</li>
-          <li>Nhấn <strong>Kế hoạch tần suất</strong> để đối chiếu kế hoạch kiểm tra.</li>
+          <li>Mở tab <strong>Tuần kiểm</strong>.</li>
+          <li>Trong <strong>Menu tuần kiểm</strong> có <strong>Mở đợt</strong>, <strong>Sự cố của đợt</strong>, <strong>Phiếu phát hiện</strong>, <strong>Sổ nhật ký</strong> và <strong>Kế hoạch tần suất</strong>.</li>
+          <li>Mục <strong>Đợt đang kiểm</strong> liệt kê đợt chưa kết thúc.</li>
         </ol>
       </div>
     </article>
@@ -250,15 +290,15 @@
         <h3>Mở đợt</h3>
         <ol>
           <li>Nhấn <strong>Mở đợt</strong>.</li>
-          <li>Chọn <strong>Tuyến</strong>. Nhập <strong>Từ km</strong> và <strong>Đến km</strong> của đoạn kiểm tra.</li>
-          <li>Chọn <strong>Hình thức</strong>: Định kỳ hoặc Đột xuất. Trường hợp đột xuất, nhập lý do đột xuất.</li>
-          <li>Chọn <strong>Người</strong> thực hiện, sau đó nhấn <strong>Mở đợt</strong>.</li>
+          <li>Chọn <strong>Tuyến đường</strong>. Ở <strong>Từ km</strong> và <strong>Đến km</strong>, nhập <strong>Cột KM</strong> và <strong>Khoảng cách (m)</strong>. Thiếu cột KM thì phiếu báo <strong>Nhập cột KM từ và đến trước khi mở đợt.</strong></li>
+          <li>Chọn <strong>Hình thức</strong>: Định kỳ hoặc Đột xuất. Đột xuất thì nhập <strong>Lý do đột xuất</strong>.</li>
+          <li><strong>Người</strong> hiện sẵn theo tài khoản. Kiểm tra <strong>Ngày</strong>, rồi nhấn <strong>Mở đợt</strong>. Nhấn <strong>Hủy</strong> nếu chưa mở.</li>
         </ol>
       </div>
     </article>
 
-    <h2 id="nghiem-thu">3. Công tác nghiệm thu</h2>
-    <p><a href="/hdsd/nghiem-thu/">Hướng dẫn chi tiết nghiệm thu</a></p>
+    <h2 id="quan-ly">3. Quản lý</h2>
+    <p><a href="/hdsd/quan-ly/">Hướng dẫn chi tiết Quản lý</a>. Chuỗi: Tuần đường ghi sự cố, Quản lý giao việc, người được giao hoàn thành, Tuần kiểm xác nhận phiếu, Quản lý ký sổ và lập nghiệm thu.</p>
     <article class="step">
       <figure>
         <img src="/hdsd/img/07-nghiem-thu.png" alt="Danh sách nghiệm thu" />
@@ -268,7 +308,7 @@
         <span class="tag">Bước 1</span>
         <h3>Tìm phiếu</h3>
         <ol>
-          <li>Chọn <strong>Công tác nghiệm thu</strong> tại trang chủ hoặc trong Thao tác nhanh.</li>
+          <li>Ở view quản lý, chọn ô <strong>Công tác nghiệm thu</strong> hoặc tab <strong>Nghiệm thu</strong>.</li>
           <li>Nhập mã phiếu, tuyến hoặc hiện trường, sau đó nhấn <strong>Tìm kiếm</strong>.</li>
           <li>Chọn một phiếu để xem trạng thái, mẫu nghiệm thu và tuyến.</li>
         </ol>
@@ -323,7 +363,8 @@
           <li>Chọn mục <strong>Vấn đề</strong>.</li>
           <li>Mỗi dòng thể hiện loại hư hỏng, mã vấn đề, thời gian và trạng thái.</li>
           <li>Trạng thái gồm <strong>Đợi phân công giám sát</strong> và <strong>Đã đóng</strong>.</li>
-          <li>Chọn một dòng để mở chi tiết. Nhấn <strong>Trao đổi</strong> để trao đổi nội dung xử lý. Nhấn <strong>Đóng sự cố</strong> khi đã xử lý xong.</li>
+          <li>Chọn một dòng để mở chi tiết. Nhấn <strong>Trao đổi</strong> để trao đổi nội dung xử lý.</li>
+          <li>View Tuần đường nhấn <strong>Đóng sự cố</strong> khi sự cố đã xử lý xong. View Quản lý nhấn <strong>Giao việc xử lý</strong> trên dòng <strong>Đợi phân công giám sát</strong>.</li>
         </ol>
       </div>
     </article>
@@ -342,6 +383,8 @@
         </ol>
       </div>
     </article>
+      </td></tr></tbody>
+    </table>
   </div>
   <script>
     (function () {

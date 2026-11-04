@@ -124,3 +124,4 @@
 - Tuyến chỉ khi người dùng chọn hoặc tuyến ca nằm trong 200 m · chưa xác định thì `RouteName`/`RouteCode` để trống · màn hình hiện `--` · Km không copy mã tuyến
 - Create/Update sự cố không đối chiếu `RoadRoutes` · mọi mã tuyến đều lưu được
 - Peer INC-V/C/E full screens OOS
+- Header list: Khu quản lý → Văn phòng → Phòng/Công ty. `summary` tính trước `group`. Thẻ hiện khu, văn phòng, tên phòng/công ty. Bỏ banner QL_HAT.

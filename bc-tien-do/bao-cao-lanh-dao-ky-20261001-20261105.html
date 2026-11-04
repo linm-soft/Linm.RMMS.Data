@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Báo cáo tiến độ tuần đường, tuần kiểm, giao việc — 01/10–05/11/2026</title>
+<style>
+  :root {
+    --ink: #1c2430;
+    --muted: #5c6b7a;
+    --line: #d5dde6;
+    --paper: #f4f6f8;
+    --navy: #0e3a5b;
+    --navy-2: #164e78;
+    --gold: #8d6a2f;
+    --td: #0e3a5b;
+    --tk: #0f6e56;
+    --warn: #8a4b08;
+    --warn-bg: #fbf6ee;
+    --ok: #0f6e56;
+    --chip: #e7eef5;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", "Times New Roman", sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 22px;
+    background: var(--navy);
+    color: #fff;
+  }
+  .toolbar p { margin: 0; font-size: 13px; opacity: 0.9; }
+  button {
+    font: inherit;
+    border: 0;
+    background: #fff;
+    color: var(--navy);
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 650;
+  }
+  button:hover { background: #e7eef5; }
+  .sheet {
+    width: 210mm;
+    margin: 18px auto 32px;
+    background: #fff;
+    padding: 16mm 14mm 18mm;
+    box-shadow: 0 8px 28px rgba(14, 58, 91, 0.08);
+  }
+  header.mast {
+    border-bottom: 3px solid var(--navy);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  .kicker {
+    margin: 0 0 4px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  h1 {
+    margin: 0 0 6px;
+    font-size: 26px;
+    line-height: 1.2;
+    color: var(--navy);
+    font-weight: 700;
+  }
+  .sub { margin: 0; color: var(--muted); }
+  .meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 13px;
+  }
+  .meta strong { color: var(--navy); }
+  h2 {
+    margin: 22px 0 8px;
+    font-size: 16px;
+    color: var(--navy);
+    border-left: 4px solid var(--gold);
+    padding-left: 8px;
+  }
+  h3 { margin: 14px 0 6px; font-size: 14px; color: var(--navy-2); }
+  p { margin: 0 0 8px; }
+  .note {
+    background: var(--warn-bg);
+    border: 1px solid #eadcc4;
+    padding: 8px 10px;
+    font-size: 13px;
+    margin: 8px 0 12px;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0 4px;
+  }
+  .card {
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--td);
+    padding: 10px 12px 8px;
+  }
+  .card.tk { border-top-color: var(--tk); }
+  .card .lbl { font-size: 12px; color: var(--muted); margin: 0; }
+  .card .num { font-size: 28px; font-weight: 700; margin: 2px 0; letter-spacing: -0.03em; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    margin: 6px 0 10px;
+  }
+  th, td { border-bottom: 1px solid var(--line); padding: 4px 6px; text-align: right; vertical-align: top; }
+  th:first-child, td:first-child, th.l, td.l { text-align: left; }
+  th {
+    background: #f3f7fb;
+    color: var(--navy);
+    font-weight: 650;
+    border-bottom: 1px solid #b7c6d4;
+  }
+  tr.peak td { background: #f4f8fc; font-weight: 650; }
+  tr.total td { font-weight: 700; background: #f7fafc; }
+  .chart {
+    display: grid;
+    grid-template-columns: 52px 1fr 36px;
+    gap: 0 8px;
+    align-items: end;
+    margin: 4px 0 2px;
+  }
+  .chart .day { font-size: 10px; color: var(--muted); text-align: right; padding-bottom: 2px; }
+  .track { background: #eef2f6; height: 14px; }
+  .fill { height: 14px; background: var(--td); }
+  .fill.tk { background: var(--tk); }
+  .val { font-size: 11px; font-variant-numeric: tabular-nums; padding-bottom: 1px; }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--muted); margin: 4px 0 8px; }
+  .sw { display: inline-block; width: 10px; height: 10px; margin-right: 4px; vertical-align: -1px; }
+  .sw.td { background: var(--td); }
+  .sw.tk { background: var(--tk); }
+  .eval {
+    background: #f7fafc;
+    border: 1px solid var(--line);
+    padding: 10px 12px;
+  }
+  .eval li { margin: 0 0 6px; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pill {
+    display: inline-block;
+    background: var(--chip);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    margin-bottom: 4px;
+  }
+  .pill.warn { background: #f8ead6; color: var(--warn); }
+  .pill.ok { background: #e5f4ef; color: var(--ok); }
+  ol.plan { margin: 6px 0 0; padding-left: 18px; }
+  ol.plan li { margin: 0 0 8px; }
+  footer {
+    margin-top: 18px;
+    padding-top: 8px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 11.5px;
+  }
+  @page { size: A4; margin: 12mm 12mm 14mm; }
+  @media print {
+    body { background: #fff; }
+    .toolbar { display: none !important; }
+    .sheet { width: auto; margin: 0; padding: 0; box-shadow: none; }
+    h2, .card, table, .eval, .note { break-inside: avoid; }
+    thead { display: table-header-group; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <button type="button" onclick="window.print()">Xuất PDF</button>
+</div>
+<article class="sheet">
+  <header class="mast">
+    <p class="kicker">Báo cáo lãnh đạo Cục</p>
+    <h1>Tiến độ phân hệ tuần đường, tuần kiểm và giao việc</h1>
+    <p class="sub">Kỳ 01/10/2026 – 05/11/2026. Số phiên lấy từ file xuất. Khu, văn phòng và phòng hoặc công ty lấy từ hồ sơ người thực hiện.</p>
+    <ul class="meta">
+      <li><strong>Nhịp:</strong> theo ngày</li>
+      <li><strong>Kỳ:</strong> 01/10/2026 đến 05/11/2026 (36 ngày)</li>
+      <li><strong>Nguồn phiên:</strong> file xuất tiến độ</li>
+      <li><strong>Đối tượng:</strong> lãnh đạo Cục</li>
+    </ul>
+  </header>
+
+  <h2>1. Tuần đường</h2>
+  <div class="cards">
+    <div class="card">
+      <p class="lbl">Tổng phiên trong kỳ</p>
+      <p class="num">676</p>
+      <p class="lbl">Tháng 10: 547 phiên · 01–05/11: 129 phiên</p>
+    </div>
+    <div class="card">
+      <p class="lbl">Người đông nhất trong một ngày</p>
+      <p class="num">36</p>
+      <p class="lbl">Ngày 30/10/2026</p>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr><th class="l">Mốc</th><th class="l">Ngày</th><th>Phiên</th><th>Người trong ngày</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="l">Ngày đầu kỳ</td><td class="l">01/10/2026</td><td>0</td><td>0</td></tr>
+      <tr><td class="l">Ngày có phiên đầu</td><td class="l">05/10/2026</td><td>4</td><td>3</td></tr>
+      <tr class="peak"><td class="l">Đỉnh phiên</td><td class="l">30/10/2026</td><td>44</td><td>36</td></tr>
+      <tr><td class="l">Ngày liền trước ngày xuất</td><td class="l">04/11/2026</td><td>36</td><td>31</td></tr>
+      <tr><td class="l">Ngày cuối kỳ</td><td class="l">05/11/2026</td><td>1</td><td>1</td></tr>
+    </tbody>
+  </table>
+  <p>676 phiên nguồn: 675 hoàn thành, 1 đang tuần vào ngày 05/11 trên Cao tốc Bắc - Nam phía Đông.</p>
+  <h3>Phiên tuần đường theo ngày</h3>
+  <div class="legend"><span><i class="sw td"></i>Thang 44 phiên</span></div>
+  <div id="td-chart"></div>
+
+  <h2>2. Tuần kiểm</h2>
+  <div class="cards">
+    <div class="card tk">
+      <p class="lbl">Tổng phiên trong kỳ</p>
+      <p class="num">31</p>
+      <p class="lbl">Tháng 10: 28 phiên · 01–05/11: 3 phiên</p>
+    </div>
+    <div class="card tk">
+      <p class="lbl">Người đông nhất trong một ngày</p>
+      <p class="num">5</p>
+      <p class="lbl">Ngày 05/10/2026. Ngày cuối kỳ: 0 phiên.</p>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr><th class="l">Mốc</th><th class="l">Ngày</th><th>Phiên</th><th>Người trong ngày</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="l">Ngày đầu kỳ</td><td class="l">01/10/2026</td><td>1</td><td>1</td></tr>
+      <tr class="peak"><td class="l">Đỉnh phiên</td><td class="l">05/10/2026</td><td>5</td><td>5</td></tr>
+      <tr><td class="l">Ngày có phiên cuối</td><td class="l">04/11/2026</td><td>1</td><td>1</td></tr>
+      <tr><td class="l">Ngày cuối kỳ</td><td class="l">05/11/2026</td><td>0</td><td>0</td></tr>
+    </tbody>
+  </table>
+  <p>31 phiên nguồn: 24 đang tuần, 7 hoàn thành.</p>
+  <div class="split">
+    <div>
+      <span class="pill warn">Đang hoàn thiện</span>
+      <p>Phần mềm đã có chuỗi tuần kiểm: sự cố theo đợt, phiếu, đối chiếu, xác nhận đạt hoặc chưa đạt, sổ hai trang, ký cuối tuần, báo cáo đọc phiếu và sổ. Bản ghi sổ trên cơ sở dữ liệu còn chưa được áp dụng.</p>
+    </div>
+    <div>
+      <span class="pill">Đủ cho đợt đánh giá tháng 11</span>
+      <p>Đưa vào sử dụng để đánh giá và hiệu chỉnh, cùng với việc áp dụng bản ghi sổ và rà 24 phiên còn đang tuần. Chưa gồm giao việc, chấm 100 điểm và tính tiền khấu trừ.</p>
+    </div>
+  </div>
+  <h3>Phiên tuần kiểm theo ngày</h3>
+  <div class="legend"><span><i class="sw tk"></i>Thang 5 phiên</span></div>
+  <div id="tk-chart"></div>
+
+  <h2>3. Theo khu, văn phòng, phòng và công ty</h2>
+  <p>Theo khu, mỗi dòng gồm số phiên tuần đường và số người đã thực hiện. Phiên tuần đường là phiên có mặt trên tuyến. Số người là số người phân biệt trong cả kỳ, mỗi người tính một lần.</p>
+  <table>
+    <thead>
+      <tr><th class="l">Khu</th><th>Phiên tuần đường</th><th>Số người</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="l">Khu Quản lý đường bộ I</td><td>625</td><td>63</td></tr>
+      <tr><td class="l">Chưa gán khu</td><td>51</td><td>7</td></tr>
+      <tr class="total"><td class="l">Cộng</td><td>676</td><td>70</td></tr>
+    </tbody>
+  </table>
+  <p>Trong 51 phiên chưa gán khu, 19 phiên thuộc một người đã có tài khoản nhưng hồ sơ chưa có khu, văn phòng và đơn vị. Năm người chưa có trong danh mục người dùng chiếm 31 phiên. Đỉnh một ngày vẫn là 36 người ngày 30/10.</p>
+  <table>
+    <thead>
+      <tr><th class="l">Văn phòng</th><th>Phiên tuần đường</th><th>Số người</th><th>Tuần kiểm</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="l">Văn phòng Quản lý đường bộ I.4</td><td>571</td><td>46</td><td>12</td></tr>
+      <tr><td class="l">Văn phòng Quản lý đường bộ I.1</td><td>42</td><td>13</td><td>9</td></tr>
+      <tr><td class="l">Văn phòng Quản lý đường bộ I.2</td><td>11</td><td>3</td><td>2</td></tr>
+      <tr><td class="l">Văn phòng Quản lý đường bộ I.3</td><td>1</td><td>1</td><td>0</td></tr>
+      <tr><td class="l">Chưa gán đủ khu hoặc văn phòng</td><td>51</td><td>7</td><td>8</td></tr>
+      <tr class="total"><td class="l">Cộng</td><td>676</td><td>70</td><td>31</td></tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="l">Văn phòng</th>
+        <th class="l">Phòng, đội hoặc công ty</th>
+        <th>Phiên tuần đường</th>
+        <th>Số người</th>
+        <th>Tuần kiểm</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="l">I.4</td><td class="l">Công ty đầu tư hạ tầng giao thông Đèo Cả</td><td>146</td><td>14</td><td>0</td></tr>
+      <tr><td class="l">I.4</td><td class="l">Công ty cổ phần Quản lý và xây dựng đường bộ 470</td><td>140</td><td>8</td><td>0</td></tr>
+      <tr><td class="l">I.4</td><td class="l">Công ty cổ phần Vận hành và bảo trì đường cao tốc Việt Nam</td><td>128</td><td>7</td><td>1</td></tr>
+      <tr><td class="l">I.4</td><td class="l">Công ty cổ phần Quản lý và xây dựng đường bộ 472</td><td>98</td><td>7</td><td>0</td></tr>
+      <tr><td class="l">I.4</td><td class="l">Tổng công ty Phát triển hạ tầng và Đầu tư tài chính Việt Nam</td><td>50</td><td>6</td><td>1</td></tr>
+      <tr><td class="l">I.4</td><td class="l">Văn phòng Quản lý đường bộ I.4</td><td>9</td><td>4</td><td>10</td></tr>
+      <tr><td class="l">I.1</td><td class="l">Đoạn Tuần Giáo – Mường Lay, Km383+200 đến Km475+200</td><td>14</td><td>2</td><td>0</td></tr>
+      <tr><td class="l">I.1</td><td class="l">Công ty cổ phần Phát triển xây dựng và thương mại số 909</td><td>12</td><td>3</td><td>0</td></tr>
+      <tr><td class="l">I.2</td><td class="l">Công ty cổ phần Phát triển xây dựng và thương mại số 909</td><td>10</td><td>2</td><td>0</td></tr>
+      <tr><td class="l">I.1</td><td class="l">Đoạn Sơn La – Tuần Giáo, Km308+820 đến Km383+200</td><td>6</td><td>2</td><td>0</td></tr>
+      <tr><td class="l">I.1</td><td class="l">Tuyến tránh Sơn La, Km289+950 đến Km308+820, Quốc lộ 6</td><td>6</td><td>2</td><td>0</td></tr>
+      <tr><td class="l">I.1</td><td class="l">Đội quản lý đường bộ I.1 số 01</td><td>1</td><td>1</td><td>3</td></tr>
+      <tr><td class="l">I.1</td><td class="l">Đội quản lý đường bộ I.1 số 03</td><td>1</td><td>1</td><td>3</td></tr>
+      <tr><td class="l">I.1</td><td class="l">Đội quản lý đường bộ I.1 số 02</td><td>1</td><td>1</td><td>2</td></tr>
+      <tr><td class="l">I.2</td><td class="l">Văn phòng Quản lý đường bộ I.2</td><td>1</td><td>1</td><td>2</td></tr>
+      <tr><td class="l">I.1</td><td class="l">Đội quản lý đường bộ I.1 số 04</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td class="l">I.3</td><td class="l">Văn phòng Quản lý đường bộ I.3</td><td>1</td><td>1</td><td>0</td></tr>
+      <tr><td class="l">Chưa gán khu</td><td class="l">Phòng giám sát tuần kiểm</td><td>0</td><td>0</td><td>3</td></tr>
+      <tr><td class="l">Chưa gán khu</td><td class="l">Tuyến cao tốc Tuyên Quang – Phú Thọ</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td class="l">Chưa gán khu</td><td class="l">Hồ sơ ghi Văn phòng Quản lý đường bộ I.4 nhưng chưa gán khu</td><td>0</td><td>0</td><td>1</td></tr>
+      <tr><td class="l">Chưa gán khu</td><td class="l">Có tài khoản, chưa gán khu, văn phòng và đơn vị</td><td>19</td><td>1</td><td>3</td></tr>
+      <tr><td class="l">Chưa có trong danh mục</td><td class="l">Người thực hiện chưa có trong danh mục người dùng</td><td>31</td><td>5</td><td>0</td></tr>
+    </tbody>
+  </table>
+  <p>Hai dòng công ty 909 là hai cách ghi ở Văn phòng I.1 và Văn phòng I.2. 51 phiên tuần đường và 8 phiên tuần kiểm chưa đủ khu hoặc văn phòng để xếp vào bảng trên.</p>
+
+  <h2>4. Giao việc và chấm theo thời gian hoàn thành</h2>
+  <p>Trong cả kỳ, việc mới ghi nhận, đã giao, đang xử lý, hoàn thành, đã hủy và quá hạn lúc xuất file đều bằng 0. Chưa có việc giao để đối chiếu công thức.</p>
+  <div class="split">
+    <div>
+      <span class="pill ok">Đã có form giao</span>
+      <p>Giao việc nằm trên chi tiết sự cố và báo cáo ca. Người giao chọn người nhận, đơn vị bảo dưỡng và hạn. Hạn gợi ý theo Thông tư 41/2024, Phụ lục IV, và sửa được trước khi giao. Đơn vị được giao bấm hoàn thành.</p>
+      <p>Nút giao hiện mở cho hạt trưởng và hạt phó. Chưa mở cho mọi chức danh lãnh đạo đơn vị.</p>
+    </div>
+    <div>
+      <span class="pill">Chấm trên phiếu theo hạn giao</span>
+      <table>
+        <thead><tr><th class="l">Kết quả</th><th class="l">So với hạn</th><th class="l">Ghi phiếu</th></tr></thead>
+        <tbody>
+          <tr><td class="l">Xác nhận đạt</td><td class="l">Trước hoặc đúng hạn</td><td class="l">Đạt, trong hạn</td></tr>
+          <tr><td class="l">Xác nhận đạt</td><td class="l">Sau hạn</td><td class="l">Đạt, quá hạn</td></tr>
+          <tr><td class="l">Ghi chưa đạt</td><td class="l">Còn hạn</td><td class="l">Chưa đạt, giữ hạn cũ</td></tr>
+          <tr><td class="l">Ghi chưa đạt</td><td class="l">Đã quá hạn</td><td class="l">Chưa đạt, quá hạn</td></tr>
+        </tbody>
+      </table>
+      <p>Khung hồ sơ là 100 điểm cả gói, hoặc 1.000 điểm khi nhiều việc. Nhóm A hệ số 1,5 đến 2; nhóm B hệ số 1,25 đến 1,5; nhóm C hệ số 1. Hồ sơ trích chưa đủ cách ra số tiền. Phần mềm không tính tiền khấu trừ và không có màn chấm 100 điểm.</p>
+    </div>
+  </div>
+
+  <h2>5. Nhận diện hình ảnh</h2>
+  <table>
+    <thead>
+      <tr><th class="l">Nhóm</th><th class="l">Hiện trạng</th><th class="l">Việc tiếp</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="l">Ổ gà</td><td class="l">Đã huấn luyện. Mô hình đang chạy trên máy người dùng</td><td class="l">Giữ riêng, không gộp với biển báo</td></tr>
+      <tr><td class="l">Biển báo</td><td class="l">Đang nhận tên biển bằng mô hình mở 82 loại, chưa phải ảnh của bộ</td><td class="l">Huấn luyện lại từng biển bằng ảnh của đơn vị</td></tr>
+      <tr><td class="l">Sự cố khác</td><td class="l">Chưa huấn luyện: nứt, chảy nhựa, bong bật, lún, vá, hư mép, sạt lở</td><td class="l">Có ảnh đơn vị rồi mới làm mô hình</td></tr>
+    </tbody>
+  </table>
+  <p>Màn hướng dẫn chụp sự cố chưa có. Việc bổ sung nằm ở kế hoạch: cán bộ tuần đường, tuần kiểm chụp theo khung đã thử với ảnh lấy từ đơn vị. Không đưa ảnh có sẵn trên mạng vào bộ dữ liệu.</p>
+
+  <h2>6. Kế hoạch tháng 11</h2>
+  <ol class="plan">
+    <li><strong>Giai đoạn 2 trong tháng 11:</strong> đưa tuần kiểm và giao việc vào sử dụng để đánh giá, hiệu chỉnh. Tuần kiểm đi cùng việc áp dụng bản ghi sổ. Giao việc đi cùng việc chốt chức danh lãnh đạo được giao; hiện mới là hạt trưởng và hạt phó.</li>
+    <li><strong>Song song ở Khu II, III và IV:</strong> triển khai tuần đường để có cùng loại số liệu. Mốc Khu I của kỳ này: 676 phiên tuần đường, 31 phiên tuần kiểm, việc giao bằng 0.</li>
+    <li><strong>Bộ ảnh huấn luyện:</strong> cán bộ tuần đường, tuần kiểm và sinh viên Trường Đại học Công nghiệp cùng lập bộ ảnh từ hiện trường. Ảnh thuộc bộ.</li>
+    <li><strong>Màn hướng dẫn chụp:</strong> thêm trên luồng ghi sự cố, trước khi mở các loại sự cố chưa huấn luyện và trước khi thay mô hình biển báo đang dùng chung.</li>
+  </ol>
+
+  <h2>Đánh giá số liệu</h2>
+  <div class="eval">
+    <ul>
+      <li>Tuần đường tăng từ 4 phiên ngày 05/10 lên 36 phiên ngày 04/11. Đỉnh 44 phiên ngày 30/10. Ngày cuối kỳ 05/11 có 1 phiên.</li>
+      <li>Người tuần đường trong một ngày: 3 người ngày 05/10, 31 người ngày 04/11, đỉnh 36 người ngày 30/10. Mỗi mức là một ngày.</li>
+      <li>Tuần kiểm không tăng bền: đỉnh 5 phiên ngày 05/10, ngày 04/11 còn 1 phiên, ngày 05/11 bằng 0.</li>
+      <li>Lệch tuần đường với tuần kiểm: 676 phiên so với 31 phiên. Ngày 04/11 là 36 so với 1.</li>
+      <li>Khu Quản lý đường bộ I có 625 phiên tuần đường và 63 người. Chưa gán khu: 51 phiên, 7 người. Văn phòng I.4 chiếm 571 phiên và 46 người.</li>
+      <li>Việc đang xử lý không lớn hơn việc hoàn thành. Quá hạn bằng 0. File không cho thấy việc bị kẹt.</li>
+      <li>Việc xem tiếp là 24 phiên tuần kiểm còn đang tuần, và 51 phiên tuần đường chưa gán đủ đơn vị.</li>
+    </ul>
+  </div>
+
+  <h2>Tuyến theo tên</h2>
+  <div class="split">
+    <div>
+      <h3>Tuần đường — 676 phiên</h3>
+      <table>
+        <thead><tr><th class="l">Tuyến</th><th>Phiên</th></tr></thead>
+        <tbody>
+          <tr><td class="l">Cao tốc Bắc - Nam phía Đông</td><td>256</td></tr>
+          <tr><td class="l">Đường Hồ Chí Minh</td><td>140</td></tr>
+          <tr><td class="l">Quốc lộ 1</td><td>107</td></tr>
+          <tr><td class="l">Cao tốc Mai Sơn – Quốc lộ 45</td><td>57</td></tr>
+          <tr><td class="l">Quốc lộ 6</td><td>38</td></tr>
+          <tr><td class="l">Đường Hồ Chí Minh (Thanh Hóa)</td><td>32</td></tr>
+          <tr><td class="l">Cao tốc Nghi Sơn – Diễn Châu</td><td>14</td></tr>
+          <tr><td class="l">Quốc lộ 1B</td><td>10</td></tr>
+          <tr><td class="l">Đường Hồ Chí Minh (Phú Thọ)</td><td>9</td></tr>
+          <tr><td class="l">Tránh đông Thanh Hóa</td><td>5</td></tr>
+          <tr><td class="l">Quốc lộ 14</td><td>2</td></tr>
+          <tr><td class="l">Quốc lộ 6, tuyến tránh Sơn La</td><td>2</td></tr>
+          <tr><td class="l">Quốc lộ 3</td><td>1</td></tr>
+          <tr><td class="l">Cao tốc Cao Bồ – Mai Sơn</td><td>1</td></tr>
+          <tr><td class="l">Cao tốc 08</td><td>1</td></tr>
+          <tr><td class="l">Cao tốc Nội Bài – Lào Cai</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3>Tuần kiểm — 31 phiên</h3>
+      <table>
+        <thead><tr><th class="l">Tuyến</th><th>Phiên</th></tr></thead>
+        <tbody>
+          <tr><td class="l">Quốc lộ 1</td><td>9</td></tr>
+          <tr><td class="l">Cao tốc Bắc - Nam phía Đông</td><td>5</td></tr>
+          <tr><td class="l">Quốc lộ 6</td><td>4</td></tr>
+          <tr><td class="l">Quốc lộ 3</td><td>2</td></tr>
+          <tr><td class="l">Cao tốc Mai Sơn – Quốc lộ 45</td><td>2</td></tr>
+          <tr><td class="l">Cao tốc Cao Bồ – Mai Sơn và hầm Tam Điệp</td><td>1</td></tr>
+          <tr><td class="l">Quốc lộ 6, tỉnh Sơn La</td><td>1</td></tr>
+          <tr><td class="l">Cao tốc Cao Bồ – Mai Sơn</td><td>1</td></tr>
+          <tr><td class="l">Đường Hồ Chí Minh (Thanh Hóa)</td><td>1</td></tr>
+          <tr><td class="l">Đường Hồ Chí Minh</td><td>1</td></tr>
+          <tr><td class="l">Quốc lộ 1 (Thanh Hóa)</td><td>1</td></tr>
+          <tr><td class="l">Đường Hồ Chí Minh (Phú Thọ)</td><td>1</td></tr>
+          <tr><td class="l">Quốc lộ 32 (Lào Cai)</td><td>1</td></tr>
+          <tr><td class="l">Quốc lộ 279</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>Phụ lục từng ngày</h2>
+  <table id="daily">
+    <thead>
+      <tr>
+        <th class="l">Ngày</th>
+        <th>Phiên tuần đường</th><th>Người tuần đường</th>
+        <th>Phiên tuần kiểm</th><th>Người tuần kiểm</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <footer>
+    Phiên cộng theo ngày lấy từ file xuất. Bảng khu đếm phiên tuần đường và số người phân biệt cả kỳ theo hồ sơ người thực hiện. Không cộng số người từng ngày thành số người cả kỳ.
+    Tên khu và văn phòng theo danh mục tổ chức Cục. Tên phòng, đội, công ty theo cột đơn vị nguồn của người dùng.
+    Soạn cho họp 05/11/2026.
+  </footer>
+</article>
+<script>
+(function () {
+  var rows = [
+    ["01/10",0,0,1,1],["02/10",0,0,0,0],["03/10",0,0,0,0],["04/10",0,0,0,0],
+    ["05/10",4,3,5,5],["06/10",10,4,3,3],["07/10",16,11,1,1],["08/10",8,7,1,1],
+    ["09/10",22,19,4,4],["10/10",16,11,1,1],["11/10",13,13,0,0],["12/10",33,23,4,3],
+    ["13/10",33,25,1,1],["14/10",23,20,0,0],["15/10",19,19,0,0],["16/10",18,17,0,0],
+    ["17/10",13,13,0,0],["18/10",10,8,0,0],["19/10",18,17,0,0],["20/10",20,19,1,1],
+    ["21/10",24,20,1,1],["22/10",16,15,0,0],["23/10",22,22,1,1],["24/10",19,18,0,0],
+    ["25/10",12,11,0,0],["26/10",22,14,0,0],["27/10",21,21,0,0],["28/10",22,21,0,0],
+    ["29/10",41,26,2,2],["30/10",44,36,0,0],["31/10",28,28,2,1],["01/11",18,18,0,0],
+    ["02/11",39,30,1,1],["03/11",35,30,1,1],["04/11",36,31,1,1],["05/11",1,1,0,0]
+  ];
+  function chart(id, idx, max, cls) {
+    var host = document.getElementById(id);
+    rows.forEach(function (r) {
+      var v = r[idx];
+      var pct = max === 0 ? 0 : Math.round(v / max * 100);
+      var row = document.createElement("div");
+      row.className = "chart";
+      row.innerHTML = '<div class="day">' + r[0] + '</div>'
+        + '<div class="track"><div class="fill ' + cls + '" style="width:' + pct + '%"></div></div>'
+        + '<div class="val">' + v + '</div>';
+      host.appendChild(row);
+    });
+  }
+  chart("td-chart", 1, 44, "");
+  chart("tk-chart", 3, 5, "tk");
+  var body = document.querySelector("#daily tbody");
+  rows.forEach(function (r) {
+    var tr = document.createElement("tr");
+    if (r[0] === "30/10" || r[0] === "04/11") tr.className = "peak";
+    tr.innerHTML = "<td class='l'>" + r[0] + "</td><td>" + r[1] + "</td><td>" + r[2]
+      + "</td><td>" + r[3] + "</td><td>" + r[4] + "</td>";
+    body.appendChild(tr);
+  });
+})();
+</script>
+</body>
+</html>

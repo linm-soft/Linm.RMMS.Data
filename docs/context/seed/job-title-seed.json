@@ -22,6 +22,9 @@
     { "code": "CAN-BO-KT", "name": "Cán bộ kỹ thuật", "titleGroup": "TECH", "packageHint": "RMMS-TDTK", "legacyAliases": ["Cán bộ kỹ thuật Đội bảo trì số 02", "Cán bộ kĩ thuật", "cán bộ KT", "Nhân viên đội điện thông gió"] },
     { "code": "TUAN-DUONG", "name": "Tuần đường", "titleGroup": "PATROL", "packageHint": "RMMS-TDTK", "legacyAliases": ["Nhân viên tuần đường"] },
     { "code": "TUAN-KIEM", "name": "Tuần kiểm", "titleGroup": "PATROL", "packageHint": "RMMS-TDTK", "legacyAliases": ["Tuần kiềm"] },
-    { "code": "NHAN-VIEN", "name": "Nhân viên", "titleGroup": "PATROL", "packageHint": "RMMS-TDTK", "legacyAliases": ["Nhân viên Phòng QLBT&ATGT", "NV VHBT", "NV Phòng QLGT", "Nhân viên ITS"] }
+    { "code": "NHAN-VIEN", "name": "Nhân viên", "titleGroup": "PATROL", "packageHint": "RMMS-TDTK", "legacyAliases": ["Nhân viên Phòng QLBT&ATGT", "NV VHBT", "NV Phòng QLGT", "Nhân viên ITS"] },
+    { "code": "PHO-CUC-TRUONG", "name": "Phó Cục trưởng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": [] },
+    { "code": "PHO-TRUONG-PHONG-CUC", "name": "Phó trưởng phòng", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "legacyAliases": [] },
+    { "code": "LANH-DAO-CUC", "name": "Lãnh đạo Cục", "titleGroup": "LEAD", "packageHint": "MANAGER-RMMS", "viewCode": "cuc", "enabledViewCodes": ["cuc"], "legacyAliases": [] }
   ]
 }

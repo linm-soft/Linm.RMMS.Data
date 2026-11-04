@@ -105,6 +105,10 @@ Hub chỉ render đúng `GET patrol/sessions` và `GET patrol/check-ins`. Header
 
 Desktop bỏ `min-height: calc(100vh - 48px)` trên `.phone` tuần đường để khung không cao hơn thân shell. Shell `.body` và `.content` / `.detailScroll` cuộn nhưng không vẽ thanh cuộn mép cột. Danh sách «Ca nhân sự» giữ thanh cuộn trong khung. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
 
+## Notes — nhật ký ngày / ca / điểm tuần
+
+`/tuan-duong/lich-su` đọc `GET patrol/check-ins` (from, to, status, patrolType) và xếp ngày → ca → điểm. Ca hiện lý trình từ `sessionKmFromLabel` / `sessionKmToLabel` trên note ca. Sheet: Hôm nay rồi Áp dụng. Xuất Word/PDF chưa làm. Verify: `yarn typecheck` Mobile · `dotnet build` API.
+
 ## Notes — ô lý trình chung
 
 `RouteChainageField` dùng cho check-in, mở đợt, lập phiếu, giao việc, sự cố, nghiệm thu, thu thập tài sản, nhật ký, kiến nghị, biên bản. Gồm tuyến bắt buộc, cột KM + khoảng cách, nút Lấy vị trí (modal cột km như check-in), ghi chú khi tuyến chưa có cột KM, và chọn vị trí bắt đầu hoặc kết thúc. Lý trình đã nhập được nhớ theo mã tuyến. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
@@ -124,6 +128,10 @@ Card list có tuyến hiện lý trình dạng `Km {cột} + {mét}m` khi payloa
 ## Notes — menu hub tuần kiểm
 
 Menu Sự cố của đợt, Phiếu phát hiện, Sổ nhật ký nằm trên hub `/tuan-kiem` và lưới Trang chủ khi có quyền tuần kiểm. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
+
+## Notes — sổ trạng thái và ký
+
+`InspectBookPage`: trạng thái bìa tách khỏi mã (`chipWait` khi chờ, `chip` khi `DaKy`). Khối ký không lấy câu cấm ký làm tên người ký. Tuần kiểm không thấy ô nhận xét trống. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
 
 ## Next
 

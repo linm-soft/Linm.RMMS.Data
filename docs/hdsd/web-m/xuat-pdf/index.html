@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HDSD RMMS theo vai</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: #1c1c1e; background: #f2f2f7; line-height: 1.45; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 16px 16px 48px; }
+    .brand { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 12px; padding: 4px 2px 12px; border-bottom: 2px solid #086a9a; }
+    .brand p { margin: 0; font-size: 1.15rem; font-weight: 700; line-height: 1.3; color: #0b3a52; }
+    .brand img { height: 52px; width: auto; flex: 0 0 auto; }
+    table.sheet { width: 100%; border-collapse: collapse; border: 0; background: transparent; margin: 0; }
+    table.sheet > thead > tr > td, table.sheet > tbody > tr > td { border: 0 !important; padding: 0 !important; background: transparent; width: auto !important; vertical-align: top; }
+    .bar {
+      position: sticky; top: 0; z-index: 2;
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      background: #f2f2f7; padding: 12px 0 10px;
+    }
+    .bar a.back { font-size: 0.92rem; text-decoration: none; margin-right: 8px; }
+    .bar button {
+      border: 1px solid #d8d8dc; background: #fff; color: #1c1c1e;
+      border-radius: 999px; padding: 8px 14px; font-size: 0.95rem; cursor: pointer;
+    }
+    .bar button[aria-pressed="true"] { background: #086a9a; color: #fff; border-color: #086a9a; }
+    .bar .pdf {
+      margin-left: auto; background: #086a9a; color: #fff; border: 0;
+    }
+    .hint { margin: 0 0 12px; color: #636366; font-size: 0.92rem; }
+    header.top, table, .step { background: #fff; border: 1px solid #e5e5ea; border-radius: 16px; }
+    header.top { padding: 20px 22px; }
+    h1 { font-size: 1.45rem; margin: 0 0 8px; }
+    h2 { font-size: 1.2rem; margin: 28px 0 8px; }
+    p { margin: 0 0 8px; }
+    a { color: #086a9a; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin-top: 8px; }
+    th, td { border: 1px solid #d8d8dc; padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #f4f4f6; }
+    .step { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 18px; align-items: start; padding: 16px; margin: 12px 0; }
+    .step > figure { grid-column: 1; width: 220px; max-width: 100%; margin: 0; }
+    .step > div { grid-column: 2; grid-row: 1 / -1; min-width: 0; }
+    .step ol, .pane > ol { margin: 8px 0 0; padding-left: 1.2rem; }
+    .step li, .pane > ol li { margin: 4px 0; }
+    figure { margin: 0; }
+    figure img { width: 100%; height: auto; border: 1px solid #e5e5ea; border-radius: 12px; display: block; background: #fff; }
+    figcaption { font-size: 0.82rem; color: #636366; margin-top: 6px; }
+    .pane { display: none; }
+    body[data-vai="tuan-duong"] .pane-tuan-duong,
+    body[data-vai="tuan-kiem"] .pane-tuan-kiem,
+    body[data-vai="nghiem-thu"] .pane-nghiem-thu,
+    body[data-vai="quan-ly"] .pane-nghiem-thu { display: block; }
+    @page {
+      size: A4 portrait;
+      margin: 22mm 12mm 16mm;
+      @top-left {
+        content: "Hướng dẫn sử dụng phần mềm RMMS";
+        font-family: "Segoe UI", system-ui, sans-serif;
+        font-size: 11pt;
+        font-weight: 700;
+        color: #0b3a52;
+        vertical-align: middle;
+      }
+      @top-right {
+        content: url("data:image/png;base64,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");
+        width: 16mm;
+        height: 16mm;
+        vertical-align: middle;
+      }
+      @bottom-center {
+        content: counter(page) "/" counter(pages);
+        font-family: "Segoe UI", system-ui, sans-serif;
+        font-size: 10pt;
+        color: #3a3a3c;
+      }
+    }
+    @media print {
+      body { background: #fff; }
+      .bar, .hint { display: none !important; }
+      table.sheet thead { display: none; }
+      .wrap { max-width: none; padding: 0; }
+      header.top, table, .step { border: 0; border-radius: 0; }
+      h2 { break-after: avoid; }
+      p, li, td, th { hyphens: none; overflow-wrap: break-word; }
+      .step {
+        grid-template-columns: 58mm minmax(0, 1fr);
+        gap: 6mm;
+        padding: 0 0 6mm;
+        margin: 0 0 4mm;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .step > figure { width: 58mm; }
+      figure img { width: 58mm; max-height: 145mm; object-fit: contain; object-position: top center; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body data-vai="tuan-duong">
+  <div class="wrap">
+    <table class="sheet">
+      <thead><tr><td>
+    <header class="brand">
+      <p>Hướng dẫn sử dụng phần mềm RMMS</p>
+      <img src="../img/logo.svg" alt="RMMS" />
+    </header>
+      </td></tr></thead>
+      <tbody><tr><td>
+    <div class="bar">
+      <a class="back" href="../index.html">Về hướng dẫn sử dụng</a>
+      <button type="button" data-vai="tuan-duong" aria-pressed="true">Tuần đường</button>
+      <button type="button" data-vai="tuan-kiem" aria-pressed="false">Tuần kiểm</button>
+      <button type="button" data-vai="quan-ly" aria-pressed="false">Quản lý</button>
+      <button type="button" class="pdf" id="btn-pdf">Xuất PDF</button>
+    </div>
+    <p class="hint">Chọn vai, rồi nhấn Xuất PDF. Trong hộp thoại in, chọn Lưu dưới dạng PDF. File chỉ gồm vai đang chọn.</p>
+
+    <section class="pane pane-tuan-duong" data-pane="tuan-duong">
+      <header class="top">
+        <h1>Tuần đường</h1>
+        <p>Nhân viên tuần đường tuần tra tuyến được giao, ghi điểm tuần, ghi sự cố và kết thúc ca. Khi cần biên bản vi phạm, ghi nhận vấn đề và đề nghị người có thẩm quyền lập biên bản.</p>
+      </header>
+      <h2>Xác nhận tuyến</h2>
+      <p>Lần vào ca, phần mềm có thể mở màn <strong>Xác nhận tuyến</strong> trước hub tuần đường.</p>
+      <ol>
+        <li>Chọn <strong>Tuyến</strong>, nhập lý trình từ km và đến km.</li>
+        <li>Nhấn <strong>Thêm tuyến</strong> khi có thêm một đoạn.</li>
+        <li>Nhấn <strong>Xác nhận</strong>. Phiếu báo <strong>Phải có ít nhất 1 tuyến và lý trình.</strong> khi chưa đủ.</li>
+        <li>Ô <strong>Tôi là quản lý</strong> dùng khi tuyến không bắt buộc. Dòng gợi ý: <strong>Tuyến và lý trình không bắt buộc.</strong></li>
+      </ol>
+      <h2>Mở ca</h2>
+      <article class="step">
+        <figure>
+          <img src="../img/02-tuan-duong.png" alt="Ca tuần đường đang chạy" />
+          <figcaption>Hình 1. Ca đang tuần.</figcaption>
+        </figure>
+        <div>
+          <p>Phần này là tùy chọn. Hệ thống hỗ trợ tự mở ca khi có <strong>Ghi điểm tuần</strong> (check-in) và tự đóng ca khi hết ngày. Ca làm việc theo phân ca của người dùng.</p>
+          <ol>
+            <li>Chọn mục <strong>Tuần đường</strong>.</li>
+            <li>Theo dõi tuyến, mã ca, nhân viên, số điểm tuần và độ phủ.</li>
+            <li>Trong mục <strong>Hôm nay</strong>, <strong>Đang tuần</strong> là ca chưa kết thúc. <strong>Xong</strong> là ca đã kết thúc.</li>
+            <li>Nút <strong>Mở ca</strong> chỉ hiện khi chưa có ca đang tuần.</li>
+          </ol>
+        </div>
+      </article>
+      <article class="step">
+        <figure>
+          <img src="../img/03-tuan-duong-mo-ca.png" alt="Màn mở ca" />
+          <figcaption>Hình 2. Mở ca.</figcaption>
+        </figure>
+        <div>
+          <ol>
+            <li>Chọn <strong>Tuyến đường</strong>.</li>
+            <li>Ở <strong>Từ km</strong> và <strong>Đến km</strong>, nhập <strong>Cột KM</strong> và <strong>Khoảng cách (m)</strong>. Thiếu cột KM thì phiếu báo <strong>Nhập cột KM từ và đến trước khi mở ca.</strong></li>
+            <li>Chọn <strong>Chiều</strong>: Chiều đi, Chiều về hoặc Hai chiều. <strong>Người</strong> hiện sẵn theo tài khoản.</li>
+            <li>Kiểm tra <strong>Ngày</strong>. Ô <strong>Loại / trạng thái</strong> ghi sẵn Tuần đường · Đang tuần.</li>
+            <li>Nhấn <strong>Mở ca</strong>. Nhấn <strong>Hủy</strong> nếu chưa mở. Khi đã có ca đang tuần, nút trên hub là <strong>Thêm ca</strong>.</li>
+          </ol>
+        </div>
+      </article>
+      <h2>Ghi điểm tuần</h2>
+      <article class="step">
+        <figure>
+          <img src="../img/03-ghi-diem-tuan.png" alt="Ghi điểm tuần" />
+          <figcaption>Hình 3. Ghi điểm tuần.</figcaption>
+        </figure>
+        <div>
+          <ol>
+            <li>Trong ca đang tuần, nhấn <strong>Ghi điểm tuần</strong>.</li>
+            <li>Kiểm tra <strong>Điểm kế hoạch</strong> và <strong>Định vị ghim tự động</strong>.</li>
+            <li>Ở <strong>Lý trình</strong>, nhập <strong>Cột KM</strong> và <strong>Khoảng cách (m)</strong>. Thiếu cột KM thì phiếu báo <strong>Nhập cột KM trước khi lưu</strong>.</li>
+            <li>Nhập <strong>Nội dung</strong>. Nhấn <strong>Chụp</strong> khi cần ảnh.</li>
+            <li>Nhấn <strong>Lưu</strong> hoặc <strong>Ghi nhận điểm tuần</strong>. Nhấn <strong>Hủy</strong> nếu không lưu.</li>
+          </ol>
+        </div>
+      </article>
+      <h2>Ghi nhận hư hỏng</h2>
+      <article class="step">
+        <figure>
+          <img src="../img/04-van-de.png" alt="Danh sách vấn đề" />
+          <figcaption>Hình 4. Vấn đề sau khi ghi nhận.</figcaption>
+        </figure>
+        <div>
+          <ol>
+            <li>Nhấn <strong>Ghi nhận hư hỏng</strong> khi phát hiện hư hỏng, mất mát hoặc xuống cấp.</li>
+            <li>Mở mục <strong>Vấn đề</strong> để theo dõi. Trạng thái gồm <strong>Đợi phân công giám sát</strong> và <strong>Đã đóng</strong>.</li>
+            <li>Chọn dòng để mở chi tiết. Nhấn <strong>Trao đổi</strong> để ghi nội dung xử lý.</li>
+          </ol>
+        </div>
+      </article>
+      <h2>Lịch sử và kết thúc ca</h2>
+      <article class="step">
+        <figure>
+          <img src="../img/04-tuan-duong-lich-su.png" alt="Lịch sử ca tuần đường" />
+          <figcaption>Hình 5. Lịch sử ca.</figcaption>
+        </figure>
+        <div>
+          <ol>
+            <li>Nhấn <strong>Lịch sử phiên</strong>. Nhấn <strong>Lọc</strong> khi cần thu hẹp danh sách.</li>
+            <li>Chọn một dòng để xem chi tiết ca.</li>
+            <li>Khi hoàn thành tuần tra, mở chi tiết ca đang tuần và nhấn <strong>Kết thúc ca</strong>.</li>
+          </ol>
+        </div>
+      </article>
+    </section>
+
+    <section class="pane pane-tuan-kiem" data-pane="tuan-kiem">
+      <header class="top">
+        <h1>Tuần kiểm</h1>
+        <p>Cán bộ tuần kiểm mở đợt trên đoạn được giao, đối chiếu sổ với ca tuần đường và xác nhận phiếu phát hiện. Việc xử lý đã được quản lý giao, kèm người nhận và hạn xử lý. Xác nhận của tuần kiểm nằm trên phiếu phát hiện.</p>
+      </header>
+      <h2>Xác nhận tuyến</h2>
+      <p>Lần vào đợt, phần mềm có thể mở màn <strong>Xác nhận tuyến</strong>.</p>
+      <ol>
+        <li>Chọn <strong>Tuyến</strong>, nhập lý trình từ km và đến km. Nhấn <strong>Thêm tuyến</strong> khi có thêm đoạn.</li>
+        <li>Nhấn <strong>Xác nhận</strong>. Phiếu báo <strong>Phải có ít nhất 1 tuyến và lý trình.</strong> khi chưa đủ.</li>
+      </ol>
+      <h2>Mở đợt</h2>
+      <article class="step">
+        <figure>
+          <img src="../img/05-tuan-kiem.png" alt="Màn tuần kiểm" />
+          <figcaption>Hình 1. Menu tuần kiểm.</figcaption>
+        </figure>
+        <div>
+          <ol>
+            <li>Mở tab <strong>Tuần kiểm</strong>.</li>
+            <li>Trong <strong>Menu tuần kiểm</strong>, chọn <strong>Mở đợt</strong>, <strong>Sự cố của đợt</strong>, <strong>Phiếu phát hiện</strong>, <strong>Sổ nhật ký</strong> hoặc <strong>Kế hoạch tần suất</strong>.</li>
+            <li>Mục <strong>Đợt đang kiểm</strong> liệt kê đợt chưa kết thúc.</li>
+          </ol>
+        </div>
+      </article>
+      <article class="step">
+        <figure>
+          <img src="../img/06-tuan-kiem-mo-dot.png" alt="Mở đợt tuần kiểm" />
+          <figcaption>Hình 2. Mở đợt.</figcaption>
+        </figure>
+        <div>
+          <ol>
+            <li>Nhấn <strong>Mở đợt</strong>.</li>
+            <li>Chọn <strong>Tuyến đường</strong>. Ở <strong>Từ km</strong> và <strong>Đến km</strong>, nhập <strong>Cột KM</strong> và <strong>Khoảng cách (m)</strong>.</li>
+            <li>Thiếu cột KM thì phiếu báo <strong>Nhập cột KM từ và đến trước khi mở đợt.</strong></li>
+            <li>Chọn <strong>Hình thức</strong>: Định kỳ hoặc Đột xuất. Đột xuất thì nhập <strong>Lý do đột xuất</strong>.</li>
+            <li>Nhấn <strong>Mở đợt</strong>. Nhấn <strong>Hủy</strong> nếu chưa mở.</li>
+          </ol>
+        </div>
+      </article>
+      <h2>Đối chiếu và xác nhận</h2>
+      <article class="step">
+        <figure>
+          <img src="../img/07-cong-viec.png" alt="Công việc đã giao" />
+          <figcaption>Hình 3. Công việc sau khi quản lý giao.</figcaption>
+        </figure>
+        <div>
+          <ol>
+            <li>Mở <strong>Sổ nhật ký</strong>. Mục <strong>Đối chiếu tuần đường</strong> chọn <strong>Khớp</strong> hoặc <strong>Lệch</strong>.</li>
+            <li>Mở <strong>Phiếu phát hiện</strong>. Ở <strong>Kiểm tra lại</strong>, chọn <strong>Kết luận</strong> Đạt hoặc Chưa đạt.</li>
+            <li>Nhập <strong>Ghi chú</strong>, nhấn <strong>Ghim vị trí hiện tại</strong>, gắn <strong>Ảnh kiểm tra</strong>.</li>
+            <li>Kết luận Đạt: nhấn <strong>Xác nhận đạt</strong>. Kết luận Chưa đạt: nhấn <strong>Ghi chưa đạt</strong>.</li>
+          </ol>
+        </div>
+      </article>
+      <h2>Thời hạn khắc phục</h2>
+      <p>Quản lý ghi <strong>Hạn xử lý</strong> khi giao việc. Tuần kiểm lấy hạn này lúc <strong>Xác nhận đạt</strong>. Mốc theo Thông tư 41/2024, Phụ lục IV.</p>
+      <table>
+        <thead><tr><th>Hạng mục</th><th>Thời hạn</th></tr></thead>
+        <tbody>
+          <tr><td>Vá ổ gà</td><td>3 ngày với đường cấp I, II. 5 ngày với đường cấp III đến VI.</td></tr>
+          <tr><td>Nứt dọc, nứt ngang, nứt mai rùa</td><td>7 ngày mùa mưa. 14 ngày mùa khô.</td></tr>
+          <tr><td>Lún lõm, sình lún vượt mức</td><td>10 ngày. Không tính ngày mưa, mặt đường ẩm không thi công được.</td></tr>
+          <tr><td>Vệ sinh mặt đường, chướng ngại mất an toàn</td><td>1 giờ nếu nguy hiểm. 7 ngày với trường hợp còn lại.</td></tr>
+          <tr><td>Nước đọng trên mặt đường</td><td>Không quá 24 giờ.</td></tr>
+          <tr><td>Biển báo cấm, biển hiệu lệnh</td><td>1 ngày sau khi phát hiện. Biển còn lại: 3 ngày.</td></tr>
+          <tr><td>Vạch sơn hư cục bộ</td><td>28 ngày.</td></tr>
+          <tr><td>Tồn tại phát hiện lúc nghiệm thu</td><td>Khắc phục tối đa 5 ngày kể từ văn bản yêu cầu. Tuần kiểm xác nhận kết quả khắc phục.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="pane pane-nghiem-thu" data-pane="nghiem-thu">
+      <header class="top">
+        <h1>Quản lý</h1>
+        <p>View Quản lý giao việc từ sự cố, ký sổ cuối tuần, xem giám sát và lập phiếu nghiệm thu hiện trường. Phiếu điện thoại ghi kết quả từng hạng mục.</p>
+      </header>
+      <h2>Tìm phiếu</h2>
+      <article class="step">
+        <figure>
+          <img src="../img/07-nghiem-thu.png" alt="Danh sách nghiệm thu" />
+          <figcaption>Hình 1. Danh sách phiếu.</figcaption>
+        </figure>
+        <div>
+          <ol>
+            <li>Chọn ô <strong>Công tác nghiệm thu</strong> hoặc tab <strong>Nghiệm thu</strong>.</li>
+            <li>Nhập mã phiếu, tuyến hoặc hiện trường, rồi nhấn <strong>Tìm kiếm</strong>.</li>
+            <li>Chọn một phiếu để xem trạng thái, mẫu và tuyến.</li>
+          </ol>
+        </div>
+      </article>
+      <h2>Lập phiếu hiện trường</h2>
+      <article class="step">
+        <figure>
+          <img src="../img/08-nghiem-thu-moi.png" alt="Tạo phiếu nghiệm thu" />
+          <figcaption>Hình 2. Tạo phiếu.</figcaption>
+        </figure>
+        <div>
+          <ol>
+            <li>Nhấn <strong>Tạo nghiệm thu</strong>.</li>
+            <li>Chọn <strong>Mẫu nghiệm thu</strong>, <strong>Tuyến đường</strong>, <strong>Người NT</strong> và <strong>Thời điểm NT</strong>.</li>
+            <li>Ở <strong>Từ km</strong> và <strong>Đến km</strong>, nhập <strong>Cột KM</strong> và <strong>Khoảng cách (m)</strong>. Nhập <strong>Hiện trường</strong>.</li>
+            <li>Với từng hạng mục, chọn <strong>Đạt</strong>, <strong>Không đạt</strong> hoặc <strong>Không áp dụng</strong>.</li>
+            <li>Chọn <strong>Kết quả</strong>: <strong>Đạt</strong>, <strong>Không đạt</strong> hoặc <strong>Khấu trừ</strong>.</li>
+            <li>Nhấn <strong>Lưu</strong>. Nhấn <strong>Lưu nháp</strong> khi phiếu chưa xong. Nhấn <strong>Huỷ</strong> nếu bỏ phiếu.</li>
+          </ol>
+        </div>
+      </article>
+      <h2>Giao việc và giám sát</h2>
+      <article class="step">
+        <figure>
+          <img src="../img/04-van-de.png" alt="Danh sách vấn đề" />
+          <figcaption>Hình 3. Vấn đề, nút Giao việc.</figcaption>
+        </figure>
+        <div>
+          <ol>
+            <li>Ô <strong>Giao việc</strong> mở mục <strong>Vấn đề</strong>.</li>
+            <li>Trên dòng đang <strong>Đợi phân công giám sát</strong>, nhấn <strong>Giao việc</strong>.</li>
+            <li>Chọn <strong>Người nhận</strong> và <strong>Hạn xử lý</strong>, rồi nhấn <strong>Giao</strong>.</li>
+            <li>Trên trang chủ, <strong>Giám sát</strong>, <strong>Bản đồ camera</strong> và <strong>Thông tin tài sản</strong> mở các màn tương ứng.</li>
+          </ol>
+        </div>
+      </article>
+      <h2>Mười mẫu trên phiếu</h2>
+      <table>
+        <thead><tr><th>Mẫu</th><th>Hạng mục</th></tr></thead>
+        <tbody>
+          <tr><td>01</td><td>Cắt cỏ lề / cắt cây</td></tr>
+          <tr><td>02</td><td>Vệ sinh / vá ổ gà mặt đường</td></tr>
+          <tr><td>03</td><td>Nạo vét rãnh</td></tr>
+          <tr><td>04</td><td>Sơn bổ sung báo hiệu</td></tr>
+          <tr><td>05</td><td>Khơi thông cống / rãnh</td></tr>
+          <tr><td>06</td><td>Sửa chữa lề đường</td></tr>
+          <tr><td>07</td><td>Hót sụt</td></tr>
+          <tr><td>08</td><td>Bảo dưỡng báo hiệu đường bộ</td></tr>
+          <tr><td>09</td><td>Hạng mục công trình khác</td></tr>
+          <tr><td>10</td><td>Bảo dưỡng thiết bị</td></tr>
+        </tbody>
+      </table>
+    </section>
+      </td></tr></tbody>
+    </table>
+  </div>
+  <script>
+    (function () {
+      var titles = {
+        "tuan-duong": "HDSD tuần đường RMMS",
+        "tuan-kiem": "HDSD tuần kiểm RMMS",
+        "quan-ly": "HDSD quản lý RMMS"
+      };
+      function setVai(vai) {
+        if (vai === "nghiem-thu") vai = "quan-ly";
+        if (!titles[vai]) vai = "tuan-duong";
+        document.body.setAttribute("data-vai", vai);
+        document.title = titles[vai];
+        var buttons = document.querySelectorAll(".bar button[data-vai]");
+        for (var i = 0; i < buttons.length; i++) {
+          buttons[i].setAttribute("aria-pressed", buttons[i].getAttribute("data-vai") === vai ? "true" : "false");
+        }
+        var url = new URL(window.location.href);
+        url.searchParams.set("vai", vai);
+        history.replaceState(null, "", url.pathname + url.search);
+      }
+      var initial = new URLSearchParams(window.location.search).get("vai");
+      setVai(initial || "tuan-duong");
+      document.querySelector(".bar").addEventListener("click", function (event) {
+        var button = event.target.closest("button[data-vai]");
+        if (!button) return;
+        setVai(button.getAttribute("data-vai"));
+      });
+      document.getElementById("btn-pdf").addEventListener("click", function () {
+        window.print();
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -200,6 +200,8 @@ Thời hạn hoàn thành: mốc giờ một dòng, «Còn» / «Quá hạn» d�
 
 Thẻ bấm vào mở chi tiết `/cong-viec/:id`. Mỗi thẻ hiện tuyến, lý trình (Km không lặp tuyến), người được giao và số điện thoại (`tel:`), thời gian giao (`createdAt`), thời hạn hoàn thành (`dueAt` + số phút, trạng thái quá hạn).
 
+Header danh sách: ba cột Khu quản lý, Văn phòng, Phòng/Công ty.
+
 ## Version meta (REQUIRED)
 
 | Field | Value |

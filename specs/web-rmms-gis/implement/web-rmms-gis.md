@@ -46,7 +46,7 @@
 | GIS-05 | search | geojson `?search=` debounce |
 | GIS-06 | mapHost | MapLibre CDN · clip MVT `gis/tiles/basemap` · **cấm** OSM.org |
 | GIS-07 | basemap/fit | Tiêu chuẩn / Vệ tinh local paint · Fit bounds |
-| GIS-08 | legend | all / ts / sc / corridor isolate |
+| GIS-08 | legend | Bản đồ tài sản chỉ lớp Tài sản. Sự cố / Hành lang chỉ trên bản đồ sự cố (`incidentOnly`) |
 | GIS-09 | gps · focus · popup | me-dot RO · `?focus=` GetById · popup→detail |
 | guest | auth gate | → `/login` |
 
@@ -96,6 +96,7 @@
 - Search: Live `?search=` on geojson (GAP-MOB-GIS-SEARCH-01 · no invent)
 - GPS deny toast once per watch error · map shell stays open
 - e2e / `yarn start:std` **owned by QA**
+- 2026-10-27 `/ban-do`: legend khóa `ts`. Không chip Sự cố / Hành lang, không tải geojson sự cố. Bản đồ sự cố (`incidentOnly`) giữ lớp sự cố.
 
 ## Handoff
 

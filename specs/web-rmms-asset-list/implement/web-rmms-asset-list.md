@@ -82,6 +82,7 @@
 
 ## Debt / notes
 
+- 2026-10-27 `/edit-web-mobile`: list + detail bind `Name` and type label (`KM_POST` → Cột Km). Header chi tiết là tên tài sản.
 - Kind B catalog grid / LinCatalogUiSchemaEditorModal **WAIVE** (phone list)
 - Peer stubs `/asset/collect|ai|adjust` still hub-nav only · Guid gate on `/asset/:id`
 - GPS display stored Lat/Lng only · no geolocation · no PUT

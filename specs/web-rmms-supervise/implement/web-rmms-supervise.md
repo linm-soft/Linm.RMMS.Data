@@ -22,6 +22,11 @@
 
 ## Notes
 
+- 2026-10-27 tài sản: tab Danh sách / Bản đồ. Tab Bản đồ mở `/ban-do`. Bản đồ tài sản chỉ lớp Tài sản, không Sự cố / Hành lang.
+- 2026-10-27 tách view: Giám sát tuần đường không còn nút Bản đồ camera / Thông tin tài sản. Hai màn mở từ trang chủ quản lý, quay lại về trang chủ.
+- 2026-10-27 asset dash: icon `assetCode` + count. Khu/công ty không có cột trên `rmms_road_assets`. Khu chỉ qua `org_route_scopes.zone_org_code` (route+km). Công ty quản lý không phải node org: đoạn `PARTNER` là Sở hoặc BOT, đoạn khu trực tiếp để trống assignee. Không lọc dashboard theo công ty.
+- 2026-10-27 camera map: device GPS, else pin from `GET gis/geojson/cameras` by code. List click flies to the pin and opens the detail card.
+- 2026-10-26 header: expand shows full names and a Thu gọn footer. Văn phòng groups under khu. Phòng/công ty groups as khu (`masterName`) then văn phòng (`parentName`). List card and detail bind `khuName`, `vanPhongName`, `phongName` (phòng name only). Route lines bind catalog `routeName`. Applied search, route, day, and group use `/implement-session-stored` (`supervise` scope).
 - 2026-10-06 map: one `GET patrol/check-ins` (`search` + `day` ICT, pageSize 500). List Áp dụng sends `search` + `day` on that same search. No per-session check-ins fan-out.
 - Reuse live `GET mobile-bff/api/v1/patrol/attendance-logs` + `GET/{id}` via existing `attendanceLogsEndpoint` · **cấm** invent `/supervise*` API · **cấm** invent `fromDate` · **cấm** POST P1.
 - Day filter = client `CheckInAt` (`localDayKey`) · route Select options from live list · Org = Note/org fields fallback.

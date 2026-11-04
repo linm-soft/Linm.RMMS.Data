@@ -22,11 +22,13 @@
 
 | # | Slug | Tên | Module | Phase | App hiện có (guide) | Status | Context |
 |---|------|-----|--------|-------|---------------------|--------|---------|
+| 0s | `rmms-split-service` | Tách service — tuần đường ở gốc, tài sản drop + import lại | Platform | P1 | WebService + AssetService | Context | [rmms-split-service.md](rmms-split-service.md) |
 | 0 | `master` | Danh mục Master (hub) | Master | P1 | — | Context | [master.md](master.md) · [import SSOT](import-gov-ssot.md) |
 | 0a | `org-unit` | Cơ cấu tổ chức DRVN | Master | P1 | — (**no demo**) | Context | [org-unit.md](org-unit.md) |
 | 0b | `road-route` | Tuyến đường | Master | P1 | `Sau-sat-nhap/gov` raw tuyến | Context | [road-route.md](road-route.md) · [đề cương LRS](../24-TUAN-DUONG-DUONG-BO.md) |
 | 0b2 | `gps-route-capture` | Fill tuyến theo GPS (phone) | Patrol·Incident | P1 | Mobile capture · sự cố · check-in | Context | [gps-route-capture.md](gps-route-capture.md) |
 | 0b3 | `lin-image-view-capture` | LinImageView và capture ảnh | Incident·Patrol | P1 | Phone web · `FieldImageView` | Context | [lin-image-view-capture.md](lin-image-view-capture.md) |
+| 0b4 | `train-capture-guide` | Hướng dẫn chụp ảnh train | Incident | P1 | Sheet trên chụp sự cố | Implement | [train-capture-guide.md](train-capture-guide.md) |
 | 0c | `asset-type` | Loại tài sản KCHT | Master | P1 | `Sau-sat-nhap/gov` (catalog) | Context | [asset-type.md](asset-type.md) |
 | 0c2 | `traffic-sign-type` | Loại biển báo (mã QCVN) | Master | P1 | Excel số hiệu biển + dump `gov-vn` | Context | [traffic-sign-type.md](traffic-sign-type.md) |
 | 0d | `partner-unit` | Sở / BOT / Cty | Master | P1 | Seed 13 + Excel T6 `t6-org-scope` · CUC 2 = demo | Context | [partner-unit.md](partner-unit.md) |
@@ -94,6 +96,7 @@
 | 17e | `rpt-checkin` | BC Check-in | Report | P1 | Web BC checkin | Context | [rpt-checkin.md](rpt-checkin.md) |
 | 17f | `rpt-bao-cao-cong` | Báo cáo công | Report | P1.5 | attendance Kind E | Context | [rpt-bao-cao-cong.md](rpt-bao-cao-cong.md) |
 | 17g | `rpt-tuan-duong` | Báo cáo tuần đường | Report | P1.5 | patrol · GOVOne | Context | [rpt-tuan-duong.md](rpt-tuan-duong.md) |
+| 17g2 | `bc-th` | Báo cáo tổng hợp tuần đường / tuần kiểm / task | Patrol | P1 | `/td-tk/bc-th` trend + PDF/Word/CSV | Context | [bc-th.md](bc-th.md) |
 | 17h | `rpt-tuan-kiem` | Báo cáo tuần kiểm | Report | P1.5 | patrol · GOVOne | Context | [rpt-tuan-kiem.md](rpt-tuan-kiem.md) |
 | 17i | `rpt-tong-hop-bao-tri` | Tổng hợp bảo trì | Report | P2 | maintenance Kind E | Context | [rpt-tong-hop-bao-tri.md](rpt-tong-hop-bao-tri.md) |
 | 17j | `rpt-nhat-ky-tuan-duong` | Nhật ký tuần đường | Report | P2 | GOVOne BDTX | Context | [rpt-nhat-ky-tuan-duong.md](rpt-nhat-ky-tuan-duong.md) |

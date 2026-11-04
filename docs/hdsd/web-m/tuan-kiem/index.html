@@ -8,6 +8,11 @@
     * { box-sizing: border-box; }
     body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: #1c1c1e; background: #f2f2f7; line-height: 1.45; }
     .wrap { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+    .brand { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 16px; padding: 4px 2px 12px; border-bottom: 2px solid #086a9a; }
+    .brand p { margin: 0; font-size: 1.15rem; font-weight: 700; line-height: 1.3; color: #0b3a52; }
+    .brand img { height: 52px; width: auto; flex: 0 0 auto; }
+    table.sheet { width: 100%; border-collapse: collapse; border: 0; background: transparent; margin: 0; }
+    table.sheet > thead > tr > td, table.sheet > tbody > tr > td { border: 0 !important; padding: 0 !important; background: transparent; width: auto !important; vertical-align: top; }
     header.top, table, .step { background: #fff; border: 1px solid #e5e5ea; border-radius: 16px; }
     header.top { padding: 20px 22px; }
     h1 { font-size: 1.45rem; margin: 0 0 8px; }
@@ -20,18 +25,45 @@
     th, td { border: 1px solid #d8d8dc; padding: 8px 10px; text-align: left; vertical-align: top; }
     th { background: #f4f4f6; }
     .step { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 18px; align-items: start; padding: 16px; margin: 12px 0; }
+    .step > figure { grid-column: 1; width: 220px; max-width: 100%; margin: 0; }
+    .step > div { grid-column: 2; grid-row: 1 / -1; min-width: 0; }
     .step ol { margin: 8px 0 0; padding-left: 1.2rem; }
     .step li { margin: 4px 0; }
     figure { margin: 0; }
     figure img { width: 100%; height: auto; border: 1px solid #e5e5ea; border-radius: 12px; display: block; }
     figcaption { font-size: 0.82rem; color: #636366; margin-top: 6px; }
-    @page { size: A4 portrait; margin: 12mm; }
+    @page {
+      size: A4 portrait;
+      margin: 22mm 12mm 16mm;
+      @top-left {
+        content: "Hướng dẫn sử dụng phần mềm RMMS";
+        font-family: "Segoe UI", system-ui, sans-serif;
+        font-size: 11pt;
+        font-weight: 700;
+        color: #0b3a52;
+        vertical-align: middle;
+      }
+      @top-right {
+        content: url("data:image/png;base64,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");
+        width: 16mm;
+        height: 16mm;
+        vertical-align: middle;
+      }
+      @bottom-center {
+        content: counter(page) "/" counter(pages);
+        font-family: "Segoe UI", system-ui, sans-serif;
+        font-size: 10pt;
+        color: #3a3a3c;
+      }
+    }
     @media print {
       body { background: #fff; }
+      table.sheet thead { display: none; }
       .wrap { max-width: none; padding: 0; }
       header.top, table, .step { border: 0; border-radius: 0; }
       .back { display: none; }
       .step { grid-template-columns: 58mm minmax(0, 1fr); gap: 6mm; break-inside: avoid; page-break-inside: avoid; padding: 0 0 6mm; }
+      .step > figure { width: 58mm; }
       figure img { width: 58mm; max-height: 145mm; object-fit: contain; object-position: top center; }
       a { color: inherit; text-decoration: none; }
     }
@@ -39,23 +71,39 @@
 </head>
 <body>
   <div class="wrap">
+    <table class="sheet">
+      <thead><tr><td>
+    <header class="brand">
+      <p>Hướng dẫn sử dụng phần mềm RMMS</p>
+      <img src="../img/logo.svg" alt="RMMS" />
+    </header>
+      </td></tr></thead>
+      <tbody><tr><td>
     <header class="top">
       <a class="back" href="/hdsd/">Về hướng dẫn sử dụng</a>
       <h1>Tuần kiểm</h1>
-      <p>Cán bộ tuần kiểm kiểm tra công tác tuần đường và bảo dưỡng của nhà thầu trên đoạn được giao. Tuần đường phát hiện sự cố. Hạt trưởng giao việc và ghi thời hạn. Tuần kiểm kiểm tra lại và xác nhận hoàn thành. Tuần kiểm không giao việc và không thay nghiệm thu.</p>
+      <p>Cán bộ tuần kiểm mở đợt trên đoạn được giao, đối chiếu sổ với ca tuần đường và xác nhận phiếu phát hiện. Việc xử lý đã được quản lý giao, kèm người nhận và hạn xử lý. Xác nhận của tuần kiểm nằm trên phiếu phát hiện.</p>
     </header>
+
+    <h2>Xác nhận tuyến</h2>
+    <p>Lần vào đợt, phần mềm có thể mở màn <strong>Xác nhận tuyến</strong>.</p>
+    <ol>
+      <li>Chọn <strong>Tuyến</strong>, nhập lý trình từ km và đến km. Nhấn <strong>Thêm tuyến</strong> khi có thêm đoạn.</li>
+      <li>Nhấn <strong>Xác nhận</strong>. Phiếu báo <strong>Phải có ít nhất 1 tuyến và lý trình.</strong> khi chưa đủ.</li>
+      <li>Ô <strong>Tôi là quản lý</strong> dùng khi tuyến không bắt buộc.</li>
+    </ol>
 
     <h2>Mở đợt</h2>
     <article class="step">
       <figure>
         <img src="/hdsd/img/05-tuan-kiem.png" alt="Màn tuần kiểm" />
-        <figcaption>Hình 1. Đợt đang kiểm.</figcaption>
+        <figcaption>Hình 1. Menu tuần kiểm và đợt đang kiểm.</figcaption>
       </figure>
       <div>
         <ol>
-          <li>Mở mục <strong>Tuần kiểm</strong>.</li>
-          <li>Mục <strong>Đợt đang kiểm</strong> chỉ liệt kê đợt chưa kết thúc.</li>
-          <li>Nhấn <strong>Kế hoạch tần suất</strong> để đối chiếu kế hoạch kiểm tra trên tuyến.</li>
+          <li>Mở tab <strong>Tuần kiểm</strong>.</li>
+          <li>Trong <strong>Menu tuần kiểm</strong>, chọn <strong>Mở đợt</strong>, <strong>Sự cố của đợt</strong>, <strong>Phiếu phát hiện</strong>, <strong>Sổ nhật ký</strong> hoặc <strong>Kế hoạch tần suất</strong>.</li>
+          <li>Mục <strong>Đợt đang kiểm</strong> liệt kê đợt chưa kết thúc. Chưa có đợt thì màn báo <strong>Mở đợt trước khi vào màn này.</strong></li>
         </ol>
       </div>
     </article>
@@ -67,63 +115,66 @@
       <div>
         <ol>
           <li>Nhấn <strong>Mở đợt</strong>.</li>
-          <li>Chọn <strong>Tuyến</strong>. Nhập <strong>Từ km</strong> và <strong>Đến km</strong>.</li>
-          <li>Chọn <strong>Hình thức</strong>: Định kỳ hoặc Đột xuất. Đột xuất thì nhập lý do đột xuất.</li>
-          <li>Chọn <strong>Người</strong>, rồi nhấn <strong>Mở đợt</strong>.</li>
+          <li>Chọn <strong>Tuyến đường</strong>. Ở <strong>Từ km</strong> và <strong>Đến km</strong>, nhập <strong>Cột KM</strong> và <strong>Khoảng cách (m)</strong>.</li>
+          <li>Thiếu cột KM thì phiếu báo <strong>Nhập cột KM từ và đến trước khi mở đợt.</strong></li>
+          <li>Chọn <strong>Hình thức</strong>: Định kỳ hoặc Đột xuất. Đột xuất thì nhập <strong>Lý do đột xuất</strong>.</li>
+          <li><strong>Người</strong> hiện sẵn. Kiểm tra <strong>Ngày</strong>. Ô <strong>Loại / trạng thái</strong> ghi sẵn Tuần kiểm · Đang tuần.</li>
+          <li>Nhấn <strong>Mở đợt</strong>. Nhấn <strong>Hủy</strong> nếu chưa mở.</li>
         </ol>
-        <p>Loại ghi sẵn Tuần kiểm, trạng thái Đang tuần.</p>
       </div>
     </article>
 
     <h2>Đối chiếu tuần đường</h2>
     <article class="step">
       <figure>
-        <img src="/hdsd/img/04-tuan-duong-lich-su.png" alt="Lịch sử ca tuần đường" />
-        <figcaption>Hình 3. Lịch sử ca để đối chiếu.</figcaption>
+        <img src="/hdsd/img/05-tuan-kiem.png" alt="Sổ nhật ký tuần kiểm" />
+        <figcaption>Hình 3. Menu tuần kiểm, vào Sổ nhật ký.</figcaption>
       </figure>
       <div>
-        <p>Trong đợt kiểm, đối chiếu hiện trường với nhật ký tuần đường trên cùng tuyến.</p>
+        <p>Trong đợt đang kiểm, mở <strong>Sổ nhật ký</strong>. Sổ ghi cơ quan, người tuần kiểm, tuyến, lý trình và ngày mở.</p>
         <ol>
-          <li>Mở <strong>Tuần đường</strong>, nhấn <strong>Lịch sử phiên</strong>, chọn ca của đoạn đang kiểm.</li>
-          <li>Xem điểm tuần, nội dung và ảnh.</li>
-          <li>Mở <strong>Vấn đề</strong> của cùng tuyến. Đối chiếu mô tả, vị trí và trạng thái với thực tế.</li>
-          <li>Ghi nhận lệch giữa nhật ký và hiện trường bằng <strong>Trao đổi</strong> trên vấn đề, hoặc ghi nhận hư hỏng mới nếu chưa có phiếu.</li>
+          <li>Trên dòng sổ, mục <strong>Đối chiếu tuần đường</strong> chọn <strong>Khớp</strong> hoặc <strong>Lệch</strong>.</li>
+          <li>Mở <strong>Sự cố của đợt</strong> và <strong>Phiếu phát hiện</strong> của cùng đợt.</li>
+          <li>Mở mục <strong>Vấn đề</strong> để xem mô tả, vị trí và trạng thái. Nhấn <strong>Trao đổi</strong> khi cần ghi nhận lệch.</li>
+          <li>Mục <strong>Ký cuối tuần</strong> hiện với tài khoản quản lý. Tuần kiểm thấy dòng <strong>Chỉ quản lý ký. Tuần kiểm không ký hộ.</strong></li>
         </ol>
       </div>
     </article>
 
-    <h2>Từ phát hiện đến xác nhận</h2>
+    <h2>Xác nhận phiếu phát hiện</h2>
     <article class="step">
       <figure>
-        <img src="/hdsd/img/04-van-de.png" alt="Vấn đề chờ hạt trưởng giao việc" />
-        <figcaption>Hình 4. Sự cố tuần đường đã ghi, chờ giao việc.</figcaption>
+        <img src="/hdsd/img/07-cong-viec.png" alt="Công việc đã giao" />
+        <figcaption>Hình 4. Công việc sau khi quản lý giao.</figcaption>
       </figure>
       <div>
+        <p>Quản lý đã giao việc từ sự cố: chọn <strong>Người nhận</strong>, <strong>Hạn xử lý</strong>, rồi nhấn <strong>Giao</strong>. Người được giao cập nhật trên mục <strong>Công việc</strong>.</p>
         <ol>
-          <li>Nhân viên tuần đường nhấn <strong>Ghi nhận hư hỏng</strong>. Phiếu ở trạng thái <strong>Đợi phân công giám sát</strong>.</li>
-          <li>Hạt trưởng mở dòng vấn đề, nhấn <strong>Giao việc</strong>, chọn người nhận và ghi thời hạn theo bảng dưới.</li>
-          <li>Việc vượt phạm vi bảo dưỡng thường xuyên thì hạt trưởng kiến nghị cấp có thẩm quyền, không giao vá tại chỗ.</li>
+          <li>Mở <strong>Công việc</strong> để xem tình trạng <strong>Chờ xử lý</strong>, <strong>Đang xử lý</strong>, <strong>Đã hoàn thành</strong>.</li>
+          <li>Nhấn <strong>Trao đổi</strong> khi cần yêu cầu làm lại. Người được giao nhấn <strong>Cập nhật trạng thái</strong>, rồi <strong>Hoàn thành</strong> trên màn tiến độ khi đã xử lý xong.</li>
+          <li>Mở <strong>Phiếu phát hiện</strong> của đợt. Ở mục <strong>Kiểm tra lại</strong>, chọn <strong>Kết luận</strong>: <strong>Đạt</strong> hoặc <strong>Chưa đạt</strong>.</li>
+          <li>Nhập <strong>Ghi chú</strong>. Ở <strong>Định vị kiểm tra lại</strong>, nhấn <strong>Ghim vị trí hiện tại</strong>. Gắn <strong>Ảnh kiểm tra</strong>.</li>
+          <li>Kết luận Đạt: nhấn <strong>Xác nhận đạt</strong>. Kết luận Chưa đạt: nhấn <strong>Ghi chưa đạt</strong>.</li>
         </ol>
       </div>
     </article>
-    <article class="step">
-      <figure>
-        <img src="/hdsd/img/07-cong-viec.png" alt="Công việc để tuần kiểm xác nhận" />
-        <figcaption>Hình 5. Công việc sau khi hạt trưởng giao.</figcaption>
-      </figure>
-      <div>
-        <p>Cán bộ tuần kiểm không giao việc. Việc của tuần kiểm là kiểm tra lại và xác nhận hoàn thành.</p>
-        <ol>
-          <li>Mở mục <strong>Công việc</strong>. Tình trạng gồm <strong>Chờ xử lý</strong>, <strong>Đang xử lý</strong>, <strong>Đã hoàn thành</strong>.</li>
-          <li>Đối chiếu hiện trường, ảnh và thời hạn hạt trưởng đã ghi. Nhấn <strong>Trao đổi</strong> khi cần yêu cầu làm lại.</li>
-          <li>Chưa đạt: nhấn <strong>Cập nhật trạng thái</strong>, giữ việc, không xác nhận xong.</li>
-          <li>Đạt: nhấn <strong>Hoàn thành</strong> để xác nhận hoàn thành, rồi mở vấn đề và nhấn <strong>Đóng sự cố</strong>.</li>
-        </ol>
-      </div>
-    </article>
+
+    <h2>Thao tác</h2>
+    <table>
+      <thead><tr><th>Nhãn</th><th>Khi bấm</th><th>Sau khi nhấn</th></tr></thead>
+      <tbody>
+        <tr><td>Mở đợt</td><td>Đủ Cột KM từ và đến. Đột xuất thì có lý do.</td><td>Đợt đang kiểm. Thiếu cột: Nhập cột KM từ và đến trước khi mở đợt.</td></tr>
+        <tr><td>Lưu</td><td>Phiếu phát hiện đã nhập.</td><td>Phiếu của đợt. Đang lưu thì nút ghi Đang lưu…</td></tr>
+        <tr><td>Huỷ</td><td>Phiếu chưa lưu.</td><td>Đóng phiếu, chưa ghi.</td></tr>
+        <tr><td>Chụp ảnh</td><td>Camera được phép.</td><td>Ảnh gắn phiếu. Từ chối quyền: Chưa được phép dùng camera.</td></tr>
+        <tr><td>Xác nhận đạt</td><td>Kết luận Đạt, đã ghim và có ảnh kiểm tra khi màn yêu cầu.</td><td>Phiếu đã xác nhận đạt.</td></tr>
+        <tr><td>Ghi chưa đạt</td><td>Kết luận Chưa đạt.</td><td>Phiếu giữ chưa đạt, việc tiếp tục xử lý.</td></tr>
+        <tr><td>Khớp / Lệch</td><td>Đối chiếu dòng nhật ký tuần đường trên sổ.</td><td>Dòng sổ ghi khớp hoặc lệch.</td></tr>
+      </tbody>
+    </table>
 
     <h2>Thời hạn khắc phục</h2>
-    <p>Hạt trưởng ghi hạn khi giao việc. Tuần kiểm lấy hạn này để xác nhận. Mốc tính từ khi xuất hiện hoặc khi phát hiện, theo Thông tư 41/2024, Phụ lục IV.</p>
+    <p>Quản lý ghi <strong>Hạn xử lý</strong> khi giao việc. Tuần kiểm lấy hạn này lúc <strong>Xác nhận đạt</strong>. Mốc tính từ khi xuất hiện hoặc khi phát hiện, theo Thông tư 41/2024, Phụ lục IV.</p>
     <table>
       <thead><tr><th>Hạng mục</th><th>Thời hạn</th></tr></thead>
       <tbody>
@@ -139,7 +190,9 @@
     </table>
 
     <h2>Quá hạn và trừ điểm</h2>
-    <p>Quá thời hạn mà chưa được tuần kiểm xác nhận hoàn thành thì hạng mục bị trừ điểm ở kỳ nghiệm thu. Cách chia điểm từng việc và cách trừ khi quá hạn nằm ở hướng dẫn nghiệm thu.</p>
+    <p>Quá thời hạn mà phiếu chưa được <strong>Xác nhận đạt</strong> thì hạng mục bị trừ điểm ở kỳ nghiệm thu. Cách chia điểm từng việc nằm ở hướng dẫn <a href="../quan-ly/">Quản lý</a>.</p>
+      </td></tr></tbody>
+    </table>
   </div>
 </body>
 </html>

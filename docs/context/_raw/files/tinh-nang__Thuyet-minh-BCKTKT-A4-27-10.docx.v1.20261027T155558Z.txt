@@ -1,0 +1,1552 @@
+# source: tinh-nang/Thuyet minh BCKTKT - A4 27-10.docx
+# version: 1
+# scannedAt: 2026-10-27T15:55:58.000Z
+# sha256: b223b5183229b20a67bfd962ffc9f495f3a89b1c7da4d5167d29cba112581db6
+# mtimeMs: 1793116558266
+
+
+[TABLE]
+|  | CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM / Độc Lập - Tự Do - Hạnh Phúc
+[/TABLE]
+
+HỒ SƠ BÁO CÁO KINH TẾ KỸ THUẬT
+TẬP II: THUYẾT MINH BÁO CÁO KINH TẾ KỸ THUẬT
+
+[TABLE]
+| Công trình: Ứng dụng khoa học công nghệ trong quản lý vận hành Quốc lộ 5 theo Kế hoạch bảo trì năm 2026. / Chủ đầu tư: Tổng Công ty Phát triển hạ tầng và Đầu tư tài chính Việt Nam. / Đơn vị tư vấn khảo sát, thiết kế: Công ty TNHH ADZ Việt Nam.
+[/TABLE]
+
+Hà Nội - 2026
+
+[TABLE]
+| CÔNG TNHH ADZ VIỆT NAM | CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM / Độc Lập - Tự Do - Hạnh Phúc
+[/TABLE]
+
+HỒ SƠ BÁO CÁO KINH TẾ KỸ THUẬT
+TẬP II: THUYẾT MINH BÁO CÁO KINH TẾ KỸ THUẬT
+
+[TABLE]
+| Công trình: Ứng dụng khoa học công nghệ trong quản lý vận hành Quốc lộ 5 theo Kế hoạch bảo trì năm 2026. / Chủ đầu tư: Tổng Công ty Phát triển hạ tầng và Đầu tư tài chính Việt Nam. / Đơn vị tư vấn khảo sát, thiết kế: Công ty TNHH ADZ Việt Nam.
+[/TABLE]
+
+Hà Nội, ngày…..tháng…..năm 2026
+
+[TABLE]
+| ĐẠI DIỆN CHỦ ĐẦU TƯ | ĐƠN VỊ TƯ VẤN THIẾT KẾ
+[/TABLE]
+
+
+# MỤC LỤC
+[TOC] MỤC LỤC	2
+[TOC] I. CÁC CĂN CỨ.	3
+[TOC] II. CÁC TIÊU CHUẨN KỸ THUẬT ĐƯỢC SỬ DỤNG.	4
+[TOC] III. NỘI DUNG THUYẾT MINH.	6
+[TOC] 3.1. Sự cần thiết đầu tư.	6
+[TOC] 3.2. Địa điểm xây dựng và diện tích sử dụng đất.	11
+[TOC] 3.3. Hình thức đầu tư.	11
+[TOC] 3.4. Điều kiện tự nhiện, điều kiện kinh tế xã hội.	11
+[TOC] 3.5. Phương án giải phóng mặt bằng	12
+[TOC] 3.6. Cấp công trình	12
+[TOC] 3.7. Chủ đầu tư	12
+[TOC] 3.8. Cơ quan quản lý dự án:	12
+[TOC] 3.9. Nguồn vốn thực hiện:	12
+[TOC] 3.10.Thời gian thực hiện dự án:	12
+[TOC] 3.11. Quy mô đầu tư.	12
+[TOC] 3.10. Thuyết minh thiết kế bản vẽ thi công.	13
+[TOC] 3.10.1. Giải pháp thiết kế.	13
+[TOC] 3.10.2. Yêu cầu kỹ thuật – chỉ dẫn kỹ thuật	21
+[TOC] 3.11. Tổ chức thi công, biện pháp thi công hang mục chính	51
+[TOC] 3.12. Biện pháp đảm bảo an toàn giao thông đối với tuyến đường vừa thi công vừa khai thác	67
+[TOC] 3.13. Biện pháp an toàn lao động, PCCC và vệ sinh môi trường	69
+[TOC] 3.14. Bảo dưỡng, bảo trì công trình xây dựng.	71
+[TOC] 3.15. Khối lượng công trình.	72
+[TOC] 3.165. Tổng dự toán.	72
+[TOC] 3.17. Tiến độ triển khai dự án.	72
+[TOC] 3.18. Phân tích hiệu quả đầu tư và tác động đến môi trường.	72
+[TOC] 3.19. Kết luận và kiến nghị.	72
+THUYẾT MINH BÁO CÁO KINH TẾ KỸ THUẬT
+Công trình: Ứng dụng khoa học công nghệ trong quản lý vận hành Quốc lộ 5 theo Kế hoạch bảo trì năm 2026.
+Địa điểm: Trên QL.5 đoạn từ Km11+135 - Km107+926 thuộc địa phận tỉnh Hưng Yên và Thành phố Hải Phòng.
+Chủ đầu tư: Tổng Công ty Phát triển hạ tầng và Đầu tư tài chính Việt Nam.
+Đơn vị tư vấn thiết kế: Công ty TNHH ADZ Việt Nam.
+
+# I. CÁC CĂN CỨ.
+Căn cứ Luật Xây dựng số 135/2025/QH15 ngày 10/12/2025;
+Căn cứ các Nghị định của Chính phủ: số 206/2026/NĐ-CP ngày 15/6/2026 quy định chi tiết về quản lý chi phí đầu tư xây dựng; số 207/2026/NĐ-CP ngày 15/6/2026 quy định chi tiết về quản lý chất lượng, thi công xây dựng và bảo trì công trình xây dựng; số 217/2026/NĐ-CP ngày 19/6/2026 quy định chi tiết về quản lý hoạt động xây dựng; số 174/2025/NĐ-CP ngày 30/6/2025 quy định chính sách giảm thuế giá trị gia tăng theo Nghị quyết 204/2025/QH15 ngày 17/6/2025 của Quốc hội; số 349/2026/NĐ-CP ngày 09/9/2026 của CP về việc sửa đổi, bổ sung một số điều của các Nghị định quy định chi tiết một số điều và biện pháp thi hành Luật Đấu thầu về lựa chọn Đơn vị thi công;
+Căn cứ các Thông tư của Bộ trưởng Bộ Xây dựng: số 32/2026/TT-BXD: Quy định chi tiết thi hành Luật Xây dựng về quản lý chất lượng, bảo trì công trình; số 36/2026/TT-BXD ngày 26/6/2026 hướng dẫn một số nội dung, phương pháp xác định và quản lý chi phí đầu tư xây dựng; số 37/2026/TT-BXD ngày 26/6/2026 về việc hướng dẫn phương pháp xác định định mức dự toán và các chỉ tiêu kinh tế kỹ thuật; số 38/2026/TT-BXD ngày 26/6/2026 ban hành định mức xây dựng; số 40/2026/TT-BXD ngày 26/6/2026 hướng dẫn xác định chi phí bảo trì công trình xây dựng;
+Căn cứ Thông tư số 62/2024/TT-BCA ngày 12/11/2024 của Bộ Công an ban hành Quy chuẩn kỹ thuật quốc gia về “Hệ thống giám sát đảm báo an ninh, trật tự, an toàn giao thông đường bộ”, Quy chuẩn kỹ thuật quốc gia về “Thiết bị giám sát hành trình và thiết bị ghi hình người lái xe”;
+Căn cứ Thông tư số 48/2026/TT-BCA ngày 12/5/2026 của Bộ Công an ban hành Quy chuẩn kỹ thuật quốc gia về thiết bị camera giám sát sử dụng giao thức Internet - Các yêu cầu an ninh mạng cơ bản”;
+Căn cứ Quyết định số 502/QĐ-TTg ngày 28/3/2026 của Thủ tướng Chính phủ Phê duyệt Phương án kết nối, chia sẻ dữ liệu các hệ thống camera giám sát an ninh, trật tự, xử lý vi phạm và điều hành giao thông với Cơ sở dữ liệu quốc gia về dân cư và chia sẻ dữ liệu với Trung tâm giám sát, điều hành đô thị thông minh;
+Căn cứ Văn bản số 2060/CĐBVN-KHTC ngày 14/04/2026 của Cục Đường bộ Việt Nam (Cục ĐBVN) về việc chấp thuận chủ trương sửa chữa công trình trong kế hoạch bảo trì năm 2026 của Quốc lộ 5;
+Căn cứ Văn bản số 3193/CĐBVN-KHCN,MT&HTQT ngày 04/6/2026 của Cục ĐBVN về việc đầu tư hệ thống camera trên tuyến Quốc lộ 5 phục vụ công tác quản lý, vận hành, khai thác và bảo trì kết cấu hạ tầng đường bộ;
+Căn cứ Quyết định số 260622.03/QĐ-VIDIFI ngày 22/6/2026 của Tổng Giám đốc VIDIFI về việc phê duyệt chủ trương Ứng dụng khoa học công nghệ trong quản lý vận hành Quốc lộ 5 theo Kế hoạch bảo trì năm 2026;
+Căn cứ Quyết định số 260623.02/QĐ-VIDIFI ngày 23/6/2026 của Tổng Giám đốc VIDIFI về việc phê duyệt nhiệm vụ khảo sát, lập báo cáo kinh tế kỹ thuật Ứng dụng khoa học công nghệ trong quản lý vận hành Quốc lộ 5 theo Kế hoạch bảo trì năm 2026;
+Hợp đồng số 260630.03/VIDIFI-ADZ ngày 30/6/2026 giữa Tổng Công ty Phát triển hạ tầng và Đầu tư tài chính Việt Nam và Công ty TNHH ADZ Việt Nam về việc giao nhận Gói thầu khảo sát, lập báo cáo KTKT công trình: Ứng dụng khoa học công nghệ trong quản lý vận hành Quốc lộ 5 theo Kế hoạch bảo trì năm 2026.
+Các tài liệu về điều tra thực trạng giao thông tại các nút giao thông.
+
+# II. CÁC TIÊU CHUẨN KỸ THUẬT ĐƯỢC SỬ DỤNG.
+
+##### Thiết kế:
+
+[TABLE]
+| TT | Tên quy chuẩn, tiêu chuẩn thiết kế | Ký hiệu
+| 1 | Đường đô thị - Yêu cầu thiết kế | TCVN 13592:2022
+| 2 | Quy chuẩn kỹ thuật quốc gia số liệu điều kiện tự nhiên dùng trong xây dựng | QCVN 02:2022/BXD
+| 3 | Quy chuẩn kỹ thuật quốc gia các công trình hạ tầng kỹ thuật công trình giao thông | QCVN 07:2023/BXD
+| 4 | Quy chuẩn kỹ thuật quốc gia về báo hiệu đường bộ | QCVN41:2024 / /BGTVT
+| 5 | Quy chuẩn kỹ thuật quốc gia về hệ thống giám sát đảm bảo an ninh, trật tự, an toàn giao thông đường bộ | Quy chuẩn QCVN 05:2024/BCA
+| 6 | Lớp phủ kẽm nhúng nóng trên bề mặt sản phẩm gang và thép. Yêu cầu kỹ thuật và phương pháp thử | TCVN 5408: 2007
+| 7 | Kết cấu thép - Gia công, lắp ráp và nghiệm thu - Yêu cầu kĩ thuật | TCVN 170:2007
+| 8 | Các quy trình, quy phạm hiện hành khác hiện hành khác. | 
+[/TABLE]
+
+
+##### Các tiêu chuẩn, quy chuẩn về vật liệu
+
+[TABLE]
+| TT | Tiêu chuẩn | Tên tiêu chuẩn
+|  | TCVN 6260:2020 | Xi măng pooc lăng hỗn hợp
+|  | TCVN 7570:2006 | Cốt liệu cho bê tông và vữa - Yêu cầu kỹ thuật
+|  | TCVN 7572:2018 | Cốt liệu cho bê tông và vữa - Các phương pháp thử
+|  | TCVN 4506:2012 | Nước trộn bê tông và vữa - Yêu cầu kỹ thuật
+|  | TCVN 4314:2022 | Vữa xây dựng. Yêu cầu kỹ thuật
+|  | TCVN 3121:2022 | Vữa xây dựng - Phương pháp thử
+|  | TCVN 7744:2013 | Gạch terazzo
+|  | TCVN 7887:2018 | Màng phản quang dùng cho báo hiệu đường bộ
+|  | TCVN 4085:2011 | Kết cấu gạch đá. Tiêu chuẩn thi công và nghiệm thu
+|  | TCVN 3223:2000 | Que hàn điện dùng cho thép cacbon thấp và thép hợp kim thấp - Ký hiệu, kích thước và yêu cầu kỹ thuật chung
+|  | TCVN 8828:2011 | Bê tông. Yêu cầu bảo dưỡng tự nhiên
+|  | TCVN 4399:2008 | Thép và sản phẩm thép. Yêu cầu kĩ thuật chung khi cung cấp
+|  | TCVN 7571:2017 | Thép hình cán nóng
+|  | TCVN 8996:2011 | Thép chồn nguội và kéo vuốt nguội
+|  | TCVN 197:2014 | Vật liệu kim loại - Thử kéo
+|  | TCVN 10356:2017 | Thép không gỉ - Thành phần hóa học
+|  | TCVN 1916:1995 | Bulong, vít, vít cấy và đai ốc - Yêu cầu kỹ thuật
+|  | TCVN 5408:2007 / ISO 01461:1999 | Lớp phủ kẽm nhúng nóng trên bề mặt sản phẩm gang và thép - Yêu cầu kỹ thuật và phương pháp thử
+|  | TCVN 10355:2014 ISO 3575:2011 | Thép lá các bon mạ kẽm nhúng nóng liên tục chất lượng thương mại và chất lượng kéo
+|  | TCVN 6610:2014 | Cáp cách điện bằng polyvinyl clorua có điện áp danh định đến và bằng 450/750 V
+|  | TCVN 7997:2009 | Cáp điện lực đi ngầm trong đất - Phương pháp lắp đặt
+|  | TCVN 6612:2007 / (IEC 60228:2004) | Ruột dẫn của cáp cách điện
+|  | TCVN 6614:2008 / (IEC 60811:2001) | Phương pháp thử nghiệm chung đối với vật liệu cách điện và vỏ bọc của cáp điện
+|  | TCVN 6592:2009 | Thiết bị đóng cắt và điều khiển hạ áp
+|  | TCVN 7994:2009 | Tủ điện đóng cắt và điều khiển hạ áp
+|  | TCVN 4255:2008 | Cấp bảo vệ bằng vỏ ngoài (mã IP)
+|  | TCVN 8859 : 2023 | Lớp móng cấp phối đá dăm trong kết cấu áo đường - Thi công và nghiệm thu
+|  | TCVN 8818-1:2011 | Nhựa đường lỏng – Yêu cầu kỹ thuật
+|  | TCVN 7493-2005 | Bitum – Yêu cầu kỹ thuật
+|  | TCVN 8817:2011 | Nhũ tương nhựa đường axit
+|  | TCVN 8097-1:2010 | Bộ chống sét - Phần 1: Bộ chống sét có khe hở kiểu điện trở phi tuyến dùng cho hệ thống điện xoay chiều
+|  | TCVN 9385:2012 | Chống sét cho công trình xây dựng - Hướng dẫn thiết kế, kiểm tra và bảo trì hệ thống
+|  | TCVN 13567:2022 | Lớp mặt đường bằng hỗn hợp nhựa / nóng - Thi công và nghiệm thu - Phần 1 : Bê tông nhựa chặt sử dụng nhựa đường / thông thường
+|  | TCVN 10298:2014 | Tín hiệu truyền hình internet - Yêu cầu kỹ thuật
+|  | TCVN 9250:2012 | Trung tâm dữ liệu - Yêu cầu về hạ tầng kỹ thuật viễn thông.
+|  | TCVN 10607-1:2014 (ISO/IEC 15026-1:2013) | Kỹ thuật phần mềm và hệ thống-Đảm bảo phần mềm va hệ thống
+|  | TCVN 10176:2017 | Công nghệ thông tin - Kiến trúc thiết bị UPNP
+|  | TCVN 7570-2006 | Cát xây dựng
+|  | TCVN 7570-2006 | Đá dăm (sỏi) các loại dùng trong bê tông
+|  | TCVN 8699:2011 | Ống nhựa dùng cho tuyến cáp ngầm - Yêu cầu kỹ thuật.
+|  | QCVN 41:2024/BGTVT | Quy chuẩn kỹ thuật quốc gia về báo hiệu đường bộ
+|  | Các tiêu chuẩn hiện hành có liên quan
+[/TABLE]
+
+
+# III. NỘI DUNG THUYẾT MINH.
+
+## 3.1. Sự cần thiết đầu tư.
+- Tại 17 điểm quay đầu, nút giao không có đèn tín hiệu hiện trạng trên QL.5 đoạn từ Km11+135 - Km107+926 thuộc địa phận tỉnh Hưng Yên và Thành phố Hải Phòng, bao gồm:
+a. Địa phận tỉnh Hưng Yên:
+
+# (1) Km16+350 đến Km16+450;
+
+# (2) Km27+150 đến Km27+230;
+
+# (3) Km30+200 đến Km30+300;
+
+# (4) Km31+300 đến Km31+400;
+b. Địa phận tỉnh thành phố Hải Phòng:
+
+# (5) Km36+700 đến km36+900;
+(6) Km42+600 đến Km42+800
+
+# (7) Km48+000 đến Km48+100;
+
+# (8) Km64+900 đến Km65+100;
+(9) Km66+100 đến Km66+500
+
+# (10) Km73+500 đến Km73+700;
+
+# (11) Km76+900 đến Km77+150;
+
+# (12) Km79+650 đến Km79+850;
+(13) Km80+740 đến Km80+900;
+(14) Km83+00 đến Km83+200;
+(15) Km88+850 đến Km89+050;
+(16) Km91+650 đến Km91+850;
+(17) Km106+950 đến Km107+200.
+- Trong đó 07 nút giao sẽ không đưa vào dự án, bởi:
++ Nút giao Km36+700 đến km36+900; Km42+600 đến Km42+800; Km64+900 đến Km65+100; Km80+740 đến Km80+900; Km106+950 đến Km107+200 là những nút giao nằm trong danh sách đề nghị đóng lối mở theo Kế hoạch số 796/KH-UBND ngày 24/2/2025 của UBND tỉnh Hải Dương (cũ) và Kế hoạch số 135/KH-UBND ngày 16/4/2026 của UBND thành phố Hải Phòng;
++ Nút giao Km27+150 đến Km27+230 đã được đầu tư hệ thống đèn tín hiệu điều khiển giao thông;
++ Nút giao Km88+850 đến Km89+050; do nút giao nằm gần sát nút giao có đèn tín hiệu giao thông tại Km89+205 (khoảng 200m) nên các phương tiện tham gia giao thông với tốc độ chậm, trật tự, và được ngắt dòng xe theo chu kỳ đèn tín hiệu, phương tiện rẽ trái ít thêm vào đó tại điểm mở này đã lắp đặt biển báo cấm quay đầu xe 2 bên đường hướng đi vào điểm mở, và vì điểm mở gần với cầu vượt Nam Sơn đa phần các phương tiện quay đầu tại cầu vượt do đó tại lối mở này không nguy hiểm, không tiềm ẩn nguy cơ tại nạn và không bị ùn tắc giao thông.
+- Đề nghị bổ sung 04 điểm lối mở quay đầu xe nguy hiểm, không có đèn tín hiệu tiềm ẩn nguy cơ tai nạn giao thông gồm các nút giao:
++ Nút Giao Km17+700 đến Km17+900 điểm mở quay đầu xe giao cắt với đường nhánh đi An Lạc gần trạm thu phí số 1, đường vành đai 4, mật độ giao thông đông nhất là vào các khung giờ cao điểm phương tiện đi thẳng và phương tiện rẽ vào An Lạc, từ An Lạc rẽ trái, rẽ phải vào QL.5 rất dễ xung đột ngay tại lối mở này tiềm ẩn nguy cơ tai nạn giao thông. Nút giao hiện trạng có 02 camera tại vị trí Km17+800 và Km17+900 thuộc quản lý của công an tỉnh Hưng Yên, các vị trí cột camera hiện trạng này không nằm cạnh các vị trí cột camera thiết kế nên không ảnh hưởng tới mỹ quan đường phố và không tận dụng được cột đèn chiếu sáng để lắp hệ thống camera thiết kế.
++ Nút giao Km32+800 đến Km32+900 là nút giao với đường nhánh đi vào khu dân cư, có lối mở dải phân cách dành cho xe máy, xe thô sơ quay đầu và sang đường có biển báo cấm ô tô quay đầu nhưng thực tế xe ô tô con vẫn thường xuyên quay đầu tại lối mở này, lượng xe máy, xe đạp sang đường rất đông tiềm ẩn nguy cở tai nan, ùn tắc giao thông nhất là vào các khung giờ tan tầm của các nhà máy, trường học.
++ Tại Km75+350 đến Km75+500 là điểm mở dải phân cách gần cây xăng dầu Kim Lương, có biển báo cấm ô tô 4 trục quay đầu nhưng thực tế xe ô tô 4 trục, xe container vẫn thường xuyên quay đầu tại lối mở này, các phương tiện thường xuyên sang đường vào cây xăng dầu và quay đầu xe, lượng xe máy, xe đạp xe ô tô sang đường rất đông tiềm ẩn nguy cở tai nan, ùn tắc giao thông.
++ Tại Km78+900 đến Km79+100 là nút giao với đường nhánh đi vào khu dân cư, có lối mở dải phân cách dành cho xe máy, xe thô sơ quay đầu và sang đường có biển báo cấm ô tô quay đầu nhưng thực tế xe ô tô con vẫn thường xuyên quay đầu tại lối mở này, lượng xe máy, xe đạp sang đường rất đông tiềm ẩn nguy cở tai nạn, ùn tắc giao thông nhất là vào các khung giờ tan tầm của các nhà máy, trường học.
+Tổng hợp hiện trạng giao thông của 14 nút giao điểm mở dải phân cách cụ thể như sau:
+Tuyến Quốc lộ 5 là trục giao thông quan trọng thuộc vùng kinh tế trọng điểm Bắc Bộ, đây là tuyến đường trọng yếu nằm trong trục tam giác kinh tế Hà Nội – Hải Phòng – Quảng Ninh và là tuyến đường huyết mạch để vận chuyển hàng hóa từ các tỉnh phía Bắc ra Cảng quốc tế Hải Phòng. Chiều dài toàn tuyến là 113,252 km, trong đó Tổng công ty phát triển hạ tầng và đầu tư tài chính Việt Nam được giao quản lý từ Km11+135 đến Km113+252. Quốc lộ 5 là tuyến đường có mật độ giao thông rất lớn với nhiều xe Container, xe siêu trường, siêu trọng lưu thông, tỷ lệ tai nạn giao thông cao với nhiều vụ tai nạn nghiêm trọng.
+Dọc tuyến Quốc lộ 5 là nơi tập trung nhiều nhà máy, khu công nghiệp, lưu lượng và phương tiện cơ giới tham gia giao thông hàng ngày rất lớn đòi hỏi cần thiết ứng dụng khoa học công nghệ để nâng cao hiệu quả công tác quản lý, vận hành.
+Cụ thể hiện trạng giao thông tại 14 nút giao:
++ Km16+350 đến Km16+450:  Điểm giao cắt có hạn chế tốc độ 80km/h và 60km/h; Cả hai hướng đều có người đi xe máy, xe đạp ngược đường, thỉnh thoảng có ô tô con quay đầu, các phương tiện chạy với tốc độ cao, các xe tải cũng thường xuyên quay đầu; Lưu lượng xe rất đông; đường nhánh nhỏ xe ô tô rẽ vào nhiều gây ách tắc kéo dài rất nguy hiểm, học sinh không sang được đường vì nhiều xe tải to không giảm tốc độ khi qua điểm giao cắt; Hướng Hải Phòng đi Hà Nội có nhiều hàng quán lấn chiếm lòng đường gần hết làn danh cho xe máy gây nguy hiểm và ùn tắc; Hướng Hà Nội đi Hải Phòng qua điểm mở có trường đại học bên trong, đường vào hẹp, lưu lượng ô tô, xe máy đi vào đông; Điểm mở này thường xuyên xảy ra tại nạn. Nút giao hiện trạng có 02 camera lắp trên cột đèn chiếu sáng tại vị trí Km16+355 và Km16+415 thuộc quản lý của công an tỉnh Hưng Yên, các vị trí cột camera hiện trạng này không nằm cạnh các vị trí cột camera thiết kế nên không ảnh hưởng tới mỹ quan đường phố và không tận dụng được cột đèn chiếu sáng để lắp hệ thống camera thiết kế.
++ Nút Giao Km17+700 đến Km17+900 điểm mở quay đầu xe giao cắt với đường nhánh đi An Lạc gần trạm thu phí số 1, đường vành đai 4, mật độ giao thông đông nhất là vào các khung giờ cao điểm phương tiện đi thẳng và phương tiện rẽ vào An Lạc, từ An Lạc rẽ trái, rẽ phải vào QL.5 rất dễ xung đột ngay tại lối mở này tiềm ẩn nguy cơ tai nạn giao thông. Nút giao hiện trạng có 02 camera tại vị trí Km17+800 và Km17+900 thuộc quản lý của công an tỉnh Hưng Yên, các vị trí cột camera hiện trạng này không nằm cạnh các vị trí cột camera thiết kế nên không ảnh hưởng tới mỹ quan đường phố và không tận dụng được cột đèn chiếu sáng để lắp hệ thống camera thiết kế.
++ Km30+200 đến Km30+300:  Điểm giao cắt có hạn chế tốc độ 70km/h và 50km/h; Là điểm mở dải phân cách dành cho xe máy, xe thô sơ qua đường; Hướng Hà Nội đi Hải Phòng nhiều phương tiện xe mô tô, xe gắn máy và xe thô sơ thường xuyên đi ngược chiều để quay đầu sang đường, lưu lượng sang đường đông vào giờ cao điểm, đã xảy ra nhiều vụ tại nạn do các phương tiện xe mô tô, xe gắn máy và xe thô sơ cố tình đi ngược chiều; Do tại điểm mở này nằm trong khu dân cư, khu công nghiệp nên mật độ người đi bộ qua đường rất đông; Tuy điểm mở này cấm ô tô quay đầu nhưng thực tế các phương tiện ô tô con vẫn thường xuyên quay đầu gây ùn tắc giao thông và tiềm ẩn nguy cơ tai nạn rất cao. Nút giao hiện trạng có 02 camera tại vị trí Km30+200 và Km30+240 thuộc quản lý của công an tỉnh Hưng Yên, các vị trí cột camera hiện trạng này không nằm cạnh các vị trí cột camera thiết kế nên không ảnh hưởng tới mỹ quan đường phố và không tận dụng được cột đèn chiếu sáng để lắp hệ thống camera thiết kế.
++ Km 31+300 – Km 31+400: Có điểm giao cắt, rất nhiều xe tải và xe trọng tải lớn quay đầu; Lưu lượng xe rất đông, đặc biệt xe máy chờ sang KCN rất nhiều; Hướng Hà Nội đi Hải Phòng: Mới mở đường vào KCN nên xe rẽ sang nhiều đặc biệt giờ cao điểm 6h30’ – 7h30’và 17h00’ - 18h00’, có nhiều xe máy đi ngược đường; Hướng Hải Phòng đi Hà Nội: phương tiện lưu thông trên phố Lê Quang Hòa ra vào nút nhiều, buổi sáng học sinh chờ sang đường để đi học, buổi chiều đi ngược đường hướng Hà Nội – Hải Phòng để về lại phố Lê Quang Hòa; Phương tiện tham gia giao thông khá lộn xộn rẽ dọc, rẽ ngang, đi ngược chiều, không ai nhường ai; nút giao không có biển giới hạn tốc độ; Thường xuyên xảy ra tai nạn. Nút giao hiện trạng có 02 camera tại vị trí Km31+300 và Km31+380 thuộc quản lý của công an tỉnh Hưng Yên, các vị trí cột camera hiện trạng này không nằm cạnh các vị trí cột camera thiết kế nên không ảnh hưởng tới mỹ quan đường phố và không tận dụng được cột đèn chiếu sáng để lắp hệ thống camera thiết kế.
++ Nút giao Km32+800 đến Km32+900 là nút giao với đường nhánh đi vào khu dân cư, có lối mở dải phân cách dành cho xe máy, xe thô sơ quay đầu và sang đường có biển báo cấm ô tô quay đầu nhưng thực tế xe ô tô con vẫn thường xuyên quay đầu tại lối mở này, lượng xe máy, xe đạp sang đường rất đông tiềm ẩn nguy cở tai nạn, ùn tắc giao thông nhất là vào các khung giờ tan tầm của các nhà máy, trường học.
++ Km48+000 đến Km48+100: Điểm giao cắt có hạn chế tốc độ 80km/h và 60km/h và cấm quay đầu xe; Lưu lượng xe rất đông trong ngày, các phương tiện trên đường QL.37 rẽ trái để đi Hà Nội và hướng Hải Phòng rẽ trái vào QL.37 thường xuyên ùn tắc kéo dài; Tuy có biển báo cấm dừng đỗ nhưng nhiều xe khách vẫn dẫn để đón, trả khách gây cản trở cho các phương tiện từ QL.37 rẽ phải vào QL.5 để đi Hải Phòng phải lấn ra làn đi thẳng; Tại điểm giao cắt này đã có biển báo hạn chế tốc độ nhưng các phương tiện vẫn chạy với tốc độ cao, lấn làn…gây ùn tắc giao thông giao thông và thường xuyên xảy ra tai nạn giao thông.
++ Km 66+100 – Km 66+500:  Lưu lượng xe đông khi vào giờ 6h30’ – 8h00’ và 16h30’ – 18h00’; Hướng Hà Nội đi Hải Phòng  có: Biển cấm rẽ trái và quay đầu ô tô nhưng vẫn xảy ra hiện tượng ô tô rẽ trái quay đầu, nhiều Xe máy rẽ sang đường làng hướng Hải Phòng  đi Hà Nội; Có biển hạn chế tốc độ 70km/h và 50km/h nhưng các phương tiện vẫn đi nhanh; Điểm giao cắt bé nên khi sang đường sẽ bị tắc ra làn ô tô trong khi nhiều xe tải và Container chạy qua gây cản trở giao thông.
++ Km73+500 – Km73+700: Lưu lượng xe rất đông, rất nhiều xe rẽ và quay đầu;  Hướng Hà Nội đi Hải Phòng: Xe container chiếm làn xe thô sơ để mở rộng vòng cua quay đầu về hướng Hải Phòng và có điểm ngân hàng VCB rất nhiều xe dừng đỗ chiếm lòng lề đường gây cản trở giao thông; Nút giao nằm trong khu dân cư nhưng các xe vẫn lưu thông với tốc độ cao, có biển cấm dừng đỗ nhưng nhiều xe vẫn dừng đỗ gây cản trở giao thông; Thường xuyên xảy ra tai nạn
++ Tại Km75+350 đến Km75+500 là điểm mở dải phân cách gần cây xăng dầu Kim Lương, có biển báo cấm ô tô 4 trục quay đầu nhưng thực tế xe ô tô 4 trục, xe container vẫn thường xuyên quay đầu tại lối mở này, các phương tiện thường xuyên sang đường vào cây xăng dầu và quay đầu xe, lượng xe máy, xe đạp xe ô tô sang đường rất đông tiềm ẩn nguy cở tai nan, ùn tắc giao thông.
++ Km 76+900 – Km 77+150: Lưu lượng xe đông; Có biểm cấm quay đầu nhưng nhiều xe tải vẫn quay đầu xe; Hướng Hà Nội đi Hải Phòng: Cách nút giao 50m có đường sắt cắt ngang không rào chắn, lượng người qua lại thường xuyên, nhiều xe hai bánh đi ngược chiều; đường làng cổ Phục Bắc nhiều phương tiện lưu thông ra vào nút; Có biển hạn chế tốc độ 70km/h và 60km/h nhưng các phương tiện vẫn đi nhanh tiềm ẩn nguy cơ xảy ra tai nạn
++ Tại Km78+900 đến Km79+100 là nút giao với đường nhánh đi vào khu dân cư, có lối mở dải phân cách dành cho xe máy, xe thô sơ quay đầu và sang đường có biển báo cấm ô tô quay đầu nhưng thực tế xe ô tô con vẫn thường xuyên quay đầu tại lối mở này, lượng xe máy, xe đạp sang đường rất đông tiềm ẩn nguy cở tai nạn, ùn tắc giao thông nhất là vào các khung giờ tan tầm của các nhà máy, trường học.
++ Tại Km79+650 đến Km79+850 có lưu lượng trung bình, lưu lượng xe ô tô và xe máy quay đầu nhiều, không có biển giới hạn tốc độ nên các phương tiện lưu thông nhanh, giờ cao điểm xe máy học sinh chờ sang đường đông, công nhân nhà máy Z174 đi bộ qua đường nhiều vào giờ đi làm và tan ca, nút giao hay xả ra tai va chạm giao thông.
++ Tại Km83+000 đến Km83+200 có lưu lượng phương tiện rất cao, hướng Hà Nội – Hải phòng có nhiều phương tiện rẽ sang đường Phạm Đình Trọng và quay đầu vào cây xăng, hướng Hải Phòng – Hà Nội nhiều phương tiện rẽ vào cây xăng và dừng đỗ dưới đường, nhiều phương tiện rẽ từ Phạm Đình Trọng đi Hướng Hải Phòng; Các phương tiện không giảm tốc độ khi qua nút giao; phương tiện đi ngược chiều nhiều; nhiều phương tiện đi thẳng từ cây xăng sang hướng Hải Phòng; nút giao thường xả ra va chạm giao thông.
++ Km91+650 đến Km91+850 có lưu lượng xe rất đông; hướng Hà Nội – cảng Chùa Vẽ nhiều xe tải, xe Container đi nhanh không giảm tốc độ trong khu dân cư, nhiều xe quay đầu lấn làn  xe máy, nhiều phương tiện rẽ vào bệnh viện phụ sản Hải Phòng; Hướng cảng Chùa Vẽ - Hà Nội nhiều phương tiện rẽ vào bệnh viện phụ sản Hải Phòng và đình An Tri; nút giao thường xảy ra va chạm giao thông, xe máy thường xuyên đi ngược chiều.
+Hiện nay, trên Quốc lộ 5 đã triển khai ứng dụng công nghệ AI trong tổ chức giao thông tại 03 nút đèn tín hiệu giao thông thích ứng, bao gồm: Nút giao Đại An (Km45+810); Nút giao Km67+270; Nút giao Km90+740; nút giao Km47+500 đang chuẩn bị thi công lắp đặt. Hệ thống công nghệ AI tại các nút đèn giao thông bao gồm camera, đèn tín hiệu giao thông thích ứng. Dữ liệu hình ảnh và dữ liệu giao thông được thu thập hiện được truyền về trung tâm thông qua mạng Internet và lưu trữ trên hệ thống máy chủ đặt tại Việt Nam, cho phép truy cập từ xa tại địa chỉ tên miền http://dgt.ancovn.com giúp khai thác, tra cứu và trích xuất dữ liệu phục vụ công tác quản lý. Do đó, cần đầu tư hệ thống máy chủ, phần mềm quản lý, giám sát, điều khiển trung tâm cho hệ thống đèn tín hiệu giao thông trên đa nền tảng (Web/App mobile) để chủ động trong công tác quản lý tập trung cho các vị trí nút giao này và các nút đèn giao thông khác khi được đầu tư kết nối trung tâm.
+Vấn đề đảm bảo an toàn giao thông và tăng ý thức chấp hành luật giao thông của người dân là vấn đề cấp thiết cần giải quyết của cả nước nói chung và trên tuyến Quốc lộ 5 nói riêng nhằm góp phần cho công cuộc đổi mới nhanh, bền vững và hiện đại của đất nước.
+Từ hiện trạng các nút giao thông nêu trên kết hợp với trong bối cảnh năm 2026, Chính phủ thực hiện nhiều chính sách phát triển kinh tế - xã hội, chuyển đổi số và điều chỉnh bộ máy hành chính, việc đầu tư lắp đặt lắp đặt hệ thống camera quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ, xe quay đầu…; đếm xe tự động, nhận diện biển số xe tại 14 nút giao mở lối quay đầu xe nhằm phục vụ công tác quản lý, vận hành, khai thác, bảo trì kết cấu hạ tầng đường bộ, xem xét, điều chỉnh phương án tổ chức giao thông là yêu cầu cấp bách và cần thiết.
+
+## 3.2. Địa điểm xây dựng và diện tích sử dụng đất.
+Địa điểm xây dựng: Trên QL.5 đoạn từ Km11+135 - Km107+926 thuộc địa phận tỉnh Hưng Yên và Thành phố Hải Phòng.
+Diện tích sử dụng đất: Sử dụng trên đất hiện hữu nằm trong phạm vi lộ giới của QL5.
+
+## 3.3. Hình thức đầu tư.
+Đầu tư Ứng dụng khoa học công nghệ trong quản lý vận hành Quốc lộ 5 theo Kế hoạch bảo trì năm 2026.
+
+## 3.4. Điều kiện tự nhiện, điều kiện kinh tế xã hội.
+Tuyến Quốc lộ 5 nối Hà Nội và Hải Phòng chạy hoàn toàn qua vùng đồng bằng châu thổ sông Hồng. Điều kiện tự nhiên dọc tuyến mang những đặc trưng cơ bản về địa hình, khí hậu và hệ thống thủy văn đồng bằng:
+Địa hình và Thổ nhưỡng: Địa hình bằng phẳng, địa chất chủ yếu là đất phù sa cổ và phù sa mới màu mỡ, rất thuận lợi cho phát triển nông nghiệp và xây dựng cơ sở hạ tầng, đô thị.
+Khí hậu: Nằm trong vùng nhiệt đới gió mùa, mùa hè nóng ẩm, mưa nhiều; mùa đông lạnh và khô. Chịu ảnh hưởng rõ rệt của gió mùa Đông Bắc và Đông Nam.
+Thủy văn: Tuyến đường cắt qua nhiều hệ thống sông lớn và quan trọng của miền Bắc như sông Hồng (đoạn nút giao), sông Đuống, sông Thái Bình và sông Kinh Thầy, tạo nên mạng lưới cấp/thoát nước tự nhiên dồi dào. Mang đặc trưng của vùng hạ lưu lưu vực sông Hồng và sông Thái Bình, chịu tác động mạnh bởi chế độ dòng chảy mùa lũ và chế độ bán nhật triều của biển Đông ở đoạn cuối tuyến.
+Giao thông: Quốc lộ 5 là trục giao thông quan trọng thuộc vùng kinh tế trọng điểm Bắc Bộ, đây là tuyến đường trọng yếu nằm trong trục tam giác kinh tế Hà Nội – Hải Phòng – Quảng Ninh và là tuyến đường huyết mạch để vận chuyển hàng hóa từ các tỉnh phía Bắc ra Cảng quốc tế Hải Phòng. Chiều dài toàn tuyến là 113,252 km, trong đó Tổng công ty phát triển hạ tầng và đầu tư tài chính Việt Nam được giao quản lý từ Km11+135 đến Km113+252. Quốc lộ 5 là tuyến đường có mật độ giao thông rất lớn với nhiều xe Container, xe siêu trường, siêu trọng lưu thông, tỷ lệ tai nạn giao thông cao với nhiều vụ tai nạn nghiêm trọng. Dọc tuyến Quốc lộ 5 là nơi tập trung nhiều nhà máy, khu công nghiệp, lưu lượng và phương tiện cơ giới tham gia giao thông hàng ngày rất lớn.
+
+## 3.5. Phương án giải phóng mặt bằng
+Dự án sử dụng trên đất hiện hữu nằm trong phạm vi lộ giới của QL5 nên không phải giải phóng mặt bằng.
+
+## 3.6. Cấp công trình
+Công trình nhóm C; Loại: Công trình giao thông; cấp IV.
+
+## 3.7. Chủ đầu tư
+Tổng Công ty Phát triển hạ tầng và Đầu tư tài chính Việt Nam.
+
+## 3.8. Cơ quan quản lý dự án:
+
+## Tổng Công ty Phát triển hạ tầng và Đầu tư tài chính Việt Nam trực tiếp quản lý dự án.
+
+## 3.9. Nguồn vốn thực hiện: Trích từ nguồn thu phí và được bổ sung vào phương án tài chính của hợp đồng Dự án đường ô tô cao tốc Hà Nội - Hải Phòng.
+
+## 3.10.Thời gian thực hiện dự án: Năm 2026 - 2027
+
+## 3.11. Mục tiêu và Quy mô đầu tư.
+a. Mục tiêu xây dựng.
+Quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ, xe quay đầu…; đếm xe tự động, nhận diện biển số xe nhằm phục vụ công tác quản lý, vận hành, khai thác, bảo trì kết cấu hạ tầng đường bộ, xem xét, điều chỉnh phương án tổ chức giao thông.
+b. Quy mô đầu tư
+Đầu tư Ứng dụng khoa học công nghệ trong quản lý vận hành Quốc lộ 5 theo Kế hoạch bảo trì năm 2026, cụ thể như sau:
+Lắp đặt lắp đặt hệ thống quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ, xe quay đầu…; đếm xe tự động, nhận diện biển số xe tại 14 nút giao: Km16+350 đến Km16+450; Km17+700 đến Km17+900; Km30+200 đến Km30+300; Km31+300 đến Km31+400;Km32+800 đến Km32+900; Km48+000 đến Km48+100; Km66+100 đến Km66+500; Km73+500 đến Km73+700; Km75+350 đến Km75+500; Km76+900 đến Km77+150; Km78+900 đến Km79+100; Km79+650 đến Km79+850; Km83+000 đến Km83+200; Km91+650 đến Km91+850.
+Tại Phòng điều hành, điều khiển giám sát giao thông lắp đặt 01 hệ thống máy chủ (Server), phần mềm quản lý, giám sát, điều khiển trung tâm cho hệ thống đèn tín hiệu giao thông và 01 hệ thống máy chủ (Server), phần mềm quản lý, giám sát, điều khiển trung tâm cho hệ thống camera trên đa nền tảng (Web/App mobile). Máy chủ và phần mềm quản lý giám sát giao thông được đặt tại Việt Nam để tăng cường bảo mật dữ liệu, an ninh, an toàn thông tin. Lắp đặt hệ thống 09 màn hình ghép 55 inch và các thiết bị cần thiết để phục vụ công tác quản lý, vận hành giao thông.
+3.11. Thuyết minh thiết kế bản vẽ thi công.
+3.11.1. Giải pháp thiết kế.
+3.11.1.1. Tổng quan và nguyên lý hoạt động và phân tích lựa chọn giải pháp kỹ thuật.
+a. Tổng quan và nguyên lý hoạt động
+Nguyên lý chung của hệ thống như camera như sau: Hệ thống camera tại hiện trường sẽ thu thập và phân tích dữ liệu và hình ảnh/video giao thông tại hiện trường kết quả sau đó được truyền về máy chủ tại trung tâm giám sát thông qua mạng  Internet, trung tâm giám sát bao gồm các máy chủ và phần mềm phần mềm quản lý, giám sát, điều khiển trung tâm sẽ lưu trữ, cung cấp nền tảng (Web/App mobile), bảo mật thông tin, kết hợp hệ thống màn hình quan sát phục vụ công tác quản lý, giám sát, vận hành giao thông…
+- Các tính năng chính của hệ thống: Quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ, xe quay đầu…; đếm xe tự động, nhận diện biển số xe, truy xuất lịch sử dữ liệu hoặc hình ảnh/video từ trung tâm hoặc tại biên.
++ Quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ, xe quay đầu…: Giúp đơn vị quản lý có thể theo dõi diễn biến trực tiếp hoặc xem lại các tình huống. Qua đó hỗ trợ đơn vị quản lý phát hiện bất cập và cung cấp thông tin phục vụ công tác xử lý tình huống.
++ Đếm lưu lượng và phân loại phương tiện giao thông: Hệ thống tự động đếm lưu lượng phương tiện và truyền về trung tâm để hệ thống phần mềm quản lý, giám sát, điều khiển trung tâm cho hệ thống camera phân loại 09 loại phương tiên như: Ô tô con, xe van, xe buýt, xe tải, xe tải nhẹ, SUV/MPV, xe bán tải, xe máy và xe ba bánh; Trong tương lai, để phân loại đủ 19 loại phương tiện theo quy định bảo trì của Cục Đường bộ thì sẽ kết nối, liên thông cơ sở dữ liệu trực tuyến với Cục Đăng kiểm Việt Nam, đồng thời nâng cấp phần mềm trên Server để đếm và phân loại chi tiết đủ 19 loại phương tiện đó. Dữ liệu được tổng hợp, thống kê và trực quan hóa dưới dạng bảng biểu theo các khoảng thời gian khác nhau, hình thành cơ sở dữ liệu giao thông liên tục, phục vụ công tác theo dõi, phân tích và đánh giá tình hình khai thác giao thông. Trên cơ sở đó, đơn vị quản lý có thể đánh giá xu hướng lưu lượng, mức độ quá tải và khả năng thông hành của từng nút giao từ đó làm căn cứ xem xét, đề xuất các giải pháp tổ chức giao thông phù hợp như: Cải tạo, mở rộng mặt đường hoặc tổ chức giao thông bằng đèn tín hiệu, đóng hoặc mở rộng đoạn mở dải phân cách hiện trạng… Qua đó, nâng cao hiệu quả quản lý, khai thác kết cấu hạ tầng giao thông đường bộ, góp phần giảm ùn tắc và bảo đảm an toàn giao thông. Dữ liệu được tổng hợp, thống kê và trực quan hóa dưới dạng bảng biểu theo các khoảng thời gian khác nhau, hình thành cơ sở dữ liệu giao thông liên tục, phục vụ công tác theo dõi, phân tích và đánh giá tình hình khai thác giao thông. Trên cơ sở đó, đơn vị quản lý có thể đánh giá xu hướng lưu lượng, mức độ quá tải và khả năng thông hành của từng nút giao từ đó làm căn cứ xem xét, đề xuất các giải pháp tổ chức giao thông phù hợp như: Cải tạo, mở rộng mặt đường hoặc tổ chức giao thông bằng đèn tín hiệu, đóng hoặc mở rộng đoạn mở dải phân cách hiện trạng… Qua đó, nâng cao hiệu quả quản lý, khai thác kết cấu hạ tầng giao thông đường bộ, góp phần giảm ùn tắc và bảo đảm an toàn giao thông.
++ Nhận diện biển số xe như sau: Nhận diện đầy đủ biển số xe. Qua đó hỗ trợ đơn vị quản lý trong việc truy xuất các phương tiện trong trường hợp cần thiết.
++ Luồng dữ liệu video quan sát được xử lý tại biên (Edge AI), được lưu trữ tại biên (Edge Storage) và chỉ truyền về trung tâm theo sự kiện (Event) và truyền theo yêu cầu (On-demand). Truyền theo sự kiện (Event) như: Dữ liệu đếm xe, biển số xe từ camera. Truyền theo yêu cầu (On-demand) như: Dữ liệu và hình ảnh/video từ camera khi người vận hành bấm xem trực tiếp camera, trích xuất log, hoặc kiểm tra trạng thái định kỳ nhằm tối ưu băng thông, giảm tải cho đường truyền, tiết kiệm dung lượng, đảm bảo tính thời gian thực.
+- Tại hiện trường:
++ Lắp đặt lắp đặt hệ thống quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ, xe quay đầu…; đếm xe tự động, nhận diện biển số xe bao gồm các thiết bị như: Camera phục vụ nhận diện biển số xe, đếm lưu lượng phương tiện độ phân giải 4MP; Camera quan sát, quay quét PTZ độ phân giải 6MP; thẻ nhớ 512GB lưu trữ dữ liệu; Tủ kỹ thuật Camera; Module ổn áp nguồn điện lưới; Module cắt sét lan truyền đường nguồn và các phụ kiện khác kèm theo…
++ Sử dụng mạng Internet cáp quang (có IP tĩnh) hoặc mạng di động 4G làm phương thức truyền dẫn dữ liệu và hình ảnh/video từ hiện trường về trung tâm giám sát.
++ Nguồn điện cung cấp cho hệ thống camera được lấy lại các cột điện hạ thế dọc tuyến.
+- Tại Trung tâm:
+Phòng điều hành, điều khiển giám sát giao thông lắp đặt 01 hệ thống máy chủ (Server), phần mềm quản lý, giám sát, điều khiển trung tâm cho hệ thống đèn tín hiệu giao thông và 01 hệ thống máy chủ (Server), phần mềm quản lý, giám sát, điều khiển trung tâm cho hệ thống camera trên đa nền tảng (Web/App mobile). Máy chủ và phần mềm quản lý giám sát giao thông được đặt tại Việt Nam để tăng cường bảo mật dữ liệu, an ninh, an toàn thông tin. Lắp đặt hệ thống 09 màn hình ghép 55 inch và các thiết bị cần thiết để phục vụ công tác quản lý, vận hành giao thông.
+Phòng máy chủ được thiết kế theo quy mô phù hợp với nhu cầu hiện tại, đồng thời dành khả năng mở rộng về máy chủ, lưu trữ và thiết bị mạng trong tương lai. Phương án này phù hợp đối với hệ thống có yêu cầu quản lý tập trung, chủ động cao trong quản lý và vận hành hệ thống, giảm sự phụ thuộc vào nhà cung cấp dịch vụ, phù hợp với các hệ thống có yêu cầu vận hành lâu dài.
+Mô hình kiến trúc tổng thể hệ thống
+b. Phân tích lựa chọn giải pháp kỹ thuật
+1). Lựa chọn phương án truyền dẫn hình ảnh/dữ liệu về trung tâm
+Đối với các vị trí lắp đặt camera phân tán, tại mỗi vị trí có thể lựa chọn sử dụng đường truyền Internet cáp quang do doanh nghiệp viễn thông cung cấp.
+Phương án 1: Sử dụng đường truyền Internet cáp quang internet có địa chỉ IP tĩnh
+Theo phương án này, tại từng vị trí lắp đặt camera, thực hiện đăng ký dịch vụ Internet với doanh nghiệp viễn thông. Nhà mạng triển khai đường truyền cáp quang từ hạ tầng mạng gần nhất đến vị trí lắp đặt camera và cung cấp thiết bị đầu cuối để kết nối camera với hệ thống máy chủ.
+-	Ưu điểm:
++ Đường truyền có băng thông tương đối cao và ổn định.
++ Phù hợp với trường hợp cần truyền liên tục luồng video có độ phân giải cao.
++ Không phụ thuộc vào chất lượng phủ sóng di động.
++ Có thể sử dụng cho các điểm có nhiều camera hoặc có nhu cầu truyền dữ liệu lớn.
++ Chi phí truyền dẫn có tính ổn định theo gói dịch vụ đăng ký.
+Phương án 2: Sử dụng mạng di động 4G
+Theo phương án này, tại mỗi điểm camera bố trí thiết bị truyền thông 4G và sử dụng SIM của doanh nghiệp viễn thông để kết nối trực tiếp với hệ thống máy chủ.
+-	Ưu điểm:
++ Không phụ thuộc vào việc triển khai cáp quang tại từng vị trí. Chỉ cần vị trí lắp đặt có vùng phủ sóng 4G đáp ứng yêu cầu, thiết bị có thể kết nối vào hệ thống mà không cần chờ doanh nghiệp viễn thông triển khai đường cáp đến vị trí.
++ Giảm thời gian triển khai. Việc triển khai một điểm camera chủ yếu gồm lắp đặt thiết bị, cấp nguồn, lắp SIM và cấu hình kết nối. Không phải thực hiện các công việc khảo sát, kéo cáp và đấu nối đường truyền tại từng điểm.
++ Phù hợp với camera có khả năng xử lý AI tại biên. Dữ liệu truyền về trung tâm có thể bao gồm sự kiện, metadata, hình ảnh liên quan hoặc luồng video khi có yêu cầu. Qua đó giảm nhu cầu băng thông và nâng cao tính phù hợp của phương án sử dụng 4G.
+-	Nhược điểm:
++ Phụ thuộc vào vùng phủ sóng và chất lượng mạng di động
++ Có thể phát sinh vấn đề về băng thông khi truyền video liên tục
+Phương án lựa chọn: Để đảm bảo truyền dữ liệu và hình ảnh/video liên tục 24h từ hiện trường về trung tâm giám sát lựa chọn Phương án 1: Sử dụng đường truyền Internet cáp quang internet có địa chỉ IP tĩnh làm phương thức truyền dẫn.
+2). Lựa chọn phương án xây dựng phòng máy chủ thay cho thuê chỗ đặt máy chủ
+Phương án 1: Phương án thuê hạ tầng máy chủ và thuê phần mềm
+Toàn bộ hạ tầng máy chủ và phần mềm đều được cung cấp dưới dạng dịch vụ. Đơn vị thanh toán theo tháng, quý hoặc năm tùy theo hợp đồng.
+-  Ưu điểm
++	Vốn đầu tư ban đầu thấp nhất.
++	Triển khai nhanh: Có thể đưa hệ thống vào sử dụng mà không phải thực hiện đầu tư phòng máy và mua sắm nhiều thiết bị.
++	Dễ mở rộng hoặc thu hẹp: Quy mô dịch vụ có thể điều chỉnh theo nhu cầu.
++	Giảm yêu cầu về nhân sự vận hành hạ tầng: Nhà cung cấp chịu trách nhiệm đối với phần lớn hạ tầng kỹ thuật.
++	Phù hợp với dự án thử nghiệm hoặc nhu cầu ngắn hạn: Đặc biệt phù hợp khi chưa xác định được quy mô lâu dài hoặc cần triển khai nhanh để đánh giá thị trường.
+- Nhược điểm
++	Chi phí dài hạn có thể cao: Do phải trả phí định kỳ, tổng chi phí sau nhiều năm có thể vượt đáng kể chi phí đầu tư sở hữu.
++	Mức độ phụ thuộc nhà cung cấp cao nhất: Hoạt động của hệ thống phụ thuộc vào việc duy trì dịch vụ và chính sách của nhà cung cấp.
++	Rủi ro tăng giá dịch vụ: Đơn giá thuê, chính sách sử dụng tài nguyên hoặc phí bổ sung có thể thay đổi trong tương lai theo hợp đồng.
++	Khả năng kiểm soát hạ tầng hạn chế: Đơn vị không trực tiếp kiểm soát phần cứng và môi trường vận hành.
++	Cần đặc biệt quan tâm đến dữ liệu: Phải có quy định rõ về quyền sở hữu dữ liệu, sao lưu, khôi phục, xuất dữ liệu và bàn giao dữ liệu khi chấm dứt hợp đồng.
++	Có thể phát sinh chi phí chuyển đổi: Nếu sau một thời gian muốn chuyển sang hệ thống do đơn vị tự đầu tư hoặc sang nhà cung cấp khác, chi phí chuyển đổi dữ liệu và tích hợp có thể đáng kể.
+Phương án 2: Phương án đầu tư hạ tầng máy chủ và phần mềm quản lý
+Đầu tư xây dựng và sở hữu hệ thống hạ tầng công nghệ thông tin, bao gồm phòng máy chủ, máy chủ, thiết bị lưu trữ, thiết bị mạng, thiết bị bảo mật, UPS, hệ thống điều hòa, hệ thống giám sát và các thiết bị liên quan.
+Đồng thời, đơn vị đầu tư mua bản quyền các phần mềm cần thiết hoặc đầu tư phát triển phần mềm và sở hữu quyền sử dụng theo phạm vi được xác định trong hợp đồng.
+- Ưu điểm
++	 Chủ động cao trong quản lý và vận hành hệ thống: Đơn vị quản lý làm chủ hạ tầng, có thể chủ động quyết định cấu hình máy chủ, hệ thống lưu trữ, mạng, bảo mật, phương thức sao lưu và kế hoạch nâng cấp mà không phụ thuộc hoàn toàn vào chính sách của nhà cung cấp dịch vụ.
++	 Tăng khả năng làm chủ dữ liệu: Dữ liệu được lưu trữ trên hệ thống thuộc quyền quản lý của đơn vị quản lý. Điều này đặc biệt quan trọng đối với các hệ thống có lượng dữ liệu lớn, dữ liệu nghiệp vụ quan trọng hoặc dữ liệu cần lưu trữ trong thời gian dài.
++	 Hiệu quả kinh tế tốt khi hệ thống hoạt động ổn định trong thời gian dài: Mặc dù chi phí đầu tư ban đầu lớn, nhưng sau khi hoàn thành đầu tư, chi phí sử dụng hạ tầng không phát sinh theo mức độ sử dụng như mô hình thuê dịch vụ. Đối với hệ thống hoạt động liên tục và có nhu cầu ổn định trong nhiều năm, chi phí bình quân theo năm có thể thấp hơn so với thuê dài hạn.
++	Tài sản được hình thành thuộc quyền sở hữu của đơn vị quản lý: Các thiết bị như máy chủ, storage, switch, firewall, UPS và các thiết bị hạ tầng khác là tài sản của đơn vị và có thể tiếp tục khai thác trong thời gian sử dụng hữu ích.
++ Giảm sự phụ thuộc vào nhà cung cấp dịch vụ: Đơn vị quản lý không bị phụ thuộc hoàn toàn vào việc duy trì dịch vụ, thay đổi giá thuê hoặc thay đổi chính sách của nhà cung cấp hạ tầng.
++ Phù hợp với các hệ thống có yêu cầu vận hành lâu dài: Đối với hệ thống xác định triển khai ổn định trong thời gian từ 05 năm trở lên, phương án mua có cơ sở để mang lại hiệu quả đầu tư tốt hơn.
+- Nhược điểm:
++ Vốn đầu tư ban đầu lớn: Đơn vị phải đầu tư đồng thời cho phòng máy, máy chủ, storage, thiết bị mạng, UPS, điều hòa, bảo mật, sao lưu và các hạng mục liên quan.
++ Phải tự tổ chức vận hành và bảo trì: Đơn vị quản lý cần có nhân sự có chuyên môn để quản trị máy chủ, hệ điều hành, cơ sở dữ liệu, mạng, bảo mật, sao lưu và xử lý sự cố.
++ Phải chủ động kế hoạch nâng cấp và thay thế thiết bị: Sau một thời gian sử dụng, máy chủ, ổ đĩa, UPS và các thiết bị khác có thể cần nâng cấp hoặc thay thế để đáp ứng yêu cầu về hiệu năng và độ tin cậy.
+Phương án lựa chọn: Do đơn vị quản lý có địa điểm phù hợp là phòng họp tại nhà điều hành trạm thu phí QL.5 đã có sẵn và để hệ thống phòng máy chủ được khai thác ổn định, chủ động, lâu dài. Vì vậy, lựa chọn Phương án 2: Phương án đầu tư hạ tầng máy chủ và phần mềm quản lý lắp đặt tại phòng họp tại nhà điều hành trạm thu phí QL.5 của đơn vị vận hành. Phòng máy chủ được thiết kế theo quy mô phù hợp với nhu cầu hiện tại, đồng thời dành khả năng mở rộng về máy chủ, lưu trữ và thiết bị mạng trong tương lai. Phương án này đặc biệt phù hợp đối với hệ thống có yêu cầu quản lý tập trung, dữ liệu phát sinh lớn và cần chủ động về hạ tầng công nghệ thông tin.
+Phòng máy chủ trạm thu phí hiện trạng hoạt động 24/24h phục vụ công tác giám sát hậu kiểm, đảm bảo thu phí đúng, đủ do đó không sử dụng chung hạ tầng phòng máy chủ trạm thu phí để đảm bảo công suất hoạt động, năng lực hạ tầng hiện hữu, an toàn hệ thống và độc lập trong công tác quản lý vận hành, không can thiệp hay làm gián đoạn đến hoạt động thu phí thiết yếu hiện tại của trạm và công tác quản lý vận hành hệ thống camera trên tuyến QL.5.
+3.11.1.2. Giải pháp thiết kế.
+1). Tại Hiện trường các nút giao:
+- Lắp đặt lắp đặt hệ thống quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ, xe quay đầu…; đếm xe tự động, nhận diện biển số xe tại 14 nút giao: Km16+350 đến Km16+450; Km17+700 đến Km17+900;  Km30+200 đến Km30+300; Km31+300 đến Km31+400; Km32+800 đến Km32+900; Km48+000 đến Km48+100; Km66+100 đến Km66+500; Km73+500 đến Km73+700; Km75+350 đến Km75+500; Km76+900 đến Km77+150; Km78+900 đến Km79+100; Km79+650 đến Km79+850; Km83+000 đến Km83+200; Km91+650 đến Km91+850.
+- Tại mỗi nút giao lắp đặt 02 cột camera. Trong đó, trên mỗi cột lắp đặt 02 camera (01 Camera phục vụ nhận diện biển số xe, đếm lưu lượng phương tiện độ phân giải 4MP lắp đặt quay vào nút để đếm lưu lượng xe, nhận diện biển số xe, quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ, xe quay đầu…; 01 Camera quan sát, quay quét PTZ độ phân giải 6MP lắp đặt quay ra nút để quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ…); 02 thẻ nhớ 512GB lưu trữ dữ liệu; 01 đèn trợ sáng thông minh lắp cho camera nhận diện biển số; Tủ kỹ thuật Camera; Module ổn áp nguồn điện lưới; Module cắt sét lan truyền đường nguồn và các phụ kiện khác kèm theo…
+- Sử dụng mạng internet cáp quang có địa chỉ IP tĩnh làm phương thức truyền dẫn hình ảnh/dữ liệu từ hiện trường về trung tâm giám sát.
+- Nguồn điện cung cấp cho hệ thống camera được lấy lại các cột điện hạ thế dọc tuyến.
+a) Loại cột mạ kẽm nhúng nóng cao 6,2m vươn 6m:
+- Thân cột cao 6,2m bằng thép mạ kẽm nhúng nóng dạng hình tròn côn, đường kính thân cột (gốc/ngọn) D(262/173)mm, dày 5,0 mm; Trên thân cột lắp đặt: 01 tủ kỹ thuật Camera; 01 Module ổn áp nguồn điện lưới; 01 Module cắt sét lan truyền đường nguồn.
+- Cần vươn dài 6m bằng thép mạ kẽm nhúng nóng, dạng hình tròn côn, đường kính tay vươn (gốc/ngọn) D(164/80)mm, dày 5,0 mm; Trên tay vươn lắp đặt: 02 Camera (01 Camera phục vụ nhận diện biển số xe, đếm lưu lượng phương tiện độ phân giải 4MP lắp đặt quay vào nút để đếm lưu lượng xe, nhận diện biển số xe, quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ, xe quay đầu…; 01 Camera quan sát, quay quét PTZ độ phân giải 6MP lắp đặt quay ra nút để quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ…); 02 thẻ nhớ 512GB lưu trữ dữ liệu; 01 đèn trợ sáng thông minh lắp cho camera nhận diện biển số và các phụ kiện khác kèm theo…
+- Khung móng cột bằng thép loại 8M24, kích thước (D400x1350)mm; Móng cột đổ BTXM mác 200, đá 1x2.
+- Cọc tiếp địa an toàn bằng thép L(63x63x6)mm dài 2,5 m, dây nối bằng thép D8.
+b) Loại cột mạ kẽm nhúng nóng cao 6,2m vươn 7m:
+- Thân cột cao 6,2m bằng thép mạ kẽm nhúng nóng, dạng hình tròn côn, đường kính thân cột (gốc/ngọn) D(262/173)mm, dày 5,0 mm; Trên thân cột lắp đặt: 01 tủ kỹ thuật Camera; 01 Module ổn áp nguồn điện lưới; 01 Module cắt sét lan truyền đường nguồn.
+- Cần vươn dài 7m bằng thép mạ kẽm nhúng nóng, dạng hình tròn côn, đường kính tay vươn (gốc/ngọn) D(178/80)mm, dày 5,0 mm; Trên tay vươn lắp đặt: 02 Camera (01 Camera phục vụ nhận diện biển số xe, đếm lưu lượng phương tiện độ phân giải 4MP lắp đặt quay vào nút để đếm lưu lượng xe, nhận diện biển số xe, quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ, xe quay đầu…; 01 Camera quan sát, quay quét PTZ độ phân giải 6MP lắp đặt quay ra nút để quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ…); 02 thẻ nhớ 512GB lưu trữ dữ liệu; 01 đèn trợ sáng thông minh lắp cho camera nhận diện biển số và các phụ kiện khác kèm theo...
+- Khung móng cột bằng thép loại 8M24, kích thước (D400x1350)mm; Móng cột đổ BTXM mác 200, đá 1x2.
+- Cọc tiếp địa an toàn bằng thép L(63x63x6)mm dài 2,5 m, dây nối bằng thép D8.
+c) Loại cột mạ kẽm nhúng nóng cao 6,2m vươn 8m:
+- Thân cột cao 6,2m bằng thép mạ kẽm nhúng nóng, dạng hình tròn côn, đường kính thân cột (gốc/ngọn) D(307/220)mm, dày 6,0 mm; Trên thân cột lắp đặt: 01 tủ kỹ thuật Camera; 01 Module ổn áp nguồn điện lưới; 01 Module cắt sét lan truyền đường nguồn.
+- Cần vươn dài 8m bằng thép mạ kẽm nhúng nóng, dạng hình tròn côn, đường kính tay vươn (gốc/ngọn) D(208/80)mm, dày 5,0 mm; Trên tay vươn lắp đặt: 02 Camera (01 Camera phục vụ nhận diện biển số xe, đếm lưu lượng phương tiện độ phân giải 4MP lắp đặt quay vào nút để đếm lưu lượng xe, nhận diện biển số xe, quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ, xe quay đầu…; 01 Camera quan sát, quay quét PTZ độ phân giải 6MP lắp đặt quay ra nút để quan sát công trình giao thông, các hành vi xâm phạm, lấn chiếm hoặc sử dụng trái phép đất của công trình đường bộ, hành lang an toàn đường bộ…); 02 thẻ nhớ 512GB lưu trữ dữ liệu; 01 đèn trợ sáng thông minh lắp cho camera nhận diện biển số và các phụ kiện khác kèm theo…
+- Khung móng cột bằng thép loại 8M24, kích thước (D400x1350)mm; Móng cột đổ BTXM mác 200, đá 1x2.
+- Cọc tiếp địa an toàn bằng thép L(63x63x6)mm dài 2,5 m, dây nối bằng thép D8.
+e)  Tủ kỹ thuật Camera:
+Vỏ tủ bằng tôn, dày 1,2mm, kích thước cao – rộng – sâu (640x400x420)mm, kèm theo các Module: Module ổn áp nguồn điện lưới; Module thoát sét lan truyền đường nguồn; sử dụng mạng internet có địa chỉ IP tĩnh truyền về trung tâm  và các phụ kiện khác kèm theo…
+f) Ống cáp: Vị trí tuyến cáp đi trên vỉa hè sử dụng loại ống nhựa gân xoắn HDPE D65/50mm.
+g) Ống cáp qua đường: Vị trí tuyến cáp qua đường bằng phương pháp khoan đường sử dụng loại ống HDPE D63mm PN10, PE100; tuyến cáp qua đường bằng phương pháp cắt đường sử dụng ống mạ kẽm D76mm.
+h) Cáp điện: Cáp cấp nguồn đi ngầm sử dụng loại cáp Cu/xlpe/pvc/dsta/pvc: 2x2,5mm2; Cáp nối tiếp địa chống sét lan truyền sử dụng cáp Cu/pvc 1x10m2 tại vị tiếp địa thoát sét lan truyền đến Module thoát sét lan truyền trong tủ kỹ thuật Camera ; Cáp truyền thông tử tủ kỹ thuật camera lên Camera sử dụng loại cáp mạng CAT6; Cáp cấp nguồn tử tủ kỹ thuật camera lên Camera, đèn Flash sử dụng loại cáp Cu/XLPE/PVC: 2x1,5mm2; Cáp cấp nguồn lên tủ kỹ thuật camera sử dụng loại cáp nguồn Cu/XLPE/PVC: 2x2,5mm2.
+2). Tại trung tâm:
+Phòng điều hành, điều khiển giám sát giao thông lắp đặt:
+- 01 hệ thống máy chủ (Server), phần mềm quản lý, giám sát, điều khiển trung tâm cho hệ thống camera trên đa nền tảng (Web/App mobile).
+- 01 hệ thống máy chủ, phần mềm quản lý, giám sát, điều khiển trung tâm cho hệ thống đèn tín hiệu giao thông trên đa nền tảng (Web/App mobile).
+- Máy chủ và phần mềm quản lý giám sát giao thông được đặt tại Việt Nam để tăng cường bảo mật dữ liệu, an ninh, an toàn thông tin.
+- Lắp đặt hệ thống 09 màn hình ghép 55 inch và các thiết bị cần thiết để phục vụ công tác quản lý, vận hành giao thông.
+- Phòng máy chủ được thiết kế theo quy mô phù hợp với nhu cầu hiện tại, đồng thời dành khả năng mở rộng về máy chủ, lưu trữ và thiết bị mạng trong tương lai. Phương án này phù hợp đối với hệ thống có yêu cầu quản lý tập trung, chủ động cao trong quản lý và vận hành hệ thống, giảm sự phụ thuộc vào nhà cung cấp dịch vụ, phù hợp với các hệ thống có yêu cầu vận hành lâu dài.
+3.11.2. Yêu cầu kỹ thuật – chỉ dẫn kỹ thuật
+1) Tủ kỹ thuật
+* Đặc tính kỹ thuật:
+Vỏ tủ bằng thép sơn tĩnh điện dày 1,2mm, kích thước (cao x rộng x sâu): 640x400x420mm; Độ kín vỏ tủ: >=IP43; Không gian lắp đặt thỏa mái
+Phụ kiện lắp đặt tủ kỹ thuật vào thân cột đèn; Bộ Switch chia cổng mạng, bộ nguồn DC cho camera và Switch; Các phụ kiện bảo vệ, đấu nối và phụ kiện cần thiết khác kèm theo.
+2) Camera phục vụ nhận diện biển số xe, phương tiện, độ phân giải 4 MP (server dữ liệu và phần mềm quản lý tại Việt Nam).
+* Đặc tính kỹ thuật:
+1. Cảm biến & Ống kính (Optical & Imaging)
+Cảm biến hình ảnh: 1/1.8" Progressive Scan CMOS
+Độ phân giải tối đa: 4 MP (2688 × 1520)
+Tốc độ khung hình: 25 fps / 30 fps ở độ phân giải 2688 × 1520
+Độ nhạy sáng:
+Color: 0.0005 Lux @ (F1.2, AGC ON)
+B/W: 0.0001 Lux @ (F1.2, AGC ON), 0 Lux khi bật đèn hồng ngoại
+Tốc độ màn áp (Shutter Speed): 1/25 s đến 1/100,000 s
+Chống ngược sáng: 140 dB True WDR
+Tốc độ bit video (Bit Rate): 32 Kbps đến 16 Mbps
+2. Đèn trợ sáng kép (Dual-Light Supplement)
+Công nghệ chiếu sáng: Đèn kép kết hợp Hồng ngoại (IR) và Ánh sáng trắng (White Light)
+Bước sóng Hồng ngoại: 850 nm
+Tầm xa chiếu sáng: Lên tới 50 m
+Chế độ hoạt động: Cho phép tùy chỉnh tự động bật đèn trắng khi nhận diện phương tiện ban đêm để chụp ảnh đầy đủ màu sắc (xe, người lái, màu xe) (Cùng với đèn trợ sáng).
+3. Phân tích trí tuệ nhân tạo (Deep Learning & ANPR)
+Tỷ lệ chụp biển số (Capture Rate): ≥ 99%
+Độ chính xác nhận diện biển số (LPR Accuracy): ≥ 98%
+Số làn đường giám sát: Tối đa 3 làn đường
+Nhận diện thuộc tính phương tiện:
+Biển số: Nhận diện đầy đủ biển số xe
+Đếm lưu lượng phương tiện và được truyền về trung tâm để hệ thống phần mềm quản lý, giám sát, điều khiển trung tâm cho hệ thống camera phân loại 09 loại phương tiên như: Ô tô con, xe van, xe buýt, xe tải, xe tải nhẹ, SUV/MPV, xe bán tải, xe máy và xe ba bánh.
+4. Băng thông & Lưu trữ (Network & Video)
+Chuẩn nén Video: H.265 / H.264 / MJPEG
+Giao diện Ethernet: 1 cổng mạng RJ45 10M/100M/1000M
+Lưu trữ thẻ nhớ: Khe cắm thẻ nhớ tích hợp, hỗ trợ thẻ microSD/SDHC/SDXC, dung lượng lên đến 512GB
+Âm thanh: Có hỗ trợ
+Báo động: 1 giao diện đầu vào, 1 giao diện đầu ra, 2 rơ-le (Relay)
+RS-485: 1 cổng RS-485
+Wiegand: 1 cổng Wiegand (CardID 26bit, SHA-1 26bit, Hik 34bit)
+5. Thông số cơ điện & Môi trường
+Nguồn cấp: DC 12 V đến 24 V, 1.25 A, tối đa 15 W (hộp đấu dây 2 lõi); Hoặc cấp nguồn qua mạng PoE: 802.3at, Loại 2, Nhóm 4, tối đa 15 W
+Kích thước: 428.5 mm × 120 mm × 132.8 mm (Dài × Rộng × Cao)
+Trọng lượng: Khoảng 2.975 kg
+Chuẩn bảo vệ ngoài trời: IP67 (chống nước/bụi), IK10 (chống va đập), vỏ hợp kim nhôm chống ăn mòn
+Nhiệt độ / Độ ẩm hoạt động: -30 °C đến 70 °C, Độ ẩm ≤ 95% (không ngưng tụ).
+3) Đèn trợ sáng thông minh.
+* Đặc tính kỹ thuật:
+1. Quang học & Ánh sáng (Optical & Light Specifications)
+Loại đèn: Đèn LED trợ sáng phát liên tục (Continuous Supplement Light).
+Loại ánh sáng / Bước sóng:
+Dải hồng ngoại (IR): 850 nm (không gây chói mắt người lái xe) hoặc 740 nm.
+Dải ánh sáng trắng (White Light): Tùy chọn theo phiên bản (dành cho chụp ảnh màu ban đêm).
+Số lượng chip LED: 16 chip High-Power LED chuyên dụng cho giao thông.
+Tầm xa chiếu sáng hiệu quả: 16 m đến 25 m (tối ưu cho khoảng cách chụp ANPR).
+Góc chiếu sáng (Beam Angle): Tùy chọn 10°, 15° hoặc 30° (phù hợp phủ sáng chuẩn cho 1 làn đường).
+Tuổi thọ bóng LED: ≥ 50,000 giờ hoạt động liên tục.
+2. Điều khiển & Chức năng (Control & Functions)
+Cảm biến ánh sáng tích hợp (Auto Light Control - tự động bật khi trời tối).
+Kích hoạt qua cổng I/O từ camera giao thông hoặc thiết bị ngoại vi.
+Cung cấp ánh sáng: Phát sáng liên tục, hỗ trợ camera bắt nét và giảm nhiễu hạt (noise) khi ghi hình ban đêm.
+3. Điện năng & Công suất (Power Supply)
+Điện áp hoạt động: AC 100V – 240V (50/60 Hz) hoặc AC/DC 24V (tùy phiên bản mã hàng).
+Công suất tiêu thụ: Tối đa ≤ 30W (tiết kiệm điện, tản nhiệt tự nhiên).
+4. Thiết kế cơ khí & Môi trường (Mechanical & Environmental)
+Chất liệu vỏ: Hợp kim nhôm đúc áp lực cao (Die-cast Aluminum alloy) đản bảo tản nhiệt nhanh và chống ăn mòn.Chuẩn bảo vệ: IP66 (chống nước phun mạnh và chống bụi hoàn toàn).Kích thước: 180 mm × 120 mm × 115 mm (chưa tính chân đế).Trọng lượng: Tương đương 1.8 kg. Nhiệt độ hoạt động: -40 °C đến +70 °C.
+Độ ẩm hoạt động: ≤ 95% (không ngưng tụ). Hình thức lắp đặt: Hỗ trợ chân đế xoay đa hướng (xoay ngang/gật gùi) lắp trên cột tròn hoặc cổng vươn giao thông.
+4.) Camera AI phục quay quét, độ phân giải 6 MP
+Đặc tính kỹ thuật:
+1. Cảm biến & Hình ảnh
+• Cảm biến hình ảnh: 1/2.5" Progressive Scan CMOS.
+• Độ phân giải tối đa: 6 MP (3200 × 1800) @ 25/30 fps.
+• Công nghệ nhạy sáng: DarkFighter 2.0 (Super Low Light)
+• Chống ngược sáng: 120 dB WDR (AWDR), 3D DNR, BLC, HLC, Defog, EIS (Chống rung điện tử).
+2. Ống kính & Tầm xa hồng ngoại
+• Tiêu cự: 4.8 mm – 154 mm.
+• Zoom quang học (Optical Zoom): 32x.
+• Hồng ngoại (IR): Khoảng cách chiếu sáng xa lên tới 250m.
+3. Tính năng thông minh & AI
+• Deep Learning / AI Open Platform: Hỗ trợ tính năng bắt hình khuôn mặt (Face Capture), phát hiện xâm nhập, vượt hàng rào ảo, vào/ra khu vực, hành vi bất thường, đếm mục tiêu,...
+• Theo dõi thông minh (Smart Tracking): Hỗ trợ tự động bám theo đối tượng chuyển động.
+4. Cổng kết nối & Giao tiếp
+• Cổng mạng: 1 RJ45 10M/100M self-adaptive Ethernet port.
+• Báo động (Alarm): 7 cổng vào (Inputs) / 2 cổng ra (Outputs).
+• Âm thanh (Audio): 1 Line In / 1 Line Out.
+• Thẻ nhớ: Hỗ trợ khe cắm thẻ microSD/microSDHC/microSDXC lên đến 512 GB.
+• Giao thức chuẩn: ONVIF (Profile S, G, T), ISAPI, SDK.
+5. Chuẩn nén & Lưu trữ
+• Chuẩn nén video: H.265+ / H.265 / H.264+ / H.264.
+• Luồng dữ liệu: 3 Streams.
+6. Thông số điện năng & Cơ lý
+• Nguồn cấp: 36 VDC ± 25% ;PoE: 802.3bt (Type 3, Class 5)
+• Công suất tiêu thụ: Max. 60 W (bao gồm sưởi kính / gạt mưa và hồng ngoại).
+• Tính năng phụ (ELW): Trang bị gạt mưa (Wiper) tích hợp giúp làm sạch mặt kính chắn camera trong điều kiện mưa bão/bụi bẩn. Tiêu chuẩn bảo vệ: IP67 (Chống nước & bụi), IK10 (Chống va đập/đập phá).
+• Nhiệt độ hoạt động: -40 °C đến 70 °C. Kích thước: Ø 218.4 mm × 324.5 mm. Trọng lượng: ~ 5 kg.
+5) Module ổn áp nguồn điện lưới 1000VA.
+* Đặc tính kỹ thuật:
+Ổn định nguồn điện lưới đầu ra cấp điện cho tủ điều khiển; Điện áp vào: 185-255VAC; Điện áp ra: 220VAC (±~3%); Công suất: 1000VA.
+6) Module cắt sét lan truyền bao gồm phễu lọc sét và cuộn cảm.
+* Đặc tính kỹ thuật:
+Bảo vệ tủ điều khiển khi có sét đánh lan truyền trên đường dây điện lưới cấp nguồn điện 1 pha; Điện áp hoạt động định mức (Un): 230/400V AC; Công suất bảo vệ: 20KVA; Dòng xả tối đa (Imax): 40kA; Dòng xả danh định (In): 20kA; Thời gian phản ứng: < 25 nanosecond; Có phễu lọc sét và cuộn cảm.
+7) Bộ gá bắt Khối thu thập hình ảnh (mạ kẽm nhúng nóng).
+* Đặc tính kỹ thuật:
+Ống thép mạ kẽm D42-48 dày 1,2mm; Bản mã lắp Camera dày 2mm; Tai lắp đặt với tay vươn cột đèn dày 2mm.
+8) Cột đèn tín hiệu thép mạ kẽm cao 6,2m vươn 6m
+* Đặc tính kỹ thuật:
+Cột đèn cao 6,2 m, thép dày 5mm; Cần vươn 6 m, thép dày 5 mm; Đường kính thân cột (gốc/ngọn): Ø262/173 mm; Đường kính cần vươn (gốc/ngọn): Ø164/80 mm; Mặt bích đế D500 x 20 mm, khoảng cách tâm lỗ bulong 8 lỗ x D400 mm, 08 gân tăng cường cao 200 mm dày 10 mm; Mặt bích tay vươn (278 x 278 x 18) mm, 04 gân tăng cường tay vươn cao 100 mm dày 10 mm; Nắp cửa cột cách đế 900 mm; Vật liệu thép cột: JIS G3101 SS400, mạ kẽm nhúng nóng: ASTM A123.
+9) Cột đèn tín hiệu thép mạ kẽm cao 6,2m vươn 7m.
+* Đặc tính kỹ thuật:
+Cột đèn cao 6,2 m, thép dày 6 mm; Cần vươn 7 m, thép dày 5 mm; Đường kính thân cột (gốc/ngọn): Ø262/173 mm; Đường kính cần vươn (gốc/ngọn): Ø178/80 mm; Mặt bích đế D500 x 20 mm, khoảng cách tâm lỗ bulong 8 lỗ x D400 mm, 08 gân tăng cường cao 200 mm dày 10 mm; Mặt bích tay vươn (278 x 278 x 18) mm, 04 gân tăng cường tay vươn cao 100 mm dày 10 mm; Nắp cửa cột cách đế 900 mm; Vật liệu thép cột: JIS G3101 SS400, mạ kẽm nhúng nóng: ASTM A123.
+10) Cột đèn tín hiệu thép mạ kẽm cao 6,2m vươn 8m.
+* Đặc tính kỹ thuật:
+Cột đèn cao 6,2 m, thép dày 6 mm; Cần vươn 8 m, thép dày 5 mm; đường kính thân cột (gốc/ngọn): Ø307/220mm; đường kính cần vươn (gốc/ngọn): Ø208/80mm; Mặt bích đế D500x20mm; Khoảng cách tâm lỗ bulong 8 lỗ phi 30; 8 Gân tăng cường cao 200mm dày 10mm; Mặt bích tay vươn: 310 x 310 x 25mm; 04 Gân tăng cường tay vươn cao 100mm dày 10mm; Nắp cửa cột cách đế 900 mm; Vật liệu thép cột: JIS G3101 SS400, mạ kẽm nhúng nóng: ASTM A123.
+11) Dây Cat6 đi trong cột .
+* Đặc tính kỹ thuật: 1×CAT6/UTP; Dây cáp mạng chuẩn Cat.6, với 4 cập dây, đường kính lõi chuẩn 23AWG; Chạy được tốc độ 1Gbps trong khoảng cách 100m; Hỗ trợ cấp nguồn qua Ethernet (PoE); Chất liệu dây dẫn: đồng; Vật liệu vỏ bọc: PVC
+12) Hệ thống màn hình giám sát tại trung tâm
+Tủ chứa 20U D800, cấp nguồn và làm mát thiết bị kèm phụ kiện.
+* Đặc tính kỹ thuật:
+Kích thước: H x W x D: (1.010 x 600 x 800) mm; Tủ làm bằng thép tấm CT3 dày 0,8 - 2 mm, sơn tĩnh điện chống gỉ 100%; 01 quạt gió, 01 ổ cắm 3 chấu.
+Kết cấu tủ hàn liền. Cánh cửa lưới giúp quan sát thiết bị bên trong. Hệ thống bánh xe.
+Màn hình ghép 55 inch.
+* Đặc tính kỹ thuật:
+1. Hiển thị & Tấm nền (Display Specs); Kích thước màn hình: 55 inch; Công nghệ đèn nền: Direct LED Backlight (D-LED); Loại tấm nền:  IPS; Độ phân giải thực: Full HD (1920 × 1080); Độ sáng: 500 cd/m²
+Vệt ghép (Bezel Width): 3.5 mm (2.3 mm viền trên/trái; 1.2 mm viền dưới/phải); Độ tương phản Tĩnh: 1200 : 1
+Thời gian đáp ứng (Response Time): 8 ms; Góc nhìn (H/V): Ngang 178° / Dọc 178°; Độ sâu màu: 8-bit, 16.7 triệu màu; Độ phủ màu: 72% NTSC
+2. Cổng kết nối & Điều khiển (Interfaces)
+Tín hiệu đầu vào (Video Inputs):1× HDMI 1× DVI 1× VGA 1× DisplayPort (DP) 1× USB (cập nhật firmware / media player); Tín hiệu đầu ra (Loop-out):1× HDMI ; Cổng điều khiển hệ thống:1x RS-232 In 1× RS-232 Out 1× IR (mắt nhận hồng ngoại điều khiển từ xa)
+3. Tính năng xử lý hình ảnh (Features & Processing)
+Hoạt động liên tục: 24/7 (tuổi thọ tấm nền ≥ 50,000 giờ)
+Xử lý hình ảnh: Khử nhiễu 3D (3D Noise Reduction), bộ lọc lược 3D (3D Comb Filter)
+Kết nối nối tiếp (Daisy Chain): Hỗ trợ ghép chuỗi tín hiệu và điều khiển RS-232 qua cổng Loop-out
+Chế độ cân bằng màu: Tự động/thủ công hiệu chỉnh màu sắc & độ sáng giữa các tấm nền để đạt độ đồng nhất cao.
+4. Điện năng & Cơ khí (Power & Physical Specs): Nguồn điện cấp: AC 100 V đến 240 V (50/60 Hz)
+Công suất tiêu thụ:Tối đa: ≤ 192 W; Chế độ chờ (Standby): ≤ 0.5 W
+Kích thước màn hình (R × C × S): 1213.5 mm × 684.3 mm × 71.7 mm; Kích thước hiển thị thực tế: 1209.6 mm × 680.4 mm; Trọng lượng: Tương đương 27 kg; Chuẩn gá treo (VESA): 600 mm × 400 mm (Lỗ ốc M6)
+Nhiệt độ / Độ ẩm hoạt động: 0 °C đến 40 °C, Độ ẩm 10% đến 90% (không ngưng tụ).
+Khung treo module cho màn hình ghép LCD 55 inch.
+* Đặc tính kỹ thuật:
+1. Tương thích & Thiết kế
+Loại phụ kiện: Khung treo màn hình ghép treo tường / Bảo trì mặt sau (Rear-Maintenance Wall-Mounted Bracket).
+Kích thước màn hình hỗ trợ: Tương thích với các màn hình ghép LCD Hikvision  55 inch
+Chuẩn gá VESA: 600 mm (Ngang) × 400 mm (Dọc).
+Chất liệu: Thép tấm cán nguội cao cấp (SPCC - Cold-rolled steel plate), kết cấu vững chắc giúp chống cong vênh hay vặn xoắn màn hình.
+Xử lý bề mặt: Phun sơn tĩnh điện chống gỉ / Phủ màu đen mờ tĩnh điện.
+2. Kích thước & Trọng lượng
+Kích thước khung (Rộng × Cao × Sâu): 762 mm × 523 mm × 100 mm.
+Kích thước đóng gói (Rộng × Cao × Sâu): 900 mm × 650 mm × 150 mm.
+Trọng lượng thực (Net Weight): 3.6 kg (± 0.5 kg).
+Trọng lượng đóng gói (Gross Weight): 5.5 kg (± 0.5 kg).
+3. Tính năng nổi bật
+Bảo trì mặt sau (Rear-Maintenance): Hỗ trợ thao tác căn chỉnh, bảo trì, đi dây phía sau màn hình linh hoạt.
+Lắp đặt nhanh gọn: Thiết kế chuẩn định vị sẵn giúp thi công mảng ghép 1x1, 2x2, 3x3,... chuẩn xác và tiết kiệm thời gian.
+Độ bền cao: Cấu trúc thép cứng chịu lực tốt, đảm bảo độ phẳng tối đa cho toàn bộ mảng màn hình ghép LCD.
+Bộ điều khiển màn hình ghép video wall dạng module.
+* Đặc tính kỹ thuật:
+1. Kiến trúc hệ thống & Thiết kế (System Architecture)
+Kiến trúc phần cứng: Thuần phần cứng (Hardware FPGA/DSP-based), không phụ thuộc hệ điều hành máy tính, thời gian khởi động nhanh và hoạt động bền bỉ 24/7.
+Cấu trúc mô-đun (Modular Design): Dạng Card cắm rời (Input Card, Output Card, Control Card, Power Supply).Khả năng cắm nóng (Hot-swappable): Hỗ trợ tháo lắp nóng các card tín hiệu và bộ nguồn mà không cần tắt thiết bị.
+Chuẩn khung (Chassis): Chuẩn Rack 19-inch.
+2. Tín hiệu Đầu vào & Đầu ra (Input / Output Capabilities)
+Độ phân giải đầu vào: Hỗ trợ từ Full HD (1920 × 1080) đến 4K (3840 × 2160 @ 30/60Hz).
+Độ phân giải đầu ra: Hỗ trợ cấu hình độ phân giải tùy chỉnh cho từng màn hình ghép (LCD, LED, DLP Matrix).
+Chuẩn cổng kết nối hỗ trợ (qua các Card cắm): HDMI, DVI, DisplayPort,  (Tùy vào module card)
+Giải mã Video IP (IP Video Decoding): Giải mã trực tiếp luồng camera IP (chuẩn H.265 / H.264 / MJPEG) mà không cần qua đầu ghi. (Cần thêm Decoder Module)
+3. Tính năng xử lý hiển thị (Display & Windowing Processing)
+Xử lý cửa sổ tín hiệu:
+Phóng to, thu nhỏ, kéo thả di chuyển tự do trên toàn bộ hệ thống màn hình. Hỗ trợ hiển thị đè lớp (PIP - Picture-in-Picture), chia ô lưới đa màn hình. Cắt xén tín hiệu đầu vào (Cropping) và hiển thị xoay khung hình.
+Độ trễ truyền tải: Cực thấp (Real-time latency < 50ms), đảm bảo mượt mà cho giám sát an ninh.
+4. Quản lý, Kết nối & Nguồn điện: Cổng điều khiển: 2× RJ45 Ethernet (100M/1000M), RS-232, RS-485.
+Giao diện quản lý: Hỗ trợ phần mềm quản lý màn hình ghép chuyên dụng, tương thích tích hợp với HikCentral Professional.; Dự phòng nguồn (Redundancy): Hỗ trợ bộ nguồn kép dự phòng (Redundant Power Supply 1+1).
+Nguồn cấp: AC 100 V – 240 V (50/60 Hz).
+Môi trường hoạt động: Nhiệt độ -10 °C đến 55 °C, Độ ẩm 10% – 90%.
+Card đầu vào 04 cổng HDMI 4K cho bộ điều khiển màn hình ghép
+* Đặc tính kỹ thuật:
+1. Thông số cổng & Tín hiệu (Port & Signal Specs)
+Loại linh kiện: Card mở rộng đầu vào (Input Expansion Board).
+Số cổng giao tiếp: 4 cổng HDMI (HDMI Type A).
+Độ phân giải hỗ trợ:
+Tương thích chuẩn Full HD (1920 × 1080 @ 60/50Hz), 720p và các độ phân giải VESA tiêu chuẩn.
+Chuẩn bảo vệ bản quyền: HDCP 1.4 / HDMI 1.4.
+2. Khả năng tương thích & Vận hành (Compatibility & Features)
+Khung máy tương thích: Cắm khe Input Slot trên các bộ điều khiển màn hình ghép Hikvision dòng DS-C66S Series.
+Tính năng cắm nóng (Hot-swappable): Cho phép tháo/lắp trực tiếp Card khi bộ điều khiển đang hoạt động mà không cần tắt nguồn hay ngắt gián đoạn hệ thống.
+Tự động cân chỉnh: Tự động phát hiện độ phân giải tín hiệu đầu vào
+3. Thông số vật lý & Điện năng
+Công suất tiêu thụ: ≤ 15 W.
+Dạng thiết kế: Card bo mạch cắm chuẩn khe rãnh (Slot-in card).
+Nhiệt độ hoạt động: -10 °C đến +55 °C.
+Độ ẩm hoạt động: 10% đến 90% (không ngưng tụ).
+Card đầu ra 04 cổng HDMI cho bộ điều khiển màn hình ghép.
+* Đặc tính kỹ thuật:
+1. Thông số cổng & Xuất hình (Output & Signal Specs): Loại linh kiện: Card mở rộng đầu ra (Output Expansion Board); Số cổng giao tiếp: 4 cổng HDMI (HDMI Type A); Độ phân giải đầu ra hỗ trợ: Tương thích chuẩn Full HD (1920 × 1080 @ 60/50Hz) và các độ phân giải VESA tiêu chuẩn.
+Đồng bộ hình ảnh:
+2. Khả năng tương thích & Tính năng (Compatibility & Features)
+Khung máy tương thích: Cắm khe Output Slot trên các bộ điều khiển màn hình ghép Hikvision dòng DS-C66S Series; Khả năng cắm nóng (Hot-swappable): Hỗ trợ tháo/lắp nóng trực tiếp Card khi bộ điều khiển đang hoạt động mà không gây gián đoạn hệ thống.; Xử lý hiển thị: Hỗ trợ chia cửa sổ, đè lớp tín hiệu (PIP/POP)
+3. Thông số vật lý & Điện năng: Công suất tiêu thụ: ≤ 20 W; Dạng thiết kế: Card bo mạch cắm chuẩn khe rãnh (Slot-in card); Nhiệt độ hoạt động: -10 °C đến +55 °C; Độ ẩm hoạt động: 10% đến 90% (không ngưng tụ).
+Máy tính vận hành bao gồm bản quyền hệ điều hành Windows 11, phần mềm diệt virus, Office
+Case máy tính
+* Đặc điểm kỹ thuật:
+Kiểu dáng: Máy tính để bàn dạng Tower
+Mục đích sử dụng: Phục vụ vận hành hệ thống giám sát, khai thác phần mềm camera, hiển thị hình ảnh, xử lý văn bản, bảng tính và các tác vụ văn phòng
+Cấu hình CPU tham chiếu: Intel Core i5-14400 hoặc tương đương, tối thiểu 10 nhân, 16 luồng, tốc độ tối đa đến 4,7 GHz
+Chipset: Chipset đồng bộ với CPU, hỗ trợ cấu hình máy tính để bàn doanh nghiệp
+Bộ nhớ RAM: Tối thiểu 16 GB; Chuẩn RAM: DDR5; Khe RAM: Tối thiểu 02 khe UDIMM
+Khả năng nâng cấp RAM: Hỗ trợ nâng cấp tối đa đến 64 GB hoặc cao hơn; Ổ cứng lưu trữ: SSD tối thiểu 512 GB kèm 1 ổ cứng 2TB SATA 3,5 inch; Chuẩn ổ cứng: SSD M.2 NVMe hoặc tương đương; Khả năng mở rộng lưu trữ: Hỗ trợ khe M.2 cho SSD và khe SATA cho ổ cứng 3,5 inch hoặc tương đương; Card đồ họa: Card màn hình rời dung lượng tối thiểu 4 GB; Khe mở rộng card đồ họa: Có khe PCIe x16 full-height hoặc tương đương để lắp card đồ họa rời; Cổng mạng LAN: Tối thiểu 01 cổng RJ45 Ethernet 10/100/1000 Mbps; Cổng USB phía trước: Có cổng USB 2.0, USB 3.2 Gen 1 và/hoặc USB Type-C phục vụ kết nối thiết bị ngoại vi; Cổng USB phía sau: Có các cổng USB 2.0/USB 3.2 Gen 1 phục vụ kết nối bàn phím, chuột, thiết bị lưu trữ, máy in và thiết bị ngoại vi; Cổng xuất hình: Có cổng xuất hình DisplayPort/HDMI trên máy hoặc trên card đồ họa rời; Cổng âm thanh: Có cổng tai nghe/micro hoặc cổng headset combo; Âm thanh: Âm thanh độ nét cao, hỗ trợ kết nối tai nghe/micro phục vụ vận hành; Bảo mật vật lý: Có khe khóa bảo mật Kensington và/hoặc vòng khóa chống mở máy trái phép; Nguồn cấp: Bộ nguồn đồng bộ theo cấu hình máy, 220 VAC, 50 Hz; Hệ điều hành: Windows 11 Pro 64-bit hoặc tương đương
+Phần mềm văn phòng: Microsoft Office bản quyền phiên bản mới nhất hoặc phần mềm văn phòng tương đương
+Phần mềm bảo mật: Phần mềm diệt virus avast cho 01 thiết bị, thời hạn bản quyền tối thiểu 12 tháng hoặc tương đương
+Phụ kiện đi kèm: Bàn phím, chuột, dây nguồn và phụ kiện tiêu chuẩn theo nhà sản xuất.
+Màn hình máy tính 24 inch
+* Đặc tính kỹ thuật:
+Kích thước hiển thị: 23,8 inch; Công nghệ tấm nền: IPS hoặc tương đương; Độ phân giải: Full HD 1920 × 1080; Tỷ lệ khung hình: 16:9; Tần số quét: Hỗ trợ độ phân giải Full HD (1920 × 1080); Tần số quét tối đa: 100 Hz thông qua ít nhất một trong các giao diện tín hiệu số (HDMI hoặc DisplayPort); Cổng VGA hỗ trợ tối thiểu 60 Hz; Góc nhìn: 178° ngang/178° dọc; Độ sáng: Tối thiểu 250 cd/m²; Tỷ lệ tương phản: 1000:1; Thời gian đáp ứng: 8 ms chế độ thường; 5 ms chế độ nhanh hoặc tương đương
+Dải màu: Tối thiểu 72% NTSC; Độ sâu màu: Tối thiểu 16,7 triệu màu; Công nghệ bảo vệ mắt: Hỗ trợ giảm ánh sáng xanh, chống nhấp nháy; đạt chứng nhận TÜV Eye Comfort 3 Star hoặc tương đương; Bề mặt màn hình: Chống chói, phủ cứng 3H hoặc tương đương; Cổng kết nối: Tối thiểu 01 HDMI, 01 DisplayPort, 01 VGA; Loa tích hợp: Có loa tích hợp hoặc chấp nhận theo cấu hình thực tế nếu yêu cầu âm thanh riêng; Điều chỉnh màn hình: Hỗ trợ nghiêng màn hình; với loại chân nâng hạ hỗ trợ điều chỉnh độ cao, xoay dọc, xoay ngang nếu chọn model tương ứng; Chuẩn treo: Hỗ trợ VESA 100 × 100 mm; Phần mềm quản lý: Hỗ trợ phần mềm quản lý màn hình của hãng hoặc tương đương; Nguồn cấp: 100–240 VAC, 50/60 Hz
+Phụ kiện đi kèm: Chân đế, cáp nguồn, cáp tín hiệu DisplayPort/HDMI hoặc phụ kiện tiêu chuẩn theo nhà sản xuất.
+
+### Bộ bàn ghế làm việc đặt máy tính vận hành
+* Đặc điểm:
+Thành phần bộ sản phẩm: Gồm 01 bàn máy tính và 01 ghế xoay làm việc đồng bộ
+Kiểu dáng bàn: Bàn thẳng, dạng bàn máy tính văn phòng
+Kích thước bàn: W1200 x D600 x H750 mm hoặc tương đương
+Chất liệu mặt bàn: Gỗ công nghiệp phủ Melamine cao cấp hoặc tương đương
+Chất liệu chân bàn: Chân gỗ/gỗ công nghiệp phủ Melamine đồng bộ với mặt bàn
+Tiện ích bàn: Có khay để bàn phím, kệ để CPU và tối thiểu 01 ngăn kéo để tài liệu/vật dụng cá nhân
+Lỗ đi dây: Có lỗ đi dây hoặc giải pháp đi dây phù hợp để bố trí dây nguồn, dây mạng, dây tín hiệu gọn gàng
+Màu sắc bàn: Màu vân gỗ, ghi, vàng xanh hoặc màu tương đương theo tiêu chuẩn nhà sản xuất/chủ đầu tư lựa chọn
+Loại ghế: Ghế xoay nhân viên/ghế xoay văn phòng lưng lưới hoặc tương đương
+Kích thước ghế: Khoảng rộng 575 x sâu 610 x cao 925-1000 mm hoặc tương đương
+Tựa lưng ghế: Viền nhựa bên ngoài, bên trong bọc vải lưới
+Mặt ngồi ghế: Bọc đệm ngồi
+Tay ghế	: Có tay ghế bằng nhựa hoặc vật liệu tương đương, kết cấu chắc chắn
+Khung chân ghế: Thép mạ có bánh xe chắc chắn
+Cơ cấu nâng hạ: Có trục cần hơi nâng hạ chiều cao, phù hợp.
+13) Hệ thống tủ rack và thiết bị khác
+
+### Tủ rack 42U.
+* Đặc điểm: NetShelter SX 42U/600mm/1200mm Enclosure with Roof and Sides Black.
+
+### Thanh phân phối nguồn 32A.
+* Đặc tính:
+- Loại: Rack PDU 2G, Metered, ZeroU.
+- Dòng điện định mức: 32A.
+- Điện áp: 230V.
+- Cổng nguồn C13: 36 cổng.
+- Cổng nguồn C19: 6 cổng.
+
+### Bộ lưu điện 10kVA.
+* Đặc tính kỹ thuật:
+- Công suất: 10 kVA/8 kW.
+- Công nghệ: Chuyển đổi kép trực tuyến.
+- Cấu trúc lắp đặt: Tower.
+- Dải điện áp đầu vào: 176 - 276 VAC.
+- Dải tần số đầu vào: 45 - 66 Hz.
+- Điện áp đầu ra: 220 VAC ± 2%.
+- Tần số đầu ra: 50/60 Hz, tự động nhận.
+- Màn hình: LCD.
+- Cổng kết nối: RS232, USB, Smartlot.
+- Thời gian lưu điện: 6 phút đầy tải 8 kW.
+- Kích thước (C × R × S): (708,5 × 262,4 × 612,9) mm.
+- Khối lượng: 85,4 kg.
+* Tính toán lựa chọn UPS cho trung tâm giám sát
+Trung tâm giám sát cần bố trí UPS cho các thiết bị quan trọng như Máy chủ, tường lửa, switch, thiết bị điều khiển màn hình ghép, máy trạm vận hành và thiết bị mạng. Thời gian lưu điện cần được tính toán phù hợp với yêu cầu vận hành, tối thiểu đủ để duy trì hoạt động trong thời gian mất điện ngắn hoặc thực hiện tắt thiết bị an toàn.
+Bảng tính toán tải thiết bị UPS:
+
+[TABLE]
+| Stt | Tên thiết bị | Đơn vị | Số lượng | Công suất mỗi thiết bị (w) | Tổng công suất (w) | Ghi chú
+| 1 | Tủ chứa 20U D800, cấp nguồn và làm mát thiết bị kèm phụ kiện | tủ | 2 | 30 | 60 | Tải bắt buộc
+| 2 | Màn hình ghép 55 inch | bộ | 9 | 192 | 1.728 | Tải hiển thị trung tâm
+| 3 | Bộ điều khiển màn hình ghép video wall dạng module | bộ | 1 | 240 | 240 | Tải bắt buộc
+| 4 | Card đầu vào 04 cổng HDMI 4K | bộ | 2 | 15 | 30 | Tải bắt buộc
+| 5 | Card đầu ra 04 cổng HDMI | bộ | 3 | 20 | 60 | Tải bắt buộc
+| 6 | Máy tính vận hành bao gồm bản quyền Hệ điều hành Window 11, phần mềm diệt Virut, Office | bộ | 3 | 330 | 990 | Tải vận hành
+| 7 | Tủ rack 42U | tủ | 1 | 30 | 30 | Tải bắt buộc
+| 8 | Camera Dome 4MP | cái | 1 | 12 | 12 | Tải bắt buộc
+| 9 | Đầu ghi hình 8 kênh | cái | 1 | 30 | 30 | Tải bắt buộc
+| 10 | Ổ cứng HDD 8TB | chiếc | 1 | 6 | 6 | Tải bắt buộc
+| 11 | Router cân bằng tải Dual-WAN | cái | 1 | 150 | 150 | Tải bắt buộc
+| 12 | Thiết bị tường lửa | cái | 1 | 167 | 167 | Tải bắt buộc
+| 13 | Thiết bị chuyển mạch 24x 100/1000X SFP, 4x 1/10G SFP+ | cái | 1 | 270 | 270 | Tải bắt buộc
+| 14 | Thiết bị chuyển mạch 24 portRJ45 1GbE + 4 uplink SFP/SFP+ | cái | 1 | 40 | 40 | Tải bắt buộc
+| 15 | Module quang 1000LX SFP, LC, SMF | cái | 4 | 24 | 96 | Tải bắt buộc
+| 16 | Acess Point gắn trần | cái | 1 | 23 | 23 | Tải bắt buộc
+| 17 | Máy chủ camera | bộ | 1 | 500 | 500 | Tải bắt buộc
+| 18 | Máy chủ đèn giao thông | bộ | 1 | 500 | 500 | Tải bắt buộc
+| 19 | Thiết bị lưu trữ NAS Synology RS1221+ | bộ | 1 | 120 | 120 | Tải bắt buộc
+| 20 | Thiết bị điện chiếu sáng và dự phòng khác | TB | 1 | 1 | 500 | 
+|  | TỔNG CỘNG (w) |  |  |  | 5.552 | 
+[/TABLE]
+
+Tính toán đáp ứng kỹ thuật được lập riêng cho cấu hình hệ thống gồm 02 bộ UPS 10kVA/8kW vận hành song song dự phòng (Parallel Redundancy N+1) để bảo vệ nguồn cho phòng máy chủ có tổng công suất tiêu thụ thực tế là 5.552 W như sau:
+1. Nguyên lý vận hành của cấu hình song song N+1
+Hệ thống bao gồm: 02 bộ UPS độc lập có cùng công suất (Mỗi bộ 10 kVA / 8 kW) được kết nối song song với nhau qua cáp tín hiệu đồng bộ và đấu nối chung vào tủ điện phân phối ngõ ra.
+Kịch bản vận hành bình thường: Cả 02 bộ UPS đều hoạt động đồng thời và chia đều tải (Mỗi bộ chịu trách nhiệm gánh 50% công suất phòng máy chủ).
+Kịch bản vận hành lỗi (Dự phòng N+1): Số lượng UPS tối thiểu để gánh tải là N = 1, số lượng dự phòng là +1. Khi có sự cố xảy ra ở 01 trong 02 bộ UPS (hoặc lỗi linh kiện, hoặc ngắt ra để bảo trì), bộ UPS còn lại sẽ ngay lập tức tự động gánh toàn bộ 100% tải của phòng máy chủ mà không làm gián đoạn nguồn điện.
+2. Tính toán kiểm toán khả năng đáp ứng công suất hệ thống
+Tổng công suất tiêu thụ thực tế của thiết bị phụ tải ((Ptb): 5.552 W (5,552 kW).
+Công suất định mức của 01 bộ UPS Eaton 9E10Ki (PUPS): 8.000 W (8 kW).
+Đánh giá mức độ chịu tải trong các kịch bản vận hành:
+Kịch bản 1: Cả 02 UPS cùng hoạt động ổn định (Chia tải 50% - 50%)
+Mỗi bộ UPS sẽ chịu một lượng công suất thực tế là: 5.552W/2 = 2.776W
+Hiệu suất khai thác tải trên từng bộ UPS: Tỷ lệ tải mỗi UPS=2.776/8.000*100%=34,7%
+Nhận xét: Ở chế độ vận hành thông thường, mỗi UPS chỉ chạy ở mức 34,7% tải. Thiết bị chạy cực kỳ mát, quạt quay ở tốc độ thấp nhất, giảm thiểu hao mòn cơ - điện nội bộ và tối ưu hóa tuổi thọ của cả 2 hệ thống.
+Kịch bản 2: Khi 01 bộ UPS bị lỗi hoặc tắt để bảo trì (01 UPS gánh 100% tải)
+Bộ UPS còn lại sẽ gánh trọn vẹn công suất: 5.552W
+Hiệu suất khai thác tải trên bộ UPS còn lại:
+Tỷ lệ tải khi lỗi 1 bộ: 5.552\8.000*100%=69,4%
+Nhận xét: Khi hệ thống mất đi một mắt xích, bộ UPS còn lại gánh 69,4% tải, vẫn nằm dưới ngưỡng giới hạn an toàn khuyến nghị (80%) và giữ lại tới 30,6% dung lượng dự phòng dự phòng dòng đỉnh.
+Kết luận công suất: Cấu hình 02 bộ UPS 10 kVA/8 kW chạy song song hoàn toàn đáp ứng hoàn hảo điều kiện dự phòng N+1 cho phụ tải 5.552 W. Hệ thống luôn đảm bảo an toàn tuyệt đối ngay cả khi một bộ UPS bị hỏng hoàn toàn.
+3. Tính toán và xác định thời gian lưu điện (Backup Time)
+UPS được trang bị khối ắc quy gắn trong. Khi đấu nối song song, dung lượng hệ thống ắc quy được cộng dồn, giúp kéo dài thời gian lưu điện đáng kể trong điều kiện vận hành bình thường.
+Kịch bản 1: Cả 02 UPS cùng hoạt động khi mất điện lưới
+Do tải được chia đôi, mỗi bộ UPS chỉ xả ắc quy để nuôi mức tải 2.776 W (khoảng ~35% tải của mỗi máy).
+Theo đường cong đặc tính xả ắc quy của UPS, khi tải giảm xuống mức 35%, thời gian lưu điện của mỗi bộ tăng lên đáng kể (không giảm theo tuyến tính). Thời gian lưu điện thực tế của hệ thống song song lúc này sẽ đạt khoảng 22 đến 25 phút.
+Kịch bản 2: Hệ thống đang bị lỗi 01 UPS và điện lưới bị mất
+Chỉ còn 01 bộ UPS hoạt động và gánh toàn bộ tải 5.552 W (~70% tải).
+Thời gian lưu điện thực tế của bộ UPS đơn lẻ này đạt khoảng 10,5 đến 11 phút.
+Đánh giá giải pháp: Thời gian lưu điện tối thiểu từ 11 phút (trường hợp xấu nhất hỏng 1 UPS) đến 25 phút (trường hợp bình thường) cung cấp một cửa sổ thời gian cực kỳ an toàn để hệ thống kích hoạt nguồn máy phát điện hoặc thực hiện các kịch bản ứng cứu sự cố hạ tầng.
+Kết luận chung:
+Giải pháp sử dụng 02 Bộ lưu điện UPS 10kVA/8kW chạy song song dự phòng N+1 là phương án thiết kế tối ưu, đạt tiêu chuẩn an toàn cao cho phòng máy chủ. Hệ thống đáp ứng rất tốt về cả công suất chịu tải, thời gian lưu điện dự phòng và tính sẵn sàng cao (High Availability) cho hạ tầng công nghệ thông tin.
+
+### Bo mạch đồng bộ song song cho bộ lưu điện.
+* Đặc tính kỹ thuật:
+- Cho phép ghép song song (parallel) nhiều bộ lưu điện.
+- Dải công suất tương thích: 6 kVA đến 20 kVA.
+- Mục đích sử dụng: Tăng tổng công suất cấp nguồn hoặc tạo hệ thống dự phòng (redundancy).
+- Khả năng tương thích: Tương thích với các bộ lưu điện công suất 6 kVA, 10 kVA, 15 kVA và 20 kVA.
+- Tín hiệu truyền dẫn: Hỗ trợ đồng bộ hóa tần số/điện áp đầu ra.
+-Tín hiệu điều khiển: Truyền tín hiệu điều khiển giữa các bo mạch nội bộ của các UPS thành phần.
+
+### Tủ điện đầu ra tải.
+* Đặc tính kỹ thuật:
+- Vỏ tủ kích thước W600xD450xH800; 02 x MCB 1P 50A đầu vào và ra 2 UPS; 01 x MCB 1P 50A nhánh Bypass; 08 x MCB 1P 16 A ra tải
+- Các phụ kiện đầu nối kèm theo
+
+### Ổn áp 20 kVA - 1 pha.
+* Đặc tính kỹ thuật:
+- Điện áp vào 1 pha: 150 V - 250 V.
+- Điện áp ra 1 pha: 110 V - 220 V.
+- Kích thước (D × R × C): (562 × 312 × 510) mm.
+- Trọng lượng: 54 kg.
+- Tần số: 49 Hz - 62 Hz.
+- Thời gian đáp ứng điện áp với 10% điện áp đầu vào thay đổi: 0,5 s.
+- Bảo vệ: Quá tải, chập tải, ngắn mạch, quá áp bằng Aptomat.
+- Biến áp tải: Ổn áp Lioa 20 kVA 1 pha có cuộn biến áp quấn dây đồng 100%.
+- Màu sắc: Màu ghi sáng.
+- Số Aptomat: 02 cái.
+- Aptomat A.V.S: Máy chạy ở chế độ ổn áp.
+- Aptomat DIRECT: Máy chạy ở chế độ trực tiếp, không có tác dụng ổn áp.
+- Dòng cực đại: 100 A.
+- Đồng hồ hiển thị: Đồng hồ điện tử LED, tích hợp tính năng 2 trong 1, vừa đo điện áp vào hoặc điện áp ra (V) bằng công tắc gạt, vừa đo cường độ dòng điện tiêu thụ (A).
+- Độ chính xác: Cao, dễ quan sát, thuận tiện khi sử dụng.
+
+### Bình chữa cháy bột ABC 4 kg.
+* Đặc tính kỹ thuật:
+Loại bình: Chữa cháy bột ABC.
+Khối lượng bột: 4 kg.
+Kiểm định: BQP-83MEC/VN.
+18). Hệ thống hạ tầng mạng
+
+### Dây nhảy quang OM4, LC-LC Duplex, 3 m - Fiber Mode Multimode.
+* Đặc tính kỹ thuật:
+- Fiber Mode Multimode
+- Fiber Type OM4
+- Interface, Connector A LC/UPC
+- Interface, Connector B LC/UPC
+- Transmission Standards TIA/EIA-568-C.3
+- Environmental Space Dual Rated LSZH/Riser
+
+### Cáp Cat6 U/UTP, cuộn 305 m.
+* Đặc tính kỹ thuật:
+- ANSI/TIA Category 6
+- Cable Type U/UTP (unshielded)
+- Transmission Standards ANSI/TIA-568.2-D, CENELEC EN 50288-6-1,   ISO/IEC 11801 Class E
+- Conductor Gauge, singles 23 AWG
+- Remote Powering Fully complies with the recommendations set forth by IEEE 802.3bt (Type 4)
+- Jacket Material PVC
+
+### Thanh đấu nối cáp Cat6, 1U, 24 cổng.
+* Đặc tính kỹ thuật:
+- Rack Units 1
+- Panel Style Flat
+- Total Ports, quantity 24
+- Material Type High-impact, flame retardant, thermoplastic | Powder-coated steel
+- Flammability Rating UL 94 V-0
+Nhân mạng gắn thanh đấu nối:
+- ANSI/TIA Category 6
+- Transmission Standards ANSI/TIA-568.2-D | ISO/IEC 11801 Class E
+- Contact Plating Material Gold
+- Contact Plating Thickness 1.27 µm
+- PoE Durability Supports IEEE 802.3bt Type 4 (90 W) applications greater than 3000 plug to jack mating cycles
+- Flammability Rating UL 94 V-0
+
+### Dây nhảy Cat6 U/UTP, 3 m.
+* Đặc tính kỹ thuật:
+- ANSI/TIA Category 6
+- Cable Type U/UTP (unshielded)
+- Wiring T568B
+- Contact Plating Material Gold over nickel
+- Jacket Material Polyvinyl Chloride
+14). Hệ thống điều hòa
+
+### Điều hòa 1 chiều Inverter 24.000 Btu.
+* Đặc tính kỹ thuật:
+- Công suất: 24.000 Btu/2,5 HP.
+- Loại: Điều hòa 1 chiều Inverter.
+- Tiêu thụ điện 2.06 kW/h
+- Công nghệ tiết kiệm điện Dual inverter / Kw Manager / Energy Ctrl - Kiểm soát năng lượng chủ động 4 mức
+- Công nghệ làm lạnh nhanh: Chế độ Jet Coo
+
+### Điều hòa 1 chiều Inverter 9.200 Btu.
+* Đặc tính kỹ thuật:
+- Công suất: 9.200 Btu/1 HP.
+- Loại: Điều hòa 1 chiều Inverter.
+- Tiêu thụ điện 0.58 kW/h
+- Công nghệ tiết kiệm điện Dual inverter / Kw Manager / Energy Ctrl - Kiểm soát năng lượng chủ động 4 mức
+- Công nghệ làm lạnh nhanh: Chế độ Jet Coo
+15). Hệ thống camera quan sát trong phòng
+
+### Camera Dome 4 MP.
+* Đặc tính kỹ thuật:
+- Độ phân giải: 4 MP (2560 × 1440).
+- Tiêu cự: 2,8 mm @ F2.0.
+- Tốc độ khung hình: 30 fps ở tất cả độ phân giải.
+- Chuẩn nén video: H.265/H.264, hỗ trợ Multiple Streaming.
+- Chế độ ngày/đêm: Day & Night, bộ lọc cắt IR tự động.
+-  WDR: Digital WDR.
+- Phân tích video thông minh: Phát hiện vật thể bị loại bỏ/bị thiếu; phát hiện thay đổi cảnh và làm mờ video; phát hiện xâm nhập và vượt qua đường kẻ.
+- Lưu trữ tại biên: Khe cắm thẻ micro SD tích hợp, hỗ trợ tối đa 128 GB.
+- Nguồn cấp: PoE/12 V DC.
+-  Khoảng cách hồng ngoại: Lên đến 30 m.
+-  Cấp bảo vệ: IP67.
+- Chống va đập: IK10.
+
+### Đầu ghi hình 8 kênh.
+* Đặc tính kỹ thuật:
+- Số kênh: 8 kênh.
+-  Độ phân giải đầu vào IP: 8 MP/6 MP/5 MP/4 MP/3 MP/1080P/1280 × 1024/960P/720P/960H/DI/CIF.
+-  Chuẩn nén: H.265+/H.265/H.264+/H.264.
+-  Phân tích nội dung video (VCA): Hỗ trợ nhiều sự kiện như phát hiện vật thể bị bỏ lại/mất, xâm nhập khu vực, vượt qua đường kẻ, bất thường video...
+-  Băng thông vào/ra: 80/80 Mbps.
+-  Cổng mạng: 8 × RJ45 100M.
+-  Giao diện ổ cứng: SATA × 1.
+-  Dung lượng ổ cứng hỗ trợ: Tối đa 10 TB/ổ.
+-  Truy cập từ xa: Web, HOLIS Pro VMS, Mobile App.
+
+### Ổ cứng HDD 8 TB.
+* Đặc tính kỹ thuật:
+-  Dung lượng: 8 TB.
+-  Kích thước: 3,5 inch.
+-  Giao tiếp: SATA 3.
+16). Thiết bị mạng và máy chủ
+
+### Router cân bằng tải Dual-WAN.
+* Đặc tính kỹ thuật:
+-  Cổng WAN : 5 × 10/100/1000 Mbps GE
+- Cổng LAN : 3 × 10/100/1000 Mbps GE
+-  USB WAN : 1 × USB
+- Throughput Router/Firewall : 1.5 Gbps
+- PepVPN/SpeedFusion : 200 Mbps (có/không mã hóa AES-256)
+- SpeedFusion Peers : 50, tối đa 100 với license
+- Người dùng khuyến nghị 300–1.000 users
+-  VPN IPsec, L2TP, PPTP, PepVPN/SpeedFusion
+- Load Balancing/Failover : Có
+-  LACP :802.3ad
+-  Quản lý : InControl 2
+-  AP hỗ trợ quản lý : Tối đa 100 AP
+-  HA : Có
+
+### Thiết bị tường lửa.
+* Đặc tính kỹ thuật:
+-  16× 10/100/1000Base-T RJ-45
+-  4× 1G SFP, 4× 1/10G SFP/SFP+
+-  1× RJ-45 Management, 1× RJ-45 Console, 2× USB;
+-  Firewall throughput ≥8,5 Gbps;
+-  Threat Prevention throughput ≥6 Gbps;
+-  IPsec VPN throughput ≥5,5 Gbps;
+-  Hỗ trợ HA, IPv4/IPv6, L2/L3, Virtual Wire, OSPF, BGP, RIP, NAT, QoS, SD-WAN
+
+### Thiết bị chuyển mạch 24x 100/1000X SFP+ (10G).
+* Đặc tính kỹ thuật:
+- Switch Layer 3+
+-  48 cổng 1/10G SFP+, 4 cổng 40/100G QSFP+/QSFP28;
+-  Switching Fabric ≥1,92 Tbps;
+- Forwarding Rate ≥1.309 Mpps;
+-  MAC ≥96K;
+- Hỗ trợ ≥4.000
+-  VLAN; RAM 4GB, Flash 4GB;
+- Hỗ trợ IPv4/IPv6, OSPF, BGP, RIP, ECMP, VRF-Lite, ACL, QoS, LACP; hỗ trợ stacking VCStack tối đa 8 thiết bị;
+- 2 nguồn AC dự phòng 1+1, hot-swap
+
+### Thiết bị chuyển mạch 24 port RJ45 1GbE + 4 uplink SFP/SFP+.
+* Thông số kỹ thuật:
+- Switch Layer 3 Lite
+- 24 cổng 10/100/1000T RJ-45, 4 cổng 1/10G SFP+,
+- Hỗ trợ VCStack tối đa 4 thiết bị;
+-  Switching Fabric ≥128 Gbps;
+- Forwarding Rate ≥95,2 Mpps;
+- MAC ≥16K;
+- VLAN ≥4.094;
+- RAM 1GB DDR3, Flash 256MB;
+- Hỗ trợ IPv4/IPv6, Static Routing, RIP, ECMP, ACL, QoS, LACP, STP/RSTP/MSTP; 1 nguồn AC tích hợp
+
+### Module quang 1000LX SFP, LC, SMF.
+* Thông số kỹ thuật:
+- Module quang SFP 1Gbps;
+- Chuẩn 1000BASE-SX; đầu nối LC duplex; sử dụng cáp quang Multimode (MMF);
+-  Bước sóng 850nm;
+- Khoảng cách truyền tối đa 550m; hỗ trợ DDM;
+- Nhiệt độ hoạt động công nghiệp từ -40°C đến +85°C;
+
+### Access Point gắn trần.
+* Đặc điểm:
+- Chuẩn Wi-Fi: IEEE 802.11a/b/g/n/ac/ax/be (Wi-Fi 7).
+- 3 băng tần, 3 radio: 2.4GHz + 5GHz + 6GHz, 2×2 MIMO.
+-  Tốc độ dữ liệu tối đa: 9,33 Gbps; lần lượt 688 Mbps (2.4GHz), 2,882 Gbps (5GHz), 5,76 Gbps (6GHz).
+-  Hỗ trợ MLO, OFDMA, DL/UL MU-MIMO, 4096-QAM, kênh rộng tối đa 320 MHz.
+-  Anten: tích hợp omni-directional.
+-  Cổng mạng: 01 × 2.5GbE RJ-45, hỗ trợ PoE IEEE 802.3at.
+-  Hỗ trợ nguồn DC 48V.
+-  Hỗ trợ tối đa 8 SSID/radio, tối đa 256 thiết bị client/radio.
+-  Hỗ trợ các cơ chế bảo mật WPA3, 802.1X, VLAN, 802.11i/w/r/k/v.
+-  Quản lý: Express / On-Premises / Cloud.
+-  Công suất tiêu thụ tối đa: khoảng 22,2 W khi cấp nguồn PoE 802.3at.
+
+### Sàn nâng kỹ thuật cho phòng máy chủ.
+* Đặc điểm:
+-  Mặt hoàn thiện phủ HPL 1.2 mm (High Pressure Laminate) màu trắng vân nâu, chống tĩnh điện, chống cháy, chống trầy xước.
+-  Khả năng chống tĩnh điện: (1.0 × 10⁵) ~ (1.0 × 10⁹) ohm.
+- Chịu tải trọng phân bố đều: 23.000 N/m².
+- Chịu tải tập trung: 4.450 N/điểm.
+-  Chịu tải tột đỉnh (Ultimate Load): 13.350 N/điểm.
+-  Chịu tải va đập (Impact Load): 670 N.
+-  Hệ số an toàn (Safety Factor): 3.
+-  Viền tấm bằng nhựa PVC màu đen nhằm đảm bảo độ bền cho mặt hoàn thiện HPL.
+-  Đã bao gồm phụ kiện lắp đặt.
+Cách nhiệt nền sàn nâng.
+* Đặc điểm:
+-  Độ dày: 25 mm, mặt trên bằng nhôm, mặt dưới dán keo nền sàn.
+-  Kích thước: (1,2 × 20) m.
+-  Tỉ trọng: 32 kg/m³.
+- Hệ số dẫn nhiệt: 0.032 W/m.
+-  Hệ số kháng ẩm: > 15.000.
+- Độ thẩm thấu hơi nước: 0.16 × 10¹² kg/Pa.s.m (ASTM E96).
+- Operating temperature: -50 + 90 Deg.
+- Phụ kiện: Băng dính bạc.
+Máy chủ camera.
+* Đặc điểm:
+Trusted Platform Module 2.0 V6.
+Chassis 3.5", hỗ trợ tối đa 8 ổ cứng SAS/SATA.
+Bộ xử lý: Intel Xeon Silver 4510, 2.4 GHz, 12 nhân/24 luồng, 16 GT/s, 30 MB Cache, Turbo, HT, 150 W, DDR5-4400.
+Bộ nhớ: 32 GB RDIMM, 6400 MT/s, Dual Rank.
+Hỗ trợ RDIMM 6400 MT/s.
+Không có bộ xử lý bổ sung.
+CPU Blank.
+Standard Heatsink.
+Performance Optimized.
+RAID: Unconfigured RAID.
+Bộ điều khiển RAID: PERC H755 SAS Front.
+Front PERC Mechanical Parts, front load.
+Ổ cứng: 960 GB SSD SATA Read Intensive, 6 Gbps, 512e, 2.5", Hot-plug AG Drive, 3.5" HYB CARR, 1 DWPD.
+Power Saving BIOS Settings.
+Chế độ khởi động BIOS: UEFI BIOS Boot Mode with GPT Partition.
+Standard Fan × 5.
+Nguồn: Dual, (1+1) Redundant, Hot-Plug Power Supply, 800 W MM, 100–240 VAC.
+Dây nguồn: Jumper Cord - C13/C14, 4 m, 250 V, 10 A (US, EU, TW, APCC countries except ANZ).
+Riser Config 0, No Riser, 1×16 + 1×8 (1 CPU), without OCP.
+Bo mạch chủ: PowerEdge R760xs Motherboard with Broadcom 5720 Dual Port 1Gb On-Board LOM, MLK.
+No OCP 3.0 mezzanine NIC card, Blank Filler Only.
+Card mạng: Broadcom 57414 Dual Port 10/25GbE SFP28 Adapter, PCIe Low Profile, V2.
+Mặt trước: PowerEdge 2U Standard Bezel.
+Dell Luggage Tag R760xs.
+BOSS Blank.
+Module quang: Dell EMC PowerEdge SFP+ SR Optic 10GbE 850nm.
+Hệ điều hành: Linux mã nguồn mở không cần bản quyền.
+No Media Required.
+Quản lý từ xa: iDRAC9, Enterprise 16G.
+Dell Connectivity Client - Enabled.
+Dell Connectivity Module.
+Dell Secure Onboarding Client Disabled.
+No Quick Sync.
+iDRAC, Factory Generated Password.
+iDRAC Group Manager, Disabled.
+ReadyRails Sliding Rails (B21).
+No Systems Documentation, No OpenManage DVD Kit.
+PowerEdge R760xs Shipping - APCC/HK/TW/KR/JP.
+PowerEdge R760xs/HS5620 Shipping Material.
+PowerEdge R760xs HS5620 CCC Marking, No CE Marking.
+Bảo hành: Basic Next Business Day 36 Months-ACDTS.
+Dịch vụ: ProSupport and Next Business Day Onsite Service-ACDTS Initial, 36 Month(s).
+No Field Deployment.
+Máy chủ camera có thể quản lý tới 350 camera
+Máy chủ đèn giao thông.
+* Đặc điểm:
+Trusted Platform Module 2.0 V6.
+Chassis 3.5", hỗ trợ tối đa 8 ổ cứng SAS/SATA.
+Bộ xử lý: Intel Xeon Silver 4510, 2.4 GHz, 12 nhân/24 luồng, 16 GT/s, 30 MB Cache, Turbo, HT, 150 W, DDR5-4400.
+Bộ nhớ: 32 GB RDIMM, 6400 MT/s, Dual Rank.
+Hỗ trợ RDIMM 6400 MT/s.
+No Additional Processor.
+CPU Blank.
+Standard Heatsink.
+Performance Optimized.
+RAID: Unconfigured RAID.
+Bộ điều khiển RAID: PERC H755 SAS Front.
+Front PERC Mechanical Parts, front load.
+Ổ cứng: 960 GB SSD SATA Read Intensive, 6 Gbps, 512e, 2.5", Hot-plug AG Drive, 3.5" HYB CARR, 1 DWPD.
+Power Saving BIOS Settings.
+Chế độ khởi động BIOS: UEFI BIOS Boot Mode with GPT Partition.
+No Energy Star.
+Standard Fan × 5.
+Nguồn: Dual, (1+1) Redundant, Hot-Plug Power Supply, 800 W MM, 100–240 VAC.
+Dây nguồn: Jumper Cord - C13/C14, 4 m, 250 V, 10 A (US, EU, TW, APCC countries except ANZ).
+Riser Config 0, No Riser, 1×16 + 1×8 (1 CPU), without OCP.
+Bo mạch chủ: PowerEdge R760xs Motherboard with Broadcom 5720 Dual Port 1Gb On-Board LOM, MLK.
+No OCP 3.0 mezzanine NIC card, Blank Filler Only.
+Card mạng: Broadcom 57414 Dual Port 10/25GbE SFP28 Adapter, PCIe Low Profile, V2.
+Mặt trước: PowerEdge 2U Standard Bezel.
+Dell Luggage Tag R760xs.
+BOSS Blank.
+Module quang: Dell EMC PowerEdge SFP+ SR Optic 10GbE 850nm.
+Hệ điều hành: Windows Server 2025 Standard, 16CORE, DF Recovery Image, Multi Lang, (Downgrade not included).
+No Media Required.
+Quản lý từ xa: iDRAC9, Enterprise 16G.
+Dell Connectivity Client - Enabled.
+Dell Connectivity Module.
+Dell Secure Onboarding Client Disabled.
+No Quick Sync.
+iDRAC, Factory Generated Password.
+iDRAC Group Manager, Disabled.
+ReadyRails Sliding Rails (B21).
+No Systems Documentation, No OpenManage DVD Kit.
+PowerEdge R760xs Shipping - APCC/HK/TW/KR/JP.
+PowerEdge R760xs/HS5620 Shipping Material.
+PowerEdge R760xs HS5620 CCC Marking, No CE Marking.
+Bảo hành: Basic Next Business Day 36 Months-ACDTS.
+Dịch vụ: ProSupport and Next Business Day Onsite Service-ACDTS Initial, 36 Month(s).
+No Field Deployment.
+Máy chủ giao thông có thể quản lý tới 200 nút đèn tín hiệu giao thông
+Thiết bị lưu trữ NAS Synology RS1221+
+Đặc tính kỹ thuật:
+- 01 bộ lưu trữ mạng Synology RS1221+ 8-bay RackStation (up to 12-bay), Quad Core 2.2 GHz, 4GB RAM (up to 32GB), M.2 SSD support with M2D20, 3Y WTY_RS1221+
+- 06 bộ HAT5310-16T: Ổ cứng Synology HAT5310-16T 16TB 3.5” Enterprise-Grade SATA HDD, 5Y WTY_HAT5310-16T
+- 01 bộ D4ES03-16G: Bộ nhớ Ram Synology D4ES03-16G DDR4 ECC SODIMM memory module for DS925+, 5Y WTY_D4ES03-16G
+17). Hệ thống phần mềm quản lý và giám sát, điều khiển trung tâm
+Hệ thống phần mềm quản lý, giám sát, điều khiển trung tâm cho hệ thống đèn tín hiệu giao thông
+* Đặc điểm:
+1. Giám sát
+1.1. Giám sát nút đèn
+Hệ thống cho phép người dùng giám sát và điều khiển các nút đèn tín hiệu giao thông trực tiếp trên nền bản đồ số theo thời gian thực. Người vận hành có thể nhanh chóng theo dõi trạng thái hoạt động, phát hiện sự cố và thực hiện điều khiển từ xa nhằm đảm bảo giao thông vận hành ổn định.
+1.1.1. Giám sát trạng thái nút đèn: Cho phép theo dõi toàn bộ trạng thái vận hành của từng nút đèn, bao gồm:
+Trạng thái kết nối với trung tâm (Online/Offline); Chế độ hoạt động hiện tại (Điều khiển tín hiệu đỏ - vàng - xanh, nháy vàng hoặc điều khiển bằng tay); Chương trình điều khiển và kế hoạch đang được áp dụng; Chu kỳ điều khiển, pha đèn hiện tại và thời gian đếm ngược; Các cảnh báo và sự cố phát sinh như mất kết nối, lỗi thiết bị, mất điện hoặc các lỗi vận hành khác (nếu có).
+1.1.2. Giám sát trên bản đồ số:
+Hiển thị vị trí các nút đèn trên nền bản đồ số; Thể hiện trạng thái hoạt động bằng màu sắc hoặc biểu tượng trực quan; Hỗ trợ tìm kiếm, lọc và xem nhanh thông tin chi tiết của từng nút đèn; Cho phép truy cập nhanh đến giao diện điều khiển hoặc thông tin cấu hình của nút đèn.
+1.1.3. Mô phỏng hoạt động của nút đèn: Hệ thống mô phỏng trực quan trạng thái hoạt động thực tế của nút đèn theo thời gian thực, bao gồm:
+Hiển thị các hướng lưu thông đang được phép; Mô phỏng trạng thái các cụm đèn tín hiệu; Hiển thị pha điều khiển hiện tại và thời gian đếm ngược; Đồng bộ với trạng thái thực tế của bộ điều khiển tại hiện trường.
+1.1.4. Điều khiển từ trung tâm: Cho phép người dùng điều khiển nút đèn từ xa thông qua hệ thống:
+Cấu hình múi giờ và kế hoạch điều khiển; Mô phỏng trước nội dung cấu hình trước khi gửi xuống thiết bị; Chuyển đổi chế độ hoạt động giữa điều khiển bình thường, nháy vàng và điều khiển từng pha; Gửi cấu hình và theo dõi kết quả thực hiện từ bộ điều khiển.
+1.1.5 Nhật ký và lịch sử vận hành: Hệ thống lưu trữ toàn bộ lịch sử thao tác và thay đổi cấu hình, bao gồm:
+Lịch sử gửi cấu hình điều khiển; Lịch sử thay đổi chế độ hoạt động; Nhật ký cảnh báo và sự cố; Nhật ký thao tác của người dùng phục vụ công tác giám sát, kiểm tra và truy vết.
+2.1. Danh sách nút đèn
+Hệ thống cung cấp giao diện quản lý tập trung với đầy đủ thông tin của từng nút đèn, bao gồm: Mã thiết bị (IMEI); Mã nút đèn; Tên nút đèn; Địa chỉ lắp đặt; Số pha điều khiển; Nhóm nút đèn; Ngày lắp đặt; Loại nút đèn (Đèn tín hiệu, Nháy vàng, Đèn năng lượng mặt trời...); Trạng thái hoạt động của thiết bị.
+Danh sách hỗ trợ phân trang, sắp xếp và tìm kiếm nhanh giúp người dùng dễ dàng quản lý số lượng lớn nút đèn. Người dùng có thể lọc danh sách nút đèn theo từng tỉnh, từng nhóm đèn
+Cho phép người quản trị có thể thay đổi các thông số kỹ thuật của nút đèn, thay đổi IMEI của bộ truyền thông hoặc cấu hình thông tin camera được lắp đặt tại nút đèn
+2.1.1. Sửa thông tin nút đèn
+Tại đây, người dùng có thể sửa các thông tin liên quan đến nút đèn. Khi sửa cần lưu ý các nhóm thông tin sau:
+- Những thông tin không được sửa: IMEI
+- Những thông tin ảnh hưởng đến điều khiển: Tổng số pha điều khiển; Tổng số hướng điều khiển; Tổng số múi giờ hỗ trợ; Loại thiết bị;Phiên bản firmware dưới thiết bị; Các hướng/ pha điều khiển. Vẽ hướng tương ứng trên bản đồ số
+Trong quá trình sửa thông tin cơ bản của nút đèn, người dùng có thể thêm/ sửa/ xóa danh sách các cột đèn, tuân thủ các quy định chung theo thứ tự cột đèn.
+2.1.2. Xóa thông tin nút đèn
+Trường hợp nút đèn không còn sử dụng nữa, người dùng có thể xóa nút đèn khỏi danh sách. Tuy nhiên cũng cần lưu ý, chỉ những nút nào bộ GSM không còn sử dụng mới thực hiện xóa để tránh trường hợp phải thêm lại vào hệ thống
+Khi xóa dữ liệu hệ thống sẽ có xác nhận thông tin trước khi xóa để tránh người dùng xóa nhầm dữ liệu, chắc chắn xóa thì người dùng xác nhận lại thông tin
+2.1.3. Thay đổi bộ truyền thông
+Tính năng này được sử dụng khi người dùng thay đổi bộ truyền thông (GSM 4G/5G) và muốn giữ lại toàn bộ các thông số cấu hình trước đó của nút đèn
+Khi thay thì cả nút đèn lắp bộ truyền thông cũ và mới đều phải có trong hệ thống, khi hệ thống ghi nhận dữ liệu IMEI truyền thông giữa 2 nút sẽ được đổi cho nhau.
+2.1.4. Cập nhật thông tin nguồn gốc xuất xứ của thiết bị
+Tính năng này cho phép người dùng cập nhật thông tin các thiết bị sử dụng tại nút lên hệ thống, khi người khác sử dụng điện thoại quét QR sẽ truy cập và xem được toàn bộ thông tin bạn đã cập nhật trước đó. Các thông tin cập nhật gồm: Thông tin dự án;  Đơn vị thi công; Các hình ảnh, chứng chỉ liên quan; Danh sách các sản phẩm sử dụng tại nút (import từ file excel)
+2.1.5. Cập nhật thông tin camera lắp đặt tại nút
+Tính năng này cho phép người dùng cấu hình danh sách các camera lắp đặt tại nút, các thông tin cơ bản gồm: Tên camera; Tài khoản/ mật khẩu truy cập camera;  Sử dụng luồng chính hay luồng phụ; Cách thức truyền hình ảnh về server
+2.2. Nút đèn lỗi
+Tính năng Danh sách nút đèn lỗi cho phép giám sát và hiển thị tập trung các nút đèn giao thông đang phát sinh lỗi, dựa trên dữ liệu được thu thập từ bộ báo lỗi đèn lắp đặt tại tủ điều khiển. Hệ thống tự động tiếp nhận các cảnh báo từ hiện trường và thông báo đến người vận hành để kịp thời kiểm tra, xử lý, góp phần đảm bảo hệ thống đèn tín hiệu hoạt động ổn định và an toàn.
+- Giám sát lỗi theo thời gian thực: Hệ thống tự động nhận dữ liệu từ bộ báo lỗi tại từng nút giao và phát hiện các sự cố phát sinh trên các cụm đèn tín hiệu. Các lỗi có thể được phát hiện bao gồm: Đèn không sáng; Đèn bị rò dòng; Đèn được bật/ tắt liên tục quá lâu; Mô tả chi tiết lỗi:
+- Đối với mỗi cảnh báo, hệ thống cung cấp đầy đủ thông tin để hỗ trợ công tác xử lý như: Hướng giao thông xảy ra lỗi; Loại đèn bị lỗi (Đỏ, Vàng, Xanh hoặc đèn người đi bộ);  Số lượng bóng đèn bị lỗi (nếu bộ báo lỗi hỗ trợ); Nội dung mô tả chi tiết; Thời điểm phát hiện lỗi.
+2.3. Nút đèn online
+Tính năng Danh sách nút đèn đang kết nối cho phép giám sát tập trung các bộ điều khiển đèn tín hiệu đang hoạt động và duy trì kết nối ổn định với Trung tâm điều hành. Thông qua chức năng này, người vận hành có thể nhanh chóng nắm bắt trạng thái hoạt động của toàn bộ hệ thống, đảm bảo các nút đèn luôn sẵn sàng nhận lệnh điều khiển và truyền dữ liệu giám sát theo thời gian thực.
+Các thông tin cung cấp cho người dùng gồm: IMEI của bộ truyền thông; Tên nút đèn có kết nối; Địa chỉ nút đèn có kết nối; Thời điểm gần nhất nút đèn gửi dữ liệu về trung tâm; Tỉnh và nhóm nút đèn.
+2.4. Nút đèn offline
+Tính năng Quản lý nút đèn mất kết nối cho phép giám sát và quản lý tập trung các bộ điều khiển đèn tín hiệu đang bị gián đoạn kết nối với Trung tâm điều hành. Hệ thống tự động phát hiện, cảnh báo và cập nhật trạng thái của các thiết bị không còn truyền nhận dữ liệu, giúp người vận hành nhanh chóng xác định vị trí sự cố và phối hợp xử lý, đảm bảo hệ thống giao thông hoạt động liên tục
+Các thông tin cung cấp cho người dùng gồm: IMEI của bộ truyền thông; Tên nút đèn có kết nối; Địa chỉ nút đèn có kết nối; Thời điểm gần nhất nút đèn gửi dữ liệu về trung tâm; Tỉnh và nhóm nút đèn
+3. Báo cáo thống kê
+3.1. Nhóm báo cáo theo lưu lượng giao thông
+3.1.1. Biểu đồ lưu lượng theo giờ
+Tính năng Báo cáo biểu đồ lưu lượng theo giờ cho phép thống kê và trực quan hóa lưu lượng phương tiện đi qua từng nút giao theo từng khung giờ trong ngày. Dữ liệu được tổng hợp từ hệ thống camera AI hoặc các thiết bị thu thập lưu lượng, giúp người vận hành dễ dàng theo dõi sự biến động của lưu lượng giao thông, đánh giá hiệu quả điều khiển đèn tín hiệu và hỗ trợ xây dựng phương án tổ chức giao thông
+Dữ liệu được hiển thị dưới dạng biểu đồ đường, giúp người dùng dễ dàng quan sát xu hướng biến động lưu lượng theo thời gian.
+- Hiển thị đồng thời nhiều hướng giao thông.
+- Hiển thị giá trị chi tiết khi di chuyển chuột đến từng mốc thời gian.
+- Phóng to, thu nhỏ và so sánh các khoảng thời gian (nếu được cấu hình).
+3.1.2. Chi tiết lưu lượng
+Tính năng Báo cáo lưu lượng chi tiết cho phép tra cứu toàn bộ dữ liệu đếm phương tiện theo từng bản ghi do hệ thống camera AI hoặc thiết bị đếm lưu lượng ghi nhận. Mỗi bản ghi phản ánh kết quả thống kê trong một khoảng thời gian hoặc một chu kỳ đếm, giúp người vận hành theo dõi chi tiết lưu lượng phương tiện theo từng hướng giao thông và từng loại phương tiện.
+Hệ thống cho phép xem dữ liệu theo từng nút đèn, dữ liệu được hiển thị theo từng nút đèn với danh sách các camera theo tưng hướng di chuyển của phương tiện. Dữ liệu được hiển thị theo từng loại phương tiện mà máy tính nhúng AI hỗ trợ phân tích.
+3.1.3. Tổng hợp lưu lượng theo ngày
+Chức năng Báo cáo tổng hợp lưu lượng theo ngày giúp người dùng thống kê số lượng phương tiện lưu thông qua điểm giám sát theo từng ngày trong khoảng thời gian lựa chọn. Dữ liệu được tổng hợp theo từng loại phương tiện, từng hướng di chuyển của phương tiện hỗ trợ đánh giá xu hướng lưu lượng, so sánh giữa các ngày và phục vụ công tác quản lý, lập kế hoạch vận hành, điều tiết giao thông hoặc phân tích hoạt động của công trình
+3.2. Nhóm báo cáo cảnh báo
+3.2.1. Báo cáo cảnh báo cấu hình
+Chức năng Báo cáo cảnh báo cấu hình cho phép người quản lý xem được các nút đèn đang có cảnh báo sai lệch dữ liệu giữa thông số cấu hình nút đèn ở server và dữ liệu thực tế tủ gửi về. Từ đó người quản lý có thể đưa ra các quyết định phù hợp (thay đổi cấu hình, kiểm tra điều chỉnh lại ở tủ điều khiển ….)
+3.2.2. Báo cáo thiết bị mất kết nối
+Chức năng Báo cáo thiết bị mất kết nối khác với tính năng nút đèn Offline ở trên, tính năng này cho phép người dùng tra cứu lại những lần mất kết nối trước đây của nút đèn. Tại báo cáo này, người dùng có thể chọn nút đèn cần thống kê, chọn khoảng thời gian cần lấy dữ liệu. Hệ thống sẽ trả ra danh sách những lần bị mất kết nối với các thông tin như: Thời điểm bắt đầu mất kết nối;  Thời điểm có kết nối lại; Thời gian mất kết nối
+3.2.3. Báo cáo nguồn ắc quy yếu
+Chức năng Báo cáo nguồn ắc quy yếu cho phép người dùng thống kê các thời điểm ắc quy bị yếu. Chức năng này chỉ sử dụng cho các nút năng lượng mặt trời.
+Khi xem dữ liệu, người dùng chọn nút đèn cần xem, chọn khoảng thời gian cần xem, hệ thống sẽ kiểm tra và hiển thị dữ liệu với các thông tin chính gồm: Thời điểm ghi nhận ắc quy yếu; Thời điểm ghi nhận ắc quy trở lại bình thường; Mô tả thông tin tại thời điểm ghi nhận ắc quy yếu.
+3.2.4. Báo cáo nút đèn sai vị trí
+Chức năng Báo cáo nút đèn sai vị trí giúp phát hiện các nút đèn đã bị di chuyển khỏi vị trí lắp đặt ban đầu hoặc lắp đặt không đúng vị trí theo thiết kế. Việc xác định được thực hiện bằng cách so sánh tọa độ GPS thực tế do nút đèn gửi về với tọa độ vị trí được cấu hình trên hệ thống quản lý. Khi khoảng cách giữa hai vị trí vượt quá ngưỡng cho phép, hệ thống sẽ ghi nhận là nút đèn sai vị trí và đưa vào báo cáo để người quản lý kiểm tra, xử lý.
+3.3. Nhóm báo cáo khác
+3.3.1. Báo cáo chi tiết lỗi
+Chức năng Báo cáo chi tiết lỗi cho phép người dùng xem chi tiết dữ liệu từ bộ báo lỗi gửi về. Tại đây, người dùng chọn nút đèn cần xem dữ liệu chi tiết, chọn ngày xem dữ liệu, hệ thống sẽ liệt kê chi tiết từng lần gửi dữ liệu từ bộ báo lỗi về. Người dùng có thể xem được các thông tin cơ bản sau: Thời điểm thiết bị gửi dữ liệu; Danh sách các bộ thiết bị lắp đặt tại cột online/ offline; Chi tiết tín hiệu từng chân đấu.
+Hệ thống phần mềm quản lý, giám sát, điều khiển trung tâm cho hệ thống Camera
+* Đặc tính kỹ thuật:
+Phần mềm và trung tâm điều hành kết nối, hiển thị, lưu trữ, phân quyền. Trang giám sát tập trung trên tuyến và bằng chứng nằm trên hệ thống trung tâm.
+Cung cấp các tính năng cơ bản của hệ thống giám sát video, làm nền tảng để quản lý camera, người dùng, sự kiện, cảnh báo, lưu trữ và khai thác hình ảnh.
+Giám sát tập trung trên tuyến và bản đồ camera trên nền tảng số
+Đặc điểm:
+Phần mềm giám sát tập trung trên tuyến cho phép trực ban theo dõi nhiều camera cùng lúc: lưới hình nhiều ô, kéo thả camera vào từng ô, lưu bố cục theo ca trực, phóng to một camera toàn màn hình khi cần xử lý tình huống. Bố cục gồm một camera lớn, lưới hai nhân hai, lưới ba nhân hai hoặc bố cục tự do.
+Cùng trang này, phần mềm tích hợp bản đồ số của phần mêm. Bản đồ gồm hai lớp:
+Lớp nền dùng lớp bản đồ chung của thế giới (địa hình, vệ tinh) làm khung định vị, giúp người vận hành nhận ra vị trí địa lý.
+Lớp bản đồ và tài sản được vẽ lại theo chuẩn Việt Nam: ranh giới hành chính, tuyến đường, lý trình, điểm camera và tài sản trên tuyến. Điểm camera, sự kiện và sổ tài sản nằm trên lớp này, không lấy từ lớp nền thế giới.
+Người dùng bấm vào điểm camera trên bản đồ để xem đếm phương tiện, sự kiện, ảnh hoặc luồng hình tại điểm đó. Màn hình cho phép chia tỷ lệ lưới hình và bản đồ, ẩn bản đồ khi cần tập trung theo dõi hình ảnh. Thông tin tóm tắt tại mỗi điểm camera gồm tên, mã, lý trình, tọa độ, tuyến, tổng số phương tiện và số xe tham gia giao thông.
+Màn hình ghép tại phòng trực là thiết bị hiển thị tại trung tâm điều hành. Khi đơn vị trang bị màn hình ghép, phần mềm có thể đưa nguồn hình ra thiết bị đó.
+Giải pháp giúp trực ban tìm camera theo tuyến và vị trí trên bản đồ thay vì phải nhớ địa chỉ từng thiết bị, đồng thời gắn hình ảnh hiện trường với đúng đoạn đường đang quản lý trong phần mềm.
+Các chức năng chính của phần mềm bao gồm: Lưới hình nhiều camera trên trang giám sát tập trung; kéo thả và lưu bố cục theo người dùng; phóng to toàn màn hình; bản đồ hai lớp (nền thế giới và lớp tài sản theo chuẩn Việt Nam); xem đếm xe và sự kiện vượt tốc tại điểm camera; chia màn hình lưới hình và bản đồ; phân quyền khai thác theo đơn vị quản lý.
+Hạng mục này không có chỉ số nhận diện. Chất lượng hình phụ thuộc luồng camera và đường truyền (ảnh định kỳ hoặc video liên tục khi có quang hoặc mạng riêng).
+Điểm trên bản đồ chỉ thể hiện camera, không trộn các loại tài sản khác. Sai lý trình trên phiếu kết nối làm lệch vị trí trên bản đồ.
+Tự động phát hiện phương tiện với độ chính xác lên tới 99% trong điều kiện tiêu chuẩn. Tự động phân loại phương tiện (xe tải, xe khách, xe con) với độ chính xác lên tới 98% trong điều kiện tiêu chuẩn, loại trừ các trường hợp phương tiện nối đuôi nhau. Đo đếm lưu lượng phương tiện với tỷ lệ sai số không quá ± 2% và đo tốc độ trung bình của phương tiện với sai số không quá ± 5%. Tự động nhận dạng biển số phương tiện (ô tô) với độ chính xác ≥ 98% trong điều kiện tiêu chuẩn (loại trừ các trường hợp biển số bị bẩn mờ, cong vênh, bị che khuất 1 phần hoặc hoàn toàn). Quan sát các sự kiện, sự cố và các trường hợp tham gia giao thông sai quy định của ngành đường bộ xảy ra trên đường. Sẵn sàng tích hợp với phần mềm ITS của bên thứ 3. Ghi chú: Điều kiện tiêu chuẩn: ban ngày, đảm bảo đủ môi trường ánh sáng, không mưa, sương mù, chất lượng hình ảnh tốt, không bị lóa, mờ, mắt thường nhìn rõ.
+Mô hình triển khai: Hỗ trợ triển khai độc lập hoặc làm nền tảng tích hợp các module ứng dụng khác trong hệ thống giám sát tập trung.
+Quản lý camera/video: Hỗ trợ quản lý thiết bị camera, xem trực tiếp, xem lại, khai thác dữ liệu video theo phân quyền.
+Quản lý lưu trữ: Hỗ trợ lưu trữ chính/phụ, phục vụ ghi hình, xem lại và quản lý dữ liệu video.
+Quản lý cảnh báo: Hỗ trợ quản lý cảnh báo, tiếp nhận và xử lý sự kiện từ thiết bị/hệ thống.
+Quản lý bản đồ: Bản đồ trên phần mềm gồm hai lớp. Lớp nền dùng lớp bản đồ chung của thế giới (địa hình, vệ tinh) làm khung định vị. Lớp bản đồ và tài sản được vẽ lại theo chuẩn và bảo mật trong lãnh thổ Việt Nam: ranh giới hành chính, tuyến đường, lý trình, điểm camera và tài sản trên tuyến. Vị trí thiết bị, sự kiện và sổ tài sản hiển thị trên lớp chuẩn Việt Nam, không lấy điểm tài sản từ lớp nền thế giới.
+Quản lý bằng chứng: Hỗ trợ quản lý dữ liệu bằng chứng, trích xuất hình ảnh/video phục vụ tra cứu, xác minh và báo cáo.
+Quản lý người dùng: Hỗ trợ phân quyền người dùng, nhóm người dùng, vai trò vận hành theo chức năng và phạm vi khai thác.
+Số lượng người dùng truy cập đồng thời: Hỗ trợ nhiều người dùng đăng nhập đồng thời.
+Vận hành trên máy ảo: Hỗ trợ triển khai, vận hành trên môi trường máy chủ ảo hóa.
+Giám sát tình trạng hệ thống: Hỗ trợ giám sát sức khỏe hệ thống, trạng thái thiết bị, trạng thái dịch vụ và lịch sử bảo trì/dữ liệu vận hành.
+Quản lý vận hành client: Hỗ trợ các thao tác trên phần mềm client như xem trực tiếp, xem lại, chia cửa sổ tùy chỉnh, theo dõi trực quan và các chức năng vận hành giám sát.
+Hỗ trợ tích hợp module: Hỗ trợ làm điều kiện nền tảng để tích hợp các module mở rộng theo yêu cầu hệ thống.
+Yêu cầu tương thích: Tương thích với hệ thống camera IP, thiết bị lưu trữ, thiết bị giải mã, màn hình ghép và các thành phần liên quan theo kiến trúc hệ thống.
+Yêu cầu bảo mật: Hỗ trợ quản lý tài khoản, phân quyền truy cập, ghi nhật ký thao tác người dùng và kiểm soát truy cập theo vai trò.
+Yêu cầu khai thác: Cho phép người vận hành tại trung tâm giám sát theo dõi hình ảnh, xử lý cảnh báo, truy xuất dữ liệu, quản lý bằng chứng và giám sát tình trạng hệ thống.
+18). Kết nối thiết bị hiện trường với trung tâm điều khiển và kết nối internet cho trung tâm điều khiển
+Thuê bao đường truyền Internet cáp quang truyền dữ liệu và hình ảnh/Video từ tủ kỹ thuật hiện trường về trung tâm (gói 12 tháng)
+* Đặc tính kỹ thuật:
+Kết nối từ các thiết bị hiện trường với hệ thống đặt tại các Trung tâm điều khiển Bằng cách sử dụng dịch vụ thuê bao đường truyền Internet cáp quang truyền dữ liệu và hình ảnh/Video từ tủ kỹ thuật hiện trường về trung tâm, tốc độ trong nước (400Mbps) (gói 12 tháng); Bao gồm 1 địa chỉ IP tĩnh.
+Thời gian sử dụng: 12 tháng.
+Gói thuê bao đường truyền Internet cáp quang cho phòng máy chủ (gói 12 tháng)
+* Đặc tính kỹ thuật:
+Cung cấp đường truyền Internet cáp quang tốc độ cao để kết nối, vận hành các thiết bị tại phòng máy chủ và hệ thống giám sát trung tâm; đảm bảo băng thông thông suốt, an toàn thông tin và bảo mật dữ liệu theo quy định.
+Băng thông: Tối thiểu 500Mbps.
+Bao gồm tối thiểu 1 địa chỉ IP tĩnh để kết nối và quản trị máy chủ.
+Không giới hạn sử dụng dung lượng trong thời gian thuê bao.
+Thời gian sử dụng: 12 tháng.
+19). Các hạng mục khác
+Móng cột thép mạ kẽm.
+Móng cột thép mạ kẽm đảm bảo kết cấu tự đứng cho cột, đồng thời giúp cho việc lắp đặt dễ dàng hơn. Toàn bộ các móng đều có khung móng hàn nhiệt với kích thước chuẩn, phù hợp với các lỗ chờ trên cột, bê tông móng mác 200 đá 1x2mm.
+Đối với móng lắp đặt cột trên vỉa hè:
++ Bê tông móngcột đèn tín hiệu cao 6,2m vươn đơn 6m, cột đèn tín hiệu cao 6,2m vươn đơn 7m, cột đèn tín hiệu cao 6,2m vươn đơn 8m: kích thước1,2x1,2x1,6m; khung móng 8xM24 kích thước D400x1350mm;
+Đối với móng lắp đặt cột trên dải phân cách:
++ Bê tông móngcột đèn tín hiệu cao 6,2m vươn đơn 6m, cột đèn tín hiệu cao 6,2m vươn đơn 7m, cột đèn tín hiệu cao 6,2m vươn đơn 8m: kích thước1x1,5x1,6m; khung móng 8xM24 kích thước D400x1350mm;
+Cáp điện.
+* Đặc tính kỹ thuật:
+Đối với cáp cấp nguồn đến tủ kỹ thuật camera: Sử dụng loại cáp Cu/XLPE/PVC/DSTA/PVC: 2x2,5mm2;
+Cáp nối tiếp địa chống sét lan truyền sử dụng cáp Cu/pvc 1x10m2 tại vị tiếp địa thoát sét lan truyền đến Module thoát sét lan truyền trong tủ kỹ thuật Camera;
+Cáp cấp nguồn tử tủ kỹ thuật camera Camera, đèn Flash sử dụng loại cáp Cu/XLPE/PVC: 2x1,5mm2;
+Cáp cấp nguồn lên tủ kỹ thuật camera sử dụng loại cáp nguồn Cu/XLPE/PVC: 2x2,5mm2.
+Cáp Cat6 cho Camera: 1×CAT6/UTP; Dây cáp mạng chuẩn Cat.6, với 4 cập dây, đường kính lõi chuẩn 23AWG; Chạy được tốc độ 1Gbps trong khoảng cách 100m; Hỗ trợ cấp nguồn qua Ethernet (PoE); Chất liệu dây dẫn: đồng; Vật liệu vỏ bọc: PVC.
+Tiếp địa.
+* Đặc tính kỹ thuật: Thép mạ kẽm nhúng nóng kích thước L63x63x6, L= 2,5m
+- Để đảm bảo an toàn trong quá trình vận hành, khai thác sử dụng tại mỗi cột bố trí một cọc tiếp địa để bảo vệ tiếp xúc an toàn, ngoài ra còn bố trí hệ 05 tiếp địa để thoát sét lan truyền đường nguồn tại cột đấu nối với nguồn điện lưới.
+Ống luồn dây, Hào cáp.
+- Sử dụng loại ống nhựa xoắn HDPE 65/50mm (đáp ứng Tiêu chuẩn TCVN 7997:2009) lắp đặt dưới vỉa hè. Hào cáp, bể cáp khi xây dựng phải tránh những công trình ngầm đã có và phải đảm bảo cự ly đối với các công trình kiến trúc ngầm (chi tiết hào cáp thể hiện trong bản vẽ thi công).
+- Thi công hào cáp dưới đường Asphalt bằng phương pháp cắt đường: Thi công cắt đường, hào cáp dưới đường đào sâu 1,1m, rộng 0,4m, đặt ống thép mạ kẽm D76mm, kết cấu hoàn trả hào cáp: Mặt đường bê tông nhựa C16 dày 7cm, móng cấp phối đá dăm lớp dưới dày 0,18m, móng cấp phối đá dăm lớp trên dày 0,15m, Nền đường đắp bằng đất đào tận dụng dày 0,7m (chi tiết thể hiện trong bản vẽ thi công).
+- Thi công hào cáp dưới đường bê tông bằng phương pháp cắt đường: Thi công cắt đường, hào cáp dưới đường đào sâu 1,1m, rộng 0,4m, đặt ống nhựa mạ kẽm D76mm, kết cấu hoàn trả hào cáp: Mặt đường bê tông mác 200, đá 1x2mm dày 0,2m, móng cấp phối đá dăm lớp dưới dày 0,18m; móng cấp phối đá dăm lớp trên dày 0,15m; Nền đường đắp bằng đất đào tận dụng dày 0,57m (chi tiết thể hiện trong bản vẽ thi công).
+- Sử dụng ống nhựa HDPE D63mm PN10, PE100 lắp đặt dưới đường bằng phương pháp khoan qua đường: Độ bền kéo đứt tối thiểu: 21 Mpa; hệ số giãn nở nhiệt : < 0.2 mm/m. độ C; điện trở suất bề mặt : > 1013 Ω; nhiệt độ làm việc cho phép:0 – 45 độ C; nhiệt độ hóa mềm vicat tối thiểu : 120 độ C
+Hào cáp qua đường bằng phương pháp khoan qua đường: Thi công khoan qua đường đào hố khoan kích thước (dài x rộng x sâu) 1,2x1,2x1,6mm; đào hố tiếp nhận ống kích thước (dài x rộng x sâu) 1,5x1x1,6mm.Dùng máy khoan ngầm ngang có định hướng trước, khoan qua đường để để đặt ống nhựa HDPE D63mm PN10, PE100, chiều sâu khoan qua đường >1m so với cốt cao mặt đường tự nhiên. Đào xong thì tiến hành lấp đất hoàn trả vỉa hè. (chi tiết thi công khoan đường thể hiện trong bản vẽ thi công).
+3.11. Tổ chức thi công, biện pháp thi công hang mục chính
+3.11.1. Biện pháp tổ chức thi công
+
+### 1.1. Các yêu cầu cần đạt được khi bố trí tổng mặt bằng thi công công trình
+Để giảm thiểu ảnh hưởng trong quá trình thi công tới hoạt động bình thường của các khu vực lân cận, đảm bảo an toàn cho các công trình hiện hữu phải có biện pháp bảo vệ để không làm ảnh hưởng đến các công trình trên và không ảnh hưởng đến môi trường khu vực, đồng thời đẩy nhanh tiến độ thi công. Vì vậy việc thiết kế tổng mặt bằng thi công được Đơn vị thi công chúng tôi đặc biệt quan tâm và có biện pháp để đảm bảo được các yêu cầu như sau :
++ Không ảnh hưởng đến hoạt động bình thường của các khu vực lân cận, đảm bảo an toàn cho các công trình hiện hữu.
++ Không ảnh hưởng và làm hư hại đến hệ thống hạ tầng kỹ thuật hiện có (các hệ thống đường, ống cấp thoát nước, cấp điện, điện thoại, …)
++ Đảm bảo phân luồng thi công hợp lý và an toàn trong công trường.
+
+### 1.2. Mặt bằng bố trí lán trại, thiết bị thi công, kho bãi tập kết vật liệu, phế thải xây dựng sau khi phá dỡ, cổng ra vào và công trình phụ trợ…
+Do công trình nằm trong khu vực dân cư đang hoạt động bình thường nên việc bố trí các kho bãi, văn phòng trong công trường có nét đặc thù riêng đó là yêu cầu cần giảm thiểu tiếng ồn một cách tối đa (Mặt bằng bố trí công trường được Đơn vị thi công thể hiện trên bản vẽ kèm theo)
+Ngay sau khi trúng thầu, Đơn vị thi công sẽ liên hệ với Chủ đầu tư để tiến hành công tác kiểm tra lại tuyến, định vị mặt bằng bố trí lán trại tại vị trí nút giao phù hợp thuận thiện về mặt bằng hoặc có thể thuê, mượn đất để tiến hành xây dựng lán trại, kho bãi, và tập kết thiết bị vật tư xe máy, làm các thủ tục để khởi công, đăng ký tạm trú cho lực lượng lao động.
+Lập biện pháp, phương án đảm bảo giao thông trong quá trình thi công (đảm bảo giao thông trên công trường) trình tư vấn giám sát và Chủ đầu tư chấp thuận làm cơ sở triến khai trong quá trình thi công.
+Tổ chức bố trí mặt bằng thi công khoa học hợp lý sẽ góp phần tích cực cho toàn bộ quá trình thi công tiết kiệm được nhân công, vật liệu đảm bảo thi công đạt chất lượng cao và hoàn thành được tiến độ công trình.
+Khi đã nhận bàn giao mặt bằng từ Chủ đầu tư, Đơn vị thi công sẽ liên hệ với các cơ quan chức năng của địa phương để thu thập các thông tin cần thiết về công trình ngầm có trong phạm vi thi công của Đơn vị thi công. Kết quả khảo sát sẽ được cập nhật vào bình đồ và trình lên Tư vấn giám sát, đồng thời trên thực địa tiến hành đánh dấu định vị công trình ngầm dưới đất. Những mốc đánh dấu này sẽ tồn tại trong suốt quá trình thi công.
+1.2.1. Tại văn phòng:
+Đơn vị thi công chúng tôi bố trí lực lượng quản lý và cán bộ kỹ thuật cho Công trình như sau:
+- Chủ trì dự án do Giám đốc công ty  làm chủ nhiệm điều hành. Chịu trách nhiệm toàn bộ công trình trên mọi mặt.
+- Giúp việc là các phòng ban chức năng của Công ty nhằm đáp ứng tối đa các yêu cầu về chất lượng, kỹ thuật, tiến độ, tài chính. Đội ngũ này đã có kinh nghiệm thi công nhiều Công trình tương tự.
+- Với yêu cầu cao về kỹ thuật, chất lượng của công trình. Đơn vị thi công ký hợp đồng với đơn vị thí nghiệm có Uy tín là đơn vị có đầy đủ tư cách pháp nhân cũng như năng lực để kiểm định chất lượng các loại vật liệu xây dựng. Kết quả kiểm định chất lượng sẽ được thông báo cho Chủ đầu tư bằng văn bản chính thức của Đơn vị thi công.
+1.2.2. Tại hiện trường:
+Khi đã nhận bàn giao mặt bằng từ Chủ đầu tư và tư vấn thiết kế, Đơn vị thi công sẽ tiến hành khảo sát, định vị công trình theo hồ sơ đã phê duyệt. Đơn vị thi công sẽ liên hệ với các cơ quan chức năng của địa phương để thu thập các thông tin cần thiết về công trình ngầm có trong phạm vi thi công của Đơn vị thi công. Kết quả khảo sát sẽ được cập nhật vào bình đồ và trình lên Tư vấn giám sát, đồng thời trên thực địa tiến hành đánh dấu định vị công trình ngầm dưới đất. Những mốc đánh dấu này sẽ tồn tại trong suốt quá trình thi công.
+Khi đã ký hợp đồng, Đơn vị thi công sẽ tiến hành khảo sát mặt bằng, thuê mặt bằng tạm để tiến hành xây dựng văn phòng điều hành và lán trại, kho bãi vật liệu cùng với các trang thiết bị làm việc và các phương tiện phục vụ thi công.
+a. Văn phòng công trường:
+- Để đảm bảo công tác kiểm tra theo dõi và giám sát trong quá trình thi công, ngoài việc bố trí Văn phòng chính tại trụ sở của Đơn vị thi công, chúng tôi sẽ bố trí tại hiện trường Văn phòng chỉ huy chung. Văn phòng bao gồm một phòng họp chung dùng cho lực lượng quản lý, cho các cuộc họp giao ban và điều hành trong suốt quá trình thi công của Đơn vị thi công cũng như Tư vấn giám sát của Chủ đầu tư, một phòng y tế công trường phục vụ cho công tác sơ cứu tại công trường khi có các tai nạn hay đau ốm đột xuất xảy ra.
+- Văn phòng được bố trí đầy đủ bàn ghế làm việc, tủ đựng tài liệu, hệ thống thông tin liên lạc, máy tính, máy in và các thiết bị văn phòng khác.
+b. Nhà bảo vệ:
+- Để đảm bảo an ninh và an toàn tuyệt đối cho quá trình thi công tại công trường và khu vực xung quanh. Đơn vị thi công chúng tôi bố trí một nhà bảo vệ ngay tại cổng công trường và sẽ có bảo vệ để kiểm soát 24/24 giờ để kiểm soát hết tất cả công nhân, các phương tiện ra vào công trình cũng như toàn bộ hoạt động trong công trường trong suốt quá trình thi công.
+c. Lán trại tạm, kho tàng, bãi gia công:
+- Khu nhà ở dành cho công nhân: Nhà ở công nhân bố trí liền khu vực ban chỉ huy công trình để xây dựng lán trại, kho bãi trang thiết bị làm việc và các phương tiện phục vụ thi công, khu công trình phụ phục vụ sinh hoạt của công nhân. Diện tích nhà ở sẽ được tính toán dựa trên biểu đồ huy động nhân lực trong tiến độ thi công đảm bảo đủ chỗ ở theo diện tích tiêu chuẩn tại thời điểm huy động nhân lực cao nhất.
+- Khu nhà kho chứa vật liệu, vật tư và khu để nhiên liệu. Do các loại vật tư chính rất sẵn có quanh khu vực xây dựng công trình nên để giảm bớt diện tích nhà kho chứa, tăng mặt bằng bố trí thi công, các vật tư sẽ được điều phối cung cấp theo từng đợt phù hợp với nhu cầu thi công thực tế. Tránh tình trạng tích trữ lâu ngày gây ảnh hưởng đến chất lượng vật liệu.
+- Đơn vị thi công chúng tôi sẽ ký hợp đồng cụ thể với các nhà cung cấp hàng, trong đó có kế hoạch cung ứng vật tư chi tiết cho công trình theo từng giai đoạn, thuận tiện cho thi công, không chồng chéo nhau, các công việc không phải chờ đợi nhằm đảm bảo tiến độ chung của dự án.
+d. Nhà vệ sinh:
+- Để đảm bảo vệ sinh tại công trường, Đơn vị thi công chúng tôi sẽ bố trí nhà vệ sinh sử dụng cho cán bộ, công nhân trong các giai đoạn thi công. Đơn vị thi công chúng tôi sẽ sử dụng nhà vệ sinh di động theo mẫu của Cty vệ sinh môi trường đô thị. Đồng thời Đơn vị thi công chúng tôi sẽ ký hợp đồng với Cty môi trường của khu vực để làm nhiệm vụ thu dọn vệ sinh định kỳ cho các nhà vệ sinh và thu dọn các tạp chất xây dựng, rác thải trong quá trình thi công.
+- Vị trí đặt nhà vệ sinh cho công nhân, Đơn vị thi công chúng tôi sẽ thể hiện trên mặt bằng tổng thể của công trình.
+e. Bố trí hệ thống bãi chứa máy móc thiết bị thi công:
+- Các máy móc thiết bị, các bãi gia công phục vụ thi công được bố trí tỉ mỉ hợp lý trong các công tác thi công, tránh tình trạng chồng chéo
+- Các máy móc thi công được huy động theo các giai đoạn thi công thể hiện trên biểu đồ cung ứng thiết bị và tiến độ huy động.
+f. Bố trí thiết bị cứu hỏa:
+- Tổ chức phòng chống cháy nổ: Để đảm bảo phòng chống cháy nổ, Đơn vị thi công chúng tôi bố trí các bình bọt cứu hỏa theo quy định của công tác phòng cháy chữa cháy và một máy bơm cứu hỏa chạy xăng.
+g. Phòng thí nghiệm:
+- Phòng thí nghiệm Đơn vị thi công sẽ thuê một đơn vị có đủ năng lực được chủ đầu tư chấp nhận để kiểm tra và thí nghiệm tất cả các chỉ tiêu cơ lý của các mẫu vật liệu cũng như các kết quả thí nghiệm.
+- Ngoài ra khi thuê đơn vị thí nghiệm Đơn vị thi công sẽ yêu cầu Đơn vị thi công thí nghiệm phải bố trí một văn phòng thí nghiệm tại hiện trường với đầy đủ các thiết bị, dụng cụ thí nghiệm cần thiết phục vụ cho công tác kiểm tra chất lượng của Chủ đầu tư.
+- Phòng thí nghiệm hiện trường là một phòng thu nhỏ của Đơn vị thi công thí nghiệm. Phòng thí nghiệm hiện trường được bố trí nhân lực, thiết bị, dụng cụ, đáp ứng các yêu cầu về không gian và điều kiện thí nghiệm như phòng thí nghiệm chuyên ngành xây dựng, tương ứng với các phép thử được thực hiện.
+- Các thiết bị thí nghiệm đặt cố định tại trạm thí nghiệm hiện trường phải được kiểm định/hiệu chuẩn lại theo quy định của pháp luật về đo lường trước khi tiến hành các thí nghiệm.
+- Trách nhiệm của Đơn vị thi công thí nghiệm:
++ Đảm bảo và duy trì các điều kiện về cơ sở vật chất, trang thiết bị, thí nghiệm viên và hệ thống quản lý chất lượng đáp ứng yêu cầu quy định Nghị định số 62/2016/NĐ-CP;
++ Có trách nhiệm thực hiện các yêu cầu của cơ quan quản lý, cơ quan chuyên môn về xây dựng được quy định.
++ Chịu trách nhiệm trước pháp luật về các hoạt động thí nghiệm chuyên ngành xây dựng của tổ chức.
+- Trách nhiệm của người quản lý hoạt động thí nghiệm:
++ Quản lý các thiết bị thí nghiệm, lên kế hoạch định kỳ kiểm định/hiệu chuẩn các thiết bị thí nghiệm theo quy định nhằm đảm bảo độ chính xác của phép đo;
++ Giám sát, phân công công việc cụ thể cho từng thí nghiệm viên phù hợp với văn bằng, chứng chỉ được đào tạo;
++ Chịu trách nhiệm về hồ sơ, tài liệu, sổ sách thí nghiệm phù hợp hệ thống quản lý chất lượng đã xây dựng;
++ Chịu trách nhiệm về các kết quả thử nghiệm của phòng thí nghiệm do mình phụ trách.
+- Trách nhiệm của thí nghiệm viên:
++ Tuân thủ nhiệm vụ được giao, trung thực trong quá trình thí nghiệm và kết quả thí nghiệm;
++ Chịu trách nhiệm về số liệu thí nghiệm do mình thực hiện.
+h. Kho bãi tập kết chất thải, phế thải sau khi phá dỡ
+-	Bố trí đổ thải: Đơn vị thi công liên hệ với địa phương về việc cho phép đổ đất, đá thải tại một số vị trí thích hợp. Các vị trí đã thống nhất không làm ảnh hưởng đến vệ sinh môi trường và không làm ách tắc dòng chảy của các sông suối hiện có.
+- Đơn vị thi công thực hiện việc phân loại, lưu giữ, thu gom, vận chuyển, tái sử dụng, tái chế và xử lý chất thải phát sinh trên công trường xây dựng theo kế hoạch quản lý chất thải xây dựng; Bố trí cán bộ chuyên trách hoặc kiêm nhiệm về an toàn và vệ sinh lao động theo quy định của pháp luật về xây dựng để hướng dẫn, kiểm tra việc quản lý chất thải trong công trình xây dựng. Đơn vị thi công cam kết quản lý chất thải rắn xây dựng theo Thông tư 08/2017/TT-BXD ngày 16/5/2017 và các quy định hiện hành
+- Bãi tập kết phế thải sau khi phá dỡ được tập kết tạm thời tại khu vực thoáng trên vỉa hè sau đó vận chuyển luôn để đổ ra bãi thải theo quy định.
+1.3. Bố trí rào chắn, biển báo, cổng ra vào, Trạm rửa xe công trường
+- Ngay sau khi vinh dự được Chủ đầu tư chấp thuận là Đơn vị thi công chính thức thi công gói thầu, Đơn vị thi công tiến hành lắp đặt biển báo công trường phía cổng ra vào khu vực thi công, kể từ ngày thi công đến khi kết thúc thi công gói thầu. Quy định về biển bảo công trường và thông tin trên đó tuân thủ theo quy định hiện hành, được sự chấp thuận của Chủ đầu tư và tư vấn giám sát. Tấm phản quang trên biển hiệu, thanh chắn và các thiết bị khác luôn được giữ sạch sẽ rõ ràng để duy trì tính phản quang.
+- Ngoài ra Đơn vị thi công sẽ bố trí hệ thống rào chắn tạm thời, biển báo tạm thời trong, ngoài khu vực thi công để cảnh báo với khu vực xung quanh khi thi công một số công tác nguy hiểm, mất an toàn như vận chuyển phế thải ra khỏi khu vực, thi công đào đắp, thi công đổ bê tông…, cảnh báo tại các khu vực nguy hiểm, khu vực tập kết vật liệu, khu vệ sinh, đường và hướng thoát nạn khi gặp sự cố… Điều đó có nghĩa tại tất cả các điểm nguy hiểm làm việc, các bộ phận sản xuất xung quanh công trường đều có đặt các biển báo nguy hiểm. Kích cỡ chữ viết và vị trí đặt biển báo theo quy phạm tiêu chuẩn Việt Nam.
+- Các rào chắn tạm thời được sơn phản quang nhằm báo hiệu có công trường thi công. Trên các rào chắn có gắn các đèn quay tín hiệu giao thông sử dụng khi trời tối. Các biển báo sản xuất theo quy định hiện hành để cảnh báo có công trường thi công, cảnh báo khu vực nguy hiểm, cảnh báo giảm tốc độ cho người và phương tiện trên các tuyến đường địa phương quanh công trường.
+- Cung cấp để tránh ra vào tự do và bảo vệ cơ sở vật chất hiện có và các khu vực lân cận tránh tổn thất cho công tác thi công xây dựng công trình và đáp ứng quy định của chính phủ.
+- Cung cấp tất cả thông báo cần thiết, xin giấy phép và thanh toán chi phí liên quan đến công trình.
+- Cung cấp nắp che chắn tạm thời cho các lỗ trên bề mặt ngoài để duy trì điều kiện làm việc đã xác định, bảo vệ sản phẩm và công trình đã hoàn thiện tránh thời tiết khắc nghiệt.
+- Bảo dưỡng trong quá trình thi công. Vệ sinh và sơn lại bề mặt đã sơn 06 tháng một lần.
+- Định vị lại và mở rộng trong các quá trình thi công lần sau theo yêu cầu của Kỹ sư.
+- Tháo dỡ dọn thiết bị vật liệu tạm thời và thi công trong giai đoạn hoàn thiện; sửa chữa hư hỏng do quá trình lắp đặt hoặc sử dụng hàng rào và rào chắn bảo vệ.
+- Cung cấp rào chắn an toàn, lan can, tay vịn và mái che sàn, nóc và khe tường theo yêu cầu của cơ quan quản lý.
+Trạm rửa xe:
+Việc các xe tải lớn mang theo bụi bẩn dải khắp các tuyến đường nó đi qua khiến môi trường bị ô nhiễm một cách nghiêm trọng. Nó có ảnh hưởng trực tiếp đến chất lượng môi trường đô thị .Ngoài ra bụi bẩn từ các xe công trường thải ra sẽ làm giảm tầm nhìn của các phương tiện đang tham gia giao thông. Do đó việc  bố trí trạm  rửa xe bố trí ngay tại vị trí đầu tuyến công trình, các xe chờ vật liệu tới công trường khi ra khỏi công trường được rửa sạch bùn đất giảm thiểu tối đa lượng  bùn đát vương vãi ra đường và bụi trong không khí.
+1.4. Nguồn điện thi công:
+- Nguồn điện thi công và sinh hoạt, Đơn vị thi công sẽ liên hệ với Chính quyền địa phương và các cơ quan chức năng để ký hợp đồng sử dụng điện với cơ quan quản lý điện trong khu vực. Trong trường hợp nguồn điện không cấp được điện cho công trường, Đơn vị thi công sẽ dùng máy phát điện để đảm bảo công trường luôn thi công liên tục.
+- Tại khu vực thi công có bố trí các hộp cầu dao có nắp che chắn bảo vệ và hệ thống treo trên cột dẫn tới các điểm dùng điện, có tiếp đất an toàn theo đúng tiêu chuẩn an toàn về điện hiện hành
+- Việc bố trí hệ thống dây dẫn điện sẽ không ảnh hưởng đến giao thông và hoạt động của công trình cũng như các khu vực xung quanh cụ thể như sau:
++ Điện thi công được dẫn từ tủ điện chính của công trường đặt tại vị trí phù hợp, sau đó được chia tách cho từng hạng mục nhỏ, khi xảy ra sự cố điện tại một trong các hạng mục sẽ  không gây ảnh hưởng tới cấp điện các hạng mục khác.
++ Hệ thống điện thi công được nối với các thiết bị bảo vệ đóng, ngắt điện khi có sự cố hoặc khi cần cắt điện như: Aptomat, cầu dao hộp... Hệ thống điều khiển, bảo vệ cho các thiết bị phục vụ thi công sử dụng loại cầu dao 3 pha có hộp bảo hiểm 380v.
++ Dây dẫn điện là các loại cáp điện nhiều vỏ bọc của các nhà sản xuất có uy tín trên thị trường hiện nay như: Trần Phú, CADIVI, LIOA...  được lắp đặt trên các cầu cáp theo hướng dẫn của Bên A.
++ Bố trí hệ thống đèn pha, đèn báo, biển báo, đảm bảo đủ chiếu sáng xung quanh công trình để phục vụ thi công và bảo vệ ban đêm. Hệ thống dây điện phục vụ chiếu sáng sử dụng cáp 2 lõi từ 2 x 4 mm2  đến 2 x 6 mm2....
++ Tại các vị trí đặt các tủ điện, các thiết bị thi công Đơn vị thi công sẽ cho đặt các biển báo nguy hiểm, biển cấm vi phạm, phạm vi đặt các thiết bị điện và phổ biến nội quy an toàn về điện tới công nhân tất cả các tổ thi công trên công trường.
+- Để đề phòng sự cố mất điện lưới hoặc điện áp thấp không đảm bảo cho các thiết bị phục vụ thi công hoạt động thường xuyên. Đơn vị thi công sẽ bố trí 01 máy phát điện có công suất 5KW - 10KVA thường trực tại công trường nhằm đáp ứng tiến độ thi công.
+- Đơn vị thi công sẽ cử cán bộ chuyên trách, quản lý điện tại công trường, luôn có mặt trực kiểm tra, đấu nối, khắc phục các sự cố về điện tại công trường, nhất là những khi công trường thi công đêm.
++ Đơn vị thi công sẽ phải lập ra các điều khoản cần thiết cho việc cung cấp điện tạm thời.
++ Tiếp nhận và thanh toán tiền cho việc cấp điện tạm thời đi qua các khu đất không thuộc quyền sở hữu của Chủ đầu tư.
++ Thanh toán chi phí lắp đặt, vận hành, bảo trì bảo dưỡng, tháo dỡ máy móc và sửa chữa máy móc thiết bị hiện tại và lâu dài.
++ Cung cấp thiết bị sử dụng điện tạm thời.
++ Cung cấp ổ cắm điện cho vận hành thi công, có nối dây nhánh và hộp đấu nối điện nằm ở từng sàn và các vị trí thích hợp. Cấp dây điện mềm theo yêu cầu.
++ Không sử dụng ổ cắm điện để thuận tiện sử dụng lâu dài trong quá trình thi công.
++ Đấu dây, kết nối và vỏ bảo vệ đường điện tạm thời và đèn chiếu sáng hoặc cung cấp máy phát điện chống ồn theo yêu cầu.
++ Điều chỉnh và mở rộng hệ thống khi tiến hành thi công công trình.
++ Duy trì hệ thống cung cấp dịch vụ liên tục.
++ Tháo dỡ thiết bị vật liệu tạm thời hệ thống kiên cố đưa vào vận hành và khi được chấp thuận hoặc hướng dẫn của Kỹ sư.
+1.5. Tổ chức chiếu sáng.
++ Cung cấp và thanh toán chi phí lắp đặt, vận hành, tháo dỡ; duy trì hệ thống đèn nóng sáng cho hoạt động thi công để đạt được mức chiếu sáng tối thiểu theo tiêu chuẩn đô thị.
++ Cung cấp và duy trì ánh sáng cho khu vực bên ngoài, khu vực kho chứa, khu vực xung quanh (bao gồm biển hiệu dự án) sau khi trời tối phục vụ mục đích an toàn.
++ Cung cấp dây dẫn nhánh từ nguồn điện đến các hộp đấu nối bằng dây dẫn đèn, dây xoắn và đèn theo yêu cầu.
++ Duy trì hệ thống chiếu sáng và tiến hành sửa chữa định kỳ.
++ Hệ thống chiếu sáng toà nhà kiên cố có thể chỉ sử dụng trong giai đoạn thi công cuối.
++ Sửa đổi, bổ sung và mở rộng hệ thống chiếu sáng khi tiến hành thi công.
++ Duy trình hệ thống chiếu sáng. Kịp thời thay thế các bộ phận hư hỏng hoặc bị ăn mòn.
++ Tháo dỡ thiết bị vật liệu tạm thời khi hệ thống cố định được đưa vào vận hành và khi được phép của Kỹ sư.
+1.6. Nguồn nước thi công.
+Đơn vị thi công sẽ cung cấp nước tạm thời cho công trường phục vụ mục đích sử dụng của Chủ đầu tư, Kỹ sư, Đơn vị thi công và các Đơn vị thi công phụ.
++ Chất lượng nước: sạch, tinh khiết có thể uống được. Không được sử dụng nước lợ hoặc nước biển.
++ Nguồn: thoả thuận với các cơ quan chức năng và kết nối với các công trình công cộng hoặc mua, lưu trữ và phân phối cho toàn bộ khu vực dự án.
++ Trước khi sử dụng dịch vụ hỗ trợ hoặc bơm nước cho công trường cần cung cấp téc chứa và hệ thống bơm.
++ Cung cấp các đầu ra đảm bảo nước luôn sẵn có để sử dụng với áp lực phù hợp
++ Không sử dụng hệ thống cố định để cung cấp nước sử dụng tạm.
++ Xin cấp và thanh toán chi phí xin cấp giấy phép và kiểm tra.
++ Thanh toán chi phí lắp đặt, vận hành, bảo dưỡng và tháo dỡ thiết bị máy móc.
++ Thanh toán chi phí tiêu thụ nước.
++ Nguyên vật liệu có thể mới hoặc đã qua sử dụng theo yêu cầu.
++ Thiết bị cung cấp nước uống: Sản phẩm tiêu chuẩn.
++ Cung cấp dịch vụ ban đầu tại thời điểm huy động thi công.
++ Điều chỉnh và mở rộng dịch vụ khi tiến hành thi công.
++ Đo đường ống nước cấp theo nhu cầu thi công, sử dụng văn phòng và công tác phòng cháy chữa cháy tạm thời.
++ Cung cấp bơm, téc áp suất, tự động kiểm soát và téc chứa cần thiết để điều áp thiết bị.
++ Khử trùng đường ống sử dụng cấp nước uống.
++ Duy trì hệ thống cung cấp nước dịch vụ liên tục với đầy đủ áp suất cho các điểm xả.
++ Tháo dỡ thiết bị tạm thời theo chỉ dẫn của Kỹ sư sau khi hoàn thành toàn bộ công trình hoặc khi có yêu cầu của Kỹ sư.
++ Đơn vị thi công sẽ phải xin Cơ quan chức năng cấp phép tạm thời cung cấp nước từ đường ống cấp nước hiện tại ở gần khu vực dự án phục vụ thi công.
+1.7. Hệ thống thoát nước công trường, xử lý chất thải.
+- Hệ thống thoát nước trên công trường: Có nhiệm vụ tiêu thoát nước mưa, hố móng trên bề mặt, thoát nước sản xuất sinh hoạt trong quá trình thi công. Đơn vị thi công sẽ bố trí hệ thống thoát nước phù hợp theo giai đoạn thi công.
+- Hệ thống thoát nước phải đảm bảo công trường luôn được khô ráo và đảm bảo vệ sinh môi trường, trật tự công cộng theo quy định chung của Nhà nước và của địa phương.
+- Trước khi thi công, Đơn vị thi công sẽ cho thi công đào rãnh nước. Toàn bộ nước mưa sẽ đổ vào rãnh, hố thu trên công trường trước khi thoát nước vào hệ thống cống, ga thoát nước của toàn công trường. Việc bố trí thi công rãnh thoát nước trước giúp cho việc thoát nước của công trường được dễ dàng.
+- Nước thải trong quá trình thi công và sinh hoạt trên công trường trước khi thoát ra hệ thống thoát nước chung của khu vực, sẽ được Đơn vị thi công xử lý qua hệ thống xử lý nước thải đảm bảo các chỉ tiêu cho phép, đảm bảo an toàn vệ sinh môi trường, được các cơ quan quản lý kiểm tra và cho phép thi công.
+- Trong thời gian thi công, Đơn vị thi công sẽ thường xuyên kiểm tra, khơi thông hệ thống thoát nước để tránh làm ứ đọng gây mất vệ sinh cho công trường.
+1.8. Vị trí tập kết chất thải
+- Vị trí tập kết chất thải trên mặt bằng thi công sẽ được Đơn vị thi công khảo sát và bố trí trên mặt bằng công trường đảm bảo điều kiện thuận lợi nhất khi tổ chức thi công
+- Vị trí tập kết chất thải khi rời khỏi công trường sẽ được Đơn vị thi công khảo sát kỹ lưỡng trên mặt bằng hiện trạng và phải được sự cho phép của người có thẩm quyền. Vị trí tập kết được tính toán để đảm bảo không ảnh hưởng đến các hoạt động trên công trường đồng thời phải thuận tiện cho xe chở vật liệu ra vào, giảm thiểu khoảng cách vận chuyển bằng thủ công để tăng năng xuất lao động đẩy nhanh tiến độ thi công công trình.
+- Để đảm bảo vệ sinh môi trường và tăng diện tích sử dụng mặt bằng trên công trường, cuối mỗi buổi làm việc Đơn vị thi công sẽ bố trí phương tiện để vận chuyển chất thải ra khỏi công trường bằng xe ô tô tự đổ.
+- Các xe chuyênchất thải có thùng kín + bạt che chắn trong suốt quá trình vận chuyển để đảm bảo đất không bị rơi, vãi ảnh hưởng đến môi trường ở trong cũng như ngoài công trình.
+- Đơn vị thi công chúng tôi sẽ sử dụng các loại xe tự đổ chuyên dụng có thể ra vào dễ dàng trong công trường với mặt bằng thi công trật hẹp.
+- Việc vận chuyển chất thải sẽ được Đơn vị thi công bố trí ưu tiên vào buổi tối để giảm thiểu ảnh hưởng đến hoạt động của nhân dân trong vùng (từ 20 -:- 22 giờ hàng ngày).
+1.9. Hệ thống giao thông công trình.
+- Đường thi công được bố trí đảm bảo cho việc di chuyển thiết bị thi công, xe cung ứng vật tư không ảnh hưởng đến thi công công trình và các khu vực xung quanh.
+- Đường ngoài công trường đông xe cộ qua lại vì vậy Đơn vị thi công xin cam kết tuân theo tất cả các điều kiện, quy định về an toàn giao thông của khu vực để cho các phương tiện xe, máy móc thi công được hoạt động bình thường. Mọi lực lượng tham gia giao thông của Đơn vị thi công sẽ nghiêm chỉnh chấp hành mọi luật lệ và chịu mọi trách nhiệm dân sự trước Pháp luật về những vi phạm của mình đối với tài sản tính mạng...(nếu có).
+1.10. Hệ thống thông tin liên lạc.
++ Nội bộ ban chỉ huy công trường: Giao ban hàng ngày, kiểm điểm các công việc đã thực hiện và công việc tiếp theo qua bản theo dõi phân công công tác, nắm thông tin liên tục từ công trường về công ty và ngược lại.
++ Thông tin chung hàng ngày được thông báo trên bảng tin của công trường.
++ Bố trí điện thoại, danh bạ điện thoại, fax tại Ban chỉ huy công trường để đảm bảo liên lạc với các bộ phận có liên quan ngoài công trường, đảm bảo thông tin thông suốt với công ty kịp thời nắm thông tin mới để phục vụ tốt cho thi công.
+3.11.2. Trình thi công hạng mục chính
+Trình tự quá trình thi công tại nút đèn tín hiệu giao thông được mô tả như sơ đồ dưới đây:
+Xây và đổ bê tông móng cột, thi công hào cáp …Bàn giao mặt bằng thi công, tập kết vật tư, thiết bị chế tạo sẵn và Chuẩn bi nhân lực, thiết bị thi công, các công tác chuẩn bị thi công khác như vật tư, dụng cụ đảm bảo ATGT trong quá trình thi công…Dựng cột, tủ kỹ thuật, Camera, đấu nối cáp tín hiệu, kiểm tra, phòng máy chủ, màn hình quan sát, chạy thử nghiệm...Dọn dẹp công trường, Hoàn thiện hồ sơ hoàn công, Đào tạo, chuyển giao công nghệ, nghiệm thu hoàn thành công trình đưa vào sử dụng…Bắt đầuKết thúc
+
+### 3.11.3. Biện pháp thi công hạng mục chính
+
+### 3.11.3.1. Biện pháp thi công đào, đắp đất
+a) Dọn quang xới đất:
+Công tác chuẩn bị công việc dọn quang và xới đất bao gồm các việc phát cây, dãy cỏ, đào gốc cây, hót bỏ những mảnh vụn kết cấu và cày xới lớp đất mặt trong khi vực công trình. Mặt đất tự nhiên trong khu vực giới hạn công trình sau khi đã phát cây được đào bỏ lớp đất hữu cơ hoặc lớp đất mặt theo chiều sâu đã nêu trong thiết kế và căn cứ vào thực tế hiện trường.
+Những chỗ cao độ nền đường đắp cao hơn mặt đất tự nhiên  1,5m, mọi cây cối, gốc, rễ cây, cỏ và các mảnh vụn hữu cơ khác trên bề mặt đều được chuyển đi toàn bộ.
+b) Dỡ bỏ các chướng ngại vật:
+Trên phạm vi nền đường đắp hoặc các công trình khác, nếu có các chướng ngại khác như các cống cũ cần phá bỏ, các hòn đá mồ côi... việc phá huỷ việc phá dỡ các kết cấu cũ như các cống cũ hỏng, tường chắn cần phá bỏ... được thực hiện bằng máy kết hợp thủ công.
+c) Định vị, dựng khuôn công trình:
+Công tác định vị, dựng khuôn trong thi công nền đường đào đắp được thực hiện như sau: Dựa vào các cọc mốc, cọc tim, lưới đường truyền đã được nhận bàn giao, đóng các cọc tim bổ sung, các cọc biên đào, biên đắp, các cọc trên đường cong. Ngoài ra còn tiến hành đóng cọc giới hạn giải phóng mặt bằng. Việc cắm cọc được thực hiện cứ 20m/mặt cắt đối với đoạn có địa hình tương đối đồng đều, nếu địa hình phức tạp sẽ cắm dày hơn.
+Công tác định vị, dựng khuôn đảm bảo các yêu cầu: Xác định chính xác các vị trí như: Tim, trục công trình, chân mái đắp, đỉnh mái đào, đường biên hố móng, các mặt cắt ngang của phần đào hoặc đắp...
+Công tác định vị dựng khuôn được thực hiện bằng các thiết bị: Trắc đạc chuyên dùng như: Máy toàn đạc, máy kinh vĩ, thủy bình, thước thử, rọi... Việc theo dõi, kiểm tra tính chính xác được thực hiện trong suốt quá trình thi công.
+
+#### 3.11.3.2. Thi công đổ bê tông móng cột
+*/ yêu cầu chung
+- Thành phần cấp phối bê tông được thiết kế phải đảm bảo các chỉ tiêu cơ lý của bê tông theo yêu cầu của thiết kế và các quy định hiện hành. Khi sử dụng phụ gia phải thiết kế bê tông có sử dụng phụ gia và chỉ được sử dụng khi có ý kiến bằng văn bản của Chủ đầu tư.
+- Yêu cầu bắt buộc về thiết bị thi công Đơn vị thi công phải có:
+(1) máy trộn bê tông dung tích tối thiểu 250l
+(2) các thiết bị đầm bê tông: Đầm dùi, Đầm bàn
+(3) Máy hàn, máy phát điện
+(4) Các thiết bị kiểm tra chất lượng thường xuyên khác như: Thước mét, máy kinh vĩ, máy thủy bình....
+- Trình tự thi công bê tông theo đúng quy trình từ quy định TCVN 4453-1995
+*/Ghép cốp pha:
+Có giải pháp cốp pha. Ngoài ra còn kết hợp với cốp pha và cây chống gỗ để lắp dựng cho các kết cấu nhỏ, lẻ.
++ Cốp pha và đà giáo được thiết kế và thi công phải đảm bảo độ cứng, ổn định, dễ tháo lắp, không gây khó khăn cho việc đặt cốt thép, đổ và đầm bê tông.
++ Cốp pha phải được ghép kín, khít để không làm mất nước xi măng khi đổ và đầm bê tông, đồng thời bảo vệ được bê tông mới đổ dưới tác động của thời tiết.
++ Yêu cầu ván khuôn cột, dầm, sàn, tường và cầu thang phải phẳng, khít và quét dầu chống dính trước khi lắp đặt.
++ Gia công thành từng mảng có kích thước bằng kích thước của 1 mặt cột.
++ Ghép các mảng theo kích thước cụ thể của từng móng. Dùng gông bằng thép, khoảng cách các gông khoảng 50 cm
+*/Trộn bê tông bằng máy đặt tại công trường:
++ Bê tông cho tất cả các kết cấu của công trình đều được trộn bằng máy trộn bê tông 250 lít đặt tại hiện trường.
++ Cấp phối (Xi măng, cát, đá ) phải đúng theo thiết kế – cấp phối được Đơn vị thi công xây dựng, kiểm tra, đệ trình bên A phê duyệt. Thời gian phải đủ để vật liệu được trộn đều.
++ Trình tự đổ vật liệu vào máy trộn: Trước hết đổ 15-20% lượng nước, sau đó đổ ximăng và cốt liệu cùng một lúc, đồng thời đổ dần và liên tục phần nước còn lại. Khi dùng phụ gia thì việc trộn phụ gia phải theo chỉ dẫn của người sản xuất phụ gia.
++ Trong qua trình trộn để tránh hỗn hợp bê tông bám dính vào thùng trộn, cứ sau 2 giờ làm việc cần đổ vào thùng trộn cốt liệu lớn và nước của một mẻ trôn và quay máy trộn khoảng 5 phút, sau đó cho cát và xi măng vào trộn tiếp theo thời gian quy định.
+*/ Vận chuyển bê tông tới vị trí đổ:
++ Bê tông đổ bằng máy trộn tại chỗ sẽ được vận chuyển ngang bằng xe cải tiến, xe cút kít, xe rùa.
++ Các phương tiện vận chuyển phải đảm bảo bê tông không bị phân tầng, kín khít để đảm bảo không làm mất nước xi măng trong khi vận chuyển.
++ Đường vận chuyển phải bằng phẳng tiện lợi.
+*/ Đổ bê tông:
+Trước khi đổ bê tông: kiểm tra lại hình dáng, kích thước, khe hở của ván khuôn. Kiểm tra cốt thép, sàn giáo, sàn thao tác. Chuẩn bị các ván gỗ để làm sàn công tác.
+Chiều cao rơi tự do của bê tông không quá 1,5m – 2m để tránh phân tầng bê tông.
+Khi đổ bê tông phải đổ theo trình tự đã định, đổ từ xa đến gần, từ trong ra ngoài, bắt đầu từ chỗ thấp trước, đổ theo từng lớp, xong lớp nào đầm lớp ấy.
+Dùng đầm bàn cho bê tông lót, đầm dùi cho bê tông móng.
+Chiều dày lớp đổ bê tông tuân theo bảng 16 TCVN4453: 1995 để phù hợp với bán kính tác dụng của đầm.
+Bê tông phải đổ liên tục không ngừng tuỳ tiện, trong mỗi kết cấu mạch ngừng phải bố trí ở những vị trí có lực cắt và mô men uốn nhỏ.
+Khi trời mưa phải che chắn, không để nước mưa rơi vào bê tông. Trong trường hợp ngừng đổ bê tông qua thời hạn qui định ở bảng 18 TCVN 4453:1995.
+Bê tông móng chỉ được đổ lên lớp đệm sạch trên nền đất cứng.
+Nền của các khuôn dựng đúc sẵn phải chắc chắn và thông thoáng nước, có đủ sức chịu tải;
+Không được gây chấn động mạnh trong quá trình vận chuyển. Nếu để trong kho thì các phần kết cấu sẽ được chống đỡ chắc chắn ở các vị trí chịu tải ghi trên các bản vẽ hay theo chỉ dẫn của Tư vấn giám sát;
+Phải ghi lại và đánh dấu trên phần kết cấu chủng loại và ngày tháng đúc sau khi đổ bê tông. Phần kết cấu nào có mặt trên và mặt đáy không nhận ra và không lật ngược được thì sẽ đánh dấu bằng mũi tên theo chiều lên hay xuống;
+*/Đầm bê tông:
+Đầm bê tông là nhằm làm cho hỗn hợp bê tông được đặc chắc, bên trong không bị các lỗ rỗng, bên mặt ngoài không bị rỗ, và làm cho bê tông bám chặt vào cốt thép. Yêu cầu của đầm là phải đầm kỹ, không bỏ sót và đảm bảo thời gian, nếu chưa đầm đủ thời gian thì bê tông không được lèn chặt, không bị rỗng, lỗ. Ngược lại, nếu đầm quá lâu, bê tông sẽ nhão ra, đá sỏi to sẽ lắng xuống, vữa ximăng sẽ nổi lên trên, bê tông sẽ không được đồng nhất.
+Đối với sàn, nền, mái thì dùng đầm bàn để đầm, khi đầm mặt phải kéo từ từ, các dải chồng lên nhau 5-10cm. Thời gian đầm ở 1 chỗ khoảng 30-50s.
+Đối với cột, dầm thì dùng đầm dùi để đầm, chiều sâu mỗi lớp bê tông khi đầm dùi khoảng 30-50cm, khoảng cách di chuyển đầm dùi không quá 1,5 bán kính tác dụng của đầm. Thời gian đầm khoảng 20-40s. Chú ý trong quá trình đầm tránh làm sai lệch khung móng.
+- Trong và sau khi đổ bê tông phải đầm đầm kỹ để có một khối chặt đồng đều
+- Phải đầm từ phí trong bê tông đầm ra
+- Trước khi thi công, máy đầm và sơ đồ bố trí đầm phải được Tư vấn giám sát kiểm tra và chấp thuận, máy đầm phải có khả năng truyền lục rung đầm tới bê tông với tần số không dưới 4500 xung lượng/ 1 phút. Cường độ đầm phải rõ, nhìn thấy được, để tác động được vào một khối bê tông có độ dâu 50mm, trong phạm vi bán kính ít nhất là 450mm;
+*/ Bảo dưỡng bê tông:
+Bảo dưỡng bê tông tức là thực hiện việc cung cấp nước đầy đủ cho quá trình thuỷ hoá của xi măng-quá trình đông kết và hoá cứng của bê tông. Trong điều kiện bình thường.Ngay sau khi đổ 4 giờ nếu trời nắng ta phải tiến hành che phủ bề mặt bằng để tránh hiên tượng ‘trắng bề mặt’ bê tông rất ảnh hưởng đến cường độ nhiệt độ 15oC trở lên thì 7 ngày đầu phải tưới nước thường xuyên để giữ ẩm, khoảng 3 giờ tưới 1 lần, ban đêm ít nhất 2 lần, những ngày sau mỗi ngày tưới 3 lần. Tưới nước dùng cách phun (phun mưa nhân tạo), không được tưới trực tiếp lên bề mặt bê tông mới đông kết. Nước dùng cho bảo dưỡng, phải thoả mãn các yêu cầu kỹ thuật như nước dùng trộn bê tông. Với sàn mái có thể bảo dưỡng bằng cách xây be, bơm 1 đan nước để bảo dưỡng. Trong suốt quá trình bảo dưỡng, không để bê tông khô trắng mặt.
+Bê tông sau khi tháo ván khuôn phải được bảo dưỡng giữ ẩm bằng cách che phủ và tưới  nước  theo đúng quy định;
+Bê tông phải được bảo dưỡng trong điều kiện có độ ẩm và nhiệt độ cần thiết để đúng rắn và ngăn ngừa các ảnh hưởng có hại trong quá trình đúng rắn của bê tông. Bảo dưỡng ẩm là quá trình giữ cho bê tông có đủ độ ẩm cần thiết để ninh kết và đúng rắn sau khi tạo hình. Phương pháp và quy trình bảo dưỡng ẩm, thực hiện theo TCVN 8828-2011 “Bê tông - Yêu cầu bảo dưỡng tự nhiên”;
+Các phương pháp bảo dưỡng và thời gian bảo dưỡng phải sao cho bê tông đảm bảo cường độ thiết kế và biến dạng ít nhất, không được để cho kết cấu bị co, bị đứt. Nếu cần sẽ bọc bê tông để duy trì 1 nhiệt độ thích hợp hoặc để tốc độ bay hơi trên các bề mặt bê tông được giữ ở những chỉ số thích hợp;
+Thông thường dựng phương pháp giữ nguyên ván khuôn tại chỗ và che đậy kín bề mặt bê tông chưa hình thành bằng các vật liệu như rơm, rạ, bao tải, cát hay vật liệu thấm hút nước và vật liệu này phải được giữ luôn luôn ẩm;
+
+#### 3.11.3.3. Thi công xây dựng móng cột.
+Sử dụng dụng cụ đào đất bằng thủ công như: Cuốc, xẻng, xà beng... để phá dỡ và đào đất bằng móng cột đèn, biển báo bằng thủ công, sử dụng xe rùa để vận chuyển đất, đá đã đào tập trung tại bãi thải của công trình, đảm bảo vệ sinh và an toàn giao thông. Sau khi đào xong hố móng thì đổ bê tông lót bằng thủ công. Khi bê tông lót đã đảm bảo yêu cầu kỹ thuật thì tiến hành công việc lắp dựng ván khuôn móng, sau đó đặt khung móng, sau khi hoàn thành công đoạn chuẩn bị thì tiến hành đổ bê tông móng bằng thủ công, sử dụng các biện pháp căn chỉnh sao cho vị trí khung móng ở tâm móng và dùng livô để căn móng thẳng đứng và cân bằng giúp cho việc lắp đặt cột dễ dàng. Sau thời gian nhất định thì tiến hành tháo ván khuôn móng cột... Sau cùng hoàn trả mặt bằng móng theo hiện trạng
+- Các đầu ren của khung móng phải được quấn nylong để tránh bê tông, đất đá bám vào đầu ren, khi lắp dựng cột thì bóc ra;
+Vị trí đặt móng cột cần tránh đặt trước cửa nhà dân;
+Vị trí móng cột đặt cách mép ngoài vỉa hè trong khoảng: 0,5-2m để hạn chế sự va quệt với phương tiện giao thông, ngoài ra vẫn phải đảm bảo được tầm nhìn, góc quan sát cho các phương tiện tham gia giao thông.
+
+#### 3.11.3.4. Thi công cọc tiếp địa
+*/ Lắp đặt hệ thống tiếp địa:
+- Kiểm tra bản vẽ sơ đồ mặt bằng bố trí các cọc tiếp đất, dây nối của tiếp địa với thực tế để bố trí cho phù hợp, tránh làm ảnh hưởng đến các công trình hạ tầng ngầm khác.
+- Độ chôn sâu của dây tiếp địa, khoảng cách, giải pháp nối tiếp địa Đơn vị thi công phải thực hiện đúng theo bản vẽ thiết kế.
+- Cọc tiếp địa phải đóng thẳng đứng, không làm cong vênh cọc tiếp địa.
+- Sau khi thực hiện xong công tác lắp đặt tiếp địa, Đơn vị thi công phải có trách nhiệm đo lấy số liệu điện trở tiếp địa và thông báo ngay cho Tư vấn giám sát và đơn vị thiết kế biết để xem xét có biện pháp xử lý trong trường hợp điện trở đất chưa đạt yêu cầu của qui định hiện hành.
+*/ Kiểm tra và nghiệm thu
++/ Tiêu chuẩn áp dụng thi công, kiểm tra và nghiệm thu
+- Tiêu chuẩn kỹ thuật mạ kẽm nhúng nóng cho các kim loại thành phẩm và bán thành phẩm TCVN 5408:2007.
++/ Dụng cụ kiểm tra
+Dụng cụ được dùng cho quá trình kiểm tra lắp đặt bao gồm:
+- Thước kẹp, thước mét.
+- Các Đồng hồ đo chuyên dụng.
+- Bản vẽ thiết kế và các sửa đổi được cấp có thẩm quyền chấp nhận.
+
+#### 3.11.3.5. Thi công lắp đặt cột camera
++/ Lắp, dựng cột :
+Toàn bộ các cột đèn tín hiệu phải được đặt trên bệ bêtông. Kích thước cụ thể của bệ bêtông tùy thuộc vào kích thước của từng loại cột đèn;
+Cột camera được lắp dựng bằng bằng xe cẩu, sau đó dùng thước Livo để hiệu chỉnh sự cân bằng cho cột;
+Các cột camera khi lắp dựng phải đảm bảo vị trí, độ cao lắp đặt của đèn là phù hợp, đảm bảo và đồng thời đảm bảo mỹ quan đô thị;
+Sau khi lắp dựng cột đèn, tủ điều khiển phải kiểm tra lại phương thẳng đứng của cột và tủ sao cho đảm bảo độ vuông góc 90o so với phương ngang mặt đất;
+Lắp ráp cột phải phù hợp với bản vẽ thiết kế. Chất lượng liên kết bu lông lắp ráp cột phải đảm bảo theo yêu cầu sau:
++ Kích thước quy cách bu lông, phải đúng thiết kế không cho phép lắp bu lông có đường kính nhỏ hơn vào lỗ liên kết không trùng tâm giữa 2 chi tiết ghép. Bu lông phải đi suốt và chật lỗ khoan liên kết.Trục bu lông phải thẳng góc với mặt phẳng liên kết và phần ren bu lông không được quá sâu vào phía trong hơn 1mm.
++ Đầu bu lông và đai ốc phải tiếp xúc chặt với mặt phẳng chi tiết liên kết và vòng đệm, phần nhô ra của bu lông không được nhỏ hớn 40mm và không lớn hơn 100mm.
++ Đai ốc phải xiết chặt và phải phá ren có độ sâu không lớn hơn 3 mm hoặc phải xiết thêm 1 đai ốc để chống tự tháo. Tại tất cả các đai ốc ở độ cao lớn 3m kể từ mặt đất phải dùng phương pháp phá ren để chống tự tháo.
++ Vòng đệm phải đặt dưới đai ốc từ một tới hai cái. Trường hợp phần ren bu lông không đủ dài để xiết chặt liên kết bu lông thì cho phép đặt thêm 1 vòng đệm ở đầu bu lông.
+Trước khi dựng cột phải kiểm tra thân cột có bị móp, méo, bong tróc lớp mạ kẽm hay nứt nẻ đường hàn quá qui định cho phép không. Công tác dựng cột phải thực hiện theo đúng phương pháp nêu trong hồ sơ dự thầu và phù hợp với thiết kế tổ chức thi công.
+Khi kiểm tra nhật ký công trình thi công móng và lắp ráp đã đảm bảo yêu cầu kỹ thuật, phần móng đã có biên bản nghiệm thu, thì người phụ trách thi công được phép ra lệnh dựng cột vào móng. Trước khi ra lệnh dựng cột, người phụ trách thi công phải cho tiến hành kiểm tra các hạng mục như sau:
+Kiểm tra móng, đo lại kích thước vị trí bu lông móng chân cột xem có sai lệnh so với tài liệu thiết kế không; phần ren bu lông móng có sạch và sứt vỡ không; đai ốc dễ vặn và tháo ra không;
+Kiểm tra chất lượng lắp ráp cột, chất lượng, mối hàn và độ xiết chặt bu lông, phá ren bu lông để chống tự tháo… nếu có thanh cột cong vênh phải nắn thẳng.
+Các phương án kỹ thuật lắp dựng cột phải tính toán khả năng chịu lực của cột và các chi tiết kết cấu thi công theo lực thi công để đảm bảo an toàn trong suốt quá trình lắp dựng cột không làm biến dạng hư hỏng cột.
+Những cột đặt trên móng bê tông cốt thép phải được cố định chặt bằng bu lông móng chân cột, đai ốc bu lông chân cột phải xiết chặt tới độ trượt và đột phá ren để chống hiện tượng tự tháo những độ sâu không quá 3 mm.
+Tại bu lông chân các cột phải đặt 2 đai ốc sau khi dựng cột, xiết chặt đai ốc phải được bao bê tông theo yêu cầu tài liệu thiết kế.
+Sau khi cột dựng phải tiến hành kiểm tra cột theo chiều thẳng đứng đảm độ nghiêng, độ lệch so với qui định cho phép.
++/ Kiểm tra, nghiệm thu:
+Tiêu chuẩn áp dụng thi công, kiểm tra và nghiệm thu:
+- Tiêu chuẩn quốc gia về lớp phủ kẽm nhúng nóng trên bề mặt sản phẩm gang và thép – Yêu cầu kỹ thuật và phương pháp thử TCVN 5408:2007.
+- TCXDVN:170:2007 Kết cấu thép-Gia công lắp ráp và nghiệm thu-Yêu cầu kỹ thuật.
+- TCVN1876-76; TCVN 1915-76; TCVN 1916-76: Gia công, chế tạo bulông đai ốc.
+Dụng cụ được dùng cho quá trình kiểm tra lắp đặt bao gồm:
+Thước kẹp, thước mét, thước dây và các thiết bị đo chuyên dụng khác.
+
+#### 3.11.3.6. Thi công lắp đặt camera, tủ kỹ thuật
++/ Công tác lắp đặt:
+Sau khi lắp dựng cột xong, sử dụng xe thang để lắp đặt camera, tủ kỹ thuật, luồn dây… vào cột;
+Kiểm tra việc bố trí camera, tủ kỹ thuật theo độ cao quy định của tài liệu thiết kế.
+Sau khi lắp đặt camera và điều chỉnh hướng camera sao cho đảm bảo tầm nhìn, góc quan sát là tốt nhất.
+*/ Kiểm tra và nghiệm thu công tác lắp khối gám sát giao thông, tủ kỹ thuật.
++/ Tiêu chuẩn áp dụng thi công, kiểm tra và nghiệm thu
+- Quy chuẩn kỹ thuật quốc gia về báo hiệu đường bộ QCVN 41:2024/BGTVT
++/ Dụng cụ kiểm tra
+Dụng cụ được dùng cho quá trình kiểm tra lắp đặt bao gồm:
+- Các thiết bị đo dòng, áp .....
++/ Nội dung kiểm tra.
+- Kiểm tra kết cấu đèn (kích thước, vật liệu... ) theo cataloge của nhà sản xuất.
+- Kiểm tra các thông số kỹ thuật về điện.
+- Kiểm tra hoạt động của đèn theo chế độ điều khiển của hệ thống.
+*/ Kiểm tra và nghiệm thu công tác lắp tủ kỹ thuật camera
++/ Tiêu chuẩn áp dụng thi công, kiểm tra và nghiệm thu
+Tiêu chuẩn áp dụng: TCVN 7994-1:2009 (IEC 60439-1:2004).
++/ Dụng cụ kiểm tra
+Dụng cụ được dùng cho quá trình kiểm tra lắp đặt bao gồm:
+- Các thiết bị đo dòng, áp .....
++/ Nội dung kiểm tra.
+- Kiểm tra kết cấu tủ điện (kích thước, vật liệu... ) theo hồ sơ thiết kế
+- Kiểm tra các thông số kỹ thuật về tủ kỹ thuật theo cataloge của nhà sản xuất.
+- Kiểm tra hoạt động của camera và tủ kỹ thuật.
+
+#### 3.11.3.7. Đấu nối và kiểm tra chạy thử hệ thống
+Khi hoàn tất công việc lắp dựng cột và  các thiết bị như camera, tủ kỹ thuật... Đơn vị thi công tiến hành đấu nối các cáp ngầm tín hiệu, cáp trong cột tại các vị trí cửa cột, đấu nối cáp điện.
+Khi đấu nối cáp điện cần theo sự hướng dẫn, giám sát của cán bộ kỹ thuật;
+Các đầu cáp phải được làm sạch bằng cồn, lau khô bằng gẻ sạch, sau đó tuốt dây bằng kìm tuốt dây, sử dụng kìm bóp cốt để bóp cốt. Sau khi các đầu cáp đã được làm bấm đầu cốt thì tiến hành đấu nối toàn bộ hệ thống và cuối cùng cho hệ thống chạy thử đơn động không tải với tủ điều khiển và cho hệ thống đèn chạy thử liên động có tải và tiến hành một số công tác hoàn thiện khác...
+Kiểm tra, chạy thử: Trước khi chạy thử, tất cả các công việc lắp đặt đấu nối phải được kiểm tra kỹ lưỡng lại. Sử dụng các thiết bị đo để kiểm tra việc đấu nối, tín hiệu.
+Tiến hành chạy thử hệ thống camera theo các bước: Chạy thử đơn động không tải tủ kỹ thuật, các Module ngoại vi; chạy thử liên động có tải toàn bộ hệ thống.
+3.11.3.8. Đào tạo, hướng dẫn vận hành và bàn giao đưa vào sử dụng.
+Đơn vị thi công phải thực hiện việc đào tạo chuyển giao công nghệ, hướng dẫn vận hành, bảo trì, bảo dưỡng hệ thống cho chủ đầu tư và đơn vị quản lý, vận hành hệ thống. Trong hướng dẫn vận hành có nêu các chức năng của các thiết bị, cách xử lý, thao tác khi hệ thống gặp sự cố.
+Sau khi kết thúc các công việc nêu trên, các bên hoàn thiện hồ sơ hoàn công công trình, các thủ tục có liên quan để tiến hành nghiệm thu công trình đưa vào sử dụng. theo hướng dẫn cụ thể tại Nghị định số 207/2026/NĐ-CP ngày15 tháng 6 năm 2026 của Chính phủ về Quy định chi tiết một số điều của Luật Xây dựng về quản lý chất lượng, thi công xây dựng và bảo trì công trình xây dựng. Và các văn bản có liên quan.
+3.12. Biện pháp đảm bảo an toàn giao thông đối với tuyến đường vừa thi công vừa khai thác
+Đơn vị thi công phải cam kết đảm bảo an toàn giao thông tuyệt đối trong suốt quá trình thi công, luôn tuân thủ tối đa mọi biện pháp để đảm bảo không xảy ra sự cố mất ATGT (có bản vẽ đảm bảo an toàn giao thông kèm theo).
+Do đặc điểm của tuyến đường vừa thi công vừa khai thác do đó công tác triển khai thi công có yêu cầu đặc biệt quan trọng đến việc đảm bảo giao thông cho các phương tiện tham gia giao thông trên tuyến.
+Để đảm bảo ATGT khi thi công trên tuyến, Đơn vị thi công phải nghiên cứu Hồ sơ thiết kế kỹ thuật được duyệt, tình trạng giao thông hiện tại trên tuyến và tham khảo các văn bản của bộ giao thông quy định như Quyết định số 04/2006/QĐ-BGTVT ngày 09/11/2006, Quyết định số 2525/2003/QĐ-BGTVT ngày 28/08/2003 làm căn cứ để lập biện pháp đảm bảo ATGT với các lưu ý và trình tự thực hiện như sau:
+Lập phương án đảm bảo giao thông trong khu vực thi thi công trong suốt thời gian thi công gửi các sở ban ngành liên quan để phối hợp thực hiện;
+Trên công trường bố trí cho các thiết bị thi công vào vị trí thích hợp để không làm ảnh hưởng đến giao thông chung của khu vực;
+Dựng các cờ hiệu, barie biển báo và các ghi chú cần thiết báo hiệu từ xa cho các phương tiện lưu thông biết có khu vực công trường đang thi công;
+Dựng các barie, biển báo và rào chắn tại công trường thi công để đảm bảo phương tiện lưu thông qua lại và công tác thi công được an toàn;
+Không, hoặc hạn chế tiến hành thi công vào giờ cao điểm (từ 7.00 giờ đến 8.00 giờ và từ 17.00 giờ  đến 18.00 giờ) đối với công tác thi công dưới đường như: Thi công sơn vạch kẻ đường, lắp dựng cột, đèn THGT, nhằm tránh ùn tắc giao thông cục bộ;
+Trong thời gian thi công cao điểm, Đơn vị thi công phải bố trí cán bộ làm nhiệm vụ hướng dẫn người dân để người dân đi qua khu vực thi công được an toàn, phối hợp với các sở ban ngành liên quan thực hiện phân luồng giao thông từ xa, tránh ùn tắc cục bộ trong thời gian thi công;
+Thi công cắt đường, hoàn trả mặt đường đến đâu thu dọn toàn bộ đất đá dư thừa đến đó, đổ đúng nơi quy định;
+Những rãnh cáp chạy qua trước mặt nhà dân, khi chưa thi công xong phải đặt tấm gỗ hoặc thép dày để tạo nối đi cho dân;
+Những Hố đào khi chưa thi công xong phải quây rào chắn, đánh dấu bằng những vật dễ nhận biết, ban đêm phải có đèn chiếu sáng để tránh đi vào;
+Vật liệu tập kết về thi công đổ gọn về một phía, phần đường còn lại phải đủ rộng cho phương tiện giao thông qua lại được;
+Đơn vị thi công chịu trách nhiệm hoàn toàn về việc đảm bảo giao thông cho mọi phương tiện qua lại trên công trường 24/24h;
+Quy định bãi tập kết máy móc, vật liệu gọn gàng và đúng vị trí quy định. Tổ chức cung ứng vật tư, vật liệu ngày nào gọn ngày ấy;
+Thường xuyên nhắc nhở, giáo dục lực lượng lái xe trên công trường chấp hành luật lệ giao thông.
+
+### 3.12.1. Trước khi thi công
+a.  Làm thủ tục pháp lý xin cấp phép thi công.
+Đơn vị thi công phải gửi tới cơ quan quản lý đường bộ có thẩm quyền các hồ sơ liên quan gồm: Quyết định duyệt dự án, hồ sơ thiết kế thi công được duyệt, biện pháp tổ chức thi công đảm bảo ATGT để cơ quan quản lý đường bộ xem xét, thảo luận bằng văn bản biện pháp tổ chức đảm bảo ATGT khi thi công.
+a.1. Nhận bàn giao mặt bằng thi công
+- Sau khi nhận được giấy phép thi công, Đơn vị thi công phải làm các thủ tục nhận bàn giao mặt bằng thi công từ Cơ quan quản lý đường bộ. Kể từ ngày nhận bàn giao mặt bằng, Đơn vị thi công trách nhiệm quản lý và đảm bảo giao thông êm thuận, thông suốt, ATGT trên suốt phạm vi được ban giao.
+a.2. Thông báo trên các phương tiện thông tin đại chúng về kế hoạch thi công
+- Sau khi nhận bàn giao mặt bằng thi công từ cơ quan quản lý đường bộ, Đơn vị thi công phải thông báo kế hoạch thi công trên phương tiện thông tin đại chúng như loa phát thanh của xã, phường, trong thời gian 03 ngày liên tục mỗi ngày 01 lần để các cá nhân, tổ chức tham gia giao thông được biết và có kế hoạch tổ chức thực hiện.
+a.3.Lắp đặt biển báo thông tin dự án
+- Kết hợp với việc thông báo kế hoạch thi công trên các phương tiện thông tin đại chúng, Đơn vị thi công phải cho lắp đặt biển báo thông tin về dự án tại 2 đầu phạm vi thi công gói thầu. Nội dung trên biển tuân thủ đúng biển báo số 441 - Điều lệ BHĐB 22TCN 237-01 bao gồm: Phạm vi thi công, tên dự án, đơn vị thi công, thời gian thi công.
+
+### 3.12.2. Trong khi thi công
+a. Thời gian thi công
+- Căn cứ khối lượng công việc theo tiến độ cam kết với chủ đầu tư và tình hình giao thông hiện tại trên tuyến theo từng thời điểm trong ngày, Đơn vị thi công phải bố trí thời gian thi công hợp lý, phù hợp với tình hình giao thông hiện tại như: Vào giờ cao điểm chúng tôi sẽ bố trí các công việc phù hợp như thi công gia công cốt thép, đổ các cấu kiện bêtông đúc sẵn ... Khi thi công các hạng mục có tiếng ồn lớn trong khu dân cư sẽ bố trí thi công tránh vào các giờ nghỉ ngơi.
+- Trong suốt thời gian thi công Đơn vị thi công phải bố trí người cảnh giới hướng dẫn giao thông, khi ngừng thi công Đơn vị thi công sẽ bố trí biển báo hiệu an toàn theo quy định như: Biển chỉ dẫn, cờ và đèn đỏ vào ban đêm... Người cảnh giới hướng dẫn giao thông phải đeo băng đỏ bên tay trái, được trang bị cờ, còi, đèn vào ban đêm.
+b. Bố trí mặt bằng thi công
+- Để đảm bảo ATGT cho các phương tiện khi tham gia giao thông Đơn vị thi công phải bố trí mặt bằng thi công hợp lý nhịp nhàng như: Vị trí, chiều dài từng phân đoạn thi công nền, móng, mặt đưòng, các hạng mục thi công…
+- Đơn vị thi công phải bố trí sơ đồ vị trí máy móc dây chuyền thi công nhằm làm giảm diện tích chiếm dụng mặt bằng, đảm bảo cho các phương tiện đi lại an toàn, thuận lợi.
+c. Dọn dẹp mặt bằng sau khi thi công xong:
+- Đơn vị thi công phải bố trí sơ đồ vị trí máy móc dây truyền thi công nhằm làm giảm diện tích chiếm dụng mặt bằng nhất, đảm bảo các phương tiện đi lại an toàn, thuận lợi.
+d. Trang thiết bị phương tiện đảm bảo ATGT trong khi thi công
+- Các loại vật tư thiết bị phục vụ công tác đảm bảo ATGT, Đơn vị thi công sẽ bố trí đầy đủ nhân lực theo qui định theo điều lệ BHĐB 22TCN 237-01.
+- Trong thời gian thi công phải cử người cảnh giới hướng dẫn giao thông, khi ngừng thi công bố trí biển báo hiệu an toàn như: biển chỉ dẫn, cờ, đèn quay vào ban đêm.
+- Đối với người cảnh giới hướng dẫn giao thông sẽ phải đeo băng đỏ bên tay trái, được trang bị cờ, còi và trang phục bảo hộ lao động trên công trường.
+- Hệ thống rào chắn bằng cọc tre sơn trắng đỏ theo đúng điều lệ, các loại cọc tiêu di động làm bằng tiêu chóp nón cao su sơn phản quang.
+e. Vật liệu khi thi công
+- Đối với vât liệu thi công Đơn vị thi công phải đưa ra đường đủ dùng từ 2 đến 3 đoạn thi công và chiều dài để vật liệu không kéo dài quá 300m.
+- Vật liệu được tập kết ở một bên lề đường, không được để song song cả 2 bên làm thu hẹp nền đường, mặt đường. Và quán triệt đến tất cả các cán bộ kỹ thuật thi công ngoài hiện trường nghiêm cấm cho đổ các loại vật liệu tràn lan làm cản trở và mất ATGT.
+- Sau khi thi công xong mỗi hạng mục các vật liệu thừa phải được dọn dẹp sạch, không để vật liệu rơi vãi gây mất ATGT.
+g. Máy móc thi công
+- Các xe máy thi công trên đường Đơn vị thi công phải bố trí đầy đủ thiết bị an toàn và sơn màu theo qui định.
+- Ngoài giờ thi công, xe máy được tập kết vào bãi. Trường hợp không có bãi thì cho xe để sát lề đường nơi dễ phát hiện và có báo hiệu.
+- Khi có xe máy hư hỏng đột xuất Đơn vị thi công phải tìm cách đưa sát vào lề đường và có báo hiệu theo qui định.
+3.13. Biện pháp an toàn lao động, PCCC và vệ sinh môi trường
+Biện pháp đảm bảo an toàn và vệ sinh môi trường.
+Các phương án thi công chi tiết của Đơn vị thi công cần có các biện pháp bảo vệ an toàn cho các lực lượng thi công, cho nhân dân địa phương và các công trình đã có ở nơi xây dựng;
+Đơn vị thi công cần lập phương án thi công, phương án an toàn lao động để đảm bảo thông tin liên lạc, an toàn tuyệt đối cho người và thiết bị;
+Trong quá trình thi công, tuân thủ đúng quy trình an toàn lao động của ngành và nhà nước ban hành;
+Phải có biển báo hiệu “ CÔNG TRƯỜNG” trong quá trình thi công;
+Trong quá trình thi công phải liên hệ chặt chẽ với các đơn vị như: Điện lực, nước, bưu chính viễn thông để thông tin và và đưa ra các biện pháp xử lý cụ thể khi có sự cố liên quan tới các công trình ngầm;
+Trong quá trình thi công không để vật tư ngổn ngang trên hè và đường gây ách tắc giao thông và ảnh hưởng đến vệ sinh chung. Hoàn chỉnh thi công đến đâu, thu dọn vật tư thiết bị đến đó, những vật tư không còn sử dụng được tập kết đến nơi quy định;
+Khi sử dụng điện phải có dụng cụ an toàn về điện;
+Không được thi công trong điều kiện thời tiết mưa giông, gió bão…;
+Lái xe, lái máy và công nhân xây dựng cần được tập huấn về an toàn trước khi thi công, đặc biệt trong điều kiện cần sự phối hợp giữa các lực lượng cơ giới và thủ công. Mọi lao động cần tuân thủ chặt chẽ nguyên tắc an toàn trong quá trình thi công;
+Ô tô vận chuyển vật liệu xây dựng cần có bạt che, qua khu dân cư phải tưới nước thường xuyên để giảm bụi. Thời gian vận chuyển nên bố trí tránh giờ cao điểm ở những khu vực có mật độ giao thông cao Cần khảo sát lựa chọn bãi đất đá phế thải cho phù hợp, tránh làm hại đến cây cối, đất đai, hoa màu, nguồn nước sinh hoạt của nhân dân địa phương.
+Đảm bảo vệ sinh nơi làm việc, nơi ăn ở, nguồn nước, vệ sinh thực phẩm không gây ô nhiễm, không để dịch bệnh xảy ra…;
+a. Trước khi thi công:
+Công trình trước khi thi công phải có đầy đủ thủ tục về xây dựng cơ bản theo quy định của nhà nước, có đầy đủ giấy phép thi công, hoặc văn bản thỏa thuận với chính quyền địa phương, có phương án thi công và có các phương án đảm bảo an toàn lao động ;
+Các đội tổ khi nhận công trình tổ chức thi công phải khảo sát nắm vững các yêu cầu về kỹ thuật xây lắp trên công trình về địa hình và bố trí kho tàng, phân rải nguyên vật liệu, nơi ăn ở cho các cán bộ nhân viên;
+Đơn vị thi công phải tổ chức phổ biến đầy đủ các yêu cầu về xây lắp, phương án thi công, biện pháp làm việc an toàn cho công nhân viên, nắm vững địa điểm công trình khi thi công;
+Đối với công nhân mới tuyển, sinh viên thực tập, nhân công thuê mướn… đơn vị sử dụng phải tổ chức huấn luyện về kỹ thuật an toàn và phổ biến đầy đủ yêu cầu công việc phải làm trên công trường mới được giao việc;
+Bố trí lán trại, nơi ăn ở cho công nhân trên công trường phải được thuận lợi cho đi lại, làm việc và có kế hoạch đảm bảo an toàn vệ sinh phòng hỏa, phòng dịch, chống mưa bão trên công trường.
+b. Trong khi thi công:
+Cán bộ nhân viên hàng ngày khi bắt tay vào làm việc phải kiểm tra lại chất lượng, độ bền vững của vật liệu dụng cụ thi công, trang bị bảo hộ lao động, chú ý phải loại bỏ những cái hư hỏng;
+Công nhân trước khi bắt tay vào làm việc phải kiểm tra lại công việc được phân công đảm bảo được an toàn, nếu thấy công việc mình được phân công mà vi phạm kỹ thuật an toàn, có nguy cơ gây tai nạn thì kiến nghị với chỉ huy công trường xét lại công việc được giao và có biện pháp an toàn thì mới làm việc;
+Những công việc nhọc nhằn cần nhiều người làm việc trong một thời gian thì đội, tổ phải bố trí người cân xứng với vật nặng, sắp xếp vị trí phù hợp với sức khỏe công nhân và nhất thiết có người điều khiển;
+Trên công trường những nơi thi công đặc biệt, yêu cầu kỹ thuật phức tạp, phải có phương án thi công cụ thể, cán bộ kỹ thuật viên an toàn phải tăng cường công việc giám sát kiểm tra thường xuyên việc chấp hành nghiêm chỉnh kỹ thuật an toàn.
+c. Sau khi thi công:
+Sau một ca làm việc công nhân phải kiểm tra lại công việc đang làm dở, các dụng cụ làm việc có hư hỏng không, những chướng ngại trên công trường phải được ghi chú và bàn giao lại cho ca sau đầy đủ
+Sau một tuần làm việc phải kiểm điểm công tác đồng thời việc kiểm điểm chấp hành nội quy, quy phạm kỹ thuật an toàn để rút kinh nghiệm cho tuần sau;
+Công tác thu dọn trên công trường phải được tổ chức phân công bố trí lao động chặt chẽ, không khoán trắng cho công nhân làm việc tùy tiện dễ gây tai nạn.
+An toàn phòng cháy nổ.
+Các kho tàng, lán trại nhà bếp, các trang bị chữa cháy thông thường ( Bình chữa cháy, cát, thùng chứa nước);
+Tổ chức phổ biến cho cán bộ công nhân làm việc trên công trường nội quy an toàn lao động PCCC;
+Khi cháy nổ xảy ra phải tiến hành các công việc một cách khẩn trương như sau:
+Báo cháy;
+Cắt nguồn điện nơi xảy ra cháy;
+Cứu người bị nạn và tổ chức thoát hiểm và di chuyển tài sản ra khỏi vùng cháy;
+Tổ chức lực lượng, sử dụng các phương tiện các biện pháp chữa cháy tại chỗ;
+Gọi điện báo cho lực lượng chữa cháy chuyên ngành 114;
+Bảo vệ, ngăn chặn phần tử xấu lợi dụng chữa cháy để lấy cắp tài sản giữ gìn an ninh trật tự để phục vụ chữa cháy;
+Hướng dẫn đường, nơi đỗ xe, nguồn nước cho lực lượng chữa cháy chuyên nghiệp;
+Phối hợp chặt chẽ với các lực lượng chữa cháy chuyên nghiệp;
+Bảo vệ hiện trường cháy sau khi dập tắt đám cháy.
+3.14. Bảo dưỡng, bảo trì công trình xây dựng.
+Bảo dưỡng, bảo trì công trình xây dựng.
+Tránh để các vật liệu dễ cháy nổ gần các tủ điều khiển;
+Định kỳ 12 tháng/lần kiểm tra siết lại các cầu đấu dây điện, siết lại ốc bắt dây ở Acquy, vệ sinh, lau chùi thân và mặt kính đèn nếu bị bụi bẩn;
+Phát quang cành cây.
+3.15. Khối lượng công trình.
+Bảng tổng hợp thiết bị vật tư chính (chi tiết có trong bảng tổng hợp khối lượng - Dự toán công trình).
+3.16. Tổng dự toán.
+Dự toán được lập theo giá vật liệu mới nhất theo công bố giá của liên Sở Xây dựng - Sở Tài chính, camera, tủ kỹ thuật, cột thép mạ kẽm núng nóng, biển báo hiệu được lấy theo chứng thư thẩm định giá và kết hợp các nguồn thông tin khác. (chi tiết có trong tập dự toán).
+3.17. Tiến độ triển khai dự án.
+
+[TABLE]
+| Stt | Tên côngviệcTháng/năm / Tên côngviệc / Tháng/năm | Năm 2026 | Năm 2027
+| 1 | Lập Báo cáo kinh tế kỹ thuật |  | 
+| 2 | Trình duyệt Báo cáo kinh tế kỹ thuật |  | 
+| 3 | Thi công xây lắp |  | 
+| 4 | Nghiệm thu bàn giao công trình |  | 
+[/TABLE]
+
+3.18. Phân tích hiệu quả đầu tư và tác động đến môi trường.
+Nâng cao năng lực quản lý, vận hành, khai thác và bảo trì kết cấu hạ tầng đường bộ.
+Nâng cao ý thức tuân thủ pháp luật của người tham gia giao thông.
+3.19. Kết luận và kiến nghị.
+Qua phân tích và đánh giá thực trạng cũng như giải pháp tổ chức giao thông cho thấy việc đầu tư xây dựng công trình: Ứng dụng khoa học công nghệ trong quản lý vận hành Quốc lộ 5 theo Kế hoạch bảo trì năm 2026 là rất cần thiết và cấp bách.
+Để giảm tối đa nguồn vốn đầu tư, và tạo điều kiện cho công nghiệp trong nước phát triển, đề nghị sử dụng tối đa các vật tư, thiết bị sản xuất trong nước, để đảm bảo an toàn và an ninh thông tin máy chủ (server) và phần mềm quản lý điều khiển giao thông, camera phải đặt tại Việt Nam;
+Trong quá trình triển khai dự án có thể có một số thay đổi nhỏ, đề nghị cho phép có những điều chỉnh nhỏ về khối lượng trong một số hạng mục của dự án;
+Đơn vị tư vấn thiết kế kính trình Chủ đầu tư duyệt làm cơ sở để triển khai thi công, hoàn thành công trình sớm đưa vào khai thác sử dụng.
+
+[TABLE]
+| ĐƠN VỊ TƯ VẤN THIẾT KẾ | NGƯỜI LẬP / Trần Xuân Cửu
+[/TABLE]
+

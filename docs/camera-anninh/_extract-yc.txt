@@ -1,0 +1,157 @@
+
+1. Phần mềm quản lý camera (VMS)
+Phần mềm VMS đóng vai trò là trung tâm của hệ thống camera, đảm bảo phù hợp với các mô hình, quy định chung của Bộ Công an, có các tính năng cơ bản sau:
+
+Quản trị các kiện kèm theo các dữ liệu hình ảnh từ các camera thông minh: cắt vạch, vào ra vùng, đếm đối tượng, chuyển động, đồng bộ vị trí lắp đặt trên bản đồ số, thời gian sự kiện, chủng loại sự kiện, cảnh báo.
+
+Quản lý, phân quyền, cấu hình chức năng của các thiết bị giám sát (camera), vùng zoom phóng, đi tuần, nhận dạng, phát hiện sự kiện theo địa hình vị trí lắp đặt.
+
+Theo dõi trực tiếp, lưu trữ video, tìm kiếm, cảnh báo, điều khiển, quản lý thiết bị camera. 
+Cho phép truy cập hình ảnh, video qua giao diện các phần mềm xử lý vi phạm, theo dõi an ninh, tìm kiếm theo thời gian, địa điểm, các đặc trưng đối tượng (biển số xe, định danh mặt, màu áo, mũ, giày, đặc trưng hình thể...).
+
+Có tích hợp các phần mềm khác để cung cấp tính năng rộng hơn như phần mềm phân tích AI, gửi tin nhắn cho đội tuần tra theo loại hình vi phạm, vị trí hoặc cảnh báo lên các lớp bản đồ.
+
+Dễ dàng mở rộng luồng camera khi thiết bị cần (chỉ cần mua thêm bản quyền kết nối).
+
+Quản trị ghi hình, thiết bị, quy tắc, lịch trình và quyền người dùng.
+
+Quản lý cảnh báo.
+
+Hỗ trợ số lượng lớn người dùng đồng thời.
+
+Hỗ trợ MJPEG, H.264 và H.265.
+
+Hỗ trợ bản đồ.
+
+Hỗ trợ Multicast.
+
+Hỗ trợ đa ngôn ngữ.
+
+Bản quyền phần mềm vĩnh viễn.
+
+Kết nối và cho phép mở rộng, nâng cấp lên hàng nghìn camera.
+
+
+2. Phần mềm phân tích hình ảnh thông minh (AI)
+Phần mềm phân tích hình ảnh thông minh có các tính năng cơ bản sau:
+
+Kiến trúc: Microservice, khả năng mở rộng thông qua các hệ thống tính toán song song, tải nặng cao.
+
+Kết nối luồng video từ quản lý video VMS hoặc file, phân tích trực tiếp trích xuất các đối tượng ao thôn và các thủ tính ưu tiên.
+
+Các đặc trưng công việc (màu sắc bộ phận, mặt người). Bao gồm các mô dun sau:
+
+Nhận dạng khuôn mặt.
+
+Nhận dạng cơ thể và hình bóng.
+
+Phát hiện tụ tập, nhóm.
+
+Phát hiện và đếm đầu người.
+
+Truy vết trên mạng lưới camera.
+
+Theo dõi ùn tắc những nơi công cộng bằng cách đếm người/phương tiện trong khu vực giám sát và gửi thông báo tương ứng: Xác định sự tích của các nhóm người/phương tiện ở các khu vực khác nhau. Thu thập và phân tích các chuyển động của người/phương tiện. Phân tích dự đoán. Gửi thông báo.
+
+Tìm kiếm đối tượng (con người, phương tiện) trong cơ sở dữ liệu thông qua hình ảnh thu được từ camera hoặc file video từ nguồn dữ liệu khác đưa vào hệ thống phần mềm để phân tích đưa ra dữ liệu yêu cầu với nhiều tiêu chí tùy biến.
+
+Tìm kiếm đối tượng (con người, phương tiện) trong video lưu trữ của toàn bộ hệ thống camera.
+
+Phát hiện đối tượng: con người, phương tiện, động vật.
+
+Xác định các thuộc tính của cơ thể người trong hình ảnh:
+
+Xác định giới tính và tuổi tác.
+
+Xác định chiều dài tay áo.
+
+Xác định màu phần trên thân (hơn 10 màu sắc).
+
+Xác định màu của phần dưới cơ thể.
+
+Xác định loại của quần.
+
+Xác định của sự hiện diện và màu sắc của mũ nón.
+
+Xác định của hiện diện của một chiếc ba lô.
+
+Xác định màu giày.
+
+Nhận diện các đặc tính của phương tiện tham gia giao thông: loại phương tiện, màu sắc, hãng sản xuất.
+
+Nhận diện phương tiện: loại xe, chủng loại, biển số, kích cỡ, xe thuộc dịch vụ khẩn cấp.
+
+Nhận diện biển số phương tiện:
+
+Mật độ điểm ảnh trên biển số ô tô >200ppm, xe máy >300ppm.
+
+Xác định nhãn hiệu, mác hãng sản xuất.
+
+Khả năng nhận động biển số chính xác 95% vào ban ngày; 80% vào ban đêm (trong điều kiện vị trí camera được lắp đặt, môi trường quan sát thuận lợi để nhận diện biển số).
+
+Đo đếm lưu lượng phương tiện, đo tốc độ phương tiện, cảnh báo đua xe, vượt tốc độ.
+
+Truy vết đối tượng.
+
+Báo cáo thống kê.
+
+Quản lý, phân quyền người dùng.
+
+Quản lý dữ liệu.
+
+Tích hợp, chia sẻ dữ liệu các thông tin khác (Bộ Công an, IOC của tỉnh).
+
+Bản quyền phần mềm vĩnh viễn.
+
+Có khả năng kết nối cho hàng ngàn luồng camera đồng thời, 100000 mặt người trong CSDL tìm kiếm.
+
+
+3. Phần mềm giám sát xử lý vi phạm trật tự an toàn giao thông
+Phần mềm đảm bảo phù hợp với các quy định theo Thông tư 75/2020 của Bộ Công an, phù hợp luật về phần mềm với các ưu điểm của giám sát và xử lý vi phạm trật tự an toàn giao thông đường bộ.
+
+Phần mềm có khả năng nâng cấp, mở rộng tính năng khi yêu cầu của người dùng, khi đó chỉ bổ sung tính năng chứ không cần thay đổi kiến trúc phần mềm.
+
+Phần mềm có các tính năng cơ bản sau:
+
+Kết nối luồng video quản lý video VMS.
+
+Kết nối luồng video từ thiết bị giám sát vi phạm.
+
+Giám sát: Giám sát tổng thể, Giám sát camera trên bản đồ số.
+
+Xử lý vi phạm giao thông: Xác minh vi phạm, In phiếu phạt, Tìm kiếm vi phạm.
+
+Quản lý phương tiện: Quản lý danh sách đen, danh sách trắng; Cảnh báo xuất hiện phương tiện trong danh sách theo dõi; Tìm kiếm phương tiện.
+
+Báo cáo thống kê.
+
+Quản lý, phân quyền người dùng.
+
+Quản lý cơ sở dữ liệu.
+
+Tích hợp, chia sẻ dữ liệu với các hệ thống khác (C08, đăng kiểm).
+
+Bản quyền phần mềm vĩnh viễn.
+
+
+4. Phần mềm bảo đảm an toàn hệ thống thông tin
+Phần mềm quản lý kiện an toàn thông tin:
+
+Năng lực xử lý: 100 node (thiết bị và máy chủ).
+
+Cho phép thu thập nhật ký an ninh bao gồm các loại như: thiết bị mạng (Router, Switch...), thiết bị an ninh (Firewall, IDS/IPS), hệ điều hành (Operating systems).
+
+
+Phần mềm giám sát hiệu năng mạng:
+
+License perpetual cho 500 port mạng.
+
+
+Phần mềm quản trị tường lửa CSDL:
+
+Hỗ trợ các hệ quản trị CSDL SQL, nonSQL: Oracle, MS SQL.
+
+Phát hiện cảnh báo và ngăn chặn các cổng CSDL tại mức OS, giao thức và các hành động SQL trái quyền trong thời gian thực.
+
+Hỗ trợ khả năng sẵn sàng cao.
+

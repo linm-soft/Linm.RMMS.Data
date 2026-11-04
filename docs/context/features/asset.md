@@ -18,6 +18,12 @@
 | DoD ngắn | API CRUD + nearby/bbox + media presign + QR + import + soft delete + tenant |
 | List pack DoD | Kind B shell · search work · row menu · View readonly · Create/Edit/Copy · BE `api/v1/so-ts/road-assets` |
 
+## 1b. Tách service (2026-11-03)
+
+Tài sản ra `Linm.RMMS.AssetService`. Dữ liệu hiện tại chỉ từ import file. Host `linm_rmms` **drop** bảng asset, không copy. Service mới import lại.
+
+Tuần đường và tuần kiểm không đi theo tài sản. Chúng ở `Linm.RMMS.WebService`.
+
 ## 2. Design / UI
 
 | Screen | Pattern | Zones | Map guide |

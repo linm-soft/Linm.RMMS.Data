@@ -37,3 +37,10 @@ specs/asset-hub/qa/screens/_maestro_android/android/logs
 docs/plan/release-mobile/store/out
 local-script/
 ai-model/
+
+# Bộ train local (ảnh + nhãn YOLO). Giữ data/NGUON.md và classes.txt.
+data/_cache/
+data/tai-san/**/images/
+data/tai-san/**/labels/
+data/su-co/**/images/
+data/su-co/**/labels/

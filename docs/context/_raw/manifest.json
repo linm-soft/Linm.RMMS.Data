@@ -2,9 +2,9 @@
   "schema": "docs-scan-cache-v1",
   "docsRoot": "D:\\AI-QLBD\\Linm.RMMS.Data\\docs",
   "createdAt": "2026-08-01T09:05:15.384Z",
-  "updatedAt": "2026-10-04T22:44:15.029Z",
-  "lastConsumeAt": "2026-10-04T22:44:15.029Z",
-  "lastConsumeSkill": "docs-scan-cache",
+  "updatedAt": "2026-10-27T16:10:00.000Z",
+  "lastConsumeAt": "2026-10-27T16:10:00.000Z",
+  "lastConsumeSkill": "hey-linm",
   "files": {
     "context/01-PLATFORM-OVERVIEW.md": {
       "sha256": "147bf65cb07ca1fe0f71aa5c74494c716ff9a763501aacb2510e9f35cff2d5e2",
@@ -546,6 +546,16 @@
       "rawPath": "context/_raw/files/tinh-nang__tuan-duong-tuan-kiem__Bao_cao_chuc_nang_nhiem_vu_cong_tac_tuan_kiem.docx.v1.20261004T224415Z.txt",
       "status": "active",
       "hashMode": "sha256"
+    },
+    "tinh-nang/Thuyet minh BCKTKT - A4 27-10.docx": {
+      "sha256": "b223b5183229b20a67bfd962ffc9f495f3a89b1c7da4d5167d29cba112581db6",
+      "mtimeMs": 1793116558266,
+      "size": 521104,
+      "version": 1,
+      "scannedAt": "2026-10-27T15:55:58.000Z",
+      "rawPath": "context/_raw/files/tinh-nang__Thuyet-minh-BCKTKT-A4-27-10.docx.v1.20261027T155558Z.txt",
+      "hashMode": "sha256",
+      "status": "active"
     }
   }
 }

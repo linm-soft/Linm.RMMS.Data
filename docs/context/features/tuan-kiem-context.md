@@ -4,7 +4,7 @@
 > **Status:** Implement `in_progress` — chưa `done`  
 > **Command:** `/implement-tuan-kiem-context`  
 > **MFE phone:** `Linm.Web.RMMS.Mobile` · **MFE báo cáo:** `Linm.Web.RMMS.Report`  
-> **BE:** `Linm.RMMS.WebService` · domain Patrol + Incident · **cấm ERP.***  
+> **BE:** `Linm.RMMS.WebService` · domain Patrol + Incident · **ở lại service gốc** · không sang Field · **cấm ERP.***  
 > **Luật:** Thông tư 41/2024 Điều 20 · Phụ lục VIII mục II · sửa bởi Thông tư 72/2025 Điều 17  
 > **Peer đã xong:** `web-rmms-mobile-a` … `e` · `web-rmms-cam-finding` · `web-rmms-incident` · `rpt-tuan-kiem` · `rpt-nhat-ky-tuan-kiem`
 

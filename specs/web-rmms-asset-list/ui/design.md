@@ -113,15 +113,15 @@ optional entry from KCHT: ?type={code} passthrough only · no type picker UI
 | navBack | AL-01 | Button/Nav | * | → Hub · `assetList.nav.back` |
 | pageTitle | AL-02 | Text RO | * | `assetList.title` |
 | search | AL-03 | Text/Search | * | `GET asset/road-assets?search` |
-| listRow | AL-04 | ListRow | * | Code/Type/Route · tap → detail |
+| listRow | AL-04 | ListRow | * | Tên tài sản · tên loại (`assetTypeLabel`) · mã · tuyến · tap → detail |
 | page | AL-04 | Pager | * | `page`/`pageSize` |
 | emptyState | AL-05 | Empty | empty | `assetList.empty` |
 | errorRetry | AL-05 | Button | error | reload GET · **cấm** alert |
 | rowTap | AL-06 | Button/Nav | * | → `?id={id}` |
 | detailBack | AL-10 | Button/Nav | * | → list · clear id |
-| detailTitle | AL-10 | Text RO | * | `assetList.detail.title` / Code |
+| detailTitle | AL-10 | Text RO | * | Tên tài sản · fallback mã |
 | field.code | AL-11 | Text RO | * | `GET …/{id}` |
-| field.type | AL-11 | Text RO | * | same |
+| field.type | AL-11 | Text RO | * | Tên loại từ `Type` · không hiện mã `KM_POST` |
 | field.route | AL-11 | Text RO | * | same |
 | field.kmFrom | AL-11 | Text RO | * | same |
 | field.kmTo | AL-11 | Text RO | hide-null | same |

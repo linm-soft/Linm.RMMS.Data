@@ -97,6 +97,18 @@
 | **DES-MOB-SUPERVISE** | screen owner | Screen | peer `#sc-supervise` |
 | **DES-MOB-SUP-DETAIL** | screen owner | Screen | peer `#sc-supervise-detail` |
 | **DES-MOB-SUP-FILTER** | sheet | Modal/sheet | Tuyến · Ngày · Áp dụng · Xóa lọc |
+| **SUP-09** | header totals | 3 cột Khu quản lý · Văn phòng · Phòng/Công ty | `summary` trên GET `patrol/check-ins` · số nhóm + điểm · người |
+| **SUP-10** | group cards | Khi quyền trải hơn một nhóm | card theo mức khu / văn phòng / phòng · query `group` lọc list ở BE |
+| **SUP-11** | `/giam-sat/ban-do-camera` | Bản đồ camera + sheet | `GET cameras` · search/page trên API |
+| **SUP-12** | `/giam-sat/tai-san` | Dashboard số lượng theo loại | `GET gis/summary-by-type` · mở list `?type=` |
+
+### Camera map + asset dashboard (2026-10-27)
+
+`/edit-web-mobile`: SUP-11 `/giam-sat/ban-do-camera` binds `GET cameras` (search + page on API). SUP-12 `/giam-sat/tai-san` binds `GET gis/summary-by-type` with asset icon + count; tab Danh sách / Bản đồ. Tab Bản đồ mở `/ban-do` (cùng màn Bản đồ tài sản, chỉ lớp tài sản). A type opens `/tai-san/danh-sach?type=`. Không nhóm theo khu/công ty trên dòng tài sản. Home quản lý mở hai màn riêng. Màn Giám sát tuần đường không còn nút sang camera hay tài sản. Quay lại từ hai màn đó về trang chủ.
+
+### Header tổng hoạt động (2026-10-26)
+
+Dưới segment: SUP-09 đếm nhóm theo khu, văn phòng, phòng/công ty. Bấm một cột (SUP-10, cao tối đa 36vh) mở tên đầy đủ; Thu gọn nhỏ bên phải. Đang lọc nhóm thì kèm Xóa lọc, kể cả khi đã thu gọn. Văn phòng nhóm theo khu. Phòng/công ty nhóm Khu quản lý (`masterName`) rồi Văn phòng (`parentName`). Bấm một tên gửi `group`. Card điểm tuần hiện khu, văn phòng, và tên phòng/công ty không nhãn. Tuyến hiện tên danh mục. Bộ lọc đã áp dụng nằm trong session theo user, hết hạn 4 giờ hoặc sang ngày.
 
 ### IA
 

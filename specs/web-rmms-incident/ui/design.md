@@ -238,6 +238,8 @@ Create body **giữ Live:** Title · RouteName · IncidentType · Status · Requ
 | Dev | `/agent-dev` · bỏ `disabled={!canCreate}` · banner + GPS on-submit · capture giữ · BFF `:5202` |
 | QA | always-on Create · banner keys · GPS deny click · no fake · no web-bff · e2e queued |
 
+Header danh sách: ba cột Khu quản lý, Văn phòng, Phòng/Công ty. Bỏ banner hướng dẫn QL_HAT.
+
 ## Version meta
 
 `skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:d753df685c7334cda81339c1c6daccaa3463c4e8c6350eaff5562a6e41584015` · `rulesVersion=2026.09.25.2` · `updatedAt=2026-09-27T12:26:00.000Z` · `design_confirm=approve` · `autoApprove=ON` · `taskId=task_7da17034`
