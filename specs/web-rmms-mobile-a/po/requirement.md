@@ -225,3 +225,7 @@ Back trên Chi tiết ca về đúng danh sách đã mở hàng (Hôm nay hoặc
 ## Version meta
 
 `skillVersion=2026.09.05.03` · `schemaVersion=1` · `workflowVersion=2026.09.19.02` · `rulesVersion=2026.09.27.1` · `contentHash=sha256:110e845481b0f27091c0f5ca856fef74524bc1634ab8e3785a5d7755730eea45` · `writtenAt=2026-09-27T06:55:00.000Z` · `taskId=task_cd2a366e` · `changeScope=edit_page` · `versionGate=ok`
+
+## Print lock 2026-11-05
+
+Nút In trên nhật ký web mobile mở preview trong khung trang (`frame`), layout `Linm.Web.RMMS.Mobile/src/print/official`. Mỗi nhà thầu một cuốn. Quyển số để dấu chấm, người dùng ghi tay. Dòng in = điểm tuần đang hiện theo bộ lọc đã áp dụng. Tuần đường = Mẫu 2. Tuần kiểm = Mẫu 1. Bìa: `phongName`, không có thì `assigneeOrgName`. Cấm portal `document.body`. Cấm in note ca.

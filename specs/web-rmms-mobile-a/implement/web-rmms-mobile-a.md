@@ -107,7 +107,7 @@ Desktop bỏ `min-height: calc(100vh - 48px)` trên `.phone` tuần đường đ
 
 ## Notes — nhật ký ngày / ca / điểm tuần
 
-`/tuan-duong/lich-su` đọc `GET patrol/check-ins` (from, to, status, patrolType) và xếp ngày → ca → điểm. Ca hiện lý trình từ `sessionKmFromLabel` / `sessionKmToLabel` trên note ca. Sheet: Hôm nay rồi Áp dụng. Xuất Word/PDF chưa làm. Verify: `yarn typecheck` Mobile · `dotnet build` API.
+`/tuan-duong/lich-su` đọc `GET patrol/check-ins` (from, to, status, patrolType) và xếp ngày → ca → điểm. Ca hiện lý trình từ `sessionKmFromLabel` / `sessionKmToLabel` trên note ca. Sheet: Hôm nay rồi Áp dụng. Lọc nhớ `phoneListFilterSession` scope `patrol-journal`, version 3, mặc định hôm nay ICT, hết hạn 4 giờ hoặc sang ngày. Nút In mở preview A4 trong khung phone (`frame`), layout `Linm.Web.RMMS.Mobile/src/print/official`. Tuần đường = Mẫu 2, tuần kiểm = Mẫu 1. Dòng = điểm đang hiện. Bìa lấy `phongName`, không có thì `assigneeOrgName`. Cấm in note ca. Cấm portal ra `document.body`. Verify: `yarn typecheck` Mobile · `dotnet build` API.
 
 ## Notes — ô lý trình chung
 
@@ -133,6 +133,38 @@ Menu Sự cố của đợt, Phiếu phát hiện, Sổ nhật ký nằm trên h
 
 `InspectBookPage`: trạng thái bìa tách khỏi mã (`chipWait` khi chờ, `chip` khi `DaKy`). Khối ký không lấy câu cấm ký làm tên người ký. Tuần kiểm không thấy ô nhận xét trống. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
 
+## Notes — màn làm việc tuần kiểm (2026-11-10)
+
+`/tuan-kiem/:id/nhom/:group` liệt kê phiếu của ca theo `findingKind` (`GET api/v1/patrol/findings`). Không lọc lại trên client. Lập biên bản đi kèm `findingId`. Biển báo tạm và báo tai nạn lưu xong quay về nhóm. Verify: `yarn typecheck` · `dotnet build` API.
+
+## Notes — hub tuần kiểm Điều 19 (2026-11-10)
+
+Hub `/tuan-kiem` lưới 2 cột + Mở ca / Ghi điểm tuần. Check-in ca Tuần kiểm không mở ca tuần đường. Sổ sửa cột Mẫu 1 qua `PUT api/v1/patrol/findings/{id}/journal` (cột có sẵn, không migration). Ba loại phiếu mới: `bien-bao-tam`, `bao-tai-nan`, `diem-tiem-an`. Tạm dừng ca tuần kiểm dùng lý do 19.6. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile` · `dotnet build` API Patrol.
+
+## Notes — báo tai nạn và nút Huỷ (2026-11-11)
+
+`InspectDutyPage` báo tai nạn ghi thêm phương tiện, hậu quả người/xe, ùn tắc vào `description`. `RouteCaptureControl` giữ `onChange` trong ref để phiếu việc không lặp `setState` (Maximum update depth) làm chết Huỷ / Quay lại. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
+
+## Notes — mở ca và kết ca trên hub tuần kiểm (2026-11-11)
+
+Thẻ đợt trên `/tuan-kiem` bấm vào thì `inspectCheckIn`. Nút Kết thúc ca đi `/tuan-kiem/:id/ket-ca` (việc Kết ca). `?action=tam-dung` mới khóa Tạm dừng. Verify: `yarn typecheck` trong `Linm.Web.RMMS.Mobile`.
+
+## Notes — chi tiết ca tuần kiểm (2026-11-11)
+
+Bấm thẻ trên `/tuan-kiem` mở `/tuan-kiem/:sessionId` (cùng `PatrolDetailPage`). Vai tuần kiểm được ghi điểm và kết ca; quản lý chỉ xem. Mở bản đồ ca đi `/ban-do-tuan?sessionId=`. Ca Tuần kiểm trên bản đồ không gọi `ensureRoadPatrolSession`. Verify: `yarn typecheck`.
+
+## Notes — ca đã kết thúc và mở ca tuần kiểm (2026-11-11)
+
+Hub `/tuan-kiem` tải ca `Hoàn thành` trong ngày (`fromDate`/`toDate`, `patrolType=Tuần kiểm`; quản lý dùng `audience=staff`). Thẻ có nhân sự, mã ca, tuyến, lý trình. Mở ca gọi `GET api/v1/patrol/sessions/start-options?patrolType=Tuần kiểm`: ca Tuần kiểm gần nhất, không có thì đoạn tuyến user đã xác nhận. Tuần đường vẫn gọi start-options không `patrolType`. Verify: `yarn typecheck` · `dotnet build` API.
+
+## Notes — số liệu TNGT (2026-11-11)
+
+Báo tai nạn và nhật ký loại TNGT ghi `AccidentVehicleCount`, `AccidentDeaths`, `AccidentInjuries` (nullable). Migration `Schema_PatrolAccidentCounts`. Verify: `yarn typecheck` · `dotnet build` API.
+
 ## Next
 
 `/agent-qa*` · roleOnly stop (**GAP-PKT-ROLE-01**)
+
+## Print lock 2026-11-05
+
+Nút In trên nhật ký web mobile mở preview trong khung trang (`frame`), layout `Linm.Web.RMMS.Mobile/src/print/official`. Mỗi nhà thầu một cuốn. Quyển số để dấu chấm, người dùng ghi tay. Dòng in = điểm tuần đang hiện theo bộ lọc đã áp dụng. Tuần đường = Mẫu 2. Tuần kiểm = Mẫu 1. Bìa: `phongName`, không có thì `assigneeOrgName`. Cấm portal `document.body`. Cấm in note ca.

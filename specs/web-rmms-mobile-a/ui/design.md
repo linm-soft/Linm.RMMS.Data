@@ -87,7 +87,7 @@
 | **TD-01** | `/field/tuan-duong` | Full | empty → Mở ca · active → Check-in · history · journal/book/end **disabled A** |
 | **TD-02** | `/field/tuan-duong/mo-ca` | Full | SearchInput route (no seed) · Dropdown chiều · Date · SearchInput người theo quyền · POST sessions |
 | **TD-03** | `/field/tuan-duong/check-in` | **Sheet** | planPoint optional · route RO (`--` miss) · GPS · content · FileMulti · POST check-ins · **Pattern B** |
-| **TD-07** | `/field/tuan-duong/lich-su` | Full | optional SearchInput route · **card list** · **cấm** LinErpListFilterBar |
+| **TD-07** | `/tuan-duong/lich-su` | Full | Nhật ký ngày → ca → điểm. Nút In mở preview A4 trong khung phone. Tuần đường Mẫu 2, tuần kiểm Mẫu 1. Cấm portal `document.body`. Cấm in note ca. |
 | **TD-01 detail** | `/tuan-duong/:id` | Full | Chi tiết ca · nav back = danh sách đã mở (Hôm nay hoặc Lịch sử) · hit **56px** · scale khi nhấn |
 | **TK-00** | `/field/tuan-kiem` | Full | Mở đợt · list active inspect empty OK |
 | **TK-01** | `/field/tuan-kiem/mo-dot` | Full | route · kmFrom/To · inspectMode · reason if đột xuất · SearchInput người theo quyền · POST sessions `Tuần kiểm` |
@@ -205,3 +205,19 @@ Bìa sổ: mã một bên, «Chờ ký» nền hổ phách hoặc «Đã ký» n
 ## Version meta
 
 `skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:110e845481b0f27091c0f5ca856fef74524bc1634ab8e3785a5d7755730eea45` · `rulesVersion=2026.09.27.1` · `updatedAt=2026-09-27T14:20:00.000Z`
+
+## Hub tuần kiểm Điều 19 — 2026-11-10
+
+`/tuan-kiem` là lưới hai cột sáu nhóm (bảo vệ kết cấu, hư hỏng, an toàn giao thông, nhật ký, tần suất, tạm dừng) và một nút Mở ca / Ghi điểm tuần. Ghi điểm trên `/tuan-kiem/:id/diem-tuan`. Sổ in Mẫu 1. Biển báo tạm, báo tai nạn, điểm tiềm ẩn là phiếu gắn ca.
+
+Nhóm bảo vệ kết cấu, hư hỏng, an toàn giao thông là màn làm việc của ca: việc đã ghi (lọc `findingKind` trên API) và nút ghi mới. Vi phạm trên ca mở lập biên bản đúng phiếu cha.
+
+Báo tai nạn thêm phương tiện gây nạn và bị nạn, hậu quả với người và xe, và ô gây ùn tắc. Huỷ và Quay lại trên phiếu việc không bị kẹt bởi vòng render của ô ảnh.
+
+Thẻ đợt đang kiểm và ca đã kết thúc: bấm thẻ mở chi tiết ca (số lượt check-in, điểm tuần, Mở bản đồ ca, Ghi điểm, Kết thúc ca). Bản đồ nhận `sessionId` của ca đó. Kết thúc ca mở phiếu kết ca. Tạm dừng vẫn vào cùng phiếu với lý do 19.6. Thẻ ca có nhân sự, mã ca, tuyến, lý trình, trạng thái. Dưới đó là ca Tuần kiểm đã kết thúc trong ngày; bấm vào mở sổ. Mở ca điền sẵn tuyến và lý trình từ ca Tuần kiểm gần nhất, không có thì từ tuyến user đã xác nhận.
+
+Báo tai nạn tách số liệu công văn: số phương tiện, số người chết, số người bị thương. Đoạn chữ phương tiện và hậu quả giữ để ghi biển số và mô tả.
+
+## Print lock 2026-11-05
+
+Nút In trên nhật ký web mobile mở preview trong khung trang (`frame`), layout `Linm.Web.RMMS.Mobile/src/print/official`. Mỗi nhà thầu một cuốn. Quyển số để dấu chấm, người dùng ghi tay. Dòng in = điểm tuần đang hiện theo bộ lọc đã áp dụng. Tuần đường = Mẫu 2. Tuần kiểm = Mẫu 1. Bìa: `phongName`, không có thì `assigneeOrgName`. Cấm portal `document.body`. Cấm in note ca.

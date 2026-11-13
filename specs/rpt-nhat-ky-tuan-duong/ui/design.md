@@ -57,7 +57,7 @@ Persona: Hạt trưởng · Khu QLĐB. Prototype **content-only** DES-RPT-A/C/F/
 | **GAP-NKTD-SIGN-01** | MatchOk / SupervisorSignedAt | `RemarkSign` → `supervisorNote` · signed nếu RemarkSign ≠ rỗng | grid |
 | GAP-NKTD-LOC-RPT | locationText | **giữ** · fallback Km string | grid |
 | GAP-NKTD-NOTE-01 | thiếu Note | cột **Ghi chú** `note` · Config FULL · **default visible** | grid |
-| **GAP-NKTD-PRINT-01** | print-scope stub | P1 grid print · **P2** bìa TT41 = debt · không block | toolbar In |
+| **GAP-NKTD-PRINT-01** | print-scope stub | Preview A4 Mẫu 2 từ điểm tuần (`patrol-print-lines`). Lưới vẫn sổ. Cấm note ca. | toolbar In |
 | GAP-DES-RPT-TB-01 | Excel trên filter cụm | Excel **chỉ** `reportToolbar` · filter **0** action | DES-RPT-A/C |
 
 ## 1. Kind + UI pattern
@@ -193,3 +193,13 @@ CRUD trên slug · GPS `rpt-tuan-duong` · CamScanner golden · warehouse · Kin
 
 ---
 <!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=keep_current · changeScope=edit_page · cr=nktd-pdf-20260917 · report_standard=v1 · real_view_parity=v1 -->
+
+## Print lock 2026-11-05
+
+In dùng preview A4 trong `Linm.Web.RMMS.Report/src/print/official`. Bản cùng nội dung nằm trong repo Mobile `src/print/official`. Không alias chéo repo. Dữ liệu là điểm tuần của bộ lọc đang áp dụng (`GET api/v1/report/patrol-print-lines`, BFF `patrol-print-lines`). Lưới báo cáo không đổi.
+
+- Báo cáo tuần đường và Nhật ký tuần đường: Mẫu 2. Giờ ngày = thời điểm điểm. Vị trí = chainageLabel. Thời tiết/diễn biến = Nội dung. Đã giải quyết, Người nhận, Ghi chú để trống.
+- Báo cáo tuần kiểm và Nhật ký tuần kiểm: Mẫu 1. Từ Km / Đến Km = lý trình ca. Vị trí = lý trình điểm. Mô tả thực trạng = Nội dung. Các cột còn lại để trống.
+- Mỗi nhà thầu một cuốn (bìa + bảng). Quyển số để dấu chấm, người dùng ghi tay. Km bìa = khoảng lý trình các ca trong cuốn đó.
+- Lý trình = tên tuyến + Km cột + mét. Nội dung = nội dung điểm tuần. Không hiện note ca dạng `kmFrom=`. Ca chưa có điểm tuần vẫn in một dòng lý trình của ca. Cột ảnh là icon bấm xem, blob `GET /files/{id}/object`. Sổ trống thì lưới lấy cùng dữ liệu ca.
+- Cấm đổ note ca (`kmFrom=`, GPS, tự động kết thúc) vào cột thời tiết.

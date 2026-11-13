@@ -476,23 +476,16 @@
         <div class="stage stage-tuan-kiem">
           <nav class="side" aria-label="Mục lục tuần kiểm">
             <a href="#tk-view">Chọn view</a>
-            <a href="#tk-home">Trang chủ</a>
             <a href="#tk-hub">Hub tuần kiểm</a>
             <a href="#tk-dot">Mở đợt</a>
-            <a href="#tk-su-co">Sự cố của đợt</a>
-            <a href="#tk-phieu">Phiếu phát hiện</a>
-            <a href="#tk-xac-nhan">Xác nhận phiếu</a>
-            <a href="#tk-so">Sổ nhật ký</a>
-            <a href="#tk-kien">Sổ kiến nghị</a>
-            <a href="#tk-tan">Kế hoạch tần suất</a>
-            <a href="#tk-viec">Công việc và vấn đề</a>
-            <a href="#tk-han">Thời hạn</a>
+            <a href="#tk-viec">Công việc</a>
+            <a href="#tk-tien-do">Cập nhật trạng thái</a>
             <a href="#tk-toi">Tôi và thông báo</a>
           </nav>
           <main class="doc">
             <header class="top">
               <h1>Tuần kiểm</h1>
-              <p>View Tuần kiểm mở đợt, lập phiếu, đối chiếu sổ và xác nhận kết quả. Tab dưới: Trang Chủ, Tuần kiểm, Vấn đề, Công việc, Tôi.</p>
+              <p>Cán bộ tuần kiểm mở đợt trên đoạn tuyến được giao. Đợt đang kiểm thì ghi điểm tuần. Trên Công việc, cập nhật trạng thái, hoàn thành hoặc trao đổi.</p>
             </header>
 
             <section class="feat" id="tk-view">
@@ -514,34 +507,23 @@
               </div>
             </section>
 
-            <section class="feat" id="tk-home">
-              <div class="shot">
-                <figure>
-                <img src="../img/35-tk-trang-chu.png" alt="Trang chủ tuần kiểm" />
-                <figcaption>Hình. Trang chủ tuần kiểm.</figcaption>
-              </figure>
-              </div>
-              <div class="note">
-                <h2>Trang chủ</h2>
-              <p><strong>Mục đích:</strong> vào nhanh đợt, sự cố, phiếu và sổ.</p>
-              <p><strong>Cách thực hiện:</strong> các ô <strong>Tuần kiểm</strong>, <strong>Sự cố của đợt</strong>, <strong>Phiếu phát hiện</strong>, <strong>Sổ nhật ký</strong>, <strong>Công việc</strong>, <strong>Vấn đề</strong>.</p>
-              </div>
-            </section>
-
             <section class="feat" id="tk-hub">
               <h2>Hub tuần kiểm</h2>
-              <p><strong>Mục đích:</strong> mở đợt và các sổ của đợt.</p>
+              <p><strong>Mục đích:</strong> ghi điểm khi đợt đang kiểm, hoặc mở đợt khi chưa chọn đợt.</p>
               <article class="step">
                 <figure>
-                  <img src="../img/36-tk-hub.png" alt="Hub tuần kiểm" />
-                  <figcaption>Hình. Hub tuần kiểm.</figcaption>
+                  <img src="../img/tk-hub-20261111.png" alt="Hub tuần kiểm" />
+                  <figcaption>Hình. Hub tuần kiểm, đợt đang kiểm.</figcaption>
                 </figure>
                 <div>
                   <ol>
-                    <li>Menu: <strong>Mở đợt</strong>, <strong>Sự cố của đợt</strong>, <strong>Phiếu phát hiện</strong>, <strong>Sổ nhật ký</strong>, <strong>Kế hoạch tần suất</strong>.</li>
-                    <li>Mục <strong>Đợt đang kiểm</strong>. Chưa có đợt: <strong>Chưa có đợt</strong>.</li>
-                    <li>Trên một đợt: <strong>Sự cố của đợt</strong>, <strong>Phiếu phát hiện</strong>, <strong>Sổ nhật ký</strong>, <strong>Sổ kiến nghị</strong>.</li>
-                    <li>Chưa chọn đợt mà mở phiếu: <strong>Mở đợt trước khi vào màn này.</strong> hoặc <strong>Chọn một đợt bên dưới.</strong></li>
+                    <li>Mở tab <strong>Tuần kiểm</strong>.</li>
+                    <li>Đã có đợt đang kiểm: nút chính là <strong>Ghi điểm tuần</strong>. Phiếu mở ra cũng tên <strong>Ghi điểm tuần</strong>.</li>
+                    <li>Chưa chọn đợt: nút chính là <strong>Mở ca</strong> và mở màn <strong>Mở đợt</strong>. Nhiều đợt mà chưa chọn: <strong>Chọn một đợt bên dưới.</strong></li>
+                    <li>Phần <strong>Việc tuần kiểm</strong>: Bảo vệ kết cấu, Hư hỏng, An toàn giao thông, Nhật ký, Tần suất, Tạm dừng.</li>
+                    <li>Phần <strong>Đợt đang kiểm</strong> ghi nhân sự, mã ca, trạng thái <strong>Đang tuần</strong>, tuyến và số lượt check-in.</li>
+                    <li>Phần <strong>Đã kết thúc hôm nay</strong>. Chưa có ca kết thúc: <strong>Chưa có ca kết thúc trong ngày.</strong></li>
+                    <li>Chưa có đợt: dòng <strong>Chưa có ca</strong>. Gợi ý: <strong>Mở ca tuần kiểm trên tuyến.</strong></li>
                   </ol>
                 </div>
               </article>
@@ -552,145 +534,61 @@
               <p><strong>Mục đích:</strong> mở một đợt kiểm trên đoạn tuyến.</p>
               <article class="step">
                 <figure>
-                  <img src="../img/37-mo-dot.png" alt="Mở đợt" />
+                  <img src="../img/tk-mo-dot-20261111.png" alt="Mở đợt" />
                   <figcaption>Hình. Mở đợt.</figcaption>
                 </figure>
                 <div>
                   <ol>
-                    <li>Nhấn <strong>Mở đợt</strong>. Chọn <strong>Tuyến đường</strong>.</li>
-                    <li>Nhập <strong>Cột KM</strong> và <strong>Khoảng cách (m)</strong> cho đầu đoạn và cuối đoạn.</li>
-                    <li>Chọn <strong>Định kỳ</strong> hoặc <strong>Đột xuất</strong>. Đột xuất thì nhập lý do.</li>
-                    <li>Nhấn <strong>Mở đợt</strong>. Nhấn <strong>Hủy</strong> nếu chưa mở. Thiếu cột: <strong>Nhập cột KM từ và đến trước khi mở đợt.</strong></li>
+                    <li>Chọn <strong>Tuyến đường</strong>. Ở từ km và đến km, nhập <strong>Cột KM</strong> và <strong>Khoảng cách (m)</strong>.</li>
+                    <li>Nhấn <strong>Lấy vị trí</strong> khi cần lấy vị trí hiện tại. Đang lấy thì nút ghi <strong>Đang lấy vị trí…</strong></li>
+                    <li>Chọn <strong>Hình thức</strong>: Định kỳ hoặc Đột xuất. Đột xuất thì nhập <strong>Lý do đột xuất</strong>.</li>
+                    <li><strong>Người</strong> hiện sẵn. Kiểm tra <strong>Ngày</strong>. Ô <strong>Loại / trạng thái</strong> ghi sẵn Tuần kiểm · Đang tuần.</li>
+                    <li>Nhấn <strong>Mở đợt</strong>. Đang gửi thì nút ghi <strong>Đang lưu…</strong> Nhấn <strong>Hủy</strong> nếu chưa mở.</li>
+                    <li>Thiếu tuyến: <strong>Chọn tuyến đường trước khi mở đợt.</strong> Thiếu lý do: <strong>Nhập lý do đột xuất.</strong> Thiếu cột KM: <strong>Nhập cột KM từ và đến trước khi mở đợt.</strong></li>
+                    <li>Mở xong: <strong>Đã mở đợt tuần kiểm.</strong> Đã có đợt trên cùng tuyến: <strong>Đã có đợt đang kiểm — chuyển tới đợt hiện tại.</strong></li>
                   </ol>
                 </div>
               </article>
             </section>
 
-            <section class="feat" id="tk-su-co">
-              <div class="shot">
-                <figure>
-                <img src="../img/45-su-co-dot.png" alt="Sự cố của đợt" />
-                <figcaption>Hình. Sự cố của đợt.</figcaption>
-              </figure>
-              </div>
-              <div class="note">
-                <h2>Sự cố của đợt</h2>
-              <p><strong>Mục đích:</strong> xem sự cố cùng tuyến, trong km của đợt.</p>
-              <p><strong>Cách thực hiện:</strong> nhấn <strong>Sự cố của đợt</strong>. Mở một dòng để đọc chi tiết và ảnh. Lập phiếu từ sự cố khi cần kiểm tra lại.</p>
-              </div>
-            </section>
-
-            <section class="feat" id="tk-phieu">
-              <div class="shot">
-                <figure>
-                <img src="../img/40-phieu-phat-hien.png" alt="Danh mục phiếu phát hiện" />
-                <figcaption>Hình. Danh mục phiếu.</figcaption>
-              </figure>
-                <figure>
-                <img src="../img/41-lap-phieu.png" alt="Lập phiếu phát hiện" />
-                <figcaption>Hình. Lập phiếu.</figcaption>
-              </figure>
-              </div>
-              <div class="note">
-                <h2>Phiếu phát hiện</h2>
-              <p><strong>Mục đích:</strong> lập phiếu kiểm tra của đợt.</p>
-              <p><strong>Cách thực hiện:</strong></p>
-              <ol>
-                <li>Nhấn <strong>Phiếu phát hiện</strong>. Chưa có đợt: <strong>Mở đợt tuần kiểm trước khi lập phiếu.</strong></li>
-                <li>Nhập nội dung, hạn đọc từ việc đã giao, ảnh. Nhấn <strong>Chụp ảnh</strong>.</li>
-                <li>Nhấn <strong>Lưu</strong>. Nhấn <strong>Huỷ</strong> nếu chưa ghi.</li>
-              </ol>
-              </div>
-            </section>
-
-            <section class="feat" id="tk-xac-nhan">
-              <h2>Xác nhận phiếu</h2>
-              <p><strong>Mục đích:</strong> chốt phiếu đạt hoặc chưa đạt sau khi kiểm tra lại.</p>
-              <p><strong>Cách thực hiện:</strong></p>
-              <ol>
-                <li>Mở phiếu. Ở <strong>Kiểm tra lại</strong>, chọn <strong>Kết luận</strong>: <strong>Đạt</strong> hoặc <strong>Chưa đạt</strong>.</li>
-                <li>Nhập <strong>Ghi chú</strong>. Nhấn <strong>Ghim vị trí hiện tại</strong>. Gắn <strong>Ảnh kiểm tra</strong>.</li>
-                <li>Đạt: nhấn <strong>Xác nhận đạt</strong>. Chưa đạt: nhấn <strong>Ghi chưa đạt</strong>.</li>
-              </ol>
-            </section>
-
-            <section class="feat" id="tk-so">
-              <div class="shot">
-                <figure>
-                <img src="../img/39-so-nhat-ky.png" alt="Sổ nhật ký tuần kiểm" />
-                <figcaption>Hình. Sổ nhật ký tuần kiểm.</figcaption>
-              </figure>
-              </div>
-              <div class="note">
-                <h2>Sổ nhật ký tuần kiểm</h2>
-              <p><strong>Mục đích:</strong> đối chiếu dòng nhật ký tuần đường với đợt.</p>
-              <p><strong>Cách thực hiện:</strong></p>
-              <ol>
-                <li>Nhấn <strong>Sổ nhật ký</strong>. Tiêu đề <strong>Sổ nhật ký tuần kiểm</strong>.</li>
-                <li>Với dòng đối chiếu, chọn <strong>Khớp</strong> hoặc <strong>Lệch</strong>.</li>
-                <li>Mục <strong>Ký cuối tuần</strong> hiện <strong>Chờ ký</strong> hoặc <strong>Đã ký</strong>. Tuần kiểm thấy dòng <strong>Chỉ quản lý ký. Tuần kiểm không ký hộ.</strong></li>
-              </ol>
-              </div>
-            </section>
-
-            <section class="feat" id="tk-kien">
-              <div class="shot">
-                <figure>
-                <img src="../img/42-kien-nghi.png" alt="Sổ kiến nghị" />
-                <figcaption>Hình. Sổ kiến nghị.</figcaption>
-              </figure>
-                <figure>
-                <img src="../img/43-tao-kien-nghi.png" alt="Tạo kiến nghị" />
-                <figcaption>Hình. Tạo kiến nghị.</figcaption>
-              </figure>
-              </div>
-              <div class="note">
-                <h2>Sổ kiến nghị</h2>
-              <p><strong>Mục đích:</strong> ghi việc vượt bảo dưỡng thường xuyên.</p>
-              <p><strong>Cách thực hiện:</strong></p>
-              <ol>
-                <li>Trên đợt, nhấn <strong>Sổ kiến nghị</strong>.</li>
-                <li>Mở <strong>Tạo kiến nghị</strong>. Nhập nội dung. Nhấn <strong>Lưu</strong>. Thông báo <strong>Đã tạo kiến nghị</strong>. Nhấn <strong>Huỷ</strong> nếu chưa ghi.</li>
-              </ol>
-              </div>
-            </section>
-
-            <section class="feat" id="tk-tan">
-              <div class="shot">
-                <figure>
-                <img src="../img/44-tan-suat.png" alt="Kế hoạch tần suất" />
-                <figcaption>Hình. Kế hoạch tần suất.</figcaption>
-              </figure>
-              </div>
-              <div class="note">
-                <h2>Kế hoạch tần suất</h2>
-              <p><strong>Mục đích:</strong> xem kế hoạch tần suất kiểm tra.</p>
-              <p><strong>Cách thực hiện:</strong> trên menu hub nhấn <strong>Kế hoạch tần suất</strong>. Chọn một dòng để xem đợt theo kế hoạch.</p>
-              </div>
-            </section>
-
             <section class="feat" id="tk-viec">
-              <h2>Công việc và vấn đề</h2>
-              <p><strong>Mục đích:</strong> theo dõi việc đã giao và sự cố, không giao hộ và không hoàn thành hộ.</p>
-              <p><strong>Cách thực hiện:</strong> tab <strong>Vấn đề</strong> để đọc. Tab <strong>Công việc</strong> để xem tình trạng <strong>Chờ xử lý</strong>, <strong>Đang xử lý</strong>, <strong>Đã hoàn thành</strong>. Nhấn <strong>Trao đổi</strong> khi cần nhắn lại.</p>
+              <h2>Công việc</h2>
+              <p><strong>Mục đích:</strong> xem việc được giao và mở trao đổi.</p>
+              <article class="step">
+                <figure>
+                  <img src="../img/tk-cong-viec-20261111.png" alt="Danh sách công việc" />
+                  <figcaption>Hình. Danh sách công việc.</figcaption>
+                </figure>
+                <div>
+                  <ol>
+                    <li>Mở tab <strong>Công việc</strong>. Tiêu đề màn là <strong>Danh sách công việc</strong>.</li>
+                    <li>Mỗi thẻ ghi mã công việc, tuyến, lý trình, người được giao, thời hạn và <strong>Tình trạng xử lý</strong>: <strong>Chờ xử lý</strong>, <strong>Đang xử lý</strong> hoặc <strong>Đã hoàn thành</strong>.</li>
+                    <li>Nhấn <strong>Trao đổi</strong> để mở <strong>Trao đổi công việc</strong>.</li>
+                    <li>Nhấn <strong>Cập nhật trạng thái</strong> để mở màn cùng tên.</li>
+                  </ol>
+                </div>
+              </article>
             </section>
 
-            <section class="feat" id="tk-han">
-              <h2>Thời hạn khắc phục</h2>
-              <p>Quản lý ghi <strong>Hạn xử lý</strong> khi giao. Tuần kiểm lấy hạn đó lúc xác nhận. Mốc theo Thông tư 41/2024, Phụ lục IV.</p>
-              <table>
-                <thead><tr><th>Hạng mục</th><th>Thời hạn</th></tr></thead>
-                <tbody>
-                  <tr><td>Vá ổ gà</td><td>3 ngày với đường cấp I, II. 5 ngày với đường cấp III đến VI.</td></tr>
-                  <tr><td>Nứt dọc, nứt ngang, nứt mai rùa</td><td>7 ngày mùa mưa. 14 ngày mùa khô.</td></tr>
-                  <tr><td>Lún lõm, sình lún vượt mức</td><td>10 ngày. Không tính ngày mưa.</td></tr>
-                  <tr><td>Vệ sinh mặt đường, chướng ngại mất an toàn</td><td>1 giờ nếu nguy hiểm. 7 ngày với trường hợp còn lại.</td></tr>
-                  <tr><td>Nước đọng trên mặt đường</td><td>Không quá 24 giờ.</td></tr>
-                  <tr><td>Biển báo cấm, biển hiệu lệnh</td><td>1 ngày sau khi phát hiện. Biển còn lại: 3 ngày.</td></tr>
-                  <tr><td>Vạch sơn hư cục bộ</td><td>28 ngày.</td></tr>
-                  <tr><td>Tồn tại lúc nghiệm thu</td><td>Tối đa 5 ngày kể từ văn bản yêu cầu.</td></tr>
-                </tbody>
-              </table>
+            <section class="feat" id="tk-tien-do">
+              <h2>Cập nhật trạng thái</h2>
+              <p><strong>Mục đích:</strong> ghi tiến độ hoặc hoàn thành công việc.</p>
+              <article class="step">
+                <figure>
+                  <img src="../img/tk-cap-nhat-20261111.png" alt="Cập nhật trạng thái" />
+                  <figcaption>Hình. Cập nhật trạng thái.</figcaption>
+                </figure>
+                <div>
+                  <ol>
+                    <li>Kéo <strong>Tiến độ (%)</strong> từ 0 đến 100. Nhập <strong>Ghi chú</strong>.</li>
+                    <li>Nhấn <strong>Ghim vị trí hiện tại</strong>. Đã có vị trí thì dòng ghi <strong>Đã có vị trí</strong>.</li>
+                    <li>Thêm <strong>Ảnh hiện trường</strong> khi cần.</li>
+                    <li>Nhấn <strong>Cập nhật tiến độ</strong> hoặc <strong>Hoàn thành</strong>.</li>
+                    <li>Chưa ghim vị trí: <strong>Cần vị trí định vị trước khi Cập nhật / Hoàn thành. Bấm Ghim vị trí hiện tại.</strong> Tiến độ ngoài 0 đến 100: <strong>Tiến độ phải từ 0 đến 100.</strong></li>
+                    <li>Cập nhật xong: <strong>Đã cập nhật tiến độ.</strong> Hoàn thành xong: <strong>Đã hoàn thành công việc.</strong></li>
+                  </ol>
+                </div>
+              </article>
             </section>
 
             <section class="feat" id="tk-toi">

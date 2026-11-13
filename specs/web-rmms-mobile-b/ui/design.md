@@ -214,6 +214,10 @@ Leave: Modal Ở lại / Rời (dirty)
 | handoff | SA · zone ids · Pattern B · capture · mobileApiBase · real_view_parity v1 |
 | next | `/agent-sa` · **roleOnly stop** (**GAP-PKT-ROLE-01**) |
 
+## Nhật ký tuần đường — ô Phụ lục VIII (2026-11-10)
+
+Dòng sổ thêm vị trí và kích thước, hạng mục khi loại KCHT, số liệu ngập khi lũ hoặc bão hoặc ngầm tràn, phương tiện và hậu quả và thiệt hại kết cấu khi tai nạn, tình trạng vụ vi phạm khi hành lang. Người ký là người ghi dòng.
+
 ## Version meta
 
 `skillVersion=2026.09.05.03` · `schemaVersion=1` · `contentHash=sha256:fe3ccad04e66ee08b65a65aead0fbef9f46328e5c2a3b828b3bee12969bbf72e` · `rulesVersion=2026.09.27.1` · `updatedAt=2026-09-27T07:08:00.000Z` · `taskId=task_3d7eae05` · `changeScope=edit_page` · `design_confirm=approve`

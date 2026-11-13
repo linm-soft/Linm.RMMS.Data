@@ -84,6 +84,14 @@
 - Live TD-04/TD-05 Pattern B UI **Aligned** at `/nhat-ky` · T-QA-FORM-01 pass smoke
 - Evidence: `specs/web-rmms-mobile-b/qa/scenarios.md` · `handoff/qa-compact.md`
 
+## Notes — input Phụ lục VIII (2026-11-10)
+
+`JournalFormPage` ghi các ô còn thiếu của sổ tuần đường. Cột nullable trên `rmms_patrol_journal_lines`, migration `Schema_PatrolJournalPl8`. Chưa lập biên bản thì bắt lý do. Verify: `yarn typecheck` · `dotnet build` API.
+
+## Notes — số liệu TNGT (2026-11-11)
+
+Nhật ký loại TNGT thêm số phương tiện, số người chết, số người bị thương (`Schema_PatrolAccidentCounts`). Đoạn chữ phương tiện và hậu quả giữ để ghi chi tiết.
+
 ## Notes
 
 - UNCLEAR-BANNER-KEYS → `JOURNAL_LOOKUP_STATIC` keys `error.gpsRequired` / `error.narrativeRequired`

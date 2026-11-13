@@ -208,3 +208,7 @@ Parallel Dev OK trên 4 T-UI-* edit · QA sau khi 4 done.
 
 - `/agent-dev` · roleOnly stop (**GAP-PKT-ROLE-01**) · e2eQa queued QA  
 - **cấm** yarn build / e2e / start:std ở team_lead
+
+## Print lock 2026-11-05
+
+Nút In trên nhật ký web mobile mở preview trong khung trang (`frame`), layout `Linm.Web.RMMS.Mobile/src/print/official`. Mỗi nhà thầu một cuốn. Quyển số để dấu chấm, người dùng ghi tay. Dòng in = điểm tuần đang hiện theo bộ lọc đã áp dụng. Tuần đường = Mẫu 2. Tuần kiểm = Mẫu 1. Bìa: `phongName`, không có thì `assigneeOrgName`. Cấm portal `document.body`. Cấm in note ca.

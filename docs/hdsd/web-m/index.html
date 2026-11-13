@@ -203,7 +203,7 @@
       <thead><tr><th>View</th><th>Nhiệm vụ</th><th>Thao tác trên phần mềm</th></tr></thead>
       <tbody>
         <tr><td>Tuần đường</td><td>Tuần tra tuyến được giao, ghi điểm tuần, ghi sự cố và kết thúc ca.</td><td>Tab Tuần đường: Mở ca, Ghi điểm tuần, Ghi nhận hư hỏng, Lịch sử phiên, Kết thúc ca.</td></tr>
-        <tr><td>Tuần kiểm</td><td>Mở đợt trên đoạn được giao, đối chiếu sổ và xác nhận phiếu phát hiện.</td><td>Tab Tuần kiểm: Mở đợt, Sự cố của đợt, Phiếu phát hiện, Sổ nhật ký. Trên phiếu: Xác nhận đạt hoặc Ghi chưa đạt.</td></tr>
+        <tr><td>Tuần kiểm</td><td>Mở đợt trên đoạn được giao, ghi điểm tuần, rồi cập nhật công việc.</td><td>Tab Tuần kiểm: Ghi điểm tuần khi đã có đợt; Mở ca khi chưa chọn đợt. Trên Công việc: Trao đổi, Cập nhật trạng thái, Hoàn thành.</td></tr>
         <tr><td>Quản lý</td><td>Giao việc từ sự cố, giám sát điểm tuần và lập phiếu nghiệm thu hiện trường.</td><td>Tab Nghiệm thu. Trang chủ: Công tác nghiệm thu, Giao việc, Giám sát, Bản đồ camera, Thông tin tài sản.</td></tr>
       </tbody>
     </table>
@@ -267,42 +267,73 @@
     <p><a href="/hdsd/tuan-kiem/">Hướng dẫn chi tiết tuần kiểm</a></p>
     <article class="step">
       <figure>
-        <img src="/hdsd/img/05-tuan-kiem.png" alt="Tuần kiểm" />
-        <figcaption>Hình 9. Tuần kiểm.</figcaption>
+        <img src="/hdsd/img/tk-hub-20261111.png" alt="Hub tuần kiểm" />
+        <figcaption>Hình 9. Hub tuần kiểm.</figcaption>
       </figure>
       <div>
         <span class="tag">Bước 1</span>
         <h3>Đợt đang kiểm</h3>
         <ol>
           <li>Mở tab <strong>Tuần kiểm</strong>.</li>
-          <li>Trong <strong>Menu tuần kiểm</strong> có <strong>Mở đợt</strong>, <strong>Sự cố của đợt</strong>, <strong>Phiếu phát hiện</strong>, <strong>Sổ nhật ký</strong> và <strong>Kế hoạch tần suất</strong>.</li>
-          <li>Mục <strong>Đợt đang kiểm</strong> liệt kê đợt chưa kết thúc.</li>
+          <li>Đã có đợt đang kiểm: nút chính là <strong>Ghi điểm tuần</strong>.</li>
+          <li>Chưa chọn đợt: nút chính là <strong>Mở ca</strong> và mở màn <strong>Mở đợt</strong>. Nhiều đợt mà chưa chọn: <strong>Chọn một đợt bên dưới.</strong></li>
+          <li>Phần <strong>Việc tuần kiểm</strong> và <strong>Đợt đang kiểm</strong>. Chưa có đợt: <strong>Chưa có ca</strong>.</li>
         </ol>
       </div>
     </article>
     <article class="step">
       <figure>
-        <img src="/hdsd/img/06-tuan-kiem-mo-dot.png" alt="Mở đợt" />
+        <img src="/hdsd/img/tk-mo-dot-20261111.png" alt="Mở đợt" />
         <figcaption>Hình 10. Mở đợt.</figcaption>
       </figure>
       <div>
         <span class="tag">Bước 2</span>
         <h3>Mở đợt</h3>
         <ol>
-          <li>Nhấn <strong>Mở đợt</strong>.</li>
-          <li>Chọn <strong>Tuyến đường</strong>. Ở <strong>Từ km</strong> và <strong>Đến km</strong>, nhập <strong>Cột KM</strong> và <strong>Khoảng cách (m)</strong>. Thiếu cột KM thì phiếu báo <strong>Nhập cột KM từ và đến trước khi mở đợt.</strong></li>
+          <li>Chọn <strong>Tuyến đường</strong>. Ở từ km và đến km, nhập <strong>Cột KM</strong> và <strong>Khoảng cách (m)</strong>. Nhấn <strong>Lấy vị trí</strong> khi cần.</li>
           <li>Chọn <strong>Hình thức</strong>: Định kỳ hoặc Đột xuất. Đột xuất thì nhập <strong>Lý do đột xuất</strong>.</li>
-          <li><strong>Người</strong> hiện sẵn theo tài khoản. Kiểm tra <strong>Ngày</strong>, rồi nhấn <strong>Mở đợt</strong>. Nhấn <strong>Hủy</strong> nếu chưa mở.</li>
+          <li><strong>Người</strong> hiện sẵn. Kiểm tra <strong>Ngày</strong>. Ô <strong>Loại / trạng thái</strong> ghi sẵn Tuần kiểm · Đang tuần.</li>
+          <li>Nhấn <strong>Mở đợt</strong>. Nhấn <strong>Hủy</strong> nếu chưa mở. Thiếu cột KM thì phiếu báo <strong>Nhập cột KM từ và đến trước khi mở đợt.</strong></li>
+        </ol>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="/hdsd/img/tk-cong-viec-20261111.png" alt="Danh sách công việc" />
+        <figcaption>Hình 11. Danh sách công việc.</figcaption>
+      </figure>
+      <div>
+        <span class="tag">Bước 3</span>
+        <h3>Công việc</h3>
+        <ol>
+          <li>Mở tab <strong>Công việc</strong>.</li>
+          <li>Mỗi thẻ ghi tuyến, lý trình, người được giao và <strong>Tình trạng xử lý</strong>.</li>
+          <li>Nhấn <strong>Trao đổi</strong> hoặc <strong>Cập nhật trạng thái</strong>.</li>
+        </ol>
+      </div>
+    </article>
+    <article class="step">
+      <figure>
+        <img src="/hdsd/img/tk-cap-nhat-20261111.png" alt="Cập nhật trạng thái" />
+        <figcaption>Hình 12. Cập nhật trạng thái.</figcaption>
+      </figure>
+      <div>
+        <span class="tag">Bước 4</span>
+        <h3>Cập nhật trạng thái</h3>
+        <ol>
+          <li>Kéo <strong>Tiến độ (%)</strong>. Nhập <strong>Ghi chú</strong>. Nhấn <strong>Ghim vị trí hiện tại</strong>.</li>
+          <li>Nhấn <strong>Cập nhật tiến độ</strong> hoặc <strong>Hoàn thành</strong>.</li>
+          <li>Chưa ghim vị trí: <strong>Cần vị trí định vị trước khi Cập nhật / Hoàn thành. Bấm Ghim vị trí hiện tại.</strong></li>
         </ol>
       </div>
     </article>
 
     <h2 id="quan-ly">3. Quản lý</h2>
-    <p><a href="/hdsd/quan-ly/">Hướng dẫn chi tiết Quản lý</a>. Chuỗi: Tuần đường ghi sự cố, Quản lý giao việc, người được giao hoàn thành, Tuần kiểm xác nhận phiếu, Quản lý ký sổ và lập nghiệm thu.</p>
+    <p><a href="/hdsd/quan-ly/">Hướng dẫn chi tiết Quản lý</a>. Chuỗi: Tuần đường ghi sự cố, giao việc từ sự cố, người được giao hoàn thành, Quản lý ký sổ và lập nghiệm thu.</p>
     <article class="step">
       <figure>
         <img src="/hdsd/img/07-nghiem-thu.png" alt="Danh sách nghiệm thu" />
-        <figcaption>Hình 11. Danh sách nghiệm thu.</figcaption>
+        <figcaption>Hình 13. Danh sách nghiệm thu.</figcaption>
       </figure>
       <div>
         <span class="tag">Bước 1</span>
@@ -317,7 +348,7 @@
     <article class="step">
       <figure>
         <img src="/hdsd/img/08-nghiem-thu-moi.png" alt="Tạo nghiệm thu" />
-        <figcaption>Hình 12. Tạo phiếu nghiệm thu.</figcaption>
+        <figcaption>Hình 14. Tạo phiếu nghiệm thu.</figcaption>
       </figure>
       <div>
         <span class="tag">Bước 2</span>
@@ -336,7 +367,7 @@
     <article class="step">
       <figure>
         <img src="/hdsd/img/03-ghi-diem-tuan.png" alt="Ghi điểm tuần" />
-        <figcaption>Hình 13. Ghi điểm tuần.</figcaption>
+        <figcaption>Hình 15. Ghi điểm tuần.</figcaption>
       </figure>
       <div>
         <h3>Ghi điểm tuần và chụp</h3>
@@ -355,7 +386,7 @@
     <article class="step">
       <figure>
         <img src="/hdsd/img/04-van-de.png" alt="Danh sách vấn đề và trạng thái" />
-        <figcaption>Hình 14. Vấn đề, trạng thái trên từng dòng.</figcaption>
+        <figcaption>Hình 16. Vấn đề, trạng thái trên từng dòng.</figcaption>
       </figure>
       <div>
         <h3>Theo dõi trạng thái vấn đề</h3>
@@ -371,7 +402,7 @@
     <article class="step">
       <figure>
         <img src="/hdsd/img/07-cong-viec.png" alt="Danh sách công việc và tình trạng" />
-        <figcaption>Hình 15. Công việc, tình trạng xử lý.</figcaption>
+        <figcaption>Hình 17. Công việc, tình trạng xử lý.</figcaption>
       </figure>
       <div>
         <h3>Theo dõi và cập nhật tình trạng công việc</h3>

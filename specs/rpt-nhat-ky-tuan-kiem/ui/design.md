@@ -92,7 +92,7 @@ Persona: Hạt trưởng · Khu QLĐB · lãnh đạo (đọc báo cáo, không 
 |--------|------|-----|
 | Làm mới | `fa-sync-alt` | **chưa Xem** → toast SSOT, **không** fetch · đã Xem → refetch applied |
 | Biểu đồ | chart | **SoCai** `ReportChartModal` khi `viewed` + ≥1 dòng + config `showCharts` — catalog: số dòng theo ngày (line) · tuyến (bar/donut) · trạng thái done/open |
-| In | print | `LinReportPrintScopeModal` rồi `window.print` · stub OK nếu chưa print engine |
+| In | print | Preview A4 Mẫu 1 từ điểm tuần (`patrol-print-lines`), không in dòng sổ. Layout `Linm.Web.RMMS.Report/src/print/official`. |
 | Sửa config | `fa-cog` | **FULL** column prefs + chart/print/footer — **cấm** stub toast · **cấm** `LinListTableConfigModal` height-only |
 | Xuất Excel | export | CSV UTF-8 BOM theo cột đang hiện · file `patrol-log-inspect.csv` · chưa Xem = toast |
 
@@ -216,3 +216,13 @@ CRUD `csdl-so-sach` / Inspection* trên slug này · Mẫu 1 tuần đường ·
 
 ---
 <!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=keep_current -->
+
+## Print lock 2026-11-05
+
+In dùng preview A4 trong `Linm.Web.RMMS.Report/src/print/official`. Bản cùng nội dung nằm trong repo Mobile `src/print/official`. Không alias chéo repo. Dữ liệu là điểm tuần của bộ lọc đang áp dụng (`GET api/v1/report/patrol-print-lines`, BFF `patrol-print-lines`). Lưới báo cáo không đổi.
+
+- Báo cáo tuần đường và Nhật ký tuần đường: Mẫu 2. Giờ ngày = thời điểm điểm. Vị trí = chainageLabel. Thời tiết/diễn biến = Nội dung. Đã giải quyết, Người nhận, Ghi chú để trống.
+- Báo cáo tuần kiểm và Nhật ký tuần kiểm: Mẫu 1. Từ Km / Đến Km = lý trình ca. Vị trí = lý trình điểm. Mô tả thực trạng = Nội dung. Các cột còn lại để trống.
+- Mỗi nhà thầu một cuốn (bìa + bảng). Quyển số để dấu chấm, người dùng ghi tay. Km bìa = khoảng lý trình các ca trong cuốn đó.
+- Lý trình = tên tuyến + Km cột + mét. Nội dung = nội dung điểm tuần. Không hiện note ca dạng `kmFrom=`. Ca chưa có điểm tuần vẫn in một dòng lý trình của ca. Cột ảnh là icon bấm xem, blob `GET /files/{id}/object`. Sổ trống thì lưới lấy cùng dữ liệu ca.
+- Cấm đổ note ca (`kmFrom=`, GPS, tự động kết thúc) vào cột thời tiết.

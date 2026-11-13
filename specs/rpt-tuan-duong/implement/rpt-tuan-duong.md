@@ -92,3 +92,13 @@ Re-audit `PatrolRoadReportPage.tsx` + `PatrolRoadFilterBar.tsx` + `reportEndpoin
 
 ---
 <!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=keep_current -->
+
+## Print lock 2026-11-05
+
+In dùng preview A4 trong `Linm.Web.RMMS.Report/src/print/official`. Bản cùng nội dung nằm trong repo Mobile `src/print/official`. Không alias chéo repo. Dữ liệu là điểm tuần của bộ lọc đang áp dụng (`GET api/v1/report/patrol-print-lines`, BFF `patrol-print-lines`). Lưới báo cáo không đổi.
+
+- Báo cáo tuần đường và Nhật ký tuần đường: Mẫu 2. Giờ ngày = thời điểm điểm. Vị trí = chainageLabel. Thời tiết/diễn biến = Nội dung. Đã giải quyết, Người nhận, Ghi chú để trống.
+- Báo cáo tuần kiểm và Nhật ký tuần kiểm: Mẫu 1. Từ Km / Đến Km = lý trình ca. Vị trí = lý trình điểm. Mô tả thực trạng = Nội dung. Các cột còn lại để trống.
+- Mỗi nhà thầu một cuốn (bìa + bảng). Quyển số để dấu chấm, người dùng ghi tay. Km bìa = khoảng lý trình các ca trong cuốn đó.
+- Lý trình = tên tuyến + Km cột + mét. Nội dung = nội dung điểm tuần. Không hiện note ca dạng `kmFrom=`. Ca chưa có điểm tuần vẫn in một dòng lý trình của ca. Cột ảnh là icon bấm xem, blob `GET /files/{id}/object`.
+- Cấm đổ note ca (`kmFrom=`, GPS, tự động kết thúc) vào cột thời tiết.

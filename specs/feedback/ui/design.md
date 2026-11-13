@@ -21,6 +21,8 @@
 | kit_missing_confirm | **N/A** — kit đã map (`LinmTopBar` · FieldLabel · `LinmTextArea` · `LinmPrimaryButton` · `LinmToast` · `LinmListRow`) |
 | updatedAt | `2026-08-29T06:06:00.000Z` |
 
+Phone web (`/toi/gop-y`, 2026-11-11) là mặt riêng: màn hình, nội dung, ảnh chụp màn hình, trạng thái `pending → confirmed → doing → done → rejected` cho phiên Linm. Thẻ danh sách có viền 4px bên trái và nền theo trạng thái. Ảnh form và chi tiết là thumbnail 72px như tuần đường, bấm mở preview. Đang tải thì một skeleton 72px cho mỗi ảnh. Xác nhận tạo ticket. Hoàn thành bắt buộc phản hồi (chữ + ảnh). Ảnh lưu bằng attachment id; phiên upload thì commit trước khi GET object. Native `#sc-feedback` và desktop Kind B giữ nguyên.
+
 ## reviewUrl (dual — REQUIRED)
 
 | Platform | Path | reviewUrl |

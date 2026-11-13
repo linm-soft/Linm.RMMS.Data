@@ -114,4 +114,16 @@ dotnet build → skipped (no API/schema write · T-BE-* verify/no-op)
 | taskId | `task_7442b627` |
 
 ---
+
+## Notes — phone web Góp ý hệ thống (2026-11-11)
+
+- UI: `Linm.Web.RMMS.Mobile` `/toi/gop-y`, `/toi/gop-y/moi`, `/toi/gop-y/:id`. Tab Tôi khi đã đăng nhập.
+- API: `POST/GET api/v1/integration/feedbacks` qua mobile-bff catch-all. `POST {id}/status` một bước `pending → confirmed → doing → done`, hoặc `rejected` từ pending/confirmed/doing. Chỉ `employee_id` `linm-soft` hoặc `linm-admin`.
+- Xác nhận (`confirmed`) tạo `TicketId`. Hoàn thành (`done`) bắt buộc `replyBody`, ảnh phản hồi tùy chọn (`replyMediaIds`).
+- List: user chỉ thấy `UserId` của mình. Phiên Linm thấy mọi bản trong tenant. `?status=` lọc trên server.
+- Create có `screenName`: bắt buộc nội dung, ảnh tùy chọn. Server ghi `pending`. Create không có `screenName` giữ desktop `draft`/`sent`.
+- Ảnh: commit phiên upload thành attachment trước khi lưu và trước khi GET `/files/{id}/object` (GET session id trả 422).
+- Migration: `20261110191138_Schema_AppFeedbackScreenMedia` (`ScreenName`, `MediaIds`). `Schema_AppFeedbackTicketTimeline`. `Schema_AppFeedbackReply`.
+- Verify: `dotnet ef migrations list` · `dotnet build` API · `yarn typecheck` Mobile. Trên app: user gửi 3 input thấy Chờ xác nhận; user khác không thấy bản đó; phiên Linm chuyển 4 trạng thái và Copy clipboard.
+
 <!-- Version meta: skillVersion=2026.08.15.5 · schemaVersion=qldb-workflow-skill-v1 · workflowVersion=2026.08.15.5 · rulesVersion=2026.08.15.8 · versionGate=rechecked -->
